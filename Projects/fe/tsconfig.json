@@ -22,8 +22,8 @@
 
     "baseUrl": "./src",
     "paths": {
-      "@Home/route/*": ["./pages/Home/route/*"],
-      "@Blog/route/*": ["./pages/Blog/route/*"],
+      "@Home/page/*": ["./pages/Home/page/*"],
+      "@common/components/*": ["./common/components/*"],
     }
   },
   "include": ["src"],
