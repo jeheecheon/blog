@@ -23,9 +23,7 @@ Console.WriteLine(builder.Configuration["ClientUrls:jeheecheon"]!);
 
 var app = builder.Build();
 
-// app.UseHttpsRedirection();
-
-app.UseCors();
+app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
@@ -33,7 +31,7 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors();
 
 app.MapControllers();
 
