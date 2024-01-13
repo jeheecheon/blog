@@ -7,8 +7,8 @@ export const Blog = () => {
           e.preventDefault();
 
           console.log("Clicked");
-          
-          fetch("http://localhost:5154/api/Test/abcd")
+
+          fetch("https://localhost:7130/api/Test/abcd")
             .then((response) => {
               console.log(response.statusText);
             })
