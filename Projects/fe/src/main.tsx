@@ -7,19 +7,25 @@ import {
   Routes
 } from "react-router-dom";
 
-import Home from '@Home/page/index'
+import Root from '@root/page/index'
 import Error from '@common/components/Error';
 import './index.css'
+import Blog from 'pages/blog/page';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route 
-          index
-          element={<Home/>}
-          errorElement={<Error/>}
+        <Route
+          path='/'
+          element={<Root />}
+          errorElement={<Error />}
+        >
+          <Route
+            path='/blog'
+            element={<Blog />}
           />
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
