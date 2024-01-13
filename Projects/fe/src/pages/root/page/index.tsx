@@ -11,6 +11,13 @@ export const Root = () => {
       <Link to="/">Home</Link>
       <Link to="blog">Blog</Link>
 
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+
+          window.location.replace("https://localhost:7130/api/oauth/sign-in?provider=google");
+        }}
+      >Google Sign in</button>
       <Outlet />
     </>
   )

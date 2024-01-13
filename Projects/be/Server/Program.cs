@@ -7,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Register IHttpClientFactory
+builder.Services.AddHttpClient();
+
+// Enable api controller
 builder.Services.AddControllers();
 
 // CORS
@@ -18,8 +22,6 @@ builder.Services.AddCors(corsOpts => {
             .AllowCredentials();
     });
 });
-
-Console.WriteLine(builder.Configuration["ClientUrls:jeheecheon"]!);
 
 var app = builder.Build();
 
