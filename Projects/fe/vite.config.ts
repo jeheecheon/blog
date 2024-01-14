@@ -9,6 +9,13 @@ export default defineConfig({
     https: {
       key: './.cert/localhost-key.pem',
       cert: './.cert/localhost.pem'
+    },
+    proxy: {
+      "/api": {
+        target: "https://localhost:7130",
+        secure: false,
+        changeOrigin: true,
+      }
     }
   }
 })

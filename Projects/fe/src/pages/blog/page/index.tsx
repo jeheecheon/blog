@@ -8,16 +8,28 @@ export const Blog = () => {
 
           console.log("Clicked");
 
-          fetch("https://localhost:7130/api/Test/abcd")
-            .then((response) => {
-              console.log(response.statusText);
-            })
+          fetch("/api/Test/abcd",
+              {
+                  credentials: "same-origin"
+              })
+            .then((response) => response.json())
+            .then((json) => console.log(json))
             .catch((error) => {
               console.log(error);
               console.log("failed to fetch");
             });
         }}
-      >Fetch button</button>
+      >
+        Fetch button
+      </button>
+
+      <button onClick={(e) => {
+        e.preventDefault();
+
+        // fetch()
+      }}>
+        Autho test button
+      </button>
     </>
   )
 }

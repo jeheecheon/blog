@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.CookiePolicy;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,18 +13,23 @@ builder.Services.AddSwaggerGen();
 // Register IHttpClientFactory
 builder.Services.AddHttpClient();
 
-// Enable api controller
+// Enable api controllers
 builder.Services.AddControllers();
 
-// CORS
-builder.Services.AddCors(corsOpts => {
-    corsOpts.AddDefaultPolicy(b => {
-        b.WithOrigins(builder.Configuration["ClientUrls:jeheecheon"]!)
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+// Register Auth services
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => {
+        options.Cookie.Name = "AuthToken";
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.HttpOnly = true;
+        options.SlidingExpiration = true;
+        options.ExpireTimeSpan = TimeSpan.FromSeconds(60);
+        options.Cookie.MaxAge = TimeSpan.FromSeconds(60);
     });
-});
+
+// Register Authorization policy services
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -33,8 +41,7 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
-app.UseCors();
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
-
 app.Run();

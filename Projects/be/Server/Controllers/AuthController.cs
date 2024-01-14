@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers;
@@ -13,9 +15,9 @@ public class AuthController : ControllerBase {
         _logger = logger;
     }
 
-    [HttpGet("abcd")]
-    public IActionResult TestEndpoint() {
-        return Ok("Hello World");
+    [HttpGet("sign-out")]
+    public async Task<IActionResult> SignOutAsync() {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return Ok();
     }
-
 }

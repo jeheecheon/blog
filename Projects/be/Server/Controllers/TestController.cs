@@ -1,3 +1,6 @@
+using System.Text.Json;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers;
@@ -12,9 +15,12 @@ public class TestController : ControllerBase {
     ) {
         _logger = logger;
     }
-
+    
+    [Authorize]
     [HttpGet("abcd")]
-    public IActionResult TestEndpoint() {
-        return Ok("Hello World");
+    public async Task<IActionResult> TestEndpointAsync() {
+        var result = await HttpContext.AuthenticateAsync();
+        Console.WriteLine(HttpContext.User.Identity?.IsAuthenticated);
+        return Ok(JsonSerializer.Serialize("Hello World"));
     }
 }
