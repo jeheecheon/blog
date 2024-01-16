@@ -1,6 +1,17 @@
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 export const Blog = () => {
+  const [value, setValue] = useState('');
+
   return (
     <>
+      <ReactQuill theme="snow" value={value} onChange={(val) => {
+        console.log(val);
+        setValue(val);
+      }} />
+      <img src='https://photos.app.goo.gl/1Ytb33jYad4Mb7u86'/>
       <div>Blog page</div>
       <button
         onClick={(e) => {
@@ -9,9 +20,9 @@ export const Blog = () => {
           console.log("Clicked");
 
           fetch("/api/Test/abcd",
-              {
-                  credentials: "same-origin"
-              })
+            {
+              credentials: "same-origin"
+            })
             .then((response) => response.json())
             .then((json) => console.log(json))
             .catch((error) => {
