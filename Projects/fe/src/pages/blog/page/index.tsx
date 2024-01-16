@@ -1,48 +1,11 @@
-import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { Outlet } from "react-router-dom";
+import { Layout as BlogLayout } from "@blog/page/components/Layout";
 
 export const Blog = () => {
-  const [value, setValue] = useState('');
 
-  return (
-    <>
-      <ReactQuill theme="snow" value={value} onChange={(val) => {
-        console.log(val);
-        setValue(val);
-      }} />
-      <img src='https://photos.app.goo.gl/1Ytb33jYad4Mb7u86'/>
-      <div>Blog page</div>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-
-          console.log("Clicked");
-
-          fetch("/api/Test/abcd",
-            {
-              credentials: "same-origin"
-            })
-            .then((response) => response.json())
-            .then((json) => console.log(json))
-            .catch((error) => {
-              console.log(error);
-              console.log("failed to fetch");
-            });
-        }}
-      >
-        Fetch button
-      </button>
-
-      <button onClick={(e) => {
-        e.preventDefault();
-
-        // fetch()
-      }}>
-        Autho test button
-      </button>
-    </>
-  )
+  return (<>
+    <BlogLayout>
+      <Outlet />
+    </BlogLayout>
+  </>);
 }
-
-export default Blog;

@@ -23,6 +23,7 @@
     "baseUrl": "./src",
     "paths": {
       "@root/page/*": ["./pages/root/page/*"],
+      "@blog/page/*": ["./pages/blog/page/*"],
       "@common/components/*": ["./common/components/*"],
     }
   },
