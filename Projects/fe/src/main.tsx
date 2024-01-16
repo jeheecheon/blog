@@ -10,6 +10,7 @@ import {
 import { Root } from '@root/page/index'
 import { Error } from '@common/components/Error';
 import { Blog } from '@blog/page/index';
+import { Posts } from '@posts/page/index';
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           {/* Page that shows a subset of all posts using the pagination feature */}
           <Route
             path='posts'
+            element={<Posts />}
           />
 
           {/* Page that shows a specific post content */}

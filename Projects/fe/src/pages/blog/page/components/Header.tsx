@@ -6,7 +6,7 @@ export const Header = () => {
             flex flex-row flex-unwrap
             justify-between items-center
             grow shrink-0 basis-auto
-            bg-blue-100 shadow-xl shadow-gray-400'>
+            bg-blue-50 shadow-xl shadow-gray-400'>
 
             {/* <div className='hidden md:block'>
                 avatar
