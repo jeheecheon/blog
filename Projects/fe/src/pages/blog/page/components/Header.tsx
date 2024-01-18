@@ -11,7 +11,7 @@ export const Header = () => {
             {/* <div className='hidden md:block'>
                 avatar
             </div> */}
-            <div className="text-center truncate">
+            <div className="text-center truncate text-slate-900">
                 Jehee Cheon 블로그
             </div>
             <SidebarButton/>
