@@ -10,7 +10,6 @@ export const Posts = () => {
         Recently published
       </h1>
       <div className="flex flex-col items-center gap-[50px]">
-
         {
           dummyData.map((_, index) => (
             <PostCard key={index} className="" />

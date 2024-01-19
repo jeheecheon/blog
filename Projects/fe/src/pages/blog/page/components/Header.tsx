@@ -6,9 +6,9 @@ export const Header = ({ show, setShowSidebar }:
         show: boolean
     }) => {
     return (<>
-        <div className='fixed h-[60px] w-full px-3
+        <div className='fixed h-[60px] w-full px-3 z-10
             flex flex-row flex-unwrap justify-between items-center basis-auto
-            bg-blue-50 shadow-xl shadow-gray-400'>
+            bg-white shadow-lg shadow-gray-400'>
 
             <div className="text-center truncate text-slate-900">
                 Jehee Cheon 블로그
@@ -17,7 +17,7 @@ export const Header = ({ show, setShowSidebar }:
         </div>
         
         <SidebarButton show={show} setShowSidebar={setShowSidebar} 
-        className="fixed z-10 top-[22px] right-3" />
+        className="fixed z-20 top-[22px] right-3" />
         <div className="h-[60px]" />
     </>
     )

@@ -11,7 +11,7 @@ import { Root } from '@/pages/root/page/index'
 import { Error } from '@/common/components/Error';
 import { Blog } from '@/pages/blog/page/index';
 import { Posts } from '@/pages/blog/posts/page/index';
-import './index.css'
+import './main.css'
 import { Post } from '@/pages/blog/post/page/index';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

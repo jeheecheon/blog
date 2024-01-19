@@ -8,7 +8,7 @@ export const Sidebar = ({ show, setShowSidebar }: {
 
     const handleLinkClicked = () => setShowSidebar(!show);
     return (<>
-        <div className={`w-screen h-screen z-10 bg-white opacity-95 fixed duration-500 
+        <div className={`w-screen h-screen z-20 bg-white opacity-95 fixed duration-500 
         flex flex-col items-start justify-center pl-5
         ${hidden}`}>
             <Link to="/blog/posts" onClick={handleLinkClicked}>
