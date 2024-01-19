@@ -6,7 +6,7 @@ export const Comments = ({ className }: {
   className?: string
 }) => {
   return (
-    <div className={`w-[900px] 
+    <div className={`max-w-[780px] 
     ${className}`}>
       <div className=''>
         <Comment liked={false} isReply={false} />

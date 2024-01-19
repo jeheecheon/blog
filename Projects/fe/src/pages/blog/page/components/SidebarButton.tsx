@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
 
-export const SidebarButton = ({ show, setShowSidebar, className }:
+export const SidebarButton = ({ show, setShowSidebar, className, color }:
     {
         setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>,
         show: boolean,
-        className?: string
+        className?: string,
+        color: string
     }) => {
     const barRef1 = useRef<HTMLDivElement>(null);
     const barRef2 = useRef<HTMLDivElement>(null);
@@ -36,8 +37,8 @@ export const SidebarButton = ({ show, setShowSidebar, className }:
 
     return (
         <div className={`inline-block cursor-pointer ${className}`} onClick={handleClicked}>
-            <div ref={barRef1} className="w-[30px] h-[4px] bg-slate-700 transition duration-700 ease-in-out rounded-2xl mb-[8px]"></div>
-            <div ref={barRef2} className="w-[30px] h-[4px] bg-slate-700 transition duration-700 ease-in-out rounded-2xl"></div>
+            <div ref={barRef1} className={`${color} w-[30px] h-[4px] transition duration-700 ease-in-out rounded-2xl mb-[8px]`}></div>
+            <div ref={barRef2} className={`${color} w-[30px] h-[4px] transition duration-700 ease-in-out rounded-2xl`}></div>
         </div>
     )
 }

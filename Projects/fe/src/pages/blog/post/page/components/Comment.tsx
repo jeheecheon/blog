@@ -21,7 +21,7 @@ export const Comment = ({ liked, isReply, className }: {
                     {/* 댓글 작성자 정보 */}
                     <div className='flex flex-row justify-start items-center gap-3'>
                         <img src={defaultAvatar} className='w-[40px] h-auto rounded-full' />
-                        <span>jeheecheon@gmail.com</span>
+                        <span>jeheecheon</span>
                         <span className='border rounded-2xl px-[5px] py-[2px] text-xs text-green-500'>블로그 주인</span>
                     </div>
                     {/* 메뉴버튼 */}
