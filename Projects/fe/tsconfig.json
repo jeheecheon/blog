@@ -20,12 +20,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@root/page/*": ["./pages/root/page/*"],
-      "@blog/page/*": ["./pages/blog/page/*"],
-      "@posts/page/*": ["./pages/blog/posts/page/*"],
-      "@common/components/*": ["./common/components/*"],
+      "@/*": ["./src/*"],
     }
   },
   "include": ["src"],

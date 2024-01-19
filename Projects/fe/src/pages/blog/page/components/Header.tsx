@@ -1,21 +1,23 @@
-import { SidebarButton } from "@blog/page/components/SidebarButton"
+import { SidebarButton } from "@/pages/blog/page/components/SidebarButton"
 
-export const Header = () => {
+export const Header = ({ show, setShowSidebar }:
+    {
+        setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>,
+        show: boolean
+    }) => {
     return (<>
         <div className='fixed h-[60px] w-full px-3
-            flex flex-row flex-unwrap
-            justify-between items-center
-            grow shrink-0 basis-auto
+            flex flex-row flex-unwrap justify-between items-center basis-auto
             bg-blue-50 shadow-xl shadow-gray-400'>
 
-            {/* <div className='hidden md:block'>
-                avatar
-            </div> */}
             <div className="text-center truncate text-slate-900">
                 Jehee Cheon 블로그
             </div>
-            <SidebarButton/>
+            {/* <SidebarButton show={show} setShowSidebar={setShowSidebar} className="" /> */}
         </div>
+        
+        <SidebarButton show={show} setShowSidebar={setShowSidebar} 
+        className="fixed z-10 top-[22px] right-3" />
         <div className="h-[60px]" />
     </>
     )

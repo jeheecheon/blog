@@ -7,11 +7,12 @@ import {
   Routes
 } from "react-router-dom";
 
-import { Root } from '@root/page/index'
-import { Error } from '@common/components/Error';
-import { Blog } from '@blog/page/index';
-import { Posts } from '@posts/page/index';
+import { Root } from '@/pages/root/page/index'
+import { Error } from '@/common/components/Error';
+import { Blog } from '@/pages/blog/page/index';
+import { Posts } from '@/pages/blog/posts/page/index';
 import './index.css'
+import { Post } from '@/pages/blog/post/page/index';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           {/* Page that shows a specific post content */}
           <Route
             path='post'
+            element={<Post />}
           />
           <Route
             path='upload-post'

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Layout as BlogLayout } from "@blog/page/components/Layout";
+import { Layout as BlogLayout } from "@/pages/blog/page/components/Layout";
 
 export const Blog = () => {
 

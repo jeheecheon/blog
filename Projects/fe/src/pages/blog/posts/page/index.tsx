@@ -1,23 +1,22 @@
-import { PostCard } from "@posts/page/components/PostCard"
+import { PostCard } from "@/pages/blog/posts/page/components/PostCard"
 
 export const Posts = () => {
   const dummyData = Array.from({ length: 50 }, (_, index) => index);
 
-  return (<>
-    <div className="mt-7 px-3">
-      <h1 className="inline-block w-full text-3xl font-medium text-slate-700 mb-5 text-center">
-        Latest Content
+  return (
+    <div className="flex flex-col items-center mx-3">
+      <h1 className="inline-block uppercase max-w-[800px] w-full text-3xl font-medium text-sky-700 
+      mt-[60px] mb-[20px] text-left">
+        Recently published
       </h1>
+      <div className="flex flex-col items-center gap-[50px]">
 
-      <div>
         {
           dummyData.map((_, index) => (
-            <PostCard key={index} />
+            <PostCard key={index} className="" />
           ))
         }
       </div>
-
     </div>
-  </>
   )
 }
