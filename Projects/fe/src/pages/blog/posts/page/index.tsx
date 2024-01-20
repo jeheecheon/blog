@@ -1,4 +1,5 @@
 import { PostCard } from "@/pages/blog/posts/page/components/PostCard"
+import { Link } from "react-router-dom";
 
 export const Posts = () => {
   const dummyData = Array.from({ length: 50 }, (_, index) => index);
@@ -9,10 +10,12 @@ export const Posts = () => {
       mt-[60px] mb-[20px] text-left">
         Recently published
       </h1>
-      <div className="flex flex-col items-center gap-[50px]">
+      <div className="flex flex-col items-center gap-[70px]">
         {
           dummyData.map((_, index) => (
-            <PostCard key={index} className="" />
+            <Link to='/blog/post' key={index}>
+              <PostCard key={index} className="" />
+            </Link>
           ))
         }
       </div>

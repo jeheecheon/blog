@@ -13,7 +13,7 @@ export const PostCard = ({ className, liked = false }: { className?: string, lik
                 <span className='text-right'>2024-01-01</span>
                 <span className='self-end'>23 views</span>
             </div>
-            <div className='font-bold text-2xl mb-3 text-pretty group-hover:text-sky-700'>This is an example title This is an example titleThis is an example titleThis is an example title</div>
+            <div className='font-semibold text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>This is an example title This is an example titleThis is an example titleThis is an example title</div>
             <div className='text-md text-pretty mb-2 h-[70px] truncate'>
                 쿠키(Cookie)는 대부분의 웹 서비스에서 사용하는 기술이라 웹 개발자라면 여러 번 마주해보셨을 거에요. 저 또한 웹 서비스를 개발하면서 쿠키를 다뤘던 경험이 종종 있었습니다. 그렇지만 쿠키라는 기술 자체는 별로 흥미로운 기술이 아니다보니 그냥 구현만 마친 후 대충 넘겼던 경험이 많은 것 같아요.
 

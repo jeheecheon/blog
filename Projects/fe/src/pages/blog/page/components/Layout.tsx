@@ -35,9 +35,9 @@ export const Layout = (props: { children: ReactElement | ReactElement[] }) => {
                     text-white text-3xl text-pretty text-center'>
                         {bannerTitle}
                     </span>
-                    <span className='absolute top-[65px] right-[5px] text-white text-lg
-                    '>
-                        😁 항상 화이팅
+                    <span className='absolute top-[65px] right-[5px] text-white text-lg '>
+                        😁 항상 &#160;
+                        <span className='bg-yellow-400 bg-opacity-60'>화이팅</span>
                     </span>
                 </div>
                 {props.children}

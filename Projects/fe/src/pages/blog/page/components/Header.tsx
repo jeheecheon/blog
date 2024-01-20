@@ -1,4 +1,5 @@
 import { SidebarButton } from "@/pages/blog/page/components/SidebarButton"
+import { Link } from "react-router-dom"
 
 export const Header = ({ show, setShowSidebar }:
     {
@@ -10,14 +11,16 @@ export const Header = ({ show, setShowSidebar }:
             flex flex-row flex-unwrap justify-between items-center basis-auto
             bg-slate-50 shadow-lg shadow-gray-400'>
 
-            <div className="text-center truncate text-slate-900">
-                Jehee Cheon 블로그
-            </div>
+                <Link to='/blog/posts' className="align-middle text-center truncate text-slate-900 h-full
+                    flex flex-row justify-center items-center">
+                    Jehee Cheon 블로그
+                </Link>
+
             {/* <SidebarButton show={show} setShowSidebar={setShowSidebar} className="" /> */}
         </div>
-        
+
         <SidebarButton show={show} setShowSidebar={setShowSidebar} color="bg-slate-600"
-        className="fixed z-30 top-[22px] right-3" />
+            className="fixed z-30 top-[22px] right-3" />
         <div className="h-[60px]" />
     </>
     )
