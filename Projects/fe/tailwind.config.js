@@ -27,7 +27,7 @@ export default {
       },
     },
     animation: {
-      'hide-sidebar-overlay': 'hide-sidebar-overlay 3s ease-in-out forwards',
+      'hide-sidebar-overlay': 'hide-sidebar-overlay 1s ease-in-out forwards',
       'show-sidebar-overlay': 'show-sidebar-overlay 3s ease-in-out forwards',
 
       'hide-sidebar-content-container': 'hide-sidebar-overlay 4s ease-in-out forwards',

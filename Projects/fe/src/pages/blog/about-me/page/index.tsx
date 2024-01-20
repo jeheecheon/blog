@@ -1,11 +1,11 @@
+import { Article } from '@/common/components/Article'
+import { ArticleLayout } from '@/common/components/ArticleLayout'
 import React from 'react'
 
 export const AboutMe = () => {
   return (
-    <div className='flex flex-col items-center'>
-      <div className='max-w-[780px] relative -top-[150px] rounded-2xl bg-slate-50 w-full min-h-[50vh] shadow-md
-      px-3 pt-2'>
-        <pre className="font-['Noto_Sans_KR'] text-pretty">
+    <ArticleLayout>
+      <Article publisedDate='2024-01-21' categories={['About me']}>
 {
 `안녕하세요! 저에요...제 소개 페이지!
 
@@ -23,13 +23,16 @@ css로 지저분하게 저질러놔서(?) 마음에 안 드는 디자인 새로 
 
 그래서 이 블로그 "탄생"! 근데 사실 디자인 껍데기만 완성해놓고 지금 이 글 쓰고 있는 거랍니다.. 너무 들떴다...... 아직 글 쓸 때 사용할 html 편집기로 어떤 거를 써야할 지도 못 정했고 백엔드에서는 이걸 어떻게 sanitize 해줘야 하는지 잘 모르겠네요. 그리고 나중에 DB에 저장한 글 내용을 다시 react 프론트에서 보여줄 때 html을 다시 jsx안에서 어떻게 출력시켜준담...
 
-여하튼 지금 이 글 보고 계시는 여러분들 아마 저의 피땀 눈물 섞인 노력과, 시행착오가 있었다는 걸 알아봐주시기 바랍니다. 저 이거 만들 때 고생 많이 한 거 제발 알아주세요. 1년간의 공백기간(여행가서 놀다 옴..)이 있었음에도 열심히 공부해왔다는 것!
-
-공부!
+여하튼 지금 이 글 보고 계시는 여러분들, 저의 피땀 눈물 섞인 노력과, 시행착오가 있었다는 걸 알아봐주시기 바랍니다. 저 이거 만들 때 고생 많이 한 거 제발 알아주세요. 1년간의 공백기간(여행가서 놀다 옴..)이 있었음에도 열심히 공부해왔다는 것!
 `
 }
-        </pre>
-      </div>
-    </div>
+<a target='_blank' className='underline text-blue-500' href='https://github.com/jeheecheon/jeheecheon-blog'>이 블로그 깃허브 링크</a>
+{`
+
+공부!
+`}
+      </Article>
+    </ArticleLayout>
+
   )
 }
