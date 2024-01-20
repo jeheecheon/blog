@@ -19,7 +19,8 @@ export const PostCard = ({ className, liked = false }: { className?: string, lik
 
                 쿠키는 아주 예전부터 쓰였던 기술이지만, 요즘에는 보안이나 개인정보보호 문제 때문에 쿠키에 SameSite 같은 속성이 추가되기도하고 브라우저가 쿠키를 다루는 방식도 점차 바뀌어가고 있습니다.
 
-                이번 글에서는 쿠키에 대한 기본적인 이해를 바탕으로 SameSite 속성은 왜 나온 것인지, 브라우저들은 어떻게 동작하고 있는지 알아보겠습니다.            </div>
+                이번 글에서는 쿠키에 대한 기본적인 이해를 바탕으로 SameSite 속성은 왜 나온 것인지, 브라우저들은 어떻게 동작하고 있는지 알아보겠습니다.
+            </div>
             <div className='flex flex-row justify-start items-start fill-sky-700 '>
                 {/* Likes */}
                 <div className='flex flex-row items-center mr-2 cursor-pointer'

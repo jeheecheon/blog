@@ -13,6 +13,9 @@ import { Blog } from '@/pages/blog/page/index';
 import { Posts } from '@/pages/blog/posts/page/index';
 import './main.css'
 import { Post } from '@/pages/blog/post/page/index';
+import { AboutMe } from './pages/blog/about-me/page';
+import { PostEdit } from './pages/blog/post-edit/page';
+import { PostUpload } from './pages/blog/post-upload/page';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -41,13 +44,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             element={<Post />}
           />
           <Route
-            path='upload-post'
+            path='post-upload'
+            element={<PostUpload />}
           />
           <Route
-            path='edit-post'
+            path='post-edit'
+            element={<PostEdit />}
           />
           <Route
             path='about-me'
+            element={<AboutMe />}
           />
         </Route>
 

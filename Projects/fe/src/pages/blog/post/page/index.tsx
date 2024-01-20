@@ -19,7 +19,7 @@ export const Post = ({ liked = false }: {
                 Algorithm &gt; DP
             </div>
             {/* blog content goes here */}
-            <div className='px-2 text-pretty max-w-[780px] text-left bg-slate-50 rounded-2xl shadow-md
+            <div className='px-3 pt-2 text-pretty max-w-[780px] min-h-[50vh] text-left bg-slate-50 rounded-2xl shadow-md
             overflow-hidden mb-10'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit magna lacus, non fringilla est facilisis vitae. Nam semper ligula odio, id posuere lacus porttitor maximus. Nam tincidunt, libero non mattis tempor, ex diam cursus ex, in egestas erat nisl condimentum eros. Ut eget ante neque. Nunc vel nunc et lorem vulputate scelerisque ac malesuada augue. Donec a blandit quam, a mollis elit. In sodales pretium eros, eu molestie eros molestie vitae. Donec tortor arcu, tempor sed nisl sed, malesuada tempus sem. Donec sit amet diam porta arcu efficitur imperdiet. Ut at ornare ante, quis porttitor purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
                 Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In pretium ipsum quam, sed blandit enim pulvinar id. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer eget ultricies ante. Nam suscipit egestas ornare. Ut vestibulum in nibh ut consequat. Fusce sed fermentum mi. Ut ac turpis pharetra, tincidunt sem nec, pulvinar justo. Suspendisse id hendrerit mauris. Nunc scelerisque massa et orci lacinia, vel vehicula ligula eleifend. Mauris pharetra est a enim dignissim tincidunt at non lectus.
