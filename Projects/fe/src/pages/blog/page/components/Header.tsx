@@ -9,7 +9,7 @@ export const Header = ({ show, setShowSidebar }:
     return (<>
         <div className='fixed h-[60px] w-full px-3 z-20
             flex flex-row flex-unwrap justify-between items-center basis-auto
-            bg-slate-50 shadow-lg shadow-gray-400'>
+            bg-slate-50 shadow-md shadow-gray-400'>
 
                 <Link to='/blog/posts' className="align-middle text-center truncate text-slate-900 h-full
                     flex flex-row justify-center items-center">

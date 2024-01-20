@@ -1,26 +1,29 @@
 export const Footer = () => {
   return (
-    <div className='flex flex-col items-center bg-slate-100 py-[40px]'>
-      <span className='text-3xl text-slate-600 font-bold'>
-        <span className='italic'>JeheeCheon</span>
-        <span className='text-blue-600 italic'>&</span>
-        <span className='uppercase italic'>Blog</span>
-      </span>
-
-      <span className='mt-2 text-slate-600 italic'>
-        백엔드 개발을 주로 다루는 블로그입니다.
-      </span>
-
-      <span className='mt-10 text-slate-600 text-sm'>
-        All designed and developed by&#160;
-        <span className='text-blue-600 font-bold'>
-          "나, 천제희"
+    <>
+      <div className='flex flex-col items-center bg-slate-50 py-[40px] shadow-2xl shadow-slate-700'>
+        <span className='text-3xl text-slate-600 font-bold'>
+          <span className='italic'>JeheeCheon</span>
+          <span className='text-blue-500 italic'>*</span>
+          <span className='uppercase italic'>Blog</span>
         </span>
-      </span>
-      <span className='text-slate-600 text-sm'>
-        © 2024-present Jehee Cheon. All Rights Reserved.
-      </span>
-    </div>
+
+        <span className='mt-2 text-slate-600 italic'>
+          백엔드 개발을 주로 다루는 블로그입니다.
+        </span>
+
+        <span className='mt-10 text-slate-600 text-sm'>
+          All designed and developed by&#160;
+          <span className='text-blue-600 font-bold'>
+            "나, 천제희"
+          </span>
+        </span>
+        <span className='text-slate-600 text-sm'>
+          © 2024-present Jehee Cheon. All Rights Reserved.
+        </span>
+      </div>
+    </>
+
     // <div className='flex flex-row justify-center w-full h-[200px] bg-slate-100 text-slate-600'>
 
     //   <div className='flex flex-row justify-between max-w-5xl w-full py-5 px-2'>
