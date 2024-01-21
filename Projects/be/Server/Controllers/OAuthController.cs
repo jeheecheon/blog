@@ -97,7 +97,7 @@ public class OAuthController : ControllerBase {
         // Extract a user info from the body of the response from google
         var userInfoResponse = await httpResponseMessage.Content.ReadFromJsonAsync<GoogleUserInfoResponse>();
         
-        // Make sure the user info is correct
+        // Check if the user info is correct and has a verified email 
         if (userInfoResponse == null || !userInfoResponse.verified_email)
             _logger.LogInformation("User Info that's just fetched is null or the email is not verified.");
         else {

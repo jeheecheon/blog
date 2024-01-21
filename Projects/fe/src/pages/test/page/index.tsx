@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/common/redux/store'
 
 export const TestPage = () => {
   const [value, setValue] = useState('');
+  const user = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user])
 
   return (
     <>
@@ -14,7 +21,7 @@ export const TestPage = () => {
           window.location.replace("/api/oauth/sign-in?provider=google");
         }}
       >Google Sign in</button>
-      
+
       <ReactQuill theme="snow" value={value} onChange={(val) => {
         console.log(val);
         setValue(val);

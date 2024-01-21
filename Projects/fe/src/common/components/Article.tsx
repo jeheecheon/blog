@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import '@/common/assets/css/Article.css'
 export const Article = (
     {
         liked = false,
@@ -9,6 +9,7 @@ export const Article = (
         lastEditedDate,
         publisedDate,
         categories,
+        dangerouslySetInnerHTML,
         children
     }: {
         liked?: boolean,
@@ -17,12 +18,13 @@ export const Article = (
         lastEditedDate?: string,
         publisedDate: string,
         categories: string[],
+        dangerouslySetInnerHTML?: { __html: string | TrustedHTML;} | undefined,
         children?: React.ReactElement[] | React.ReactElement | string | React.ReactNode[] | React.ReactNode
     }) => {
     const [isLiked, setIsLiked] = useState(liked);
     const handleLikeCliked = () => setIsLiked(!isLiked);
     return (
-        <div className={`flex flex-col items-center ${className}`}>
+        <div className={`flex flex-col items-center w-full ${className}`}>
             <div className='text-slate-50 max-w-[780px] w-full text-left pl-2 pb-1 text-xl'>
                 {categories && categories.map((cate, idx) => {
                     return (
@@ -32,13 +34,14 @@ export const Article = (
                 })}
             </div>
             {/* blog content goes here */}
-            <div className='px-3 pt-2 text-pretty max-w-[780px] min-h-[50vh] text-left bg-slate-50 rounded-2xl shadow-md
-                    overflow-hidden mb-10 whitespace-pre-line'>
+            <div className='px-3 pt-2 text-pretty max-w-[780px] h-fit bg-slate-50 rounded-2xl shadow-md
+                    overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center'>
                 <span className='block text-center text-slate-600 text-sm mb-3'>
                     {lastEditedDate !== undefined ?
                         (<span>Last Edited: {lastEditedDate}</span>) :
                         (<span>Published: {publisedDate}</span>)}
                 </span>
+                <div className='text-left w-full' dangerouslySetInnerHTML={dangerouslySetInnerHTML} />
                 {children}
                 {headerImage && (<img src={headerImage} className='bg-fixed bg-center' />)}
             </div>

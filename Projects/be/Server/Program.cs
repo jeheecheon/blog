@@ -24,8 +24,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.Cookie.HttpOnly = true;
         options.SlidingExpiration = true;
-        options.ExpireTimeSpan = TimeSpan.FromSeconds(60);
-        options.Cookie.MaxAge = TimeSpan.FromSeconds(60);
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+        options.Cookie.MaxAge = TimeSpan.FromDays(1);
     });
 
 // Register Authorization policy services
