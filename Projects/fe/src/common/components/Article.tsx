@@ -27,7 +27,7 @@ export const Article = (
                 {categories && categories.map((cate, idx) => {
                     return (
                         <Link to='/blog/posts' key={idx}> {cate}
-                            {idx < categories.length - 1 && <span>&gt;</span>}
+                            {idx < categories.length - 1 && <span>&#160;&gt;</span>}
                         </Link>);
                 })}
             </div>

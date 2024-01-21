@@ -27,19 +27,21 @@ export const Layout = (props: { children: ReactElement | ReactElement[] }) => {
             <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
             <Header show={showSidebar} setShowSidebar={setShowSidebar} />
 
-            <div className='mb-auto bg-slate-50'>
-                <div className='bg-fixed h-[75vh] bg-center' style={{
-                    backgroundImage: `url(${backgroundImage})`
-                }}>
-                    <span className='absolute bottom-[60%] right-[50%] translate-y-[60%] translate-x-[50%]
+            {/* Page Header Image */}
+            <div className='bg-fixed h-[75vh] bg-center' style={{
+                backgroundImage: `url(${backgroundImage})`
+            }}>
+                <span className='absolute bottom-[60%] right-[50%] translate-y-[60%] translate-x-[50%]
                     text-white text-3xl text-pretty text-center'>
-                        {bannerTitle}
-                    </span>
-                    <span className='absolute top-[65px] right-[5px] text-white text-lg '>
-                        😁 항상 &#160;
-                        <span className='bg-yellow-400 bg-opacity-60'>화이팅</span>
-                    </span>
-                </div>
+                    {bannerTitle}
+                </span>
+                <span className='absolute top-[65px] right-[5px] text-white text-lg '>
+                    😁 항상 &#160;<span className='bg-yellow-400 bg-opacity-60'>화이팅</span>
+                </span>
+            </div>
+
+            {/* Content body */}
+            <div className='mb-auto bg-slate-50'>
                 {props.children}
             </div>
 
