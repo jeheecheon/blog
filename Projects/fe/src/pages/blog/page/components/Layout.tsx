@@ -1,28 +1,21 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { Header } from '@/pages/blog/page/components/Header'
 import { Footer } from '@/pages/blog/page/components/Footer'
 import { Sidebar } from '@/pages/blog/page/components/Sidebar'
 
-import { useLocation } from 'react-router-dom';
 
 import backgroundImage from '@/common/assets/images/default/banner.jpg';
 
-export const Layout = (props: { children: ReactElement | ReactElement[] }) => {
+export const Layout = ({ children, className }: {
+    children: ReactElement | ReactElement[],
+    className?: string
+}) => {
     const [showSidebar, setShowSidebar] = useState(false);
     const [bannerTitle, setBannerTitle] = useState("");
 
-    const location = useLocation();
-
-    useEffect(() => {
-        if (location.pathname === '/blog/post')
-            setBannerTitle("블로그 포스트 제목입니다....");
-        else
-            setBannerTitle("");
-    }, [location]);
-
     return (<>
-        <div className="bg-white dark:bg-gray-900 min-h-screen h-auto font-['Noto_Sans_KR']
-            flex flex-col justify-between">
+        <div className={`bg-white dark:bg-gray-900 min-h-screen h-auto font-['Noto_Sans_KR']
+            flex flex-col justify-between ${className}`}>
 
             <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
             <Header show={showSidebar} setShowSidebar={setShowSidebar} />
@@ -42,7 +35,7 @@ export const Layout = (props: { children: ReactElement | ReactElement[] }) => {
 
             {/* Content body */}
             <div className='mb-auto bg-slate-50'>
-                {props.children}
+                {children}
             </div>
 
             <Footer />

@@ -37,8 +37,11 @@ export const SignInModal = () => {
 
     return (
         <Rodal visible={visible} onClose={() => { dispatch(makeInvisible()) }}
-            
             className='' width={modalWidth}>
+
+            <div >
+
+            </div>
             <ContinueWithGoogleButton
                 onClick={() => { window.location.replace("/api/oauth/sign-in?provider=google"); }}
             />
