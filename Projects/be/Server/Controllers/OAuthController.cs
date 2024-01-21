@@ -115,6 +115,6 @@ public class OAuthController : ControllerBase {
                 userInfoResponse.email, DateTime.UtcNow);
         }
         
-        return Redirect(_configuration["ClientUrls:jeheecheon"]!);
+        return Redirect($"{_configuration["ClientUrls:jeheecheon"]!}/blog/posts");
     }
 }

@@ -11,10 +11,12 @@
     "cert": "rm -rf .cert && mkdir .cert && mkcert -key-file ./.cert/localhost-key.pem -cert-file ./.cert/localhost.pem localhost"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.0.1",
     "dotenv": "^16.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
+    "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.2",
     "rodal": "^2.1.0"
   },

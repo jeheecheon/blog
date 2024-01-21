@@ -5,7 +5,7 @@ export const Root = () => {
   return (
     <>
       <Link to="blog/posts">
-        blog
+        To blog
       </Link>
       <Outlet />
     </>

@@ -1,12 +1,16 @@
-import { useIsMount } from "@/common/hooks/useIsMount";
 import React from "react";
+import { useIsMount } from "@/common/hooks/useIsMount";
+import { useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
+import { makeVisible } from "@/common/redux/signInModalSlice";
 
 export const Sidebar = React.memo(({ show, setShowSidebar }: {
     show: boolean,
     setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>,
 }) => {
     const isMount = useIsMount();
+    const dispatch = useDispatch();
 
     let overlay = '';
     let contentContainer = '';
@@ -51,8 +55,11 @@ export const Sidebar = React.memo(({ show, setShowSidebar }: {
                 Latest posts
             </Link>
 
-            <Link to="/blog" onClick={handleLinkClicked} className={`-translate-x-[100vw] ${content3}`}>
-                Test button1
+            <Link  to="/blog" onClick={() => {
+                dispatch(makeVisible());
+                handleLinkClicked();
+            }} className={`-translate-x-[100vw] ${content3}`}>
+                Sign in test button
             </Link>
             <Link to="/blog/about-me" onClick={handleLinkClicked} className={`-translate-x-[100vw] ${content4}`}>
                 About me
