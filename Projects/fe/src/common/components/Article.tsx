@@ -15,7 +15,7 @@ interface ArticleProps {
     children: Node | string
 }
 
-export const Article = (props: ArticleProps) => {
+const Article = (props: ArticleProps) => {
     const [isLiked, setIsLiked] = useState(props.liked);
     const handleLikeCliked = () => setIsLiked(!isLiked);
     const [content, setContent] = useState<string | JSX.Element | JSX.Element[] | null>(null);

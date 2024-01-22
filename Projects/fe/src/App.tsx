@@ -11,6 +11,7 @@ import { UserState, setUser } from '@/common/redux/userSlice';
 
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
+const BlogLayout = lazy(() => import('@/pages/blog/page/components/Layout'));
 const ErrorBoundary = lazy(() => import('@/common/components/ErrorBoundary'));
 const BlogErrorBoundary = lazy(() => import('@/pages/blog/page/ErrorBoundary'));
 const Posts = lazy(() => import('@/pages/blog/posts/page/index'));
@@ -52,32 +53,34 @@ const App = () => {
 
                 {/* Blog */}
                 <Route
-                    path='/blog'
-                    element={<Suspense>
-                        <Blog />
-                    </Suspense>}
-                    errorElement={<BlogErrorBoundary />}>
+                    element={<Suspense><BlogLayout /></Suspense>}
+                    errorElement={<BlogErrorBoundary />}
+                >
+                    <Route
+                        path='blog'
+                        element={<Blog />}
+                    />
                     {/* Page that shows a subset of all posts using the pagination feature */}
                     <Route
-                        path='posts'
+                        path='blog/posts'
                         element={<Posts />}
                     />
 
                     {/* Page that shows a specific post content */}
                     <Route
-                        path='post'
+                        path='blog/post'
                         element={<Post />}
                     />
                     <Route
-                        path='post-upload'
+                        path='blog/post-upload'
                         element={<PostUpload />}
                     />
                     <Route
-                        path='post-edit'
+                        path='blog/post-edit'
                         element={<PostEdit />}
                     />
                     <Route
-                        path='about-me'
+                        path='blog/about-me'
                         element={<AboutMe />}
                     />
                     <Route
@@ -88,21 +91,21 @@ const App = () => {
 
                 {/* Diary */}
                 <Route
-                    path='diary'>
+                    path='diary' >
                     {/* Page for writing an entry */}
-                    <Route
+                    < Route
                         path='upload-entry'
                     />
 
                     {/* Edit entry page */}
-                    <Route
+                    < Route
                         path='edit-entry'
                     />
                 </Route>
-            </Route>
+            </Route >
         )
     )
-    
+
     return <RouterProvider router={router} />
 }
 

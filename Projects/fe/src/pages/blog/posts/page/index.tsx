@@ -1,5 +1,6 @@
-import { PostCard } from "@/pages/blog/posts/page/components/PostCard"
 import { Link } from "react-router-dom";
+
+import PostCard from "@/pages/blog/posts/page/components/PostCard"
 
 const Posts = () => {
   const dummyData = Array.from({ length: 5 }, (_, index) => index);

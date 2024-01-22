@@ -1,8 +1,6 @@
-import React from 'react'
 import { Comment } from '@/pages/blog/post/page/components/Comment';
 
-
-export const Comments = ({ className }: {
+const Comments = ({ className }: {
   className?: string
 }) => {
   return (
@@ -18,3 +16,5 @@ export const Comments = ({ className }: {
     </div>
   )
 }
+
+export default Comments;

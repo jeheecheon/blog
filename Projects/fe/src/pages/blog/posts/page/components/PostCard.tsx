@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const PostCard = ({ className, liked = false }: { className?: string, liked?: boolean }) => {
+const PostCard = ({ className, liked = false }: { className?: string, liked?: boolean }) => {
     const [isLiked, setIsLiked] = useState(liked);
 
     const handleLikeCliked = () => setIsLiked(!isLiked);
@@ -51,3 +51,5 @@ export const PostCard = ({ className, liked = false }: { className?: string, lik
         </div>
     )
 }
+
+export default PostCard;

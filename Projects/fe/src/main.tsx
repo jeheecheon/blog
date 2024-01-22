@@ -5,11 +5,11 @@ import { store } from '@/common/redux/store';
 
 import App from '@/App';
 import '@/main.css'
-import PageLoadingScreen from '@/common/components/PageLoadingScreen';
+import PageLoadingSpinner from '@/common/components/PageLoadingSpinner';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <PageLoadingScreen/>
+    <PageLoadingSpinner/>
     <Provider store={store}>
       <App />
     </Provider>

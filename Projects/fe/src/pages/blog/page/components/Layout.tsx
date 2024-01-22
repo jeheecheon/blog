@@ -1,19 +1,23 @@
 import { ReactElement, useState } from 'react'
-import Header from '@/pages/blog/page/components/Header'
-import { Footer } from '@/pages/blog/page/components/Footer'
-import { Sidebar } from '@/pages/blog/page/components/Sidebar'
-
 import { useSelector } from 'react-redux';
+
 import { RootState } from '@/common/redux/store';
+import Header from '@/pages/blog/page/components/Header'
+import Footer from '@/pages/blog/page/components/Footer'
+import Sidebar from '@/pages/blog/page/components/Sidebar'
+import { Outlet } from 'react-router-dom';
+
+import('@/pages/blog/page/css/font.css');
+import('@/pages/blog/page/css/scrollbar.css');
 
 interface LayoutProps {
-    children: ReactElement | ReactElement[],
+    children?: ReactElement | ReactElement[],
     className?: string
 }
 
 const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
-    const {bannerImageUrl, bannerTitle} = useSelector((state: RootState) => state.banner);
+    const { bannerImageUrl, bannerTitle } = useSelector((state: RootState) => state.banner);
 
     return (<>
         <div className={`bg-white dark:bg-gray-900 min-h-screen h-auto font-['Noto_Sans_KR']
@@ -37,7 +41,7 @@ const Layout = (props: LayoutProps) => {
 
             {/* Content body */}
             <div className='mb-auto bg-slate-50'>
-                {props.children}
+                {props.children ? props.children : <Outlet />}
             </div>
 
             <Footer />

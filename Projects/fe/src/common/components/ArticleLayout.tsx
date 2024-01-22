@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const ArticleLayout = ({ children, className }: {
+const ArticleLayout = ({ children, className }: {
     className?: string,
     children: React.ReactElement[] | React.ReactElement
 }) => {
@@ -11,3 +11,5 @@ export const ArticleLayout = ({ children, className }: {
         </div>
     )
 }
+
+export default ArticleLayout;

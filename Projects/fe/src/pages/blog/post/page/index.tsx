@@ -1,9 +1,9 @@
-import { Comments } from '@/pages/blog/post/page/components/Comments'
-import { Article } from '@/common/components/Article';
-import { PostsPagination } from '@/common/components/PostsPagination';
+import Comments from '@/pages/blog/post/page/components/Comments'
+import Article from '@/common/components/Article';
+import PostsPagination from '@/common/components/PostsPagination';
+import ArticleLayout from '@/common/components/ArticleLayout';
 
 import exampleImg from '@/common/assets/images/default/banner.jpg';
-import { ArticleLayout } from '@/common/components/ArticleLayout';
 
 const Post = ({ liked = false }: {
     liked?: boolean

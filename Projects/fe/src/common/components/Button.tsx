@@ -6,7 +6,7 @@ interface ButtonProps {
     className?: string
 }
 
-export const Button = (props: ButtonProps) => {
+const Button = (props: ButtonProps) => {
     const navigate = useNavigate();
 
     return (
@@ -21,3 +21,5 @@ export const Button = (props: ButtonProps) => {
         </button>
     )
 }
+
+export default Button;

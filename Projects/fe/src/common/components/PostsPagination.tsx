@@ -1,7 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
-export const PostsPagination = () => {
+const PostsPagination = () => {
     const dummyData = Array.from({ length: 5 }, (_, index) => index);
 
     return (
@@ -28,3 +27,5 @@ export const PostsPagination = () => {
         </div>
     )
 }
+
+export default PostsPagination;

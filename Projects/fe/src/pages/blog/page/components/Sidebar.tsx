@@ -3,6 +3,7 @@ import { useIsMount } from "@/common/hooks/useIsMount";
 import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
+
 import { makeVisible } from "@/common/redux/signInModalSlice";
 
 interface SidebarProps {
@@ -10,7 +11,7 @@ interface SidebarProps {
     setShowSidebar: React.Dispatch<React.SetStateAction<string>>,
 }
 
-export const Sidebar = React.memo(({show, setShowSidebar}: SidebarProps) => {
+const Sidebar = React.memo(({show, setShowSidebar}: SidebarProps) => {
     const dispatch = useDispatch();
     const justMounted = useIsMount();
     
@@ -57,3 +58,5 @@ export const Sidebar = React.memo(({show, setShowSidebar}: SidebarProps) => {
     </>
     )
 });
+
+export default Sidebar;
