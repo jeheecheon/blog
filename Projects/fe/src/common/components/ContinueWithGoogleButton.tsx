@@ -1,8 +1,12 @@
-import '@/common/assets/css/ContinueWithGoogleButton.css'
+import { useEffect } from 'react'
 
-export const ContinueWithGoogleButton = ({ onClick }: {
+const ContinueWithGoogleButton = ({ onClick }: {
     onClick: () => void
 }) => {
+    useEffect(() => {
+        import('@/common/assets/css/ContinueWithGoogleButton.css');
+    }, []);
+
     return (
         <button className="gsi-material-button" onClick={() => onClick()}>
             <div className="gsi-material-button-state" />
@@ -23,3 +27,5 @@ export const ContinueWithGoogleButton = ({ onClick }: {
 
     )
 }
+
+export default ContinueWithGoogleButton;

@@ -1,7 +1,7 @@
 import { PostCard } from "@/pages/blog/posts/page/components/PostCard"
 import { Link } from "react-router-dom";
 
-export const Posts = () => {
+const Posts = () => {
   const dummyData = Array.from({ length: 5 }, (_, index) => index);
 
   return (
@@ -22,3 +22,5 @@ export const Posts = () => {
     </div>
   )
 }
+
+export default Posts;

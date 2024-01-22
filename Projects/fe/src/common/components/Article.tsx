@@ -1,35 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import '@/common/assets/css/Article.css'
-export const Article = (
-    {
-        liked = false,
-        headerImage,
-        className,
-        lastEditedDate,
-        publisedDate,
-        categories,
-        dangerouslySetInnerHTML,
-        children
-    }: {
-        liked?: boolean,
-        headerImage?: string,
-        className?: string,
-        lastEditedDate?: string,
-        publisedDate: string,
-        categories: string[],
-        dangerouslySetInnerHTML?: { __html: string | TrustedHTML;} | undefined,
-        children?: React.ReactElement[] | React.ReactElement | string | React.ReactNode[] | React.ReactNode
-    }) => {
-    const [isLiked, setIsLiked] = useState(liked);
+
+import parse from 'html-react-parser';
+
+import DOMPurify from "isomorphic-dompurify";
+
+interface ArticleProps {
+    liked?: boolean,
+    headerImage?: string,
+    className?: string,
+    lastEditedDate?: string,
+    publisedDate: string,
+    categories: string[],
+    children: Node | string
+}
+
+export const Article = (props: ArticleProps) => {
+    const [isLiked, setIsLiked] = useState(props.liked);
     const handleLikeCliked = () => setIsLiked(!isLiked);
+    const [content, setContent] = useState<string | JSX.Element | JSX.Element[] | null>(null);
+
+    useEffect(() => {
+        setContent(parse(DOMPurify.sanitize(props.children)));
+
+        import('@/common/assets/css/Article.css')
+    }, []);
+
     return (
-        <div className={`flex flex-col items-center w-full ${className}`}>
+        <div className={`flex flex-col items-center w-full ${props.className}`}>
             <div className='text-slate-50 max-w-[780px] w-full text-left pl-2 pb-1 text-xl'>
-                {categories && categories.map((cate, idx) => {
+                {props.categories && props.categories.map((cate, idx) => {
                     return (
                         <Link to='/blog/posts' key={idx}> {cate}
-                            {idx < categories.length - 1 && <span>&#160;&gt;</span>}
+                            {idx < props.categories.length - 1 && <span>&#160;&gt;</span>}
                         </Link>);
                 })}
             </div>
@@ -37,13 +40,14 @@ export const Article = (
             <div className='px-3 pt-2 text-pretty max-w-[780px] h-fit bg-slate-50 rounded-2xl shadow-md
                     overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center'>
                 <span className='block text-center text-slate-600 text-sm mb-3'>
-                    {lastEditedDate !== undefined ?
-                        (<span>Last Edited: {lastEditedDate}</span>) :
-                        (<span>Published: {publisedDate}</span>)}
+                    {props.lastEditedDate !== undefined ?
+                        (<span>Last Edited: {props.lastEditedDate}</span>) :
+                        (<span>Published: {props.publisedDate}</span>)}
                 </span>
-                <div className='text-left w-full' dangerouslySetInnerHTML={dangerouslySetInnerHTML} />
-                {children}
-                {headerImage && (<img src={headerImage} className='bg-fixed bg-center' />)}
+                <div className='text-left w-full'>
+                    {content}
+                </div>
+                {props.headerImage && (<img src={props.headerImage} className='bg-fixed bg-center' />)}
             </div>
 
             <div className='flex flex-row justify-center gap-2 items-center text-md fill-sky-700 mb-5'>
@@ -68,3 +72,5 @@ export const Article = (
         </div>
     )
 }
+
+export default Article;

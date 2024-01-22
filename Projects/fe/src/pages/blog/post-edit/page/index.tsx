@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const PostEdit = () => {
+const PostEdit = () => {
   return (
     <div>PostEdit</div>
   )
 }
+
+export default PostEdit;

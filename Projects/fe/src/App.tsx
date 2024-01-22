@@ -1,5 +1,5 @@
+import { Suspense, lazy } from 'react';
 import { useDispatch } from 'react-redux';
-
 import {
     Route,
     RouterProvider,
@@ -7,107 +7,103 @@ import {
     createRoutesFromElements
 } from "react-router-dom";
 
-import { Root } from '@/pages/root/page/index'
-import { ErrorBoundary } from '@/common/components/ErrorBoundary';
-import { ErrorBoundary as BlogErrorBoundary } from '@/pages/blog/page/ErrorBoundary';
-import { Blog } from '@/pages/blog/page/index';
-import { Posts } from '@/pages/blog/posts/page/index';
-import { Post } from '@/pages/blog/post/page/index';
-import { AboutMe } from '@/pages/blog/about-me/page';
-import { PostEdit } from '@/pages/blog/post-edit/page';
-import { PostUpload } from '@/pages/blog/post-upload/page';
 import { UserState, setUser } from '@/common/redux/userSlice';
-import TestPage from '@/pages/test/page';
 
-export const App = () => {
+const Root = lazy(() => import('@/pages/root/page/index'));
+const Blog = lazy(() => import('@/pages/blog/page/index'));
+const ErrorBoundary = lazy(() => import('@/common/components/ErrorBoundary'));
+const BlogErrorBoundary = lazy(() => import('@/pages/blog/page/ErrorBoundary'));
+const Posts = lazy(() => import('@/pages/blog/posts/page/index'));
+const Post = lazy(() => import('@/pages/blog/post/page/index'));
+const AboutMe = lazy(() => import('@/pages/blog/about-me/page'));
+const PostEdit = lazy(() => import('@/pages/blog/post-edit/page'));
+const PostUpload = lazy(() => import('@/pages/blog/post-upload/page'));
+const TestPage = lazy(() => import('@/pages/test/page'));
+
+const App = () => {
     const dispatch = useDispatch();
 
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <>
-                <Route
-                    errorElement={<ErrorBoundary />}
-                    loader={async () => {
-                        await fetch("/api/auth/authentication",
-                            {
-                                credentials: "same-origin"
-                            })
-                            .then((response) => response.json())
-                            .then((json) => {
-                                const user: UserState = {
-                                    email: json.email,
-                                    name: json.name.match(/^[^@]+/)[0]
-                                };
-                                dispatch(setUser(user));
-                            })
-                            .catch((error) => console.log(error));
+            <Route
+                errorElement={<ErrorBoundary />}
+                loader={async () => {
+                    fetch("/api/auth/authentication",
+                        {
+                            credentials: "same-origin"
+                        })
+                        .then((response) => response.json())
+                        .then((json) => {
+                            const user: UserState = {
+                                email: json.email,
+                                name: json.name.match(/^[^@]+/)[0]
+                            };
+                            dispatch(setUser(user));
+                        })
+                        .catch((error) => console.log(error));
 
-                        return null;
-                    }}
-                >
+                    return null;
+                }}>
+
+                <Route
+                    path='/'
+                    element={<Suspense><Root /></Suspense>}
+                />
+
+                {/* Blog */}
+                <Route
+                    path='/blog'
+                    element={<Suspense>
+                        <Blog />
+                    </Suspense>}
+                    errorElement={<BlogErrorBoundary />}>
+                    {/* Page that shows a subset of all posts using the pagination feature */}
                     <Route
-                        path='/'
-                        element={<Root />}
+                        path='posts'
+                        element={<Posts />}
                     />
 
-                    {/* Blog */}
+                    {/* Page that shows a specific post content */}
                     <Route
-                        path='/blog'
-                        element={<Blog />}
-                        errorElement={<BlogErrorBoundary />}
-                    // loader={async ({ params }) => {
-                    //     throw "error";
-                    // }}
-                    >
-                        {/* Page that shows a subset of all posts using the pagination feature */}
-                        <Route
-                            path='posts'
-                            element={<Posts />}
-                        />
-
-                        {/* Page that shows a specific post content */}
-                        <Route
-                            path='post'
-                            element={<Post />}
-                        />
-                        <Route
-                            path='post-upload'
-                            element={<PostUpload />}
-                        />
-                        <Route
-                            path='post-edit'
-                            element={<PostEdit />}
-                        />
-                        <Route
-                            path='about-me'
-                            element={<AboutMe />}
-                        />
-                        <Route
-                            path='test'
-                            element={<TestPage />}
-                        />
-                    </Route>
-
-                    {/* Diary */}
+                        path='post'
+                        element={<Post />}
+                    />
                     <Route
-                        path='diary'
-                    >
-                        {/* Page for writing an entry */}
-                        <Route
-                            path='upload-entry'
-                        />
-
-                        {/* Edit entry page */}
-                        <Route
-                            path='edit-entry'
-                        />
-                    </Route>
+                        path='post-upload'
+                        element={<PostUpload />}
+                    />
+                    <Route
+                        path='post-edit'
+                        element={<PostEdit />}
+                    />
+                    <Route
+                        path='about-me'
+                        element={<AboutMe />}
+                    />
+                    <Route
+                        path='test'
+                        element={<TestPage />}
+                    />
                 </Route>
-            </>
+
+                {/* Diary */}
+                <Route
+                    path='diary'>
+                    {/* Page for writing an entry */}
+                    <Route
+                        path='upload-entry'
+                    />
+
+                    {/* Edit entry page */}
+                    <Route
+                        path='edit-entry'
+                    />
+                </Route>
+            </Route>
         )
     )
-
-    return (
-        <RouterProvider router={router} />
-    )
+    
+    return <RouterProvider router={router} />
 }
+
+export default App;

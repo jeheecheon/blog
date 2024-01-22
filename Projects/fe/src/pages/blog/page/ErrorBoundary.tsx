@@ -1,8 +1,8 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
-import { Layout } from "./components/Layout";
+import Layout from "./components/Layout";
 import { Button } from "@/common/components/Button";
 
-export const ErrorBoundary = () => {
+const ErrorBoundary = () => {
     const error = useRouteError();
     console.error(error);
 
@@ -32,3 +32,5 @@ export const ErrorBoundary = () => {
         </Layout>
     );
 }
+
+export default ErrorBoundary;

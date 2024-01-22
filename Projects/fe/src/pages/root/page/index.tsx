@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
-export const Root = () => {
+const Root = () => {
   return (
     <>
       <Link to="blog/posts">
@@ -11,3 +11,5 @@ export const Root = () => {
     </>
   )
 }
+
+export default Root;

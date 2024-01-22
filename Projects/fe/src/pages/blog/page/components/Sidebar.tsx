@@ -5,66 +5,52 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { makeVisible } from "@/common/redux/signInModalSlice";
 
-export const Sidebar = React.memo(({ show, setShowSidebar }: {
-    show: boolean,
-    setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>,
-}) => {
-    const isMount = useIsMount();
+interface SidebarProps {
+    show: string,
+    setShowSidebar: React.Dispatch<React.SetStateAction<string>>,
+}
+
+export const Sidebar = React.memo(({show, setShowSidebar}: SidebarProps) => {
     const dispatch = useDispatch();
-
-    let overlay = '';
-    let contentContainer = '';
-    let content1 = '';
-    let content2 = '';
-    let content3 = '';
-    let content4 = '';
-    let content5 = '';
-    if (isMount === true) {
-        overlay = show ? "animate-show-sidebar-overlay" : "";
-        contentContainer = show ? "animate-show-sidebar-content-container" : "";
-        content1 = show ? "animate-show-sidebar-content1" : "";
-        content2 = show ? "animate-show-sidebar-content2" : "";
-        content3 = show ? "animate-show-sidebar-content3" : "";
-        content4 = show ? "animate-show-sidebar-content3" : "";
-        content5 = show ? "animate-show-sidebar-content3" : "";
-    }
-    else {
-        overlay = show ? "animate-show-sidebar-overlay" : "animate-hide-sidebar-overlay";
-        contentContainer = show ? "animate-show-sidebar-content-container" : "animate-hide-sidebar-content-container";
-        content1 = show ? "animate-show-sidebar-content1" : "animate-hide-sidebar-content5";
-        content2 = show ? "animate-show-sidebar-content2" : "animate-hide-sidebar-content4";
-        content3 = show ? "animate-show-sidebar-content3" : "animate-hide-sidebar-content3";
-        content4 = show ? "animate-show-sidebar-content4" : "animate-hide-sidebar-content2";
-        content5 = show ? "animate-show-sidebar-content5" : "animate-hide-sidebar-content1";
-    }
-
-    const handleLinkClicked = () => setShowSidebar(false);
+    const justMounted = useIsMount();
+    
+    if (justMounted === true)
+    return <></>;
+    
+    const overlay = show === "true" ? "animate-show-sidebar-overlay" : "animate-hide-sidebar-overlay pointer-events-none";
+    const content1 = show === "true" ? "animate-show-sidebar-content1" : "animate-hide-sidebar-content5 pointer-events-none";
+    const content2 = show === "true" ? "animate-show-sidebar-content2" : "animate-hide-sidebar-content4 pointer-events-none";
+    const content3 = show === "true" ? "animate-show-sidebar-content3" : "animate-hide-sidebar-content3 pointer-events-none";
+    const content4 = show === "true" ? "animate-show-sidebar-content4" : "animate-hide-sidebar-content2 pointer-events-none";
+    const content5 = show === "true" ? "animate-show-sidebar-content5" : "animate-hide-sidebar-content1 pointer-events-none";        
+    const handleLinkClicked = () => setShowSidebar("false");
 
     return (<>
-        <div className={`w-screen h-screen z-30 bg-white bg-opacity-90 fixed right-full
-        ${overlay}`}>
+        <div className={`w-screen h-screen z-30 bg-white bg-opacity-90 fixed cursor-pointer 
+        ${overlay}`}
+            onClick={() => handleLinkClicked()}>
         </div>
 
-        <div className={`fixed w-screen h-screen z-30 ${contentContainer} right-full 
+        <div className={`fixed w-screen h-screen z-30 pointer-events-none 
         flex flex-col items-start justify-center gap-3 text-slate-500 pl-[10vw] text-2xl md:text-3xl`}>
-            <Link to="/blog/posts" onClick={handleLinkClicked} className={`-translate-x-[100vw] ${content1}`}>
+            <Link to="/blog/posts" onClick={handleLinkClicked} className={`pointer-events-auto ${content1}`}>
                 Home
             </Link>
 
-            <Link to="/blog/posts" onClick={handleLinkClicked} className={`mt-5 -translate-x-[100vw] ${content2}`}>
+            <Link to="/blog/posts" onClick={handleLinkClicked} className={`mt-5 pointer-events-auto ${content2}`}>
                 Latest posts
             </Link>
 
-            <Link  to="/blog" onClick={() => {
+            <Link to="/blog" onClick={() => {
                 dispatch(makeVisible());
                 handleLinkClicked();
-            }} className={`-translate-x-[100vw] ${content3}`}>
+            }} className={`pointer-events-auto ${content3}`}>
                 Sign in test button
             </Link>
-            <Link to="/blog/about-me" onClick={handleLinkClicked} className={`-translate-x-[100vw] ${content4}`}>
+            <Link to="/blog/about-me" onClick={handleLinkClicked} className={`pointer-events-auto ${content4}`}>
                 About me
             </Link>
-            <Link to="/blog/post-upload" onClick={handleLinkClicked} className={`-translate-x-[100vw] ${content5}`}>
+            <Link to="/blog/post-upload" onClick={handleLinkClicked} className={`pointer-events-auto ${content5}`}>
                 새 포스트 쓰기
             </Link>
         </div>
