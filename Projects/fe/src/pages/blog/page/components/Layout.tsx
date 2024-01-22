@@ -1,11 +1,12 @@
 import { ReactElement, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 import { RootState } from '@/common/redux/store';
 import Header from '@/pages/blog/page/components/Header'
 import Footer from '@/pages/blog/page/components/Footer'
 import Sidebar from '@/pages/blog/page/components/Sidebar'
-import { Outlet } from 'react-router-dom';
+import SignInModal from '@/common/components/SignInModal';
 
 import('@/pages/blog/page/css/font.css');
 import('@/pages/blog/page/css/scrollbar.css');
@@ -20,6 +21,8 @@ const Layout = (props: LayoutProps) => {
     const { bannerImageUrl, bannerTitle } = useSelector((state: RootState) => state.banner);
 
     return (<>
+        <SignInModal />
+
         <div className={`bg-white dark:bg-gray-900 min-h-screen h-auto font-['Noto_Sans_KR']
             flex flex-col justify-between ${props.className}`}>
 

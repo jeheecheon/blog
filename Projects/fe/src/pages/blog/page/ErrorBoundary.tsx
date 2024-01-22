@@ -2,9 +2,12 @@ import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import Button from "@/common/components/Button";
+import { useNavigate } from 'react-router-dom';
 
 const ErrorBoundary = () => {
     const error = useRouteError();
+    const navigate = useNavigate();
+
     console.error(error);
 
     return (
@@ -19,7 +22,10 @@ const ErrorBoundary = () => {
                             : "Unknown Error"
                         }</i>
                     </p>
-                    <Button>Previous page</Button>
+                    <Button onClick={(e) => {
+                        e.preventDefault();
+                        navigate(-1);
+                    }}>Previous page</Button>
                 </span>
             </div>
 
@@ -28,7 +34,10 @@ const ErrorBoundary = () => {
                     <span>오류났다니까요?</span>
                     <span>뒤로 가세요!</span>
                 </span>
-                <Button>뒤로 가기✌️</Button>
+                <Button onClick={(e) => {
+                    e.preventDefault();
+                    navigate(-1);
+                }}>뒤로 가기✌️</Button>
             </div>
         </Layout>
     );
