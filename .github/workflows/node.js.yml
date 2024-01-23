@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Node.js CI
+name: CI/CD
 
 on:
   push:
@@ -9,12 +9,12 @@ on:
     paths: ['.github/workflows/**', 'Projects/**']
   workflow_dispatch:
 
+
 jobs:
-  build:
+  build-and-deploy-fe:
     if: | 
       github.event_name == 'push' && github.ref == 'refs/heads/publish-fe' || 
       github.event_name == 'workflow_dispatch'
-
     runs-on: [self-hosted, fe]
     defaults:
       run:
@@ -23,7 +23,6 @@ jobs:
       matrix:
         node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -34,3 +33,38 @@ jobs:
           cache-dependency-path: Projects/fe/package-lock.json
       - run: npm ci
       - run: npm run build --if-present
+
+
+  build-be:
+    if: | 
+      github.event_name == 'push' && github.ref == 'refs/heads/publish-be' || 
+      github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Projects/be
+    steps:
+      - name: Checkout sourse
+        uses: actions/checkout@v3
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build docker image
+        run: docker build -t jeheecheon-blog/be .
+      - name: Publish image to docker hub
+        run: docker push jeheecheon/jeheecheon-blog-be:latest
+
+
+  deploy-be:
+    if: | 
+      github.event_name == 'push' && github.ref == 'refs/heads/publish-be' || 
+      github.event_name == 'workflow_dispatch'
+    needs: build-be
+    runs-on: [self-hosted, be]
+    steps:
+      - name: Pull image from docker hub
+        run: sudo docer pull jeheecheon/jeheecheon-blog-be:latest
+      - name: Delete old container
+        run: sudo docker rm -f jeheecheon-blog-be-container
+      - name: Run docker container
+        run: sudo docker run -d -p 8080:8080 --name jeheecheon-blog-be-container jeheecheon/jeheecheon-blog-be
+    

@@ -23,4 +23,11 @@ public class TestController : ControllerBase {
         Console.WriteLine(HttpContext.User.Identity?.IsAuthenticated);
         return Ok(JsonSerializer.Serialize("Hello World"));
     }
+
+    [HttpGet("Hello")]
+    public IActionResult Hello() {
+        return Ok(JsonSerializer.Serialize(new {
+            Message = "Hello my world"
+        }));
+    }
 }

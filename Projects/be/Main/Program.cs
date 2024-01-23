@@ -33,14 +33,14 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+// Commented out https setup for now
+// app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
