@@ -64,7 +64,7 @@ jobs:
       - name: Login to docker hub
         run: sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Pull image from docker hub
-        run: sudo docer pull jeheecheon/jeheecheon-blog-be:latest
+        run: sudo docker pull jeheecheon/jeheecheon-blog-be:latest
       - name: Delete old container
         run: sudo docker rm -f jeheecheon-blog-be-container
       - name: Run docker container
