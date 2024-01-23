@@ -61,6 +61,8 @@ jobs:
     needs: build-be
     runs-on: [self-hosted, be]
     steps:
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Pull image from docker hub
         run: sudo docker pull jeheecheon/jeheecheon-blog-be:latest
       - name: Delete old container
