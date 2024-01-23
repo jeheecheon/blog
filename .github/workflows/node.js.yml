@@ -5,7 +5,7 @@ name: CI/CD
 
 on:
   push:
-    branches: [ "publish-fe" ]
+    branches: [ "publish-fe", "publish-be" ]
     paths: ['.github/workflows/**', 'Projects/**']
   workflow_dispatch:
 
