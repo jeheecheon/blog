@@ -49,9 +49,9 @@ jobs:
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build docker image
-        run: docker build -t jeheecheon-blog-be .
+        run: docker build -t jeheecheon/jeheecheon-blog-be .
       - name: Publish image to docker hub
-        run: docker push jeheecheon-blog-be:latest
+        run: docker push jeheecheon/jeheecheon-blog-be:latest
 
 
   deploy-be:
