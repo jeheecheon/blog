@@ -51,7 +51,7 @@ jobs:
       - name: Build docker image
         run: docker build -t jeheecheon-blog-be .
       - name: Publish image to docker hub
-        run: docker push jeheecheon/jeheecheon-blog-be:latest
+        run: docker push jeheecheon-blog-be:latest
 
 
   deploy-be:
