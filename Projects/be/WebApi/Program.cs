@@ -1,3 +1,6 @@
+using Application.Services.Account;
+using Application.Services.OAuth;
+using Infrastructur.Repositories.Account;
 using Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -15,6 +18,9 @@ builder.Services.AddDbContext<MainContext>();
 
 // Register IHttpClientFactory
 builder.Services.AddHttpClient();
+
+// Register HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
 
 // Enable api controllers
 builder.Services.AddControllers();
@@ -35,10 +41,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Register Authorization policy services
 builder.Services.AddAuthorization();
 
+// Register repositories
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
+// Register services
+builder.Services.AddScoped<IOAuthService, OAuthService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 var app = builder.Build();
 
-// Commented out https setup for now
-// app.UseHttpsRedirection();
+// // Commented out https setup for now
+app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

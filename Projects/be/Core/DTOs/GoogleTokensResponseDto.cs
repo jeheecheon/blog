@@ -1,4 +1,4 @@
-﻿namespace Server.DTOs;
+﻿namespace Core.DTOs;
 
 public class GoogleTokensResponseDto {
     public string access_token { get; set; } = string.Empty;

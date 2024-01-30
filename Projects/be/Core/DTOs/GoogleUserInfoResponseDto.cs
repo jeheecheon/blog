@@ -1,6 +1,6 @@
-﻿namespace Server.DTOs;
+﻿namespace Core.DTOs;
 
-public class GoogleUserInfoResponse { 
+public class GoogleUserInfoResponseDto { 
     public string id { get; set; } = string.Empty;
     public string email { get; set; } = string.Empty;
     public bool verified_email { get; set; }
