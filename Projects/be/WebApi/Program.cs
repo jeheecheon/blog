@@ -1,5 +1,5 @@
+using Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.CookiePolicy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add DB contexts
+builder.Services.AddDbContext<MainContext>();
+
 // Register IHttpClientFactory
 builder.Services.AddHttpClient();
 
@@ -18,7 +21,8 @@ builder.Services.AddControllers();
 
 // Register Auth services
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options => {
+    .AddCookie(options =>
+    {
         options.Cookie.Name = "AuthToken";
         options.Cookie.SameSite = SameSiteMode.Lax;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -37,7 +41,8 @@ var app = builder.Build();
 // app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
 }
