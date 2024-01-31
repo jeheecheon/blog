@@ -4,16 +4,18 @@ import {
     Route,
     RouterProvider,
     createBrowserRouter,
-    createRoutesFromElements
+    createRoutesFromElements,
 } from "react-router-dom";
 
 import { UserState, setUser } from '@/common/redux/userSlice';
+import { PropagateResponse, Throw500Response } from '@/common/utils/responses';
+import { PostLoader, PostUploadLoader, PostsLoader } from '@/common/utils/loaders';
 
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
 const BlogLayout = lazy(() => import('@/pages/blog/page/components/Layout'));
 const ErrorBoundary = lazy(() => import('@/common/components/ErrorBoundary'));
-const BlogErrorBoundary = lazy(() => import('@/pages/blog/page/ErrorBoundary'));
+const BlogErrorBoundary = lazy(() => import('@/pages/blog/page/BlogErrorBoundary'));
 const Posts = lazy(() => import('@/pages/blog/posts/page/index'));
 const Post = lazy(() => import('@/pages/blog/post/page/index'));
 const AboutMe = lazy(() => import('@/pages/blog/about-me/page'));
@@ -29,11 +31,16 @@ const App = () => {
             <Route
                 errorElement={<ErrorBoundary />}
                 loader={async () => {
-                    fetch("/api/auth/authentication",
+                    // User authentication
+                    await fetch("/api/auth/authentication",
                         {
                             credentials: "same-origin"
                         })
-                        .then((response) => response.json())
+                        .then((res) => {
+                            if (res.ok)
+                                return res.json()
+                            Throw500Response();
+                        })
                         .then((json) => {
                             const user: UserState = {
                                 email: json.email,
@@ -41,7 +48,7 @@ const App = () => {
                             };
                             dispatch(setUser(user));
                         })
-                        .catch((error) => console.log(error));
+                        .catch(PropagateResponse);
 
                     return null;
                 }}>
@@ -59,21 +66,27 @@ const App = () => {
                     <Route
                         path='blog'
                         element={<Blog />}
+                    // loader={async () => {
+                    //     return null;
+                    // }}
                     />
                     {/* Page that shows a subset of all posts using the pagination feature */}
                     <Route
-                        path='blog/posts'
+                        path='blog/:categories?/:category?/pages/:page'
                         element={<Posts />}
+                        loader={PostsLoader}
                     />
 
                     {/* Page that shows a specific post content */}
                     <Route
-                        path='blog/post'
+                        path='blog/post/:uuid'
                         element={<Post />}
+                        loader={PostLoader}
                     />
                     <Route
                         path='blog/post-upload'
                         element={<PostUpload />}
+                        loader={PostUploadLoader}
                     />
                     <Route
                         path='blog/post-edit'

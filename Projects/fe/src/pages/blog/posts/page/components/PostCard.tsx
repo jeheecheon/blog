@@ -1,25 +1,37 @@
 import { useState } from 'react';
 
-const PostCard = ({ className, liked = false }: { className?: string, liked?: boolean }) => {
-    const [isLiked, setIsLiked] = useState(liked);
+import parse from 'html-react-parser';
+import DOMPurify from "isomorphic-dompurify";
+
+interface PostCardProps {
+    className?: string,
+    liked: boolean,
+    content: string,
+    title: string,
+    uploadedAt: string,
+    children: Node | string
+}
+
+const PostCard = (props: PostCardProps) => {
+    const [isLiked, setIsLiked] = useState(props.liked);
 
     const handleLikeCliked = () => setIsLiked(!isLiked);
 
     return (
-        <div className={`max-w-[800px] h-fit
+        <div className={`max-w-[800px] h-fit w-full
         group hover:cursor-pointer pb-3 border-b-2
-        ${className}`}>
+        ${props.className}`}>
             <div className='flex justify-between text-slate-500 text-sm'>
-                <span className='text-right'>2024-01-01</span>
+                <span className='text-right'>{props.uploadedAt}</span>
                 <span className='self-end'>23 views</span>
             </div>
-            <div className='font-semibold text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>This is an example title This is an example titleThis is an example titleThis is an example title</div>
+            <div className='font-semibold text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>
+                {props.title}
+            </div>
             <div className='text-md text-pretty mb-2 h-[70px] truncate'>
-                쿠키(Cookie)는 대부분의 웹 서비스에서 사용하는 기술이라 웹 개발자라면 여러 번 마주해보셨을 거에요. 저 또한 웹 서비스를 개발하면서 쿠키를 다뤘던 경험이 종종 있었습니다. 그렇지만 쿠키라는 기술 자체는 별로 흥미로운 기술이 아니다보니 그냥 구현만 마친 후 대충 넘겼던 경험이 많은 것 같아요.
-
-                쿠키는 아주 예전부터 쓰였던 기술이지만, 요즘에는 보안이나 개인정보보호 문제 때문에 쿠키에 SameSite 같은 속성이 추가되기도하고 브라우저가 쿠키를 다루는 방식도 점차 바뀌어가고 있습니다.
-
-                이번 글에서는 쿠키에 대한 기본적인 이해를 바탕으로 SameSite 속성은 왜 나온 것인지, 브라우저들은 어떻게 동작하고 있는지 알아보겠습니다.
+                {
+                    parse(DOMPurify.sanitize(props.children))
+                }
             </div>
             <div className='flex flex-row justify-start items-start fill-sky-700 '>
                 {/* Likes */}

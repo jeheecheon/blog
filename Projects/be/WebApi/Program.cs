@@ -1,7 +1,9 @@
 using Application.Services.Account;
+using Application.Services.Blog;
 using Application.Services.OAuth;
 using Infrastructur.Repositories.Account;
 using Infrastructure.DbContexts;
+using Infrastructure.Repositories.Blog;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,10 +45,12 @@ builder.Services.AddAuthorization();
 
 // Register repositories
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 
 // Register services
 builder.Services.AddScoped<IOAuthService, OAuthService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 
 var app = builder.Build();
 

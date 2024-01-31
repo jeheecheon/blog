@@ -56,7 +56,7 @@ INSERT INTO external_authentication (provider_id, account_id_from_provider, acco
             return _mainContext.external_login_providers.FromSqlInterpolated(@$"
 SELECT * FROM external_login_provider WHERE name = {provider}
             ")
-                .ToList()
+                .AsEnumerable()
                 .FirstOrDefault();
         }
         catch (Exception e)
@@ -73,7 +73,7 @@ SELECT * FROM external_login_provider WHERE name = {provider}
             return _mainContext.accounts.FromSqlInterpolated(@$"
 SELECT * FROM account WHERE normalized_email = {email}
         ")
-            .ToList()
+            .AsEnumerable()
             .FirstOrDefault();
         }
         catch (Exception e)

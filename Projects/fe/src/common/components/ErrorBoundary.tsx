@@ -3,21 +3,29 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from "@/common/components/Button";
 
-const ErrorBoundary = () => {
+interface ErrorBoundaryProps {
+  className?: string
+}
+
+const ErrorBoundary = ({ className }: ErrorBoundaryProps) => {
   const error = useRouteError();
   const navigate = useNavigate();
 
   console.error(error);
 
   return (
-    <div className="flex flex-col items-center min-h-[50vh] h-screen justify-center">
+    <div className={`flex flex-col items-center min-h-[50vh] h-screen justify-center ${className}`}>
       <span className="flex flex-col items-center gap-5 rounded-2xl bg-slate-50 bg-opacity-50 p-5">
         <h1 className="text-5xl italic text-slate-700">😒Oops...</h1>
         <p className="text-lg ">Sorry, an unexpected error has occurred.</p>
         <p>
-          <i className="text-red-700 text-lg">{isRouteErrorResponse(error) ?
-            error.status || error.statusText
-            : "Unknown Error"
+          <i className="text-red-700 text-lg">{isRouteErrorResponse(error) &&
+            (
+              <div className="flex flex-col items-center">
+                <div>{error.status}</div>
+                <div>{error.statusText}</div>
+              </div>
+            )
           }</i>
         </p>
         <Button onClick={(e) => {

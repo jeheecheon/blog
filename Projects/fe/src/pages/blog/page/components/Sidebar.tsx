@@ -34,11 +34,11 @@ const Sidebar = React.memo(({show, setShowSidebar}: SidebarProps) => {
 
         <div className={`fixed w-screen h-screen z-30 pointer-events-none 
         flex flex-col items-start justify-center gap-3 text-slate-500 pl-[10vw] text-2xl md:text-3xl`}>
-            <Link to="/blog/posts" onClick={handleLinkClicked} className={`pointer-events-auto ${content1}`}>
+            <Link to="/blog" onClick={handleLinkClicked} className={`pointer-events-auto ${content1}`}>
                 Home
             </Link>
 
-            <Link to="/blog/posts" onClick={handleLinkClicked} className={`mt-5 pointer-events-auto ${content2}`}>
+            <Link to="/blog/recent-posts/pages/1" onClick={handleLinkClicked} className={`mt-5 pointer-events-auto ${content2}`}>
                 Latest posts
             </Link>
 

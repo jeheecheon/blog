@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             flex flex-row flex-unwrap justify-between items-center basis-auto
             bg-slate-50 shadow-md shadow-gray-400'>
 
-            <Link to='/blog/posts' className="align-middle text-center truncate text-slate-900 h-full
+            <Link to='/blog' className="align-middle text-center truncate text-slate-900 h-full
                     flex flex-row justify-center items-center">
                 Jehee Cheon 블로그
             </Link>

@@ -4,16 +4,20 @@ import PostsPagination from '@/common/components/PostsPagination';
 import ArticleLayout from '@/common/components/ArticleLayout';
 
 import exampleImg from '@/common/assets/images/default/banner.jpg';
+import { useLoaderData } from 'react-router-dom';
+import post from '@/common/types/post';
 
-const Post = ({ liked = false }: {
-    liked?: boolean
-}) => {
-    const dirty = '<p>asdasdasdasdasdasdasdasd</p><p>asdasdasd</p><ol><li>asdasd</li><li>asdasd</li><li>asdasdasdasdasd</li></ol>';
+const Post = () => {
+    const post = useLoaderData() as post;
+
     return (
         <ArticleLayout className='flex flex-col items-center relative -top-[150px] z-10'>
-            <Article liked={liked} headerImage={exampleImg} publisedDate='2024-01-01'
+            <Article 
+                liked={false} 
+                headerImage={exampleImg} 
+                publisedDate={post.uploaded_at}
                 categories={['Algorithm', 'DP']}>
-                {dirty}
+                {post.content}
             </Article>
             <PostsPagination />
             <Comments className='px-2 relative top-[75px]' />
