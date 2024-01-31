@@ -20,6 +20,7 @@ const Posts = () => {
               to={`/blog/post/${p.id}`}
               key={idx}
               className="max-w-[800px] w-full"
+              preventScrollReset={false}
             >
               <PostCard
                 liked={false}

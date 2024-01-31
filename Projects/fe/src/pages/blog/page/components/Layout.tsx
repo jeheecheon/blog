@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { RootState } from '@/common/redux/store';
 import Header from '@/pages/blog/page/components/Header'
@@ -21,6 +21,8 @@ const Layout = (props: LayoutProps) => {
     const { bannerImageUrl, bannerTitle } = useSelector((state: RootState) => state.banner);
 
     return (<>
+        <ScrollRestoration />
+
         <SignInModal />
 
         <div className={`bg-white dark:bg-gray-900 min-h-screen h-auto font-['Noto_Sans_KR']
