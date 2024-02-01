@@ -1,7 +1,6 @@
 using System.Text.Json;
 using Application.Services.Blog;
 using Core.DTOs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -26,7 +25,7 @@ public class BlogController : ControllerBase
     public async Task<IActionResult> PostUploadAsync([FromBody] PostUploadRequestDto post)
     {
         // TODO: role admin 검사 
-        _blogService.UploadPost(post);
+        await _blogService.UploadPostAsync(post);
         return Ok();
     }
 
@@ -42,7 +41,7 @@ public class BlogController : ControllerBase
     public IActionResult GetPosts([FromRoute] int page, [FromRoute] string? category)
     {
         var result = _blogService.GetPosts(page, category);
-        if (result.Count() == 0)
+        if (result is null || result.Count() == 0)
             return BadRequest();
         return Ok(JsonSerializer.Serialize(result));
     }
@@ -55,5 +54,12 @@ public class BlogController : ControllerBase
             return Ok(JsonSerializer.Serialize(blog));
         else
             return BadRequest();
+    }
+
+    [HttpPost("post/{post_id}/new-comment")]
+    public async Task<IActionResult> PostCommentAsync([FromRoute] Guid post_id, [FromBody] string content)
+    {
+        await _blogService.UploadCommentAsync(post_id, content);
+        return Ok();
     }
 }

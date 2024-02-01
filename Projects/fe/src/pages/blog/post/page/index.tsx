@@ -12,15 +12,18 @@ const Post = () => {
 
     return (
         <ArticleLayout className='flex flex-col items-center relative -top-[150px] z-10'>
-            <Article 
-                liked={false} 
-                headerImage={exampleImg} 
+            <Article
+                liked={false}
+                headerImage={exampleImg}
                 publisedDate={post.uploaded_at}
                 categories={['Algorithm', 'DP']}>
                 {post.content}
             </Article>
             <PostsPagination />
-            <Comments className='px-2 relative top-[75px]' />
+            <Comments
+                className='px-2 relative top-[75px]'
+                id={post.id}
+            />
         </ArticleLayout>
     )
 }

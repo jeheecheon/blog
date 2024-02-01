@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> SignOutAsync()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return BadRequest();
+        return Ok();
     }
 
     [HttpGet("authentication")]

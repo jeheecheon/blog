@@ -127,32 +127,38 @@ public class OAuthService : IOAuthService
         }
     }
 
-    public async Task RegisterUserAsync(string provider, GoogleUserInfoResponseDto userInfo)
+    public async Task<Guid?> RegisterUserAsync(string provider, GoogleUserInfoResponseDto userInfo)
     {
-        // Create a user account
+        // Try to create a user account
         await _accountRepository.AddAccountAsync(userInfo);
 
         // Fetch the user uuid
         account? account = _accountRepository.GetAccountByNormalizedEmail(userInfo.email.ToUpper());
-        if (account is null || string.IsNullOrWhiteSpace(account.normalized_email)) 
-            return;
+        if (account is null || string.IsNullOrWhiteSpace(account.normalized_email))
+            return null;
 
         // Fetch provider's id
         var providerInfo = _accountRepository.GetExternalLoginProviderByName(provider);
         if (providerInfo is null)
-            return;
+            return null;
 
         // Register the current user with the provider
         await _accountRepository.AddExternalAuthenticationAsync(
             providerInfo.id, userInfo.id, account.id);
+
+        return account.id;
     }
 
-    public async Task GenerateCookieAsync(GoogleUserInfoResponseDto userInfo)
+    public async Task GenerateCookieAsync(Guid user_id, string email, string? avatar)
     {
         var claims = new List<Claim> {
-                new Claim(ClaimTypes.Email, userInfo.email),
-                new Claim("avatar", userInfo.picture)
+                new Claim(ClaimTypes.Sid, user_id.ToString()),
+                new Claim(ClaimTypes.Email, email)
             };
+
+        if (avatar is not null
+        && !string.IsNullOrWhiteSpace(avatar))
+            claims.Add(new Claim("avatar", avatar));
 
         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -160,7 +166,6 @@ public class OAuthService : IOAuthService
             CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(claimsIdentity));
 
-        _logger.LogInformation("User {Email} logged in at {Time}.",
-            userInfo.email, DateTime.UtcNow);
+        _logger.LogInformation("User {Email} logged in at {Time}.", email, DateTime.UtcNow);
     }
 }

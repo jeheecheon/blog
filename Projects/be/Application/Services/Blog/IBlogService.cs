@@ -5,9 +5,10 @@ namespace Application.Services.Blog;
 
 public interface IBlogService
 {
-    public IEnumerable<category> GetAllCategories();
+    public IEnumerable<category>? GetAllCategories();
     public string SanitizeContent(string dirty);
-    public void UploadPost(PostUploadRequestDto post);
-    public IEnumerable<post> GetPosts(int page, string? category);
+    public Task UploadPostAsync(PostUploadRequestDto post);
+    public IEnumerable<post>? GetPosts(int page, string? category);
     public post? GetPost(Guid uuid);
+    public Task<bool> UploadCommentAsync(Guid post_id, string content);
 }

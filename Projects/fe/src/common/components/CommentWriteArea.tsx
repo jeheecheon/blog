@@ -1,32 +1,53 @@
 import { RootState } from '@/common/redux/store';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@/common/components/Button';
-import CommentInput from './CustomTextArea';
+import CustomTextArea from '@/common/components/CustomTextArea';
+import defaultAvatar from '@/common/assets/images/icons/pngwing.com.png'
+import Avatar from '@/common/components/Avatar';
+import { makeVisible } from '../redux/signInModalSlice';
 
-const CommentWriteArea = () => {
+interface CommentWriteAreaProps {
+    id?: string
+}
+
+const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
+    id
+}) => {
     const user = useSelector((state: RootState) => state.user)
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [context, setContext] = useState('');
+    const dispatch = useDispatch();
+    const [content, setContent] = useState('');
 
     useEffect(() => {
         setIsAuthenticated(user.email !== undefined && user.email !== null && user.email !== '');
     }, []);
 
+    const handleType: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+        console.log("qweqweqweqweqwe")
+        if (isAuthenticated === false)
+            dispatch(makeVisible());
+        else
+            setContent(e.currentTarget.value);
+    }
+
     return (
         <div className={`rounded-lg flex flex-row justify-between items-start
                 px-4 pt-2 pb-4 bg-slate-200 bg-opacity-40`} >
 
-            <img src={user.avatar} className='w-[40px] rounded-full' />
+            <Avatar
+                avatar={isAuthenticated ? user.avatar : defaultAvatar}
+                className='w-[50px] rounded-full bg-white'
+            />
 
             <div className='w-full flex flex-col items-end gap-3 -mt-5 ml-3'>
-                <CommentInput
-                    context={context}
-                    setContext={setContext}
-                    onSelect={() => {
-                        console.log("asdasdasd");
-                    }}
-                    disabled={!isAuthenticated}
+                <CustomTextArea
+                    content={content}
+                    handleType={handleType}
+                    // onSelect={() => {
+                    //     console.log("asdasdasd");
+                    // }}
+                    // disabled={!isAuthenticated}
                     className='w-full focus:outline-none overflow-y-hidden resize-none
                         border-b-2 border-slate-500
                         bg-transparent'
@@ -35,7 +56,21 @@ const CommentWriteArea = () => {
                     <Button>
                         Cancle
                     </Button>
-                    <Button>
+                    <Button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            fetch(`/api/blog/post/${id}/new-comment`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify(content)
+                            })
+                                .then((res) => {
+                                    console.log(res);
+                                })
+                        }}
+                    >
                         Upload
                     </Button>
                 </div>

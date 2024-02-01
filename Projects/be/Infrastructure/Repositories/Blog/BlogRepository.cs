@@ -20,40 +20,87 @@ namespace Infrastructure.Repositories.Blog
             _mainContext = mainContext;
         }
 
-        public IEnumerable<category> GetAllCategories()
+        public IEnumerable<category>? GetAllCategories()
         {
-            return _mainContext.categories.FromSqlInterpolated(@$"
+            try
+            {
+                return _mainContext.categories.FromSqlInterpolated(@$"
 SELECT * FROM category
-            ")
-                .AsEnumerable();
+                ")
+                    .AsEnumerable();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
         }
 
-        public void CreatePost(PostUploadRequestDto post)
+        public async Task CreatePostAsync(PostUploadRequestDto post)
         {
-            _mainContext.Database.ExecuteSqlInterpolated(@$"
+            try
+            {
+                await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO post (title, content, category_id) VALUES
     ({post.title}, {post.content}, {post.category_id})            
-            ");
+                ");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+            }
         }
 
-        public IEnumerable<post> GetPosts(int offset, int limit)
+        public IEnumerable<post>? GetPosts(int offset, int limit)
         {
-            return _mainContext.posts.FromSqlInterpolated(@$"
+            try
+            {
+                return _mainContext.posts.FromSqlInterpolated(@$"
 SELECT * FROM post
 OFFSET {offset}
 LIMIT {limit}
-            ")
-                .AsEnumerable();
+                ")
+                    .AsEnumerable();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
         }
 
         public post? GetPostById(Guid uuid)
         {
-            return _mainContext.posts.FromSqlInterpolated(@$"
+            try
+            {
+                return _mainContext.posts.FromSqlInterpolated(@$"
 SELECT * FROM post
 WHERE id = {uuid}
-            ")
-                .AsEnumerable()
-                .FirstOrDefault();
+                ")
+                    .AsEnumerable()
+                    .FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
+        }
+
+
+        public async Task CreateCommentAsync(Guid account_id, Guid post_id, string content)
+        {
+            try
+            {
+                await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+INSERT INTO comment (account_id, post_id, content) VALUES
+    ({account_id}, {post_id}, {content})
+                ");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+            }
         }
     }
 }

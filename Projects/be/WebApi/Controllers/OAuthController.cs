@@ -38,8 +38,9 @@ public class OAuthController : ControllerBase
         var userInfo = await _oauthService.AuthenticateUserAsync(code, scope);
         if (userInfo is not null)
         {
-            await _oauthService.RegisterUserAsync("google", userInfo);
-            await _oauthService.GenerateCookieAsync(userInfo);
+            Guid? user_id = await _oauthService.RegisterUserAsync("google", userInfo);
+            if (user_id is not null)
+                await _oauthService.GenerateCookieAsync(user_id.Value, userInfo.email, userInfo.picture);
         }
         return Redirect(_configuration["ClientUrls:blog"]!);
     }

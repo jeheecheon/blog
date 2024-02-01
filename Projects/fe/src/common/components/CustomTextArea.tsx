@@ -2,14 +2,23 @@ import { useEffect, useRef } from 'react';
 
 interface CustomTextAreaProps {
     className?: string,
-    context?: string,
-    setContext: React.Dispatch<React.SetStateAction<string>>,
+    content?: string,
+    handleType: React.ChangeEventHandler<HTMLTextAreaElement>,
     onSelect?: React.ReactEventHandler<HTMLTextAreaElement>,
     onClick?: React.MouseEventHandler<HTMLTextAreaElement>,
-    disabled: boolean
+    disabled?: boolean
+    placeholder?: string
 }
 
-const CustomTextArea: React.FC<CustomTextAreaProps> = (props) => {
+const CustomTextArea: React.FC<CustomTextAreaProps> = ({
+    className,
+    content,
+    handleType,
+    onSelect,
+    onClick,
+    disabled,
+    placeholder = "Type your comment...",
+}) => {
     const hiddenTextArea = useRef<HTMLTextAreaElement>(null);
     const textArea = useRef<HTMLTextAreaElement>(null);
 
@@ -17,20 +26,22 @@ const CustomTextArea: React.FC<CustomTextAreaProps> = (props) => {
         hiddenTextArea.current!.value = textArea.current!.value;
         hiddenTextArea.current!.style.height = 'auto';
         textArea.current!.style.height = hiddenTextArea.current!.scrollHeight + "px";
-    }, [props.context]);
+    }, [content]);
 
     return (
         <>
             <textarea ref={hiddenTextArea} className='invisible w-full' rows={1} />
             <textarea
                 ref={textArea}
-                onChange={(e) => props.setContext(e.currentTarget.value)}
+                value={content}
+                onChange={handleType}
                 maxLength={700}
                 rows={1}
-                onClick={props.onClick}
-                className={`${props.className} w-full`}
-                onSelect={props.onSelect}
-                disabled={props.disabled}
+                onClick={onClick}
+                className={`${className} w-full`}
+                onSelect={onSelect}
+                disabled={disabled}
+                placeholder={placeholder}
             />
         </>
     )
