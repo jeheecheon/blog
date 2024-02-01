@@ -151,6 +151,7 @@ public class OAuthService : IOAuthService
     {
         var claims = new List<Claim> {
                 new Claim(ClaimTypes.Email, userInfo.email),
+                new Claim("avatar", userInfo.picture)
             };
 
         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

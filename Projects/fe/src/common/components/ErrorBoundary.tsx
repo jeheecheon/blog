@@ -21,10 +21,10 @@ const ErrorBoundary = ({ className }: ErrorBoundaryProps) => {
         <p>
           <i className="text-red-700 text-lg">{isRouteErrorResponse(error) &&
             (
-              <div className="flex flex-col items-center">
-                <div>{error.status}</div>
-                <div>{error.statusText}</div>
-              </div>
+              <span className="flex flex-col items-center">
+                <span>{error.status}</span>
+                <span>{error.statusText}</span>
+              </span>
             )
           }</i>
         </p>

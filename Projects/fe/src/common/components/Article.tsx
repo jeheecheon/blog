@@ -37,7 +37,7 @@ const Article = (props: ArticleProps) => {
                 })}
             </div>
             {/* blog content goes here */}
-            <div className='px-3 pt-2 text-pretty max-w-[780px] h-fit bg-slate-50 rounded-2xl shadow-md
+            <div className='px-3 pt-2 text-pretty max-w-[780px] h-fit min-h-[25vh] bg-slate-50 rounded-2xl shadow-md
                     overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center'>
                 <span className='block text-center text-slate-600 text-sm mb-3'>
                     {props.lastEditedDate !== undefined ?
@@ -47,7 +47,7 @@ const Article = (props: ArticleProps) => {
                 <div className='text-left w-full'>
                     {content}
                 </div>
-                {props.headerImage && (<img src={props.headerImage} className='bg-fixed bg-center' />)}
+                {/* {props.headerImage && (<img src={props.headerImage} className='bg-fixed bg-center' />)} */}
             </div>
 
             <div className='flex flex-row justify-center gap-2 items-center text-md fill-sky-700 mb-5'>

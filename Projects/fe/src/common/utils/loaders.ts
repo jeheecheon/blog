@@ -1,5 +1,5 @@
 import { LoaderFunction, redirect } from "react-router-dom";
-import { HandleError, PropagateResponse, Throw404Response } from "./responses";
+import { HandleError, PropagateResponse, Throw404Response } from "@/common/utils/responses";
 
 export const PostsLoader: LoaderFunction = async ({ params }) => {
     const { page, category, categories } = params;
@@ -24,7 +24,7 @@ export const PostsLoader: LoaderFunction = async ({ params }) => {
 }
 
 export const PostLoader: LoaderFunction = async ({ params }) => {
-    return await fetch(`/api/blog/post/${params.uuid}`,
+    return fetch(`/api/blog/post/${params.uuid}`,
         {
             credentials: "same-origin"
         })

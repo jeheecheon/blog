@@ -7,9 +7,8 @@ import {
     createRoutesFromElements,
 } from "react-router-dom";
 
-import { UserState, setUser } from '@/common/redux/userSlice';
-import { PropagateResponse, Throw500Response } from '@/common/utils/responses';
 import { PostLoader, PostUploadLoader, PostsLoader } from '@/common/utils/loaders';
+import { AuthenticateUser } from '@/common/utils/user';
 
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
@@ -30,28 +29,7 @@ const App = () => {
         createRoutesFromElements(
             <Route
                 errorElement={<ErrorBoundary />}
-                loader={async () => {
-                    // User authentication
-                    await fetch("/api/auth/authentication",
-                        {
-                            credentials: "same-origin"
-                        })
-                        .then((res) => {
-                            if (res.ok)
-                                return res.json()
-                            Throw500Response();
-                        })
-                        .then((json) => {
-                            const user: UserState = {
-                                email: json.email,
-                                name: json.name.match(/^[^@]+/)[0]
-                            };
-                            dispatch(setUser(user));
-                        })
-                        .catch(PropagateResponse);
-
-                    return null;
-                }}>
+                loader={async () => AuthenticateUser(dispatch)}>
 
                 <Route
                     path='/'
@@ -66,18 +44,12 @@ const App = () => {
                     <Route
                         path='blog'
                         element={<Blog />}
-                    // loader={async () => {
-                    //     return null;
-                    // }}
                     />
-                    {/* Page that shows a subset of all posts using the pagination feature */}
                     <Route
                         path='blog/:categories?/:category?/pages/:page'
                         element={<Posts />}
                         loader={PostsLoader}
                     />
-
-                    {/* Page that shows a specific post content */}
                     <Route
                         path='blog/post/:uuid'
                         element={<Post />}

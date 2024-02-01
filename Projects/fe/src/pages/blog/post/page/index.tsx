@@ -1,4 +1,4 @@
-import Comments from '@/pages/blog/post/page/components/Comments'
+import Comments from '@/common/components/Comments'
 import Article from '@/common/components/Article';
 import PostsPagination from '@/common/components/PostsPagination';
 import ArticleLayout from '@/common/components/ArticleLayout';

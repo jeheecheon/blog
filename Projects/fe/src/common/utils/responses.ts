@@ -14,7 +14,7 @@ export const ThrowResponse = ({
 export const Throw500Response = () => {
     throw new Response("", {
         status: 500,
-        statusText: "Server doesn't respond"
+        statusText: "Something went wrong...😒"
     })
 };
 
@@ -32,18 +32,15 @@ export const Throw400Response = () => {
     });
 }
 
-export const HandleError = (response: Response) => {
-    if (response.status === 400)
+export const HandleError = (res: Response) => {
+    if (res.status === 400)
         Throw400Response()
-    else if (response.status === 500)
+    else if (res.status === 500)
         Throw500Response()
-    else if (response.status === 404)
+    else if (res.status === 404)
         Throw404Response();
     else
-        ThrowResponse({
-            status: response.status,
-            statusText: "Something went wrong...😒"
-        });
+        Throw500Response();
 }
 
 export const PropagateResponse = (response: Response) => {

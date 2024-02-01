@@ -2,7 +2,7 @@ import { useEffect, useState, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store'
 import { makeInvisible } from '@/common/redux/signInModalSlice';
-import { useIsMount } from '@/common/hooks/useIsMount';
+import { useIsMounted } from '@/common/hooks/useIsMounted';
 
 const ContinueWithGoogleButton = lazy(() => import("@/common/components/ContinueWithGoogleButton"));
 const Rodal = lazy(() => import("rodal"));
@@ -26,7 +26,7 @@ const SignInModal = () => {
     const visible = useSelector((state: RootState) => state.signInModal.visible);
     const [modalWidth, setModalWidth] = useState(calculateModalWidth());
     const dispatch = useDispatch();
-    const isMount = useIsMount();
+    const isMount = useIsMounted();
 
     useEffect(() => {
         const handleResize = () => setModalWidth(calculateModalWidth());
