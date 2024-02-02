@@ -14,7 +14,7 @@ export const ThrowResponse = ({
 export const Throw500Response = () => {
     throw new Response("", {
         status: 500,
-        statusText: "Something went wrong...😒"
+        statusText: "Something went wrong..."
     })
 };
 

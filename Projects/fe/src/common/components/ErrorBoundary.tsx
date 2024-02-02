@@ -10,9 +10,7 @@ interface ErrorBoundaryProps {
 const ErrorBoundary = ({ className }: ErrorBoundaryProps) => {
   const error = useRouteError();
   const navigate = useNavigate();
-
-  console.error(error);
-
+  
   return (
     <div className={`flex flex-col items-center min-h-[50vh] h-screen justify-center ${className}`}>
       <span className="flex flex-col items-center gap-5 rounded-2xl bg-slate-50 bg-opacity-50 p-5">
