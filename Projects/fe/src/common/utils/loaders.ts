@@ -24,7 +24,7 @@ export const PostsLoader: LoaderFunction = async ({ params }) => {
 }
 
 export const PostLoader: LoaderFunction = async ({ params }) => {
-    return fetch(`/api/blog/post/${params.uuid}`,
+    return fetch(`/api/blog/post/${params.id}`,
         {
             credentials: "same-origin"
         })

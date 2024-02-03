@@ -6,13 +6,12 @@ function wrapPromise(promise: Promise<Response>) {
     let response: Response;
     let data: unknown;
 
-    const suspender = promise
+    promise
         .then(
             res => {
-                if (res.ok) {
-                    response = res;
+                response = res;
+                if (res.ok)
                     return res.json();
-                }
                 else
                     HandleError(res);
             },
@@ -36,7 +35,7 @@ function wrapPromise(promise: Promise<Response>) {
                 case 'success':
                     return data;
                 case 'pending':
-                    throw suspender
+                    throw promise
                 case 'error':
                     throw response
             }

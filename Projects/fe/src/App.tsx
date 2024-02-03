@@ -9,6 +9,7 @@ import {
 
 import { PostLoader, PostUploadLoader, PostsLoader } from '@/common/utils/loaders';
 import { AuthenticateUser } from '@/common/utils/user';
+import PageLoadingSpinner from './common/components/PageLoadingSpinner';
 
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
@@ -41,7 +42,11 @@ const App = () => {
 
                 {/* Blog */}
                 <Route
-                    element={<Suspense><BlogLayout /></Suspense>}
+                    element={
+                        <Suspense fallback={<PageLoadingSpinner />}>
+                            <BlogLayout />
+                        </Suspense>
+                    }
                     errorElement={<BlogErrorArea />}
                 >
                     <Route
@@ -54,7 +59,7 @@ const App = () => {
                         loader={PostsLoader}
                     />
                     <Route
-                        path='blog/post/:uuid'
+                        path='blog/post/:id'
                         element={<Post />}
                         loader={PostLoader}
                     />
