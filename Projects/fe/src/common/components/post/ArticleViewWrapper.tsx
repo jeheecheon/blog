@@ -6,12 +6,12 @@ import ErrorBoundary from '@/common/components/ErrorBoundary'
 import Comments from '@/common/components/post/Comments'
 
 import exampleImg from '@/common/assets/images/default/banner.jpg';
-import Post from '@/common/types/post'
+import PostInfo from '@/common/types/PostInfo'
 import PromiseWrapper from '@/common/utils/wrapPromise'
 
 interface ArticleViewWrapperProps {
     commentsPromise: PromiseWrapper,
-    post: Post
+    post: PostInfo
 }
 
 const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = ({

@@ -1,12 +1,12 @@
 import { useLoaderData } from 'react-router-dom';
 
 import ArticleViewWrapper from '@/common/components/post/ArticleViewWrapper';
-import Post from '@/common/types/post';
+import PostInfo from '@/common/types/PostInfo';
 import PromiseWrapper from '@/common/utils/wrapPromise';
 import { useIsMounted } from '@/common/hooks/useIsMounted';
 
 const Post = () => {
-    const post = useLoaderData() as Post;
+    const post = useLoaderData() as PostInfo;
     const commentsPromise: PromiseWrapper = new PromiseWrapper()
     const isMounted = useIsMounted();
 

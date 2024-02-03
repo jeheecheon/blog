@@ -1,4 +1,4 @@
-export default interface Post {
+export default interface PostInfo {
     id: string,
     title: string,
     content: string,

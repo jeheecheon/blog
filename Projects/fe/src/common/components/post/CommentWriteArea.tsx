@@ -8,11 +8,13 @@ import Avatar from '@/common/components/Avatar';
 import { makeVisible } from '../../redux/signInModalSlice';
 
 interface CommentWriteAreaProps {
-    id?: string
+    id?: string;
+    handleCancelClicked?: () => void | undefined;
 }
 
 const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
-    id
+    id,
+    handleCancelClicked
 }) => {
     const user = useSelector((state: RootState) => state.user)
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -45,16 +47,17 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
                 <CustomTextArea
                     content={content}
                     handleType={handleType}
-                    // onSelect={() => {
-                    //     console.log("asdasdasd");
-                    // }}
-                    // disabled={!isAuthenticated}
                     className='w-full focus:outline-none overflow-y-hidden resize-none
                         border-b-2 border-slate-500
                         bg-transparent'
                 />
                 <div className='flex items-center justify-end w-full gap-3'>
-                    <Button>
+                    <Button onClick={() => {
+                        if (handleCancelClicked === undefined)
+                            setContent('');
+                        else
+                            handleCancelClicked();
+                    }}>
                         Cancle
                     </Button>
                     <Button

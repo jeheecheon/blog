@@ -1,6 +1,7 @@
 import { Comment } from '@/common/components/post/Comment';
 import CommentWriteArea from './CommentWriteArea';
 import PromiseWrapper from '@/common/utils/wrapPromise';
+import CommentInfo from '@/common/types/CommentInfo';
 
 interface CommentsProps {
   className?: string,
@@ -9,15 +10,22 @@ interface CommentsProps {
 }
 
 const Comments: React.FC<CommentsProps> = ({ className, id, commentsPromise }) => {
-  const comments: Comment[] = commentsPromise.Await() as Comment[];
+  const comments: CommentInfo[] = commentsPromise.Await() as CommentInfo[];
+
   console.log(comments);
 
   return (
     <div className={`max-w-5xl w-full
     ${className}`}>
-      <Comment liked={false} isReply={false} />
-      <Comment liked={false} isReply={false} />
-      <Comment liked={false} isReply={false} />
+      {
+        comments.map((comment, idx) => {
+          return (
+            <Comment key={idx} liked={false} isReply={false} comment={comment} postId={id} />
+          )
+        })
+
+      }
+
 
       <CommentWriteArea
         id={id}

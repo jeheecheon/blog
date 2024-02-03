@@ -1,7 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 
 import PostCard from "@/pages/blog/posts/page/components/PostCard"
-import Post from "@/common/types/post";
+import Post from "@/common/types/PostInfo";
 
 const Posts = () => {
   const posts = useLoaderData() as Post[];

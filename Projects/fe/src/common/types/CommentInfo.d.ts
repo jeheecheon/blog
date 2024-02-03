@@ -1,4 +1,4 @@
-export default interface Comment {
+export default interface CommentInfo {
 	id: string,
 	parent_comment_id: string
 	account_id?: string,
