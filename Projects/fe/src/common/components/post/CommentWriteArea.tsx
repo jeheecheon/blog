@@ -5,7 +5,7 @@ import Button from '@/common/components/Button';
 import CustomTextArea from '@/common/components/CustomTextArea';
 import defaultAvatar from '@/common/assets/images/icons/pngwing.com.png'
 import Avatar from '@/common/components/Avatar';
-import { makeVisible } from '../redux/signInModalSlice';
+import { makeVisible } from '../../redux/signInModalSlice';
 
 interface CommentWriteAreaProps {
     id?: string
@@ -24,11 +24,12 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
     }, []);
 
     const handleType: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-        console.log("qweqweqweqweqwe")
         if (isAuthenticated === false)
             dispatch(makeVisible());
-        else
+        else {
             setContent(e.currentTarget.value);
+            console.log(e.currentTarget.value);
+        }
     }
 
     return (

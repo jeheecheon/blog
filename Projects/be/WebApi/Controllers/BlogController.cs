@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Application.Services.Blog;
 using Core.DTOs;
+using Infrastructur.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -61,5 +62,18 @@ public class BlogController : ControllerBase
     {
         await _blogService.UploadCommentAsync(post_id, content);
         return Ok();
+    }
+
+    [HttpGet("post/{post_id}/comments")]
+    public async Task<IActionResult> GetCommentsAsync([FromRoute] Guid post_id)
+    {
+        IEnumerable<comment>? comments = _blogService.GetComments(post_id);
+        Thread.Sleep(3000);
+        return BadRequest();
+
+        if (comments is null)
+            return BadRequest();
+        else
+            return Ok(JsonSerializer.Serialize(comments));
     }
 }

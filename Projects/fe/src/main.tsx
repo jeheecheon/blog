@@ -8,10 +8,12 @@ import '@/main.css'
 import PageLoadingSpinner from '@/common/components/PageLoadingSpinner';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <PageLoadingSpinner/>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <>
+    <React.StrictMode>
+      <PageLoadingSpinner />
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
+  </>
 )

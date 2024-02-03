@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import Button from "@/common/components/Button";
-import ErrorBoundary from "@/common/components/ErrorBoundary";
+import ErrorBoundary from "@/common/components/ErrorArea";
 
 // import poohImage from '@/common/assets/images/default/pooh.jpg'
 
-const BlogErrorBoundary = () => {
+const BlogErrorArea = () => {
     const navigate = useNavigate();
 
     return (
@@ -29,4 +29,4 @@ const BlogErrorBoundary = () => {
     );
 }
 
-export default BlogErrorBoundary;
+export default BlogErrorArea;

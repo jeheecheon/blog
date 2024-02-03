@@ -5,8 +5,8 @@ import Button from '@/common/components/Button';
 
 import { useDispatch } from 'react-redux';
 import { setBannerImageUrl } from '@/common/redux/bannerSlice';
-import ArticleLayout from '@/common/components/ArticleLayout';
-import Article from '@/common/components/Article';
+import ArticleLayout from '@/common/components/post/ArticleLayout';
+import Article from '@/common/components/post/Article';
 import { useLoaderData } from 'react-router-dom';
 
 interface category {
@@ -27,10 +27,10 @@ const PostUpload = () => {
   const handleUpload: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     console.log(JSON.stringify({
-          title,
-          category: selectedCategory,
-          content
-        }))
+      title,
+      category: selectedCategory,
+      content
+    }))
     fetch("/api/blog/post-upload",
       {
         credentials: "same-origin",

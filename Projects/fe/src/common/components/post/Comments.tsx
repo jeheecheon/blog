@@ -1,12 +1,16 @@
-import { Comment } from '@/common/components/Comment';
+import { Comment } from '@/common/components/post/Comment';
 import CommentWriteArea from './CommentWriteArea';
+import PromiseWrapper from '@/common/types/PromiseWrapper';
 
 interface CommentsProps {
   className?: string,
-  id?: string
+  id: string,
+  commentsPromise: PromiseWrapper
 }
 
-const Comments: React.FC<CommentsProps> = ({ className, id }) => {
+const Comments: React.FC<CommentsProps> = ({ className, id, commentsPromise }) => {
+  const comments: Comment[] = commentsPromise.Await() as Comment[];
+  console.log(comments);
 
   return (
     <div className={`max-w-5xl w-full

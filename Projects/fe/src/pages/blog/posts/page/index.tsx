@@ -1,10 +1,10 @@
 import { Link, useLoaderData } from "react-router-dom";
 
 import PostCard from "@/pages/blog/posts/page/components/PostCard"
-import post from "@/common/types/post";
+import Post from "@/common/types/post";
 
 const Posts = () => {
-  const posts = useLoaderData() as post[];
+  const posts = useLoaderData() as Post[];
 
   return (
     <div className="flex flex-col items-center mx-3 mb-5">

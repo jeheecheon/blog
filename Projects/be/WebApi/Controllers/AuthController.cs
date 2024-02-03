@@ -31,8 +31,6 @@ public class AuthController : ControllerBase
     {
         var result = await HttpContext.AuthenticateAsync();
 
-        // Console.WriteLine(result.Succeeded);
-        // Console.WriteLine(HttpContext.User.Claims.FirstOrDefault((c) => c.Type == ClaimTypes.Email));
         if (result.Succeeded)
         {
             return Ok(JsonSerializer.Serialize(new

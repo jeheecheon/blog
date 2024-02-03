@@ -13,8 +13,8 @@ import { AuthenticateUser } from '@/common/utils/user';
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
 const BlogLayout = lazy(() => import('@/pages/blog/page/components/Layout'));
-const ErrorBoundary = lazy(() => import('@/common/components/ErrorBoundary'));
-const BlogErrorBoundary = lazy(() => import('@/pages/blog/page/BlogErrorBoundary'));
+const ErrorArea = lazy(() => import('@/common/components/ErrorArea'));
+const BlogErrorArea = lazy(() => import('@/pages/blog/page/BlogErrorArea'));
 const Posts = lazy(() => import('@/pages/blog/posts/page/index'));
 const Post = lazy(() => import('@/pages/blog/post/page/index'));
 const AboutMe = lazy(() => import('@/pages/blog/about-me/page'));
@@ -28,8 +28,11 @@ const App = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route
-                errorElement={<ErrorBoundary />}
-                loader={async () => AuthenticateUser(dispatch)}>
+                errorElement={<ErrorArea />}
+                loader={async () => {
+                    AuthenticateUser(dispatch);
+                    return null;
+                }}>
 
                 <Route
                     path='/'
@@ -39,7 +42,7 @@ const App = () => {
                 {/* Blog */}
                 <Route
                     element={<Suspense><BlogLayout /></Suspense>}
-                    errorElement={<BlogErrorBoundary />}
+                    errorElement={<BlogErrorArea />}
                 >
                     <Route
                         path='blog'

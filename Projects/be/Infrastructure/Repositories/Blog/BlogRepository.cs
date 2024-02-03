@@ -102,5 +102,21 @@ INSERT INTO comment (account_id, post_id, content) VALUES
                 _logger.LogInformation($"{e.Source}: {e.Message}");
             }
         }
+
+        public IEnumerable<comment>? GetCommentsByPostId(Guid post_id)
+        {
+            try
+            {
+                // TODO: account_id 제외하고 보내는 것
+                return _mainContext.comments.FromSqlInterpolated(@$"
+SELECT * FROM comment WHERE post_id = {post_id}
+                ");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
+        }
     }
 }

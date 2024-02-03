@@ -1,38 +1,37 @@
-import { isRouteErrorResponse, useRouteError } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-
-import Button from "@/common/components/Button";
+import React from "react";
 
 interface ErrorBoundaryProps {
-  className?: string
+    children: React.ReactNode;
+    fallback: React.ReactNode;
 }
 
-const ErrorBoundary = ({ className }: ErrorBoundaryProps) => {
-  const error = useRouteError();
-  const navigate = useNavigate();
-  
-  return (
-    <div className={`flex flex-col items-center min-h-[50vh] h-screen justify-center ${className}`}>
-      <span className="flex flex-col items-center gap-5 rounded-2xl bg-slate-50 bg-opacity-50 p-5">
-        <h1 className="text-5xl italic text-slate-700">😒Oops...</h1>
-        <p className="text-lg ">Sorry, an unexpected error has occurred.</p>
-        <p>
-          <i className="text-red-700 text-lg">{isRouteErrorResponse(error) &&
-            (
-              <span className="flex flex-col items-center">
-                <span>{error.status}</span>
-                <span>{error.statusText}</span>
-              </span>
-            )
-          }</i>
-        </p>
-        <Button onClick={(e) => {
-          e.preventDefault();
-          navigate(-1);
-        }}>Previous page</Button>
-      </span>
-    </div>
-  );
+interface ErrorBoundaryState {
+    hasError: boolean;
 }
 
-export default ErrorBoundary;
+export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+    state = { hasError: false };
+
+    static getDerivedStateFromError(error) {
+        // Update state so the next render will show the fallback UI.
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, info) {
+        // Example "componentStack":
+        //   in ComponentThatThrows (created by App)
+        //   in ErrorBoundary (created by App)
+        //   in div (created by App)
+        //   in App
+        // logErrorToMyService(error, info.componentStack);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            // You can render any custom fallback UI
+            return this.props.fallback;
+        }
+
+        return this.props.children;
+    }
+}
