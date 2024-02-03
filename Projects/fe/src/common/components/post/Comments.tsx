@@ -1,6 +1,6 @@
 import { Comment } from '@/common/components/post/Comment';
 import CommentWriteArea from './CommentWriteArea';
-import PromiseWrapper from '@/common/types/PromiseWrapper';
+import PromiseWrapper from '@/common/utils/wrapPromise';
 
 interface CommentsProps {
   className?: string,

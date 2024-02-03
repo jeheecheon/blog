@@ -1,48 +1,48 @@
-import PromiseWrapper from "../types/PromiseWrapper";
 import { HandleError } from "./responses";
 
-function wrapPromise(promise: Promise<Response>) {
-    let status = 'pending'
-    let response: Response;
-    let data: unknown;
+export default class PromiseWrapper {
+    status = 'pending';
+    response: Response | undefined;
+    promise: Promise<Response | void> | undefined;
+    data: unknown;
 
-    promise
-        .then(
-            res => {
-                response = res;
-                if (res.ok)
-                    return res.json();
-                else
-                    HandleError(res);
-            },
-            err => {
-                response = err
-                status = 'error'
-            }
-        )
-        .then(res => {
-            data = res
-            status = 'success';
-        })
-        .catch(err => {
-            response = err
-            status = 'error'
-        })
+    constructor() {
+        this.promise = new Promise(res => res());
+    }
 
-    const wrap: PromiseWrapper = {
-        Await: () => {
-            switch (status) {
-                case 'success':
-                    return data;
-                case 'pending':
-                    throw promise
-                case 'error':
-                    throw response
-            }
+    Await() {
+        switch (this.status) {
+            case 'success':
+                return this.data;
+            case 'pending':
+                throw this.promise;
+            case 'error':
+                throw this.response;
         }
     }
 
-    return wrap;
+    wrapPromise(promise: Promise<Response>) {
+        this.promise = promise
+            .then(
+                res => {
+                    this.response = res;
+                    if (res.ok)
+                        return res.json();
+                    else
+                        HandleError(res);
+                },
+                err => {
+                    this.response = err
+                    this.status = 'error'
+                }
+            )
+            .then(res => {
+                this.data = res
+                this.status = 'success';
+            })
+            .catch(err => {
+                this.response = err
+                this.status = 'error'
+            })
+    }
 }
-
-export default wrapPromise

@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react'
-import ArticleLayout from './ArticleLayout'
-import Article from './Article'
-import PostsPagination from './PostsPagination'
-import ErrorBoundary from '../ErrorBoundary'
-import Comments from './Comments'
+import ArticleLayout from '@/common/components/post/ArticleLayout'
+import Article from '@/common/components/post/Article'
+import PostsPagination from '@/common/components/post/PostsPagination'
+import ErrorBoundary from '@/common/components/ErrorBoundary'
+import Comments from '@/common/components/post/Comments'
 
 import exampleImg from '@/common/assets/images/default/banner.jpg';
-import PromiseWrapper from '@/common/types/PromiseWrapper'
 import Post from '@/common/types/post'
+import PromiseWrapper from '@/common/utils/wrapPromise'
 
 interface ArticleViewWrapperProps {
     commentsPromise: PromiseWrapper,
