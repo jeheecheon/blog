@@ -72,7 +72,7 @@ public class BlogController : ControllerBase
     {
         IEnumerable<comments_for_post>? comments = _blogService.GetComments(post_id);
 
-        await Task.Delay(5000);
+        await Task.Delay(1000);
         if (comments is null)
             return BadRequest();
         else

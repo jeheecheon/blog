@@ -6,18 +6,20 @@ import CustomTextArea from '@/common/components/CustomTextArea';
 import defaultAvatar from '@/common/assets/images/icons/pngwing.com.png'
 import Avatar from '@/common/components/Avatar';
 import { makeVisible } from '../../redux/signInModalSlice';
-import { startFetchingComments } from '@/common/redux/promisesSlice';
+import { PromiseAwaiter, wrapPromise } from '@/common/utils/promiseWrapper';
 
 interface CommentWriteAreaProps {
     postId: string;
     replyingTo?: string;
     handleCancelClicked?: () => void | undefined;
+    setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
 }
 
 const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
     postId,
     replyingTo,
-    handleCancelClicked
+    handleCancelClicked,
+    setCommentsAwaiter
 }) => {
     const user = useSelector((state: RootState) => state.user)
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,12 +52,11 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
         })
             .then(res => {
                 if (res.ok) {
-                    dispatch(startFetchingComments(postId));
+                    setCommentsAwaiter(wrapPromise(fetch(`/api/blog/post/${postId}/comments`)));
                     setContent('');
                     if (handleCancelClicked !== undefined)
                         handleCancelClicked();
                 }
-
             })
     }
 

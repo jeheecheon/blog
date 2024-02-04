@@ -3,15 +3,18 @@ import CommentInfo from '@/common/types/CommentInfo';
 import { useState } from 'react';
 import CommentWriteArea from './CommentWriteArea';
 import { getTimeAgo } from '@/common/utils/comment';
+import { PromiseAwaiter } from '@/common/utils/promiseWrapper';
 
 interface CommentProps {
     className?: string;
     comment: CommentInfo;
+    setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
 }
 
 export const Comment: React.FC<CommentProps> = ({
     className = '',
-    comment
+    comment,
+    setCommentsAwaiter
 }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [isReplying, setIsReplying] = useState<boolean>(false);
@@ -73,6 +76,7 @@ export const Comment: React.FC<CommentProps> = ({
                             postId={comment.post_id}
                             replyingTo={comment.id}
                             handleCancelClicked={() => setIsReplying(false)}
+                            setCommentsAwaiter={setCommentsAwaiter}
                         />
                     )}
 

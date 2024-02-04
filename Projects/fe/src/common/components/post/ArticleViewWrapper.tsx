@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense } from 'react'
 import ArticleLayout from '@/common/components/post/ArticleLayout'
 import Article from '@/common/components/post/Article'
 import PostsPagination from '@/common/components/post/PostsPagination'
@@ -6,22 +6,19 @@ import ErrorBoundary from '@/common/components/ErrorBoundary'
 import Comments from '@/common/components/post/Comments'
 
 import PostInfo from '@/common/types/PostInfo'
-import { startFetchingComments } from '@/common/redux/promisesSlice'
-import { useDispatch } from 'react-redux'
+import { PromiseAwaiter } from '@/common/utils/promiseWrapper'
 
 interface ArticleViewWrapperProps {
-    post: PostInfo
+    post: PostInfo;
+    commentsAwaiter: PromiseAwaiter;
+    setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
 }
 
 const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
-    post
+    post,
+    commentsAwaiter,
+    setCommentsAwaiter
 }) => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(startFetchingComments(post.id));
-    }, [dispatch, post]);
-
     return (
         <ArticleLayout className='flex flex-col items-center relative -top-[150px] z-10'>
             <Article
@@ -33,6 +30,8 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
                     <Comments
                         className='px-2 relative top-[75px]'
                         id={post.id}
+                        commentsAwaiter={commentsAwaiter}
+                        setCommentsAwaiter={setCommentsAwaiter}
                     />
                 </Suspense>
             </ErrorBoundary>
