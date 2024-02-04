@@ -2,13 +2,14 @@ import { useState } from 'react';
 
 import parse from 'html-react-parser';
 import DOMPurify from "isomorphic-dompurify";
+import { getTimeAgo } from '@/common/utils/comment';
 
 interface PostCardProps {
     className?: string,
     liked: boolean,
     content: string,
     title: string,
-    uploadedAt: string,
+    uploadedAt: Date,
     children: Node | string
 }
 
@@ -22,7 +23,7 @@ const PostCard = (props: PostCardProps) => {
         group hover:cursor-pointer pb-3 border-b-2
         ${props.className}`}>
             <div className='flex justify-between text-slate-500 text-sm'>
-                <span className='text-right'>{props.uploadedAt}</span>
+                <span className='text-right'>{props.uploadedAt.toLocaleString()}</span>
                 <span className='self-end'>23 views</span>
             </div>
             <div className='font-semibold text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>

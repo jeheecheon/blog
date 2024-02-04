@@ -1,38 +1,40 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import parse from 'html-react-parser';
 
 import DOMPurify from "isomorphic-dompurify";
+import PostInfo from '@/common/types/PostInfo';
 
 interface ArticleProps {
-    liked?: boolean,
-    headerImage?: string,
     className?: string,
-    lastEditedDate?: string,
-    publisedDate: string,
-    categories: string[],
-    children: Node | string
+    post: PostInfo
 }
 
-const Article = (props: ArticleProps) => {
-    const [isLiked, setIsLiked] = useState(props.liked);
-    const handleLikeCliked = () => setIsLiked(!isLiked);
+const Article: React.FC<ArticleProps> = React.memo(({
+    className,
+    post
+}) => {
+    const [isLiked, setIsLiked] = useState(false);
     const [content, setContent] = useState<string | JSX.Element | JSX.Element[] | null>(null);
 
+    const handleLikeCliked = () => setIsLiked(!isLiked);
+
+    const dummyCategories = ['Algorithm', 'DP'];
+
     useEffect(() => {
-        setContent(parse(DOMPurify.sanitize(props.children)));
+        setContent(parse(DOMPurify.sanitize(post.content)));
 
         import('@/common/assets/css/Article.css')
     }, []);
 
     return (
-        <div className={`flex flex-col items-center w-full ${props.className}`}>
+        <div className={`flex flex-col items-center w-full ${className}`}>
             <div className='text-slate-50 max-w-[780px] w-full text-left pl-2 pb-1 text-xl'>
-                {props.categories && props.categories.map((cate, idx) => {
+                {dummyCategories.map((cate, idx) => {
                     return (
                         <Link to='/blog/posts' key={idx}> {cate}
-                            {idx < props.categories.length - 1 && <span>&#160;&gt;</span>}
+                            {idx < dummyCategories.length - 1 && <span>&#160;&gt;</span>}
                         </Link>);
                 })}
             </div>
@@ -40,9 +42,12 @@ const Article = (props: ArticleProps) => {
             <div className='px-3 pt-2 text-pretty max-w-[780px] h-fit min-h-[25vh] bg-slate-50 rounded-2xl shadow-md
                     overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center'>
                 <span className='block text-center text-slate-600 text-sm mb-3'>
-                    {props.lastEditedDate !== undefined ?
-                        (<span>Last Edited: {props.lastEditedDate}</span>) :
-                        (<span>Published: {props.publisedDate}</span>)}
+                    <span>
+                        {post.edited_at !== undefined && post.edited_at !== null ?
+                            `Last Edited: ${post.edited_at.toLocaleDateString()}` :
+                            `Published: ${post.uploaded_at.toLocaleDateString()}`
+                        }
+                    </span>
                 </span>
                 <div className='text-left w-full'>
                     {content}
@@ -71,6 +76,6 @@ const Article = (props: ArticleProps) => {
             </div>
         </div>
     )
-}
+});
 
 export default Article;

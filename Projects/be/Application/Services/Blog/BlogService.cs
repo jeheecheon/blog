@@ -60,9 +60,9 @@ public class BlogService : IBlogService
         return _blogRepository.GetPostById(uuid);
     }
 
-    public async Task<bool> UploadCommentAsync(Guid post_id, string content)
+    public async Task<bool> UploadCommentAsync(Guid post_id, CommentUploadRequestDto commentToUpload)
     {
-        if (string.IsNullOrWhiteSpace(content))
+        if (string.IsNullOrWhiteSpace(commentToUpload.content))
             return false;
 
         string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
@@ -70,11 +70,11 @@ public class BlogService : IBlogService
             return false;
         Guid account_id = Guid.Parse(guidString);
 
-        string clean = SanitizeContent(content);
+        string clean = SanitizeContent(commentToUpload.content);
 
-        await _blogRepository.CreateCommentAsync(account_id, post_id, content);
+        int affectedRowsCnt = await _blogRepository.CreateCommentAsync(account_id, post_id, clean, commentToUpload.parent_comment_id);
 
-        return true;
+        return affectedRowsCnt > 0;
     }
 
     public IEnumerable<comments_for_post>? GetComments(Guid post_id)

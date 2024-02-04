@@ -6,14 +6,17 @@ import CustomTextArea from '@/common/components/CustomTextArea';
 import defaultAvatar from '@/common/assets/images/icons/pngwing.com.png'
 import Avatar from '@/common/components/Avatar';
 import { makeVisible } from '../../redux/signInModalSlice';
+import { startFetchingComments } from '@/common/redux/promisesSlice';
 
 interface CommentWriteAreaProps {
-    id?: string;
+    postId: string;
+    replyingTo?: string;
     handleCancelClicked?: () => void | undefined;
 }
 
 const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
-    id,
+    postId,
+    replyingTo,
     handleCancelClicked
 }) => {
     const user = useSelector((state: RootState) => state.user)
@@ -32,6 +35,28 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
             setContent(e.currentTarget.value);
             console.log(e.currentTarget.value);
         }
+    }
+
+    const handleUpload = () => {
+        fetch(`/api/blog/post/${postId}/comment`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                content: content,
+                parent_comment_id: replyingTo
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    dispatch(startFetchingComments(postId));
+                    setContent('');
+                    if (handleCancelClicked !== undefined)
+                        handleCancelClicked();
+                }
+
+            })
     }
 
     return (
@@ -53,27 +78,14 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
                 />
                 <div className='flex items-center justify-end w-full gap-3'>
                     <Button onClick={() => {
-                        if (handleCancelClicked === undefined)
-                            setContent('');
-                        else
+                        setContent('');
+                        if (handleCancelClicked !== undefined)
                             handleCancelClicked();
                     }}>
                         Cancle
                     </Button>
                     <Button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            fetch(`/api/blog/post/${id}/new-comment`, {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify(content)
-                            })
-                                .then((res) => {
-                                    console.log(res);
-                                })
-                        }}
+                        onClick={handleUpload}
                     >
                         Upload
                     </Button>

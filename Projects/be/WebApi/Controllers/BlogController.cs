@@ -57,18 +57,22 @@ public class BlogController : ControllerBase
             return BadRequest();
     }
 
-    [HttpPost("post/{post_id}/new-comment")]
-    public async Task<IActionResult> PostCommentAsync([FromRoute] Guid post_id, [FromBody] string content)
+    [HttpPost("post/{post_id}/comment")]
+    public async Task<IActionResult> PostCommentAsync([FromRoute] Guid post_id, [FromBody] CommentUploadRequestDto commentToUpload)
     {
-        await _blogService.UploadCommentAsync(post_id, content);
-        return Ok();
+        bool isSucceded = await _blogService.UploadCommentAsync(post_id, commentToUpload);
+        if (isSucceded)
+            return Ok();
+        else
+            return BadRequest();
     }
 
     [HttpGet("post/{post_id}/comments")]
     public async Task<IActionResult> GetCommentsAsync([FromRoute] Guid post_id)
     {
         IEnumerable<comments_for_post>? comments = _blogService.GetComments(post_id);
-        
+
+        await Task.Delay(5000);
         if (comments is null)
             return BadRequest();
         else

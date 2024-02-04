@@ -2,30 +2,26 @@ import defaultAvatar from '@/common/assets/images/default/default-avatar.jpg';
 import CommentInfo from '@/common/types/CommentInfo';
 import { useState } from 'react';
 import CommentWriteArea from './CommentWriteArea';
+import { getTimeAgo } from '@/common/utils/comment';
 
 interface CommentProps {
-    liked?: boolean;
     className?: string;
     comment: CommentInfo;
-    postId: string;
-    isReply: boolean;
 }
 
 export const Comment: React.FC<CommentProps> = ({
-    liked,
     className = '',
-    comment,
-    postId,
-    isReply
+    comment
 }) => {
-    const [isLiked, setIsLiked] = useState(liked);
-    const handleLikeCliked = () => setIsLiked(!isLiked);
+    const [isLiked, setIsLiked] = useState(false);
     const [isReplying, setIsReplying] = useState<boolean>(false);
+
+    const handleLikeCliked = () => setIsLiked(!isLiked);
 
     return (
         <>
             <div className={`flex flex-row  `}>
-                {isReply && (<svg className='mt-2 mx-3 fill-slate-600' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" /></svg>)}
+                {comment.parent_comment_id && (<svg className='mt-2 mx-3 fill-slate-600' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" /></svg>)}
                 <div className={`flex flex-col w-full ${className}`}>
                     <div className='flex flex-row justify-between items-center'>
                         {/* 댓글 작성자 정보 */}
@@ -42,7 +38,7 @@ export const Comment: React.FC<CommentProps> = ({
                     </span>
 
                     {/* 작성 날짜 */}
-                    <span className='text-slate-700 text-sm mb-3'>2024-01-01</span>
+                    <span className='text-slate-700 text-sm mb-3'>{getTimeAgo(comment.uploaded_at as Date)}</span>
 
                     <div className='flex flex-row justify-between'>
                         {/* 댓글 */}
@@ -51,7 +47,9 @@ export const Comment: React.FC<CommentProps> = ({
                                 e.preventDefault();
                                 setIsReplying(!isReplying);
                             }}
-                        >답글</button>
+                        >
+                            답글
+                        </button>
 
                         {/* 좋아요 */}
                         <div onClick={handleLikeCliked} className='flex flex-row justify-between items-center fill-sky-700 cursor-pointer
@@ -72,15 +70,14 @@ export const Comment: React.FC<CommentProps> = ({
 
                     {isReplying && (
                         <CommentWriteArea
-                            id={postId}
+                            postId={comment.post_id}
+                            replyingTo={comment.id}
                             handleCancelClicked={() => setIsReplying(false)}
                         />
                     )}
 
                 </div>
             </div >
-
-
         </>
     )
 }

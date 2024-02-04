@@ -1,5 +1,6 @@
 import { LoaderFunction, redirect } from "react-router-dom";
 import { HandleError, PropagateResponse, Throw404Response } from "@/common/utils/responses";
+import { convertStringDateIntoDate } from "@/common/utils/post";
 
 export const PostsLoader: LoaderFunction = async ({ params }) => {
     const { page, category, categories } = params;
@@ -20,6 +21,10 @@ export const PostsLoader: LoaderFunction = async ({ params }) => {
             else
                 HandleError(res);
         })
+        .then(posts => {
+            convertStringDateIntoDate(posts);
+            return posts;
+        })
         .catch(PropagateResponse);
 }
 
@@ -35,6 +40,10 @@ export const PostLoader: LoaderFunction = async ({ params }) => {
                 Throw404Response();
             else
                 HandleError(res);
+        })
+        .then(post => {
+            convertStringDateIntoDate(post)
+            return post;
         })
         .catch(PropagateResponse);
 }

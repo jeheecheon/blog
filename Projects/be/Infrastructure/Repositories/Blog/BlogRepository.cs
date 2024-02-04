@@ -88,18 +88,25 @@ WHERE id = {uuid}
         }
 
 
-        public async Task CreateCommentAsync(Guid account_id, Guid post_id, string content)
+        public async Task<int> CreateCommentAsync(Guid account_id, Guid post_id, string content, Guid? parent_comment_id)
         {
             try
             {
-                await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+                if (parent_comment_id is null)
+                    return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO comment (account_id, post_id, content) VALUES
     ({account_id}, {post_id}, {content})
-                ");
+                    ");
+                else
+                    return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+INSERT INTO comment (account_id, post_id, content, parent_comment_id) VALUES
+    ({account_id}, {post_id}, {content}, {parent_comment_id})
+                    ");
             }
             catch (Exception e)
             {
                 _logger.LogInformation($"{e.Source}: {e.Message}");
+                return 0;
             }
         }
 
