@@ -103,13 +103,13 @@ INSERT INTO comment (account_id, post_id, content) VALUES
             }
         }
 
-        public IEnumerable<comment>? GetCommentsByPostId(Guid post_id)
+        public IEnumerable<comments_for_post>? GetCommentsByPostId(Guid post_id)
         {
             try
             {
                 // TODO: account_id 제외하고 보내는 것
-                return _mainContext.comments.FromSqlInterpolated(@$"
-SELECT * FROM comment WHERE post_id = {post_id}
+                return _mainContext.comments_for_posts.FromSqlInterpolated(@$"
+SELECT * FROM comments_for_post WHERE post_id = {post_id}
                 ");
             }
             catch (Exception e)

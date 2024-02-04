@@ -1,10 +1,9 @@
 export default interface CommentInfo {
-	id: string,
-	parent_comment_id: string
-	account_id?: string,
-	post_id?: string,
-	content: string,
-	uploaded_at?: string,
-	edited_at?: string,
-	is_deleted: boolean
+	id: string;
+	content: string;
+	uploaded_at: string;
+	parent_comment_id: string | null;
+	post_id: string;
+	is_deleted: boolean;
+	email: string;
 }

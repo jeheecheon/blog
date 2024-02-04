@@ -67,7 +67,7 @@ public class BlogController : ControllerBase
     [HttpGet("post/{post_id}/comments")]
     public async Task<IActionResult> GetCommentsAsync([FromRoute] Guid post_id)
     {
-        IEnumerable<comment>? comments = _blogService.GetComments(post_id);
+        IEnumerable<comments_for_post>? comments = _blogService.GetComments(post_id);
         
         if (comments is null)
             return BadRequest();

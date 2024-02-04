@@ -77,7 +77,7 @@ public class BlogService : IBlogService
         return true;
     }
 
-    public IEnumerable<comment>? GetComments(Guid post_id)
+    public IEnumerable<comments_for_post>? GetComments(Guid post_id)
     {
         return _blogRepository.GetCommentsByPostId(post_id);
     }

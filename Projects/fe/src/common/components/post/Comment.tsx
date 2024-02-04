@@ -31,7 +31,7 @@ export const Comment: React.FC<CommentProps> = ({
                         {/* 댓글 작성자 정보 */}
                         <div className='flex flex-row justify-start items-center gap-3'>
                             <img src={defaultAvatar} className='w-[40px] h-auto rounded-full' />
-                            <span>{comment.account_id}</span>
+                            <span>{comment.email}</span>
                             <span className='border rounded-2xl px-[5px] py-[2px] text-xs border-green-500 text-green-500'>블로그 주인</span>
                         </div>
                         {/* 메뉴버튼 */}

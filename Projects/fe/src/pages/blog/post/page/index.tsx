@@ -3,16 +3,16 @@ import { useLoaderData } from 'react-router-dom';
 import ArticleViewWrapper from '@/common/components/post/ArticleViewWrapper';
 import PostInfo from '@/common/types/PostInfo';
 import PromiseWrapper from '@/common/utils/wrapPromise';
-import { useIsMounted } from '@/common/hooks/useIsMounted';
+import { useEffect } from 'react';
 
 const Post = () => {
     const post = useLoaderData() as PostInfo;
     const commentsPromise: PromiseWrapper = new PromiseWrapper()
-    const isMounted = useIsMounted();
 
-    if (isMounted === false)
+    useEffect(() => {
         commentsPromise.wrapPromise(fetch(`/api/blog/post/${post.id}/comments`));
-
+    }, []);
+    
     return (
         <ArticleViewWrapper
             post={post}

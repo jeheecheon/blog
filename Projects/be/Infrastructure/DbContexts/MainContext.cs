@@ -35,6 +35,7 @@ public partial class MainContext : DbContext
     public virtual DbSet<post> posts { get; set; }
 
     public virtual DbSet<role> roles { get; set; }
+    public virtual DbSet<comments_for_post> comments_for_posts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:MainContext");
@@ -229,6 +230,15 @@ public partial class MainContext : DbContext
             entity.HasIndex(e => e.name, "role_name_key").IsUnique();
 
             entity.Property(e => e.name).HasMaxLength(30);
+        });
+        
+        modelBuilder.Entity<comments_for_post>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("comments_for_post");
+
+            entity.Property(e => e.email).HasMaxLength(254);
         });
 
         OnModelCreatingPartial(modelBuilder);

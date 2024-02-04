@@ -11,5 +11,5 @@ public interface IBlogService
     public IEnumerable<post>? GetPosts(int page, string? category);
     public post? GetPost(Guid uuid);
     public Task<bool> UploadCommentAsync(Guid post_id, string content);
-    public IEnumerable<comment>? GetComments(Guid post_id);
+    public IEnumerable<comments_for_post>? GetComments(Guid post_id);
 }
