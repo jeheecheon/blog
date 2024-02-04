@@ -17,6 +17,8 @@ public partial class post
 
     public int category_id { get; set; }
 
+    public string? cover { get; set; }
+
     public virtual category category { get; set; } = null!;
 
     public virtual ICollection<comment> comments { get; set; } = new List<comment>();

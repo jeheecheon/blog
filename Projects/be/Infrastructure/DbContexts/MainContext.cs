@@ -22,6 +22,8 @@ public partial class MainContext : DbContext
 
     public virtual DbSet<comment> comments { get; set; }
 
+    public virtual DbSet<comments_for_post> comments_for_posts { get; set; }
+
     public virtual DbSet<external_authentication> external_authentications { get; set; }
 
     public virtual DbSet<external_login_provider> external_login_providers { get; set; }
@@ -35,7 +37,6 @@ public partial class MainContext : DbContext
     public virtual DbSet<post> posts { get; set; }
 
     public virtual DbSet<role> roles { get; set; }
-    public virtual DbSet<comments_for_post> comments_for_posts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:MainContext");
@@ -111,6 +112,15 @@ public partial class MainContext : DbContext
             entity.HasOne(d => d.post).WithMany(p => p.comments)
                 .HasForeignKey(d => d.post_id)
                 .HasConstraintName("comment_post_id_fkey");
+        });
+
+        modelBuilder.Entity<comments_for_post>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("comments_for_post");
+
+            entity.Property(e => e.email).HasMaxLength(254);
         });
 
         modelBuilder.Entity<external_authentication>(entity =>
@@ -197,6 +207,7 @@ public partial class MainContext : DbContext
             entity.ToTable("post");
 
             entity.Property(e => e.id).HasDefaultValueSql("gen_random_uuid()");
+            entity.Property(e => e.cover).HasMaxLength(256);
             entity.Property(e => e.title).HasMaxLength(50);
             entity.Property(e => e.uploaded_at).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -230,15 +241,6 @@ public partial class MainContext : DbContext
             entity.HasIndex(e => e.name, "role_name_key").IsUnique();
 
             entity.Property(e => e.name).HasMaxLength(30);
-        });
-        
-        modelBuilder.Entity<comments_for_post>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("comments_for_post");
-
-            entity.Property(e => e.email).HasMaxLength(254);
         });
 
         OnModelCreatingPartial(modelBuilder);
