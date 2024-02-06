@@ -10,8 +10,9 @@ import Article from '@/common/components/post/Article';
 import { useLoaderData } from 'react-router-dom';
 
 interface category {
-  id: number,
-  name: string
+  id: string,
+  parent_category_id: string,
+  is_bottom_level: boolean
 }
 
 const PostUpload = () => {
@@ -22,7 +23,7 @@ const PostUpload = () => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [showPreview, setShowPreview] = useState<boolean>(false);
-  const [selectedCategory, setCategory] = useState<number>(categories[0].id);
+  const [selectedCategory, setCategory] = useState<string>(categories[0].id);
 
   const handleUpload: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -53,10 +54,12 @@ const PostUpload = () => {
       ?
       <ArticleLayout>
         <Article
-          publisedDate='2024-01-01'
-          categories={['아무', '카테고리']}>
-          {content}
-        </Article>
+          post={{
+            title: title,
+            content: content,
+            uploaded_at: new Date(Date.now())
+          }}
+        />
       </ArticleLayout>
       :
       <div className='flex flex-col items-center gap-5 m-7'>
@@ -80,10 +83,10 @@ const PostUpload = () => {
         <label>
           Choose Category:
           <select className='ml-2 border-2' defaultValue={categories[0].id}
-            onChange={(e) => setCategory(parseInt(e.currentTarget.value))}>
+            onChange={(e) => setCategory(e.currentTarget.value)}>
             {
               categories.map((cate) => {
-                return <option key={cate.id} value={cate.id}>{cate.name}</option>
+                return <option key={cate.id} value={cate.id}>{cate.id}</option>
               })
             }
           </select>

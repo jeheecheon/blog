@@ -15,11 +15,11 @@ public partial class post
 
     public DateTime? edited_at { get; set; }
 
-    public int category_id { get; set; }
-
     public string? cover { get; set; }
 
-    public virtual category category { get; set; } = null!;
+    public string? category_id { get; set; }
+
+    public virtual category? category { get; set; }
 
     public virtual ICollection<comment> comments { get; set; } = new List<comment>();
 

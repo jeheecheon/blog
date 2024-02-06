@@ -79,13 +79,11 @@ public partial class MainContext : DbContext
 
             entity.ToTable("category");
 
-            entity.HasIndex(e => e.name, "category_name_key").IsUnique();
-
-            entity.Property(e => e.name).HasMaxLength(40);
+            entity.Property(e => e.id).HasMaxLength(30);
+            entity.Property(e => e.parent_category_id).HasMaxLength(30);
 
             entity.HasOne(d => d.parent_category).WithMany(p => p.Inverseparent_category)
                 .HasForeignKey(d => d.parent_category_id)
-                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("category_parent_category_id_fkey");
         });
 
@@ -207,13 +205,13 @@ public partial class MainContext : DbContext
             entity.ToTable("post");
 
             entity.Property(e => e.id).HasDefaultValueSql("gen_random_uuid()");
+            entity.Property(e => e.category_id).HasMaxLength(30);
             entity.Property(e => e.cover).HasMaxLength(256);
             entity.Property(e => e.title).HasMaxLength(50);
             entity.Property(e => e.uploaded_at).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasOne(d => d.category).WithMany(p => p.posts)
                 .HasForeignKey(d => d.category_id)
-                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("post_category_id_fkey");
 
             entity.HasMany(d => d.hashtags).WithMany(p => p.posts)
