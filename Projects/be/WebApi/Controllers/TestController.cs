@@ -35,7 +35,7 @@ public class TestController : ControllerBase
     [HttpGet("Hello")]
     public IActionResult Hello()
     {
-        var result = _mainContext.PostLikesComments.FromSqlInterpolated($"SELECT * FROM get_posts_likes_comments({0}, {11})").ToList();
+        var result = _mainContext.get_posts_likes_comments_filted_by_category.FromSqlInterpolated($"SELECT * FROM get_posts_likes_comments_filted_by_category({0}, {11}, {"알고리즘"})").ToList();
 
         return Ok(JsonSerializer.Serialize(result));
     }

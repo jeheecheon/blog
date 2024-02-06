@@ -39,7 +39,8 @@ public partial class MainContext : DbContext
 
     public virtual DbSet<role> roles { get; set; }
 
-    public virtual DbSet<PostLikesComments> PostLikesComments { get; set; }
+    public virtual DbSet<get_posts_likes_comments> get_posts_likes_comments { get; set; }
+    public virtual DbSet<get_posts_likes_comments_filted_by_category> get_posts_likes_comments_filted_by_category { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:MainContext");

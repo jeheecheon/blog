@@ -1,6 +1,6 @@
 namespace Infrastructure.Models;
 
-public class PostLikesComments
+public class get_posts_likes_comments
 {
     public Guid id { get; set; }
     public string title { get; set; }

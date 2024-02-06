@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_get_posts_likes_comments_function : Migration
+    public partial class createget_posts_likes_comments_filted_by_categoryfunction : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,7 +67,7 @@ $$ LANGUAGE plpgsql;
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-DROP FUNCTION get_posts_likes_comments;
+DROP FUNCTION get_posts_likes_comments; 
             ");
         }
     }
