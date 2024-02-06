@@ -13,15 +13,15 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-CREATE OR REPLACE FUNCTION get_posts_likes_comments(offset_val INT, limit_val INT)
+CREATE OR REPLACE FUNCTION get_posts_likes_comments_filtered_by_category(offset_val INT, limit_val INT, category_to_filter TEXT)
 RETURNS TABLE (
 	id UUID,
-	title VARCHAR(50), 
+	title VARCHAR(50),
+	content TEXT, 
 	uploaded_at TIMESTAMP WITH TIME ZONE,
 	edited_at TIMESTAMP WITH TIME ZONE, 
 	cover VARCHAR(256), 
 	category_id VARCHAR(30),
-	content TEXT, 
 	comment_cnt BIGINT, 
 	like_cnt BIGINT
 ) AS $$
@@ -36,28 +36,19 @@ BEGIN
 		SELECT post_id, COUNT(*) AS comment_cnt
 		FROM comment
 		GROUP BY post_id
-	),
-	likes_comments AS (
-		SELECT 
-			p.id AS post_id,
-			COALESCE(c.comment_cnt, 0) AS comment_cnt,
-			COALESCE(l.like_cnt, 0) AS like_cnt
-		FROM (
-			SELECT post.id 
-			FROM post 
-			ORDER BY post.uploaded_at DESC OFFSET offset_val LIMIT limit_val
-		) AS p
-		LEFT JOIN comments c ON p.id = c.post_id
-		LEFT JOIN likes l ON p.id = l.post_id
-	)
+	) 
 	SELECT 
-		p.id, p.title, p.uploaded_at, p.edited_at, p.cover, p.category_id,
-		LEFT(p.content, 100) as content, 
-		lc.comment_cnt, lc.like_cnt
-	FROM 
-		post p
-	JOIN 
-		likes_comments lc ON p.id = lc.post_id;
+		p.*,
+		COALESCE(c.comment_cnt, 0) AS comment_cnt,
+		COALESCE(l.like_cnt, 0) AS like_cnt
+	FROM (
+		SELECT post.*
+		FROM post
+		JOIN category ON category.id = category_to_filter
+		ORDER BY post.uploaded_at DESC OFFSET offset_val LIMIT limit_val
+	) AS p
+	LEFT JOIN comments c ON p.id = c.post_id
+	LEFT JOIN likes l ON p.id = l.post_id;
 END;
 $$ LANGUAGE plpgsql;
             ");

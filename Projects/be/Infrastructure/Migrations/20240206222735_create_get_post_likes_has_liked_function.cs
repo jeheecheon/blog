@@ -7,13 +7,13 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_get_posts_likes_comments_function : Migration
+    public partial class create_get_post_likes_has_liked_function : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-CREATE OR REPLACE FUNCTION get_posts_likes_comments(offset_val INT, limit_val INT)
+CREATE OR REPLACE FUNCTION get_post_likes_has_liked(target_post_id UUID, target_account_id UUID)
 RETURNS TABLE (
 	id UUID,
 	title VARCHAR(50), 
@@ -22,42 +22,37 @@ RETURNS TABLE (
 	edited_at TIMESTAMP WITH TIME ZONE, 
 	cover VARCHAR(256), 
 	category_id VARCHAR(30),
-	comment_cnt BIGINT, 
-	like_cnt BIGINT
+	like_cnt BIGINT,
+	has_liked BOOLEAN
 ) AS $$
 BEGIN
 	RETURN QUERY
-	WITH likes AS (
-		SELECT post_id, COUNT(*) AS like_cnt
+	WITH likes_and_has_liked AS (
+		SELECT 
+			post_id, 
+			COUNT(*) AS like_cnt,
+			COUNT(DISTINCT CASE WHEN liked_post.account_id = target_account_id
+				THEN liked_post.account_id END) > 0 AS has_liked
 		FROM liked_post
+		WHERE post_id = target_post_id
 		GROUP BY post_id
-	),
-	comments AS (
-		SELECT post_id, COUNT(*) AS comment_cnt
-		FROM comment
-		GROUP BY post_id
-	) 
+	)
 	SELECT 
 		p.*,
-		COALESCE(c.comment_cnt, 0) AS comment_cnt,
-		COALESCE(l.like_cnt, 0) AS like_cnt
-	FROM (
-		SELECT *
-		FROM post 
-		ORDER BY post.uploaded_at DESC OFFSET offset_val LIMIT limit_val
-	) AS p
-	LEFT JOIN comments c ON p.id = c.post_id
-	LEFT JOIN likes l ON p.id = l.post_id;
+		COALESCE(l.like_cnt, 0) AS like_cnt,
+		l.has_liked
+	FROM (SELECT * FROM post WHERE post.id = target_post_id) as p
+	LEFT JOIN likes_and_has_liked AS l ON p.id = l.post_id;
 END;
-$$ LANGUAGE plpgsql;
-            ");
+$$ LANGUAGE plpgsql;	
+           ");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-DROP FUNCTION get_posts_likes_comments;
+DROP FUNCTION get_post_likes_has_liked;
             ");
         }
     }

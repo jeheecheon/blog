@@ -35,7 +35,7 @@ public class TestController : ControllerBase
     [HttpGet("Hello")]
     public IActionResult Hello()
     {
-        var result = _mainContext.get_posts_likes_comments_filted_by_category.FromSqlInterpolated($"SELECT * FROM get_posts_likes_comments_filted_by_category({0}, {11}, {"알고리즘"})").ToList();
+        var result = _mainContext.get_post_likes_has_liked.FromSqlInterpolated($"SELECT * FROM get_post_likes_has_liked({Guid.Parse("95f72b81-b464-4303-95ea-f9afb24c4d4f")}, {Guid.Parse("a4f6e95a-ecd2-4c74-aff5-256fd9b83ea7")})").ToList();
 
         return Ok(JsonSerializer.Serialize(result));
     }
