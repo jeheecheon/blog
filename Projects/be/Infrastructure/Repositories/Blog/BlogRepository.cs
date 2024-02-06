@@ -1,6 +1,7 @@
 using Core.DTOs;
 using Infrastructur.Models;
 using Infrastructure.DbContexts;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

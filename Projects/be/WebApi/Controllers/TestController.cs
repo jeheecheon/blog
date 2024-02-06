@@ -1,7 +1,9 @@
 using System.Text.Json;
+using Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers;
 
@@ -10,12 +12,15 @@ namespace WebApi.Controllers;
 public class TestController : ControllerBase
 {
     private readonly ILogger<TestController> _logger;
+    private readonly MainContext _mainContext;
 
     public TestController(
-        ILogger<TestController> logger
+        ILogger<TestController> logger,
+        MainContext mainContext
     )
     {
         _logger = logger;
+        _mainContext = mainContext;
     }
 
     [Authorize]
@@ -30,10 +35,9 @@ public class TestController : ControllerBase
     [HttpGet("Hello")]
     public IActionResult Hello()
     {
-        return Ok(JsonSerializer.Serialize(new
-        {
-            Message = "Hello my world"
-        }));
+        var result = _mainContext.PostLikesComments.FromSqlInterpolated($"SELECT * FROM get_posts_likes_comments({0}, {11})").ToList();
+
+        return Ok(JsonSerializer.Serialize(result));
     }
 
     [Authorize]

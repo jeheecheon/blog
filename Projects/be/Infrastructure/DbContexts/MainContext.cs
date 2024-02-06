@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infrastructur.Models;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts;
@@ -37,6 +38,8 @@ public partial class MainContext : DbContext
     public virtual DbSet<post> posts { get; set; }
 
     public virtual DbSet<role> roles { get; set; }
+
+    public virtual DbSet<PostLikesComments> PostLikesComments { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:MainContext");
