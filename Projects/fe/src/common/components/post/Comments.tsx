@@ -4,14 +4,15 @@ import CommentInfo from '@/common/types/CommentInfo';
 import { PromiseAwaiter } from '@/common/utils/promiseWrapper';
 import { convertStringDateIntoDate, sortComments } from '@/common/utils/comment';
 
+
 interface CommentsProps {
   className?: string;
-  id: string;
+  postId: string;
   commentsAwaiter: PromiseAwaiter;
   setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
 }
 
-const Comments: React.FC<CommentsProps> = ({ className, id, commentsAwaiter, setCommentsAwaiter }) => {
+const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter, setCommentsAwaiter }) => {
   const comments: CommentInfo[] = commentsAwaiter.Await() as CommentInfo[];
 
   convertStringDateIntoDate(comments);
@@ -26,13 +27,14 @@ const Comments: React.FC<CommentsProps> = ({ className, id, commentsAwaiter, set
             <Comment
               key={idx}
               comment={comment}
+              postId={postId}
               setCommentsAwaiter={setCommentsAwaiter}
             />
         )
       }
 
       <CommentWriteArea
-        postId={id}
+        postId={postId}
         setCommentsAwaiter={setCommentsAwaiter}
       />
     </div>

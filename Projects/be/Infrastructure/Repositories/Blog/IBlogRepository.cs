@@ -14,5 +14,7 @@ namespace Infrastructure.Repositories.Blog
         public IEnumerable<get_comments_likes_has_liked>? GetComments(Guid post_id, Guid account_id);
         public Task<bool> DeleteLikedPostAsync(Guid post_id, Guid account_id);
         public Task<bool> CreateLikedPostAsync(Guid post_id, Guid account_id);
+        public Task<bool> DeleteLikedCommentAsync(Guid comment_id, Guid account_id);
+        public Task<bool> CreateLikedCommentAsync(Guid comment_id, Guid account_id);
     }
 }

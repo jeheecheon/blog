@@ -1,6 +1,6 @@
 export default interface CommentInfo {
 	parent_comment_id: string | undefined;
-	content: string;
+	content: React.Node;
 	uploaded_at: Date | string;
 	edited_at?: Date | string;
 	is_deleted: boolean;

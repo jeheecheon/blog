@@ -29,7 +29,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
                 <Suspense fallback={<div>Loading...</div>}>
                     <Comments
                         className='px-2 relative top-[75px]'
-                        id={post.id}
+                        postId={post.id}
                         commentsAwaiter={commentsAwaiter}
                         setCommentsAwaiter={setCommentsAwaiter}
                     />

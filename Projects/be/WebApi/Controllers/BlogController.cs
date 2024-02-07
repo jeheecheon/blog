@@ -69,23 +69,33 @@ public class BlogController : ControllerBase
     }
 
     [HttpGet("post/{post_id}/comments")]
-    public async Task<IActionResult> GetCommentsAsync([FromRoute] Guid post_id)
+    public IActionResult GetComments([FromRoute] Guid post_id)
     {
         IEnumerable<get_comments_likes_has_liked>? comments = _blogService.GetComments(post_id);
-
-        await Task.Delay(1000);
-        if (comments is null)
-            return BadRequest();
-        else
-            return Ok(JsonSerializer.Serialize(comments));
+        return Ok(JsonSerializer.Serialize(comments));
     }
 
     [HttpPost("post/{post_id}/has-liked")]
-    public async Task<IActionResult> PostHasLikedAsync([FromRoute] Guid post_id, [FromBody] bool has_liked)
+    public async Task<IActionResult> PostBlogPostHasLikedAsync([FromRoute] Guid post_id, [FromBody] bool has_liked)
     {
         var result = await _blogService.SetPostHasLikedAsync(post_id, has_liked);
         if (result)
-            return Ok(JsonSerializer.Serialize(new {
+            return Ok(JsonSerializer.Serialize(new
+            {
+                has_liked
+            }));
+        else
+            return BadRequest();
+    }
+
+    [HttpPost("comment/{comment_id}/has-liked")]
+    public async Task<IActionResult> PostBlogCommentHasLikedAsync([FromRoute] Guid comment_id, [FromBody] bool has_liked)
+    {
+        var result = await _blogService.SetCommentHasLikedAsync(comment_id, has_liked);
+
+        if (result)
+            return Ok(JsonSerializer.Serialize(new
+            {
                 has_liked
             }));
         else

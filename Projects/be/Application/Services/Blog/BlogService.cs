@@ -95,8 +95,15 @@ public class BlogService : IBlogService
         if (string.IsNullOrWhiteSpace(guidString))
             return null;
         Guid account_id = Guid.Parse(guidString);
+        var comments = _blogRepository.GetComments(post_id, account_id);
+        if (comments is null)
+            return null;
 
-        return _blogRepository.GetComments(post_id, account_id);
+        foreach (var comment in comments)
+            if (comment.is_deleted)
+                comment.content = "[Deleted comment...]";
+
+        return comments;
     }
 
     public async Task<bool> SetPostHasLikedAsync(Guid post_id, bool has_liked)
@@ -112,5 +119,20 @@ public class BlogService : IBlogService
             return await _blogRepository.CreateLikedPostAsync(post_id, account_id);
         else
             return await _blogRepository.DeleteLikedPostAsync(post_id, account_id);
+    }
+
+    public async Task<bool> SetCommentHasLikedAsync(Guid comment_id, bool has_liked)
+    {
+        if (string.IsNullOrWhiteSpace(comment_id.ToString()))
+            return false;
+        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        if (string.IsNullOrWhiteSpace(guidString))
+            return false;
+        Guid account_id = Guid.Parse(guidString);
+
+        if (has_liked)
+            return await _blogRepository.CreateLikedCommentAsync(comment_id, account_id);
+        else
+            return await _blogRepository.DeleteLikedCommentAsync(comment_id, account_id);
     }
 }

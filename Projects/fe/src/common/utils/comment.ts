@@ -1,4 +1,6 @@
 import CommentInfo from "../types/CommentInfo";
+import DOMPurify from 'isomorphic-dompurify';
+import parse from 'html-react-parser';
 
 export const convertStringDateIntoDate = (
     comments: CommentInfo[]
@@ -71,10 +73,7 @@ export const getTimeAgo = (uploadedAt: Date): string => {
     }
 };
 
-// content: "첫 댓글!!"
-// email: "jeheecheon@gmail.com"
-// id: "b5e3d368-b29c-40c6-b05b-2a5f5fd2a805"
-// is_deleted: false
-// parent_comment_id: null
-// post_id: "3b616fe5-58cb-40f6-855d-a3b5bcf72b4a"
-// uploaded_at: "2024-02-04T08:36:40.705686Z"
+export const sanitizeComments = (comments: CommentInfo[]) => {
+    for (const comment of comments)
+        comment.content = parse(DOMPurify.sanitize(comment.content));
+}

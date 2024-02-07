@@ -159,5 +159,41 @@ INSERT INTO liked_post (post_id, account_id) VALUES
             }
         }
 
+        public async Task<bool> DeleteLikedCommentAsync(Guid comment_id, Guid account_id)
+        {
+            System.Console.WriteLine("reached");
+            try
+            {
+                var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+DELETE FROM liked_comment
+WHERE comment_id = {comment_id}
+    AND account_id = {account_id}
+                ");
+                return affectedRowsCnt > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateLikedCommentAsync(Guid comment_id, Guid account_id)
+        {
+            System.Console.WriteLine("reached");
+            try
+            {
+                var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+INSERT INTO liked_comment (comment_id, account_id) VALUES
+    ({comment_id}, {account_id})
+                ");
+                return affectedRowsCnt > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
     }
 }
