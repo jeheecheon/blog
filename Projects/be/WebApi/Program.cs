@@ -10,10 +10,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
 // The call to AddEndpointsApiExplorer shown in the preceding example is required only for minimal APIs.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+// CORS Settings
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("JeheecheonCorsPolicy", builder =>
+//     {
+//         builder.WithOrigins("http://yourfrontend.com")
+//             .AllowAnyMethod()
+//             .AllowAnyHeader();
+//     });
+// });
+
+
 
 // Add DB contexts
 builder.Services.AddDbContext<MainContext>();
@@ -56,7 +69,7 @@ var app = builder.Build();
 
 // // Commented out https setup for now
 app.UseHttpsRedirection();
-
+// app.UseCors("JeheecheonCorsPolicy");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -66,4 +79,11 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<MainContext>();
+    await InitialDataManager.SeedAsync(context);
+}
+
 app.Run();

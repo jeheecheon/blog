@@ -3,6 +3,7 @@ using Application.Services.Blog;
 using Core.DTOs;
 using Infrastructur.Models;
 using Infrastructure.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -22,7 +23,7 @@ public class BlogController : ControllerBase
         _blogService = blogService;
     }
 
-    // [Authorize]
+    [Authorize]
     [HttpPost("post-upload")]
     public async Task<IActionResult> PostUploadAsync([FromBody] PostUploadRequestDto post)
     {
@@ -59,6 +60,7 @@ public class BlogController : ControllerBase
     }
 
     [HttpPost("post/{post_id}/comment")]
+    [Authorize]
     public async Task<IActionResult> PostCommentAsync([FromRoute] Guid post_id, [FromBody] CommentUploadRequestDto commentToUpload)
     {
         bool isSucceded = await _blogService.UploadCommentAsync(post_id, commentToUpload);
@@ -76,6 +78,7 @@ public class BlogController : ControllerBase
     }
 
     [HttpPost("post/{post_id}/has-liked")]
+    [Authorize]
     public async Task<IActionResult> PostBlogPostHasLikedAsync([FromRoute] Guid post_id, [FromBody] bool has_liked)
     {
         var result = await _blogService.SetPostHasLikedAsync(post_id, has_liked);
@@ -89,6 +92,7 @@ public class BlogController : ControllerBase
     }
 
     [HttpPost("comment/{comment_id}/has-liked")]
+    [Authorize]
     public async Task<IActionResult> PostBlogCommentHasLikedAsync([FromRoute] Guid comment_id, [FromBody] bool has_liked)
     {
         var result = await _blogService.SetCommentHasLikedAsync(comment_id, has_liked);

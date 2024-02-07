@@ -18,6 +18,7 @@ public partial class MainContext : DbContext
     }
 
     public virtual DbSet<account> accounts { get; set; }
+    public virtual DbSet<account_role> account_roles { get; set; }
 
     public virtual DbSet<category> categories { get; set; }
 
