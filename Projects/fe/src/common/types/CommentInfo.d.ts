@@ -1,13 +1,12 @@
 export default interface CommentInfo {
-	id: string;
+	parent_comment_id: string | undefined;
 	content: string;
 	uploaded_at: Date | string;
-	parent_comment_id: string | undefined;
-	post_id: string;
+	edited_at?: Date | string;
 	is_deleted: boolean;
+	like_cnt: number;
+	has_liked: boolean;
+	id: string;
 	email: string;
-
-	// TODO: 추가
 	avatar: string | null;
-	likes: number
 }

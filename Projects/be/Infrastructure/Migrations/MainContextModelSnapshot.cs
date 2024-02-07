@@ -326,6 +326,46 @@ namespace Infrastructure.Migrations
                     b.ToTable("role", (string)null);
                 });
 
+            modelBuilder.Entity("Infrastructure.Models.get_comments_likes_has_liked", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("avatar")
+                        .HasColumnType("text");
+
+                    b.Property<string>("content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("edited_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("has_liked")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("is_deleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("like_cnt")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid?>("parent_comment_id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("uploaded_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("id");
+
+                    b.ToTable("get_comments_likes_has_liked");
+                });
+
             modelBuilder.Entity("Infrastructure.Models.get_post_likes_has_liked", b =>
                 {
                     b.Property<Guid>("id")

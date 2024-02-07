@@ -108,13 +108,12 @@ INSERT INTO comment (account_id, post_id, content, parent_comment_id) VALUES
             }
         }
 
-        public IEnumerable<comments_for_post>? GetCommentsByPostId(Guid post_id)
+        public IEnumerable<get_comments_likes_has_liked>? GetComments(Guid post_id, Guid account_id)
         {
             try
             {
-                // TODO: account_id 제외하고 보내는 것
-                return _mainContext.comments_for_posts.FromSqlInterpolated(@$"
-SELECT * FROM comments_for_post WHERE post_id = {post_id}
+                return _mainContext.get_comments_likes_has_liked.FromSqlInterpolated(@$"
+SELECT * FROM get_comments_likes_has_liked({post_id}, {account_id})
                 ");
             }
             catch (Exception e)

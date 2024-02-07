@@ -2,6 +2,7 @@ using System.Text.Json;
 using Application.Services.Blog;
 using Core.DTOs;
 using Infrastructur.Models;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -70,7 +71,7 @@ public class BlogController : ControllerBase
     [HttpGet("post/{post_id}/comments")]
     public async Task<IActionResult> GetCommentsAsync([FromRoute] Guid post_id)
     {
-        IEnumerable<comments_for_post>? comments = _blogService.GetComments(post_id);
+        IEnumerable<get_comments_likes_has_liked>? comments = _blogService.GetComments(post_id);
 
         await Task.Delay(1000);
         if (comments is null)

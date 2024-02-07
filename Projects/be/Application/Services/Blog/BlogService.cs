@@ -87,9 +87,16 @@ public class BlogService : IBlogService
         return affectedRowsCnt > 0;
     }
 
-    public IEnumerable<comments_for_post>? GetComments(Guid post_id)
+    public IEnumerable<get_comments_likes_has_liked>? GetComments(Guid post_id)
     {
-        return _blogRepository.GetCommentsByPostId(post_id);
+        if (string.IsNullOrWhiteSpace(post_id.ToString()))
+            return null;
+        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        if (string.IsNullOrWhiteSpace(guidString))
+            return null;
+        Guid account_id = Guid.Parse(guidString);
+
+        return _blogRepository.GetComments(post_id, account_id);
     }
 
     public async Task<bool> SetPostHasLikedAsync(Guid post_id, bool has_liked)
