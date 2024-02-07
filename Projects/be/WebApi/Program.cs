@@ -14,7 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 // CORS Settings
 // builder.Services.AddCors(options =>
 // {
@@ -25,8 +24,6 @@ builder.Services.AddSwaggerGen();
 //             .AllowAnyHeader();
 //     });
 // });
-
-
 
 // Add DB contexts
 builder.Services.AddDbContext<MainContext>();

@@ -9,23 +9,33 @@ public static class InitialDataManager
     {
         try
         {
-            if (!mainContext.roles.Any())
-            {
-                await mainContext.roles.AddAsync(new role
-                {
-                    name = "admin"
-                });
-                await mainContext.SaveChangesAsync();
-            }
+            await mainContext.Database.ExecuteSqlAsync(@$"
+INSERT INTO role (name) VALUES ('admin');
+            ");
 
-            if (!mainContext.external_login_providers.Any())
-            {
-                await mainContext.external_login_providers.AddAsync(new external_login_provider
-                {
-                    name = "google"
-                });
-                await mainContext.SaveChangesAsync();
-            }
+        }
+        catch (Exception e)
+        {
+            System.Console.WriteLine($"{e.Source}: {e.Message}");
+        }
+
+        try
+        {
+            await mainContext.Database.ExecuteSqlAsync(@$"
+INSERT INTO external_login_provider (name) VALUES ('google');
+            ");
+
+        }
+        catch (Exception e)
+        {
+            System.Console.WriteLine($"{e.Source}: {e.Message}");
+        }
+
+        try
+        {
+            await mainContext.Database.ExecuteSqlAsync(@$"
+INSERT INTO category (id, is_bottom_level) VALUES ('ASP.NET', true);
+            ");
         }
         catch (Exception e)
         {

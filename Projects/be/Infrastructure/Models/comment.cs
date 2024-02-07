@@ -17,8 +17,6 @@ public partial class comment
 
     public DateTime uploaded_at { get; set; }
 
-    public DateTime? edited_at { get; set; }
-
     public bool is_deleted { get; set; }
 
     public virtual ICollection<comment> Inverseparent_comment { get; set; } = new List<comment>();

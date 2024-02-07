@@ -37,18 +37,20 @@ SELECT * FROM category
             }
         }
 
-        public async Task CreatePostAsync(PostUploadRequestDto post)
+        public async Task<bool> CreatePostAsync(PostUploadRequestDto post)
         {
             try
             {
-                await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+                int affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO post (title, content, category_id) VALUES
     ({post.title}, {post.content}, {post.category_id})            
                 ");
+                return affectedRowsCnt > 0;
             }
             catch (Exception e)
             {
                 _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
             }
         }
 

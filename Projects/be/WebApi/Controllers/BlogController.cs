@@ -27,9 +27,7 @@ public class BlogController : ControllerBase
     [HttpPost("post-upload")]
     public async Task<IActionResult> PostUploadAsync([FromBody] PostUploadRequestDto post)
     {
-        // TODO: role admin 검사 
-        await _blogService.UploadPostAsync(post);
-        return Ok();
+        return await _blogService.UploadPostAsync(post) ? Ok() : BadRequest();
     }
 
     // [Authorize]

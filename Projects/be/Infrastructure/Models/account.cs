@@ -25,5 +25,5 @@ public partial class account
 
     public virtual ICollection<liked_post> liked_posts { get; set; } = new List<liked_post>();
 
-    public virtual ICollection<role> roles { get; set; } = new List<role>();
+    public virtual ICollection<account_role> account_roles { get; set; } = new List<account_role>();
 }

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructur.Models;
+
+[PrimaryKey(nameof(provider_id), nameof(account_id_from_provider))]
 
 public partial class external_authentication
 {

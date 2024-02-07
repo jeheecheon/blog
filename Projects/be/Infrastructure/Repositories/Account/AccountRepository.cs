@@ -82,4 +82,38 @@ SELECT * FROM account WHERE normalized_email = {email}
             return null;
         }
     }
+
+    public role? GetAdminRole()
+    {
+        try
+        {
+            return _mainContext.roles.FromSql(@$"
+SELECT * FROM role WHERE name = 'admin';
+        ")
+            .AsEnumerable()
+            .FirstOrDefault();
+        }
+        catch (Exception e)
+        {
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public account_role? GetAccountRole(int role_id, Guid account_id)
+    {
+        try
+        {
+            return _mainContext.account_roles.FromSqlInterpolated(@$"
+SELECT * FROM account_role WHERE account_id = {account_id} AND role_id = {role_id};
+        ")
+            .AsEnumerable()
+            .FirstOrDefault();
+        }
+        catch (Exception e)
+        {
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
 }

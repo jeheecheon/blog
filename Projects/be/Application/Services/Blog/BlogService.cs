@@ -7,6 +7,7 @@ using Infrastructur.Repositories.Account;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Infrastructure.Models;
+using Application.Services.Account;
 
 namespace Application.Services.Blog;
 
@@ -14,21 +15,21 @@ public class BlogService : IBlogService
 {
     private readonly ILogger<BlogService> _logger;
     private readonly IBlogRepository _blogRepository;
-    private readonly IAccountRepository _accountRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IAccountService _accountService;
 
     static private readonly int _PostsPerPage = 99;
     public BlogService(
         ILogger<BlogService> logger,
         IBlogRepository blogRepository,
-        IAccountRepository accountRepository,
-        IHttpContextAccessor httpContextAccessor
+        IHttpContextAccessor httpContextAccessor,
+        IAccountService accountService
     )
     {
         _logger = logger;
         _blogRepository = blogRepository;
-        _accountRepository = accountRepository;
         _httpContextAccessor = httpContextAccessor;
+        _accountService = accountService;
     }
 
     public IEnumerable<category>? GetAllCategories()
@@ -42,11 +43,14 @@ public class BlogService : IBlogService
         return sanitizer.Sanitize(dirty);
     }
 
-    public async Task UploadPostAsync(PostUploadRequestDto post)
+    public async Task<bool> UploadPostAsync(PostUploadRequestDto post)
     {
+        if (_accountService.FilterAdmin() is false)
+            return false;
+        System.Console.WriteLine("통과");
         post.title = SanitizeContent(post.title);
         post.content = SanitizeContent(post.content);
-        await _blogRepository.CreatePostAsync(post);
+        return await _blogRepository.CreatePostAsync(post);
     }
 
     public IEnumerable<get_posts_likes_comments>? GetPosts(int page, string? category)

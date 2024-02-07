@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructur.Models;
 
+[PrimaryKey(propertyName: nameof(post_id), nameof(account_id))]
 public partial class liked_post
 {
     public Guid post_id { get; set; }

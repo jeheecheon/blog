@@ -16,6 +16,7 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
+DROP FUNCTION IF EXISTS get_comments_likes;
 CREATE OR REPLACE FUNCTION get_comments_likes(target_post_id UUID)
 RETURNS TABLE (
 	id UUID,
@@ -55,6 +56,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP FUNCTION IF EXISTS get_comments_likes_has_liked;
 CREATE OR REPLACE FUNCTION get_comments_likes_has_liked(target_post_id UUID, target_account_id UUID)
 RETURNS TABLE (
 	id UUID,
@@ -104,6 +106,7 @@ $$ LANGUAGE plpgsql;
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
+DROP FUNCTION IF EXISTS get_comments_likes;
 CREATE OR REPLACE FUNCTION get_comments_likes(target_post_id UUID)
 RETURNS TABLE (
 	id UUID,
@@ -145,6 +148,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP FUNCTION IF EXISTS get_comments_likes_has_liked;
 CREATE OR REPLACE FUNCTION get_comments_likes_has_liked(target_post_id UUID, target_account_id UUID)
 RETURNS TABLE (
 	id UUID,
