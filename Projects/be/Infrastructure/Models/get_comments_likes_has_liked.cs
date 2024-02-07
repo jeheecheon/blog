@@ -6,7 +6,6 @@ public class get_comments_likes_has_liked
     public Guid? parent_comment_id { get; set; }
     public string content { get; set; }
     public DateTime uploaded_at { get; set; }
-    public DateTime? edited_at { get; set; }
     public bool is_deleted { get; set; }
     public long like_cnt { get; set; }
     public bool has_liked { get; set; }
@@ -24,7 +23,6 @@ public class get_comments_likes_has_liked
         this.parent_comment_id = commentWithoutHasLiked.parent_comment_id;
         this.content = commentWithoutHasLiked.content;
         this.uploaded_at = commentWithoutHasLiked.uploaded_at;
-        this.edited_at = commentWithoutHasLiked.edited_at;
         this.is_deleted = commentWithoutHasLiked.is_deleted;
         this.like_cnt = commentWithoutHasLiked.like_cnt;
         this.has_liked = false;
