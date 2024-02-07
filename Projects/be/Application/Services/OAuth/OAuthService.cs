@@ -133,7 +133,7 @@ public class OAuthService : IOAuthService
         await _accountRepository.AddAccountAsync(userInfo);
 
         // Fetch the user uuid
-        account? account = _accountRepository.GetAccountByNormalizedEmail(userInfo.email.ToUpper());
+        _account? account = _accountRepository.GetAccountByNormalizedEmail(userInfo.email.ToUpper());
         if (account is null || string.IsNullOrWhiteSpace(account.normalized_email))
             return null;
 

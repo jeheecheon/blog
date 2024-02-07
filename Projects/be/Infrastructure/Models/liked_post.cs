@@ -13,7 +13,7 @@ public partial class liked_post
 
     public DateTime created_at { get; set; }
 
-    public virtual account account { get; set; } = null!;
+    public virtual _account account { get; set; } = null!;
 
-    public virtual post post { get; set; } = null!;
+    public virtual _post post { get; set; } = null!;
 }

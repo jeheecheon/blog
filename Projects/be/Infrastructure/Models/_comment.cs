@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructur.Models;
 
-public partial class comment
+[Table("comment")]
+public partial class _comment
 {
     public Guid id { get; set; }
 
@@ -19,13 +21,13 @@ public partial class comment
 
     public bool is_deleted { get; set; }
 
-    public virtual ICollection<comment> Inverseparent_comment { get; set; } = new List<comment>();
+    public virtual ICollection<_comment> Inverseparent_comment { get; set; } = new List<_comment>();
 
-    public virtual account account { get; set; } = null!;
+    public virtual _account account { get; set; } = null!;
 
     public virtual ICollection<liked_comment> liked_comments { get; set; } = new List<liked_comment>();
 
-    public virtual comment? parent_comment { get; set; }
+    public virtual _comment? parent_comment { get; set; }
 
-    public virtual post post { get; set; } = null!;
+    public virtual _post post { get; set; } = null!;
 }

@@ -11,7 +11,7 @@ public partial class account_role
 
     public int role_id { get; set; }
 
-    public virtual ICollection<role> roles { get; set; } = new List<role>();
-    public virtual ICollection<account> account { get; set; } = new List<account>();
+    public virtual ICollection<_role> roles { get; set; } = new List<_role>();
+    public virtual ICollection<_account> account { get; set; } = new List<_account>();
 
 }

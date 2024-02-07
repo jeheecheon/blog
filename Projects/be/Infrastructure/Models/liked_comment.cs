@@ -13,7 +13,7 @@ public partial class liked_comment
 
     public DateTime created_at { get; set; }
 
-    public virtual account account { get; set; } = null!;
+    public virtual _account account { get; set; } = null!;
 
-    public virtual comment comment { get; set; } = null!;
+    public virtual _comment comment { get; set; } = null!;
 }

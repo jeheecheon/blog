@@ -66,7 +66,7 @@ SELECT * FROM external_login_provider WHERE name = {provider}
         }
     }
 
-    public account? GetAccountByNormalizedEmail(string email)
+    public _account? GetAccountByNormalizedEmail(string email)
     {
         try
         {
@@ -83,7 +83,7 @@ SELECT * FROM account WHERE normalized_email = {email}
         }
     }
 
-    public role? GetAdminRole()
+    public _role? GetAdminRole()
     {
         try
         {

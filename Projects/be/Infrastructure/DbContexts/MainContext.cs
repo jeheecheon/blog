@@ -17,12 +17,12 @@ public partial class MainContext : DbContext
     {
     }
 
-    public virtual DbSet<account> accounts { get; set; }
+    public virtual DbSet<_account> accounts { get; set; }
     public virtual DbSet<account_role> account_roles { get; set; }
 
-    public virtual DbSet<category> categories { get; set; }
+    public virtual DbSet<_category> categories { get; set; }
 
-    public virtual DbSet<comment> comments { get; set; }
+    public virtual DbSet<_comment> comments { get; set; }
 
     public virtual DbSet<comments_for_post> comments_for_posts { get; set; }
 
@@ -30,15 +30,15 @@ public partial class MainContext : DbContext
 
     public virtual DbSet<external_login_provider> external_login_providers { get; set; }
 
-    public virtual DbSet<hashtag> hashtags { get; set; }
+    public virtual DbSet<_hashtag> hashtags { get; set; }
 
     public virtual DbSet<liked_comment> liked_comments { get; set; }
 
     public virtual DbSet<liked_post> liked_posts { get; set; }
 
-    public virtual DbSet<post> posts { get; set; }
+    public virtual DbSet<_post> posts { get; set; }
 
-    public virtual DbSet<role> roles { get; set; }
+    public virtual DbSet<_role> roles { get; set; }
 
     public virtual DbSet<get_posts_likes_comments> get_posts_likes_comments { get; set; }
     public virtual DbSet<get_posts_likes_comments_filted_by_category> get_posts_likes_comments_filted_by_category { get; set; }

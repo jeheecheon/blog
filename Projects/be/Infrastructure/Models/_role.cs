@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructur.Models;
 
-public partial class role
+[Table("role")]
+public partial class _role
 {
     public int id { get; set; }
 

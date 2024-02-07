@@ -21,7 +21,7 @@ namespace Infrastructure.Repositories.Blog
             _mainContext = mainContext;
         }
 
-        public IEnumerable<category>? GetAllCategories()
+        public IEnumerable<_category>? GetAllCategories()
         {
             try
             {

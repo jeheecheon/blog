@@ -32,7 +32,7 @@ public class BlogService : IBlogService
         _accountService = accountService;
     }
 
-    public IEnumerable<category>? GetAllCategories()
+    public IEnumerable<_category>? GetAllCategories()
     {
         return _blogRepository.GetAllCategories();
     }

@@ -6,7 +6,7 @@ namespace Application.Services.Blog;
 
 public interface IBlogService
 {
-    public IEnumerable<category>? GetAllCategories();
+    public IEnumerable<_category>? GetAllCategories();
     public string SanitizeContent(string dirty);
     public Task<bool> UploadPostAsync(PostUploadRequestDto post);
     public IEnumerable<get_posts_likes_comments>? GetPosts(int page, string? category);

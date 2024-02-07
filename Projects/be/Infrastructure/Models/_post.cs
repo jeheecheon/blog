@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructur.Models;
 
-public partial class post
+[Table("post")]
+public partial class _post
 {
     public Guid id { get; set; }
 
@@ -19,11 +21,11 @@ public partial class post
 
     public string? category_id { get; set; }
 
-    public virtual category? category { get; set; }
+    public virtual _category? category { get; set; }
 
-    public virtual ICollection<comment> comments { get; set; } = new List<comment>();
+    public virtual ICollection<_comment> comments { get; set; } = new List<_comment>();
 
     public virtual ICollection<liked_post> liked_posts { get; set; } = new List<liked_post>();
 
-    public virtual ICollection<hashtag> hashtags { get; set; } = new List<hashtag>();
+    public virtual ICollection<_hashtag> hashtags { get; set; } = new List<_hashtag>();
 }

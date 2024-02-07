@@ -14,7 +14,7 @@ public partial class external_authentication
 
     public Guid account_id { get; set; }
 
-    public virtual account account { get; set; } = null!;
+    public virtual _account account { get; set; } = null!;
 
     public virtual external_login_provider provider { get; set; } = null!;
 }

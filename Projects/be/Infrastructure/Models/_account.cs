@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructur.Models;
 
-public partial class account
+[Table("account")]
+public partial class _account
 {
     public Guid id { get; set; }
 
@@ -17,7 +19,7 @@ public partial class account
 
     public DateTime created_at { get; set; }
 
-    public virtual ICollection<comment> comments { get; set; } = new List<comment>();
+    public virtual ICollection<_comment> comments { get; set; } = new List<_comment>();
 
     public virtual ICollection<external_authentication> external_authentications { get; set; } = new List<external_authentication>();
 

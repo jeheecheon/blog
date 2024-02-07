@@ -31,7 +31,7 @@ public class AccountService : IAccountService
             return false;
         Guid account_id = Guid.Parse(guidString);
 
-        role? admin = _accountRepository.GetAdminRole();
+        _role? admin = _accountRepository.GetAdminRole();
         if (admin is null)
             return false;
 
