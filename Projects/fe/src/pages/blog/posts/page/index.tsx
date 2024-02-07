@@ -23,13 +23,8 @@ const Posts = () => {
               preventScrollReset={false}
             >
               <PostCard
-                liked={false}
-                title={p.title}
-                content={p.content}
-                uploadedAt={p.uploaded_at}
-              >
-                {p.content}
-              </PostCard>
+                post={p}
+              />
             </Link>
           ))
         }

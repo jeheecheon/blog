@@ -52,14 +52,12 @@ INSERT INTO post (title, content, category_id) VALUES
             }
         }
 
-        public IEnumerable<post>? GetPosts(int offset, int limit)
+        public IEnumerable<get_posts_likes_comments>? GetPosts(int offset, int limit)
         {
             try
             {
-                return _mainContext.posts.FromSqlInterpolated(@$"
-SELECT * FROM post
-OFFSET {offset}
-LIMIT {limit}
+                return _mainContext.get_posts_likes_comments.FromSqlInterpolated(@$"
+SELECT * FROM get_posts_likes_comments({offset}, {limit})
                 ")
                     .AsEnumerable();
             }
@@ -70,13 +68,12 @@ LIMIT {limit}
             }
         }
 
-        public post? GetPostById(Guid uuid)
+        public get_post_likes_has_liked? GetPost(Guid post_id, Guid account_id)
         {
             try
             {
-                return _mainContext.posts.FromSqlInterpolated(@$"
-SELECT * FROM post
-WHERE id = {uuid}
+                return _mainContext.get_post_likes_has_liked.FromSqlInterpolated(@$"
+SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
                 ")
                     .AsEnumerable()
                     .FirstOrDefault();

@@ -6,6 +6,7 @@ using Ganss.Xss;
 using Infrastructur.Repositories.Account;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Infrastructure.Models;
 
 namespace Application.Services.Blog;
 
@@ -48,16 +49,21 @@ public class BlogService : IBlogService
         await _blogRepository.CreatePostAsync(post);
     }
 
-    public IEnumerable<post>? GetPosts(int page, string? category)
+    public IEnumerable<get_posts_likes_comments>? GetPosts(int page, string? category)
     {
         int offset = (page - 1) * _PostsPerPage;
 
         return _blogRepository.GetPosts(offset, _PostsPerPage);
     }
 
-    public post? GetPost(Guid uuid)
+    public get_post_likes_has_liked? GetPost(Guid post_id)
     {
-        return _blogRepository.GetPostById(uuid);
+        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        if (string.IsNullOrWhiteSpace(guidString))
+            return null;
+        Guid account_id = Guid.Parse(guidString);
+
+        return _blogRepository.GetPost(post_id, account_id);
     }
 
     public async Task<bool> UploadCommentAsync(Guid post_id, CommentUploadRequestDto commentToUpload)

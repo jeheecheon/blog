@@ -47,10 +47,10 @@ public class BlogController : ControllerBase
         return Ok(JsonSerializer.Serialize(result));
     }
 
-    [HttpGet("post/{uuid}")]
-    public IActionResult GetPost([FromRoute] Guid uuid)
+    [HttpGet("post/{post_id}")]
+    public IActionResult GetPost([FromRoute] Guid post_id)
     {
-        var blog = _blogService.GetPost(uuid);
+        var blog = _blogService.GetPost(post_id);
         if (blog is not null)
             return Ok(JsonSerializer.Serialize(blog));
         else

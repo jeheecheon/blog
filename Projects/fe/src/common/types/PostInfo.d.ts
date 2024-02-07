@@ -1,8 +1,11 @@
 export default interface PostInfo {
-    id?: string,
+    id: string,
     title: string,
-    content: string,
     uploaded_at: Date,
-    edited_at?: Date, // TODO: 백에서 받아오는 거 추가해야함
+    edited_at?: Date,
+    cover?: string,
     category_id?: string,
+    content: string,
+    comment_cnt: number,
+    like_cnt: number
 }
