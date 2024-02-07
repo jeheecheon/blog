@@ -99,12 +99,24 @@ public class BlogService : IBlogService
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
         string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        IEnumerable<get_comments_likes_has_liked>? comments;
+
         if (string.IsNullOrWhiteSpace(guidString))
-            return null;
-        Guid account_id = Guid.Parse(guidString);
-        var comments = _blogRepository.GetComments(post_id, account_id);
-        if (comments is null)
-            return null;
+        {
+            var commentsWithoutHasLiked = _blogRepository.GetComments(post_id);
+            if (commentsWithoutHasLiked is null)
+                return null;
+                
+            comments = commentsWithoutHasLiked
+                .Select((comment) => new get_comments_likes_has_liked(comment));
+        }
+        else
+        {
+            Guid account_id = Guid.Parse(guidString);
+            comments = _blogRepository.GetCommentsWithHasLiked(post_id, account_id);
+            if (comments is null)
+                return null;
+        }
 
         foreach (var comment in comments)
             if (comment.is_deleted)

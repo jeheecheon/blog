@@ -366,6 +366,40 @@ namespace Infrastructure.Migrations
                     b.ToTable("get_comments_likes_has_liked");
                 });
 
+            modelBuilder.Entity("Infrastructure.Models.get_post_likes", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("category_id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("cover")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("edited_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("like_cnt")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("uploaded_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("id");
+
+                    b.ToTable("get_post_likes");
+                });
+
             modelBuilder.Entity("Infrastructure.Models.get_post_likes_has_liked", b =>
                 {
                     b.Property<Guid>("id")

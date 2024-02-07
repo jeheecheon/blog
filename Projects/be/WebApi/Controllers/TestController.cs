@@ -35,7 +35,7 @@ public class TestController : ControllerBase
     [HttpGet("Hello")]
     public IActionResult Hello()
     {
-        var result = _mainContext.get_post_likes.FromSqlInterpolated($"SELECT * FROM get_post_likes({Guid.Parse("7d09549c-dcc3-48b7-af72-c14a6540ffdc")})").ToList();
+        var result = _mainContext.get_comments_likes.FromSqlInterpolated($"SELECT * FROM get_comments_likes({Guid.Parse("7d09549c-dcc3-48b7-af72-c14a6540ffdc")})").ToList();
 
         return Ok(JsonSerializer.Serialize(result));
     }

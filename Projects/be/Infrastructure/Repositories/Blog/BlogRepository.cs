@@ -124,12 +124,27 @@ INSERT INTO comment (account_id, post_id, content, parent_comment_id) VALUES
             }
         }
 
-        public IEnumerable<get_comments_likes_has_liked>? GetComments(Guid post_id, Guid account_id)
+        public IEnumerable<get_comments_likes_has_liked>? GetCommentsWithHasLiked(Guid post_id, Guid account_id)
         {
             try
             {
                 return _mainContext.get_comments_likes_has_liked.FromSqlInterpolated(@$"
 SELECT * FROM get_comments_likes_has_liked({post_id}, {account_id})
+                ");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
+        }
+
+        public IEnumerable<get_comments_likes>? GetComments(Guid post_id)
+        {
+            try
+            {
+                return _mainContext.get_comments_likes.FromSqlInterpolated(@$"
+SELECT * FROM get_comments_likes({post_id})
                 ");
             }
             catch (Exception e)
