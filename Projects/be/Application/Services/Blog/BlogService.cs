@@ -62,10 +62,17 @@ public class BlogService : IBlogService
             return null;
         string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (string.IsNullOrWhiteSpace(guidString))
-            return null;
-        Guid account_id = Guid.Parse(guidString);
-
-        return _blogRepository.GetPost(post_id, account_id);
+        {
+            get_post_likes? post = _blogRepository.GetPost(post_id);
+            if (post is null)
+                return null;
+            return new get_post_likes_has_liked(post);
+        }
+        else
+        {
+            Guid account_id = Guid.Parse(guidString);
+            return _blogRepository.GetPostWithHasLiked(post_id, account_id);
+        }
     }
 
     public async Task<bool> UploadCommentAsync(Guid post_id, CommentUploadRequestDto commentToUpload)

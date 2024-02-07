@@ -68,7 +68,7 @@ SELECT * FROM get_posts_likes_comments({offset}, {limit})
             }
         }
 
-        public get_post_likes_has_liked? GetPost(Guid post_id, Guid account_id)
+        public get_post_likes_has_liked? GetPostWithHasLiked(Guid post_id, Guid account_id)
         {
             try
             {
@@ -85,6 +85,22 @@ SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
             }
         }
 
+        public get_post_likes? GetPost(Guid post_id)
+        {
+            try
+            {
+                return _mainContext.get_post_likes.FromSqlInterpolated(@$"
+SELECT * FROM get_post_likes({post_id})
+                ")
+                    .AsEnumerable()
+                    .FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
+        }
 
         public async Task<int> CreateCommentAsync(Guid account_id, Guid post_id, string content, Guid? parent_comment_id)
         {

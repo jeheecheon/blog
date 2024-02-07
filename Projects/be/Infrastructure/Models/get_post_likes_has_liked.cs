@@ -11,4 +11,19 @@ public class get_post_likes_has_liked
     public string? category_id { get; set; }
     public long like_cnt { get; set; }
     public bool has_liked { get; set; }
+
+    public get_post_likes_has_liked() {
+        
+    } 
+    public get_post_likes_has_liked(get_post_likes postWithoutHasLiked) {
+        this.id = postWithoutHasLiked.id;
+        this.title = postWithoutHasLiked.title;
+        this.content = postWithoutHasLiked.content;
+        this.uploaded_at= postWithoutHasLiked.uploaded_at;
+        this.edited_at= postWithoutHasLiked.edited_at;
+        this.cover = postWithoutHasLiked.cover;
+        this.category_id = postWithoutHasLiked.category_id;
+        this.like_cnt = postWithoutHasLiked.like_cnt;
+        this.has_liked = false;
+    }
 }
