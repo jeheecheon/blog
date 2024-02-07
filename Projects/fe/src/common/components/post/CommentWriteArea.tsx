@@ -1,5 +1,5 @@
 import { RootState } from '@/common/redux/store';
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@/common/components/Button';
 import CustomTextArea from '@/common/components/CustomTextArea';
@@ -22,16 +22,12 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
     setCommentsAwaiter
 }) => {
     const user = useSelector((state: RootState) => state.user)
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const isAuthenticated = useRef(user.email !== undefined && user.email !== null && user.email !== '');
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
 
-    useEffect(() => {
-        setIsAuthenticated(user.email !== undefined && user.email !== null && user.email !== '');
-    }, []);
-
     const handleType: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-        if (isAuthenticated === false)
+        if (isAuthenticated.current === false)
             dispatch(makeVisible());
         else {
             setContent(e.currentTarget.value);
@@ -65,7 +61,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
                 px-4 pt-2 pb-4 bg-slate-200 bg-opacity-40`} >
 
             <Avatar
-                avatar={isAuthenticated ? user.avatar : defaultAvatar}
+                avatar={isAuthenticated.current ? user.avatar : defaultAvatar}
                 className='w-[50px] rounded-full bg-white'
             />
 

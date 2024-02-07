@@ -7,5 +7,6 @@ export default interface PostInfo {
     category_id?: string,
     content: string,
     comment_cnt: number,
-    like_cnt: number
+    like_cnt: number,
+    has_liked?: boolean
 }

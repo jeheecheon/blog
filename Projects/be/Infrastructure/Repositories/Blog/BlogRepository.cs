@@ -123,5 +123,42 @@ SELECT * FROM comments_for_post WHERE post_id = {post_id}
                 return null;
             }
         }
+
+        public async Task<bool> DeleteLikedPostAsync(Guid post_id, Guid account_id)
+        {
+            try
+            {
+                var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+DELETE FROM liked_post
+WHERE post_id = {post_id}
+    AND account_id = {account_id}
+                ");
+                return affectedRowsCnt > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
+
+        public async Task<bool> CreateLikedPostAsync(Guid post_id, Guid account_id)
+        {
+            try
+            {
+                var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+INSERT INTO liked_post (post_id, account_id) VALUES
+    ({post_id}, {account_id})
+                ");
+                return affectedRowsCnt > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
     }
 }

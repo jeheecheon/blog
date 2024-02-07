@@ -13,4 +13,5 @@ public interface IBlogService
     public get_post_likes_has_liked? GetPost(Guid post_id);
     public Task<bool> UploadCommentAsync(Guid post_id, CommentUploadRequestDto commentToUpload);
     public IEnumerable<comments_for_post>? GetComments(Guid post_id);
+    public Task<bool> SetPostHasLikedAsync(Guid post_id, bool has_liked);
 }

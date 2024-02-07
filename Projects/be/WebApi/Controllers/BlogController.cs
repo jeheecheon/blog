@@ -78,4 +78,16 @@ public class BlogController : ControllerBase
         else
             return Ok(JsonSerializer.Serialize(comments));
     }
+
+    [HttpPost("post/{post_id}/has-liked")]
+    public async Task<IActionResult> PostHasLikedAsync([FromRoute] Guid post_id, [FromBody] bool has_liked)
+    {
+        var result = await _blogService.SetPostHasLikedAsync(post_id, has_liked);
+        if (result)
+            return Ok(JsonSerializer.Serialize(new {
+                has_liked
+            }));
+        else
+            return BadRequest();
+    }
 }
