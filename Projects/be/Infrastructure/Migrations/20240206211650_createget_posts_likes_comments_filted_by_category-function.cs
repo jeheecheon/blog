@@ -1,4 +1,6 @@
 ﻿using System;
+using Infrastructure.DbContexts;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -7,6 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
+    [DbContext(typeof(MainContext))]
+    [Migration("20240206211650_createget_posts_likes_comments_filted_by_category-function")]
     public partial class createget_posts_likes_comments_filted_by_categoryfunction : Migration
     {
         /// <inheritdoc />
@@ -58,7 +62,7 @@ $$ LANGUAGE plpgsql;
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-DROP FUNCTION get_posts_likes_comments; 
+DROP FUNCTION IF EXISTS get_posts_likes_comments_filtered_by_category; 
             ");
         }
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using Infrastructure.DbContexts;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -6,13 +8,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Infrastructure.Migrations
 {
-    /// <inheritdoc />
-    public partial class create_get_post_likes_has_liked_function : Migration
-    {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
+	/// <inheritdoc />
+	[DbContext(typeof(MainContext))]
+	[Migration("20240206222735_create_get_post_likes_has_liked_function")]
+	public partial class create_get_post_likes_has_liked_function : Migration
+	{
+		/// <inheritdoc />
+		protected override void Up(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.Sql(@"
 CREATE OR REPLACE FUNCTION get_post_likes_has_liked(target_post_id UUID, target_account_id UUID)
 RETURNS TABLE (
 	id UUID,
@@ -46,14 +50,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;	
            ");
-        }
+		}
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
-DROP FUNCTION get_post_likes_has_liked;
+		/// <inheritdoc />
+		protected override void Down(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.Sql(@"
+DROP FUNCTION IF EXISTS get_post_likes_has_liked;
             ");
-        }
-    }
+		}
+	}
 }

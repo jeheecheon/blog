@@ -1,10 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Infrastructure.DbContexts;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
+    [DbContext(typeof(MainContext))]
+    [Migration("20240130082613_InitialMainContext")]
     public partial class InitialMainContext : Migration
     {
         /// <inheritdoc />

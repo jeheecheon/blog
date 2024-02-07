@@ -1,4 +1,6 @@
 ﻿using System;
+using Infrastructure.DbContexts;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -7,6 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
+    [DbContext(typeof(MainContext))]
+    [Migration("20240206210148_Create_get_posts_likes_comments_function")]
     public partial class Create_get_posts_likes_comments_function : Migration
     {
         /// <inheritdoc />
@@ -57,7 +61,7 @@ $$ LANGUAGE plpgsql;
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-DROP FUNCTION get_posts_likes_comments;
+DROP FUNCTION IF EXISTS get_posts_likes_comments;
             ");
         }
     }

@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Infrastructure.DbContexts;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
+    [DbContext(typeof(MainContext))]
+    [Migration("20240204140042_AddColumnToPostTable")]
     public partial class AddColumnToPostTable : Migration
     {
         /// <inheritdoc />
