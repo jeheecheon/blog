@@ -1,61 +1,21 @@
-import { useEffect, useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/common/redux/store'
-
+import { useState } from 'react';
 export const TestPage = () => {
-  const [value, setValue] = useState('');
-  const user = useSelector((state: RootState) => state.user);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user])
-
+  const [selectedImage, setSelectedImage] = useState<FileList | null>(null);
   return (
     <>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
+      <img
+        alt="not found"
+        src={selectedImage ?  URL.createObjectURL(selectedImage[0]) : ''}
+      />
 
-          window.location.replace("/api/oauth/sign-in?provider=google");
+      <input type='file'
+        onChange={(event) => {
+          if (event.target.files !== null) {
+            console.log(URL.createObjectURL(event.target.files[0]))
+            setSelectedImage(event.target.files);
+          }
         }}
-      >Google Sign in</button>
-
-      <ReactQuill theme="snow" value={value} onChange={(val) => {
-        console.log(val);
-        setValue(val);
-      }} />
-      <img src='https://photos.app.goo.gl/1Ytb33jYad4Mb7u86' />
-      <div>Blog page</div>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-
-          console.log("Clicked");
-
-          fetch("/api/Test/abcd",
-            {
-              credentials: "same-origin"
-            })
-            .then((response) => response.json())
-            .then((json) => console.log(json))
-            .catch((error) => {
-              console.log(error);
-              console.log("failed to fetch");
-            });
-        }}
-      >
-        Fetch button
-      </button>
-
-      <button onClick={(e) => {
-        e.preventDefault();
-
-        // fetch()
-      }}>
-        Autho test button
-      </button>
+      />
     </>
   )
 }
