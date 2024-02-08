@@ -14,7 +14,7 @@ import PageLoadingSpinner from './common/components/PageLoadingSpinner';
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
 const BlogLayout = lazy(() => import('@/pages/blog/page/components/Layout'));
-const ErrorArea = lazy(() => import('@/common/components/ErrorArea'));
+const ErrorArea = lazy(() => import('@/common/components/error/ErrorArea'));
 const BlogErrorArea = lazy(() => import('@/pages/blog/page/BlogErrorArea'));
 const Posts = lazy(() => import('@/pages/blog/posts/page/index'));
 const Post = lazy(() => import('@/pages/blog/post/page/index'));
@@ -37,7 +37,10 @@ const App = () => {
 
                 <Route
                     path='/'
-                    element={<Suspense><Root /></Suspense>}
+                    element={
+                        <Suspense fallback={<PageLoadingSpinner />}>
+                            <Root />
+                        </Suspense>}
                 />
 
                 {/* Blog */}

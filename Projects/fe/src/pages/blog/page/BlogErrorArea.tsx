@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import Button from "@/common/components/Button";
-import ErrorBoundary from "@/common/components/ErrorArea";
+import ErrorBoundary from "@/common/components/error/ErrorArea";
 
 // import poohImage from '@/common/assets/images/default/pooh.jpg'
 

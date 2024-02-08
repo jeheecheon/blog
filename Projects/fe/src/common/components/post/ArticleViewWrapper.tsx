@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import ArticleLayout from '@/common/components/post/ArticleLayout'
 import Article from '@/common/components/post/Article'
 import PostsPagination from '@/common/components/post/PostsPagination'
-import ErrorBoundary from '@/common/components/ErrorBoundary'
+import ErrorBoundary from '@/common/components/error/ErrorBoundary'
 import Comments from '@/common/components/post/Comments'
 
 import PostInfo from '@/common/types/PostInfo'

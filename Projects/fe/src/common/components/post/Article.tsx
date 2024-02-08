@@ -29,7 +29,6 @@ const Article: React.FC<ArticleProps> = React.memo(({
     const [likes, setLikes] = useState(post.like_cnt);
 
     const dummyCategories = ['Algorithm', 'DP'];
-''
     useEffect(() => {
         import('@/common/assets/css/Article.css')
     }, []);

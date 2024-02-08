@@ -70,17 +70,12 @@ app.UseHttpsRedirection();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    await InitialDataManager.SeedAsync(app.Services);
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<MainContext>();
-    await InitialDataManager.SeedAsync(context);
-}
 
 app.Run();
