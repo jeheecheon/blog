@@ -28,12 +28,12 @@ export const Comment: React.FC<CommentProps> = ({
     const user = useSelector((state: RootState) => state.user)
     const isAuthenticated = useRef(user.email !== undefined && user.email !== null && user.email !== '');
 
-    const content = useRef<string | JSX.Element | JSX.Element[]>(parse(DOMPurify.sanitize(comment.content)));
-    const [hasLiked, setHasLiked] = useState(comment.has_liked);
+    const content = useRef<string | JSX.Element | JSX.Element[]>(parse(DOMPurify.sanitize(comment.Content)));
+    const [hasLiked, setHasLiked] = useState(comment.HasLiked);
     const [isReplying, setIsReplying] = useState<boolean>(false);
     const isLoadingLikes = useRef(false);
 
-    const [likes, setLikes] = useState(comment.like_cnt);
+    const [likes, setLikes] = useState(comment.LikeCnt);
 
     const handleLikeCliked = () => {
         if (isLoadingLikes.current === true)
@@ -45,7 +45,7 @@ export const Comment: React.FC<CommentProps> = ({
 
         isLoadingLikes.current = true;
 
-        fetch(`/api/blog/comment/${comment.id}/has-liked`, {
+        fetch(`/api/blog/comment/${comment.Id}/has-liked`, {
             method: "POST",
             credentials: "same-origin",
             headers: {
@@ -72,20 +72,20 @@ export const Comment: React.FC<CommentProps> = ({
     return (
         <>
             <div className={`flex flex-row`}>
-                {comment.parent_comment_id && (<svg className='mt-2 mx-3 fill-slate-600' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" /></svg>)}
+                {comment.ParentCommentId && (<svg className='mt-2 mx-3 fill-slate-600' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" /></svg>)}
                 <div className={`flex flex-col w-full ${className}`}>
                     <div className='flex flex-row justify-between items-center'>
                         {/* 댓글 작성자 정보 */}
                         <div className='flex flex-row justify-start items-center gap-3'>
-                            <img src={comment.avatar ? comment.avatar : defaultAvatar} className='w-[40px] h-auto rounded-full' />
-                            <span>{comment.email}</span>
+                            <img src={comment.Avatar ? comment.Avatar : defaultAvatar} className='w-[40px] h-auto rounded-full' />
+                            <span>{comment.Email}</span>
                             <span className='border rounded-2xl px-[5px] py-[2px] text-xs border-green-500 text-green-500'>블로그 주인</span>
                         </div>
                         {/* 메뉴버튼 */}
                         <div className='text-2xl cursor-pointer self-start'
-onClick={() => {
-    
-}}
+                            onClick={() => {
+
+                            }}
                         >
                             ...
                         </div>
@@ -95,7 +95,7 @@ onClick={() => {
                     </span>
 
                     {/* 작성 날짜 */}
-                    <span className='text-slate-700 text-sm mb-3'>{getTimeAgo(comment.uploaded_at as Date)}</span>
+                    <span className='text-slate-700 text-sm mb-3'>{getTimeAgo(comment.UploadedAt as Date)}</span>
 
                     <div className='flex flex-row justify-between'>
                         {/* 댓글 */}
@@ -128,7 +128,7 @@ onClick={() => {
                     {isReplying && (
                         <CommentWriteArea
                             postId={postId}
-                            replyingTo={comment.id}
+                            replyingTo={comment.Id}
                             handleCancelClicked={() => setIsReplying(false)}
                             setCommentsAwaiter={setCommentsAwaiter}
                         />

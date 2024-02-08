@@ -22,7 +22,7 @@ const PostUpload = () => {
   const [selectedCategory, setCategory] = useState<string>(categories[0].Id);
 
   console.log(categories);
-  
+
   const handleUpload: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     console.log(JSON.stringify({
@@ -53,12 +53,12 @@ const PostUpload = () => {
       <ArticleLayout>
         <Article
           post={{
-            id: "",
-            comment_cnt: 0,
-            like_cnt: 0,
-            title: title,
-            content: content,
-            uploaded_at: new Date(Date.now())
+            Id: "",
+            CommentCnt: 0,
+            LikeCnt: 0,
+            Title: title,
+            Content: content,
+            UploadedAt: new Date(Date.now())
           }}
         />
       </ArticleLayout>

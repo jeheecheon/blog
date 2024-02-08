@@ -53,24 +53,24 @@ public class BlogService : IBlogService
         return await _blogRepository.CreatePostAsync(post);
     }
 
-    public IEnumerable<get_posts_likes_comments>? GetPosts(int page, string? category)
+    public IEnumerable<GetPostsLikesComments>? GetPosts(int page, string? category)
     {
         int offset = (page - 1) * _PostsPerPage;
 
         return _blogRepository.GetPosts(offset, _PostsPerPage);
     }
 
-    public get_post_likes_has_liked? GetPost(Guid post_id)
+    public GetPostLikesHasLiked? GetPost(Guid post_id)
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
         string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (string.IsNullOrWhiteSpace(guidString))
         {
-            get_post_likes? post = _blogRepository.GetPost(post_id);
+            GetPostLikes? post = _blogRepository.GetPost(post_id);
             if (post is null)
                 return null;
-            return new get_post_likes_has_liked(post);
+            return new GetPostLikesHasLiked(post);
         }
         else
         {
@@ -98,21 +98,21 @@ public class BlogService : IBlogService
         return affectedRowsCnt > 0;
     }
 
-    public IEnumerable<get_comments_likes_has_liked>? GetComments(Guid post_id)
+    public IEnumerable<GetCommentsLikesHasLiked>? GetComments(Guid post_id)
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
         string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
-        IEnumerable<get_comments_likes_has_liked>? comments;
+        IEnumerable<GetCommentsLikesHasLiked>? comments;
 
         if (string.IsNullOrWhiteSpace(guidString))
         {
             var commentsWithoutHasLiked = _blogRepository.GetComments(post_id);
             if (commentsWithoutHasLiked is null)
                 return null;
-                
+
             comments = commentsWithoutHasLiked
-                .Select((comment) => new get_comments_likes_has_liked(comment));
+                .Select((comment) => new GetCommentsLikesHasLiked(comment));
         }
         else
         {
@@ -123,8 +123,8 @@ public class BlogService : IBlogService
         }
 
         foreach (var comment in comments)
-            if (comment.is_deleted)
-                comment.content = "[Deleted comment...]";
+            if (comment.IsDeleted)
+                comment.Content = "[Deleted comment...]";
 
         return comments;
     }

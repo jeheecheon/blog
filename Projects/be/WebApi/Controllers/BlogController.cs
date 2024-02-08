@@ -35,9 +35,9 @@ public class BlogController : ControllerBase
     public IActionResult AllCategories()
     {
         var result = _blogService.GetAllCategories()?.Where(
-            cate => cate.IsBottomLevel 
+            cate => cate.IsBottomLevel
         );
-        
+
         return Ok(JsonSerializer.Serialize(result));
     }
 
@@ -74,7 +74,7 @@ public class BlogController : ControllerBase
     [HttpGet("post/{post_id}/comments")]
     public IActionResult GetComments([FromRoute] Guid post_id)
     {
-        IEnumerable<get_comments_likes_has_liked>? comments = _blogService.GetComments(post_id);
+        IEnumerable<GetCommentsLikesHasLiked>? comments = _blogService.GetComments(post_id);
         return Ok(JsonSerializer.Serialize(comments));
     }
 

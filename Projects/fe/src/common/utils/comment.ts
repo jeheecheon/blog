@@ -6,7 +6,7 @@ export const convertStringDateIntoDate = (
     comments: CommentInfo[]
 ) => {
     comments.forEach(ele =>
-        ele.uploaded_at = new Date(Date.parse(ele.uploaded_at.toString()))
+        ele.UploadedAt = new Date(Date.parse(ele.UploadedAt.toString()))
     );
 }
 
@@ -14,12 +14,12 @@ export const sortComments = (
     comments: CommentInfo[]
 ) => {
     // Sort comments based on the uploaded_at property in ascending order
-    comments.sort((a, b) => (a.uploaded_at as Date).getTime() - (b.uploaded_at as Date).getTime());
+    comments.sort((a, b) => (a.UploadedAt as Date).getTime() - (b.UploadedAt as Date).getTime());
 
     // Create a map to store comments organized by parent_comment_id
     const commentsByParent: Map<string, CommentInfo[]> = new Map();
     for (const comment of comments) {
-        const parentCommentId = comment.parent_comment_id || ''; // Default to empty string if null
+        const parentCommentId = comment.ParentCommentId || ''; // Default to empty string if null
 
         if (!commentsByParent.has(parentCommentId))
             commentsByParent.set(parentCommentId, []);
@@ -33,7 +33,7 @@ export const sortComments = (
         const parentComments = commentsByParent.get(parentId) || [];
         for (const parentComment of parentComments) {
             sortedComments.push(parentComment);
-            processComments(parentComment.id);
+            processComments(parentComment.Id);
         }
     };
 
@@ -75,5 +75,5 @@ export const getTimeAgo = (uploadedAt: Date): string => {
 
 export const sanitizeComments = (comments: CommentInfo[]) => {
     for (const comment of comments)
-        comment.content = parse(DOMPurify.sanitize(comment.content));
+        comment.Content = parse(DOMPurify.sanitize(comment.Content));
 }

@@ -22,11 +22,11 @@ const Article: React.FC<ArticleProps> = React.memo(({
     const user = useSelector((state: RootState) => state.user)
     const isAuthenticated = useRef(user.email !== undefined && user.email !== null && user.email !== '');
 
-    const content = useRef<string | JSX.Element | JSX.Element[]>(parse(DOMPurify.sanitize(post.content)));
-    const [hasLiked, setHasLiked] = useState(post.has_liked);
+    const content = useRef<string | JSX.Element | JSX.Element[]>(parse(DOMPurify.sanitize(post.Content)));
+    const [hasLiked, setHasLiked] = useState(post.HasLiked);
     const isLoadingLikes = useRef(false);
 
-    const [likes, setLikes] = useState(post.like_cnt);
+    const [likes, setLikes] = useState(post.LikeCnt);
 
     const dummyCategories = ['Algorithm', 'DP'];
     useEffect(() => {
@@ -43,7 +43,7 @@ const Article: React.FC<ArticleProps> = React.memo(({
 
         isLoadingLikes.current = true;
 
-        fetch(`/api/blog/post/${post.id}/has-liked`, {
+        fetch(`/api/blog/post/${post.Id}/has-liked`, {
             method: "POST",
             credentials: "same-origin",
             headers: {
@@ -82,9 +82,9 @@ const Article: React.FC<ArticleProps> = React.memo(({
                     overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center'>
                 <span className='block text-center text-slate-600 text-sm mb-3'>
                     <span>
-                        {post.edited_at !== undefined && post.edited_at !== null ?
-                            `Last Edited: ${post.edited_at.toLocaleDateString()}` :
-                            `Published: ${post.uploaded_at.toLocaleDateString()}`
+                        {post.EditedAt !== undefined && post.EditedAt !== null ?
+                            `Last Edited: ${post.EditedAt.toLocaleDateString()}` :
+                            `Published: ${post.UploadedAt.toLocaleDateString()}`
                         }
                     </span>
                 </span>

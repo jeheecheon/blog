@@ -18,7 +18,7 @@ const Posts = () => {
 
           posts.map((p, idx) => (
             <Link
-              to={`/blog/post/${p.id}/${createSlug(p.title)}`}
+              to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}
               key={idx}
               className="max-w-[800px] w-full"
               preventScrollReset={false}

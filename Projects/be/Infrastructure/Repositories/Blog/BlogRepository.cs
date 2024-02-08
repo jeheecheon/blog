@@ -54,7 +54,7 @@ INSERT INTO post (title, content, category_id) VALUES
             }
         }
 
-        public IEnumerable<get_posts_likes_comments>? GetPosts(int offset, int limit)
+        public IEnumerable<GetPostsLikesComments>? GetPosts(int offset, int limit)
         {
             try
             {
@@ -70,7 +70,7 @@ SELECT * FROM get_posts_likes_comments({offset}, {limit})
             }
         }
 
-        public get_post_likes_has_liked? GetPostWithHasLiked(Guid post_id, Guid account_id)
+        public GetPostLikesHasLiked? GetPostWithHasLiked(Guid post_id, Guid account_id)
         {
             try
             {
@@ -87,7 +87,7 @@ SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
             }
         }
 
-        public get_post_likes? GetPost(Guid post_id)
+        public GetPostLikes? GetPost(Guid post_id)
         {
             try
             {
@@ -126,7 +126,7 @@ INSERT INTO comment (account_id, post_id, content, parent_comment_id) VALUES
             }
         }
 
-        public IEnumerable<get_comments_likes_has_liked>? GetCommentsWithHasLiked(Guid post_id, Guid account_id)
+        public IEnumerable<GetCommentsLikesHasLiked>? GetCommentsWithHasLiked(Guid post_id, Guid account_id)
         {
             try
             {
@@ -141,7 +141,7 @@ SELECT * FROM get_comments_likes_has_liked({post_id}, {account_id})
             }
         }
 
-        public IEnumerable<get_comments_likes>? GetComments(Guid post_id)
+        public IEnumerable<GetCommentsLikes>? GetComments(Guid post_id)
         {
             try
             {

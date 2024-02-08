@@ -7,7 +7,7 @@ import { wrapPromise } from '@/common/utils/promiseWrapper';
 
 const Post = () => {
     const post = useLoaderData() as PostInfo;
-    const [commentsAwaiter, setCommentsAwaiter] = useState(wrapPromise(fetch(`/api/blog/post/${post.id}/comments`)))
+    const [commentsAwaiter, setCommentsAwaiter] = useState(wrapPromise(fetch(`/api/blog/post/${post.Id}/comments`)))
 
     return (
         <ArticleViewWrapper

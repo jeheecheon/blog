@@ -5,15 +5,15 @@ export const convertStringDateIntoDate = (
 ) => {
     if (Array.isArray(data)) {
         data.forEach(ele => {
-            ele.uploaded_at = new Date(Date.parse(ele.uploaded_at.toString()))
-            if (ele.edited_at !== undefined && ele.edited_at !== null)
-                ele.edited_at = new Date(Date.parse(ele.edited_at.toString()))
+            ele.UploadedAt = new Date(Date.parse(ele.UploadedAt.toString()))
+            if (ele.EditedAt !== undefined && ele.EditedAt !== null)
+                ele.EditedAt = new Date(Date.parse(ele.EditedAt.toString()))
         });
     }
     else {
-        data.uploaded_at = new Date(Date.parse(data.uploaded_at.toString()))
-        if (data.edited_at !== undefined && data.edited_at !== null)
-            data.edited_at = new Date(Date.parse(data.edited_at.toString()))
+        data.UploadedAt = new Date(Date.parse(data.UploadedAt.toString()))
+        if (data.EditedAt !== undefined && data.EditedAt !== null)
+            data.EditedAt = new Date(Date.parse(data.EditedAt.toString()))
     }
 }
 
