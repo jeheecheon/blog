@@ -133,8 +133,8 @@ public class OAuthService : IOAuthService
         await _accountRepository.AddAccountAsync(userInfo);
 
         // Fetch the user uuid
-        _account? account = _accountRepository.GetAccountByNormalizedEmail(userInfo.email.ToUpper());
-        if (account is null || string.IsNullOrWhiteSpace(account.normalized_email))
+        Infrastructur.Models.Account? account = _accountRepository.GetAccountByNormalizedEmail(userInfo.email.ToUpper());
+        if (account is null || string.IsNullOrWhiteSpace(account.NormalizedEmail))
             return null;
 
         // Fetch provider's id
@@ -144,9 +144,9 @@ public class OAuthService : IOAuthService
 
         // Register the current user with the provider
         await _accountRepository.AddExternalAuthenticationAsync(
-            providerInfo.id, userInfo.id, account.id);
+            providerInfo.Id, userInfo.id, account.Id);
 
-        return account.id;
+        return account.Id;
     }
 
     public async Task GenerateCookieAsync(Guid user_id, string email, string? avatar)

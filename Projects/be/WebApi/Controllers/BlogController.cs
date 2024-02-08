@@ -34,8 +34,11 @@ public class BlogController : ControllerBase
     [HttpGet("all-categories")]
     public IActionResult AllCategories()
     {
-        // TODO: role admin 검사 
-        return Ok(JsonSerializer.Serialize(_blogService.GetAllCategories()));
+        var result = _blogService.GetAllCategories()?.Where(
+            cate => cate.IsBottomLevel 
+        );
+        
+        return Ok(JsonSerializer.Serialize(result));
     }
 
     [HttpGet("posts/categories/{category}/pages/{page}")]

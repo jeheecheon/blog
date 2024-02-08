@@ -17,28 +17,26 @@ public partial class MainContext : DbContext
     {
     }
 
-    public virtual DbSet<_account> accounts { get; set; }
-    public virtual DbSet<account_role> account_roles { get; set; }
+    public virtual DbSet<Account> accounts { get; set; }
+    public virtual DbSet<AccountRole> account_roles { get; set; }
 
-    public virtual DbSet<_category> categories { get; set; }
+    public virtual DbSet<Category> categories { get; set; }
 
-    public virtual DbSet<_comment> comments { get; set; }
+    public virtual DbSet<Comment> comments { get; set; }
 
-    public virtual DbSet<comments_for_post> comments_for_posts { get; set; }
+    public virtual DbSet<ExternalAuthentication> external_authentications { get; set; }
 
-    public virtual DbSet<external_authentication> external_authentications { get; set; }
+    public virtual DbSet<ExternalLoginProvider> external_login_providers { get; set; }
 
-    public virtual DbSet<external_login_provider> external_login_providers { get; set; }
+    public virtual DbSet<Hashtag> hashtags { get; set; }
 
-    public virtual DbSet<_hashtag> hashtags { get; set; }
+    public virtual DbSet<LikedComment> liked_comments { get; set; }
 
-    public virtual DbSet<liked_comment> liked_comments { get; set; }
+    public virtual DbSet<LikedPost> liked_posts { get; set; }
 
-    public virtual DbSet<liked_post> liked_posts { get; set; }
+    public virtual DbSet<Post> posts { get; set; }
 
-    public virtual DbSet<_post> posts { get; set; }
-
-    public virtual DbSet<_role> roles { get; set; }
+    public virtual DbSet<Role> roles { get; set; }
 
     public virtual DbSet<get_posts_likes_comments> get_posts_likes_comments { get; set; }
     public virtual DbSet<get_posts_likes_comments_filted_by_category> get_posts_likes_comments_filted_by_category { get; set; }

@@ -21,12 +21,12 @@ namespace Infrastructure.Repositories.Blog
             _mainContext = mainContext;
         }
 
-        public IEnumerable<_category>? GetAllCategories()
+        public IEnumerable<Category>? GetAllCategories()
         {
             try
             {
                 return _mainContext.categories.FromSqlInterpolated(@$"
-SELECT * FROM category
+SELECT * FROM category;
                 ")
                     .AsEnumerable();
             }

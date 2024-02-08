@@ -8,23 +8,21 @@ import { setBannerImageUrl } from '@/common/redux/bannerSlice';
 import ArticleLayout from '@/common/components/post/ArticleLayout';
 import Article from '@/common/components/post/Article';
 import { useLoaderData } from 'react-router-dom';
-
-interface category {
-  id: string,
-  parent_category_id: string,
-  is_bottom_level: boolean
-}
+import CategoryInfo from '@/common/types/CategoryInfo';
+import { sortCategories } from '@/common/utils/category';
 
 const PostUpload = () => {
   const dispatch = useDispatch();
-  const categories = useLoaderData() as category[];
+  const categories = useLoaderData() as CategoryInfo[];
 
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>();
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [showPreview, setShowPreview] = useState<boolean>(false);
-  const [selectedCategory, setCategory] = useState<string>(categories[0].id);
+  const [selectedCategory, setCategory] = useState<string>(categories[0].Id);
 
+  console.log(categories);
+  
   const handleUpload: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     console.log(JSON.stringify({
@@ -55,6 +53,9 @@ const PostUpload = () => {
       <ArticleLayout>
         <Article
           post={{
+            id: "",
+            comment_cnt: 0,
+            like_cnt: 0,
             title: title,
             content: content,
             uploaded_at: new Date(Date.now())
@@ -82,11 +83,11 @@ const PostUpload = () => {
 
         <label>
           Choose Category:
-          <select className='ml-2 border-2' defaultValue={categories[0].id}
+          <select className='ml-2 border-2' defaultValue={categories[0].Id}
             onChange={(e) => setCategory(e.currentTarget.value)}>
             {
               categories.map((cate) => {
-                return <option key={cate.id} value={cate.id}>{cate.id}</option>
+                return <option key={cate.Id} value={cate.Id}>{cate.Id}</option>
               })
             }
           </select>

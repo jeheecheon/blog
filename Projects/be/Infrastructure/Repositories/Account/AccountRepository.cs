@@ -49,7 +49,7 @@ INSERT INTO external_authentication (provider_id, account_id_from_provider, acco
         }
     }
 
-    public external_login_provider? GetExternalLoginProviderByName(string provider)
+    public ExternalLoginProvider? GetExternalLoginProviderByName(string provider)
     {
         try
         {
@@ -66,7 +66,7 @@ SELECT * FROM external_login_provider WHERE name = {provider}
         }
     }
 
-    public _account? GetAccountByNormalizedEmail(string email)
+    public Infrastructur.Models.Account? GetAccountByNormalizedEmail(string email)
     {
         try
         {
@@ -83,7 +83,7 @@ SELECT * FROM account WHERE normalized_email = {email}
         }
     }
 
-    public _role? GetAdminRole()
+    public Role? GetAdminRole()
     {
         try
         {
@@ -100,7 +100,7 @@ SELECT * FROM role WHERE name = 'admin';
         }
     }
 
-    public account_role? GetAccountRole(int role_id, Guid account_id)
+    public AccountRole? GetAccountRole(int role_id, Guid account_id)
     {
         try
         {

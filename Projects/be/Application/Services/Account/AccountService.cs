@@ -31,11 +31,11 @@ public class AccountService : IAccountService
             return false;
         Guid account_id = Guid.Parse(guidString);
 
-        _role? admin = _accountRepository.GetAdminRole();
+        Role? admin = _accountRepository.GetAdminRole();
         if (admin is null)
             return false;
 
-        account_role? admin_account = _accountRepository.GetAccountRole(admin.id, account_id);
+        AccountRole? admin_account = _accountRepository.GetAccountRole(admin.Id, account_id);
         return admin_account is null ? false : true;
     }
 }

@@ -2,6 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 
 import PostCard from "@/pages/blog/posts/page/components/PostCard"
 import Post from "@/common/types/PostInfo";
+import { createSlug } from "@/common/utils/post";
 
 const Posts = () => {
   const posts = useLoaderData() as Post[];
@@ -17,7 +18,7 @@ const Posts = () => {
 
           posts.map((p, idx) => (
             <Link
-              to={`/blog/post/${p.id}`}
+              to={`/blog/post/${p.id}/${createSlug(p.title)}`}
               key={idx}
               className="max-w-[800px] w-full"
               preventScrollReset={false}

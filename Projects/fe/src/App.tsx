@@ -62,7 +62,7 @@ const App = () => {
                         loader={PostsLoader}
                     />
                     <Route
-                        path='blog/post/:id'
+                        path='blog/post/:id/:slug?'
                         element={<Post />}
                         loader={PostLoader}
                     />

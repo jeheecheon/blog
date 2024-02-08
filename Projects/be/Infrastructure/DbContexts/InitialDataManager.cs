@@ -41,7 +41,19 @@ INSERT INTO external_login_provider (name) VALUES ('google');
             try
             {
                 await context.Database.ExecuteSqlAsync(@$"
-INSERT INTO category (id, is_bottom_level) VALUES ('ASP.NET', true);
+INSERT INTO category (id, is_bottom_level) VALUES
+    ('backend', false),
+    ('frontend', false),
+    ('Algorithm', false),
+    ('test1', false);
+
+INSERT INTO category (id, parent_category_id, is_bottom_level) VALUES 
+    ('ASP.NET', 'backend', true),
+    ('Spring', 'backend', true),
+    ('test2', 'test1', false),
+    ('test3', 'test2', false),
+    ('test4', 'test3', false),
+    ('test5', 'test4', true);
                 ");
             }
             catch (Exception e)
@@ -68,7 +80,7 @@ SELECT * FROM account WHERE normalized_email = 'JEHEECHEON@GMAIL.COM';
                     if (jeheecheon is not null)
                     {
                         await context.Database.ExecuteSqlInterpolatedAsync(@$"
-INSERT INTO account_role (account_id, role_id) VALUES ({jeheecheon.id}, {admin.id});
+INSERT INTO account_role (account_id, role_id) VALUES ({jeheecheon.Id}, {admin.Id});
                         ");
                     }
                 }
