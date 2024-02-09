@@ -8,7 +8,8 @@ namespace Infrastructure.Repositories.Blog
     {
         public IEnumerable<Category>? GetAllCategories();
         public Task<bool> CreatePostAsync(PostUploadRequestDto post);
-        public IEnumerable<GetPostsLikesComments>? GetPosts(int offset, int limit);
+        public IEnumerable<GetPostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int offset, int limit, string category);
+        public IEnumerable<GetPostsLikesComments>? GetRecentPosts(int offset, int limit);
         public GetPostLikesHasLiked? GetPostWithHasLiked(Guid post_id, Guid account_id);
         public GetPostLikes? GetPost(Guid post_id);
         public Task<int> CreateCommentAsync(Guid account_id, Guid post_id, string content, Guid? parent_comment_id);

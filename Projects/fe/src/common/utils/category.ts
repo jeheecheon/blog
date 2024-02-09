@@ -1,27 +1,31 @@
-import CategoryInfo from "../types/CategoryInfo";
+import { Dispatch } from "@reduxjs/toolkit";
+import CategoryInfo from "@/common/types/CategoryInfo";
+import { HandleError, PropagateResponse } from "@/common/utils/responses";
+import { setLeafCategories } from "@/common/redux/categorySlice";
 
-export function sortCategories(categories: CategoryInfo[]): CategoryInfo[] {
-    const categoryMap: { [key: string]: CategoryInfo[] } = {};
-    const rootCategories: CategoryInfo[] = [];
+export function flattenOutCategories(category: CategoryInfo | undefined): string {
+  if (category === undefined || category === null)
+    return '';
+  else if (category.ParentCategory === undefined || category.ParentCategory === null)
+    return category.Id;
+  else
+    return flattenOutCategories(category.ParentCategory) + ' > ' + category.Id;
+}
 
-    // 카테고리를 parent_category_id를 기준으로 맵에 저장
-    categories.forEach(category => {
-        if (!categoryMap[category.ParentCategoryId]) {
-            categoryMap[category.ParentCategoryId] = [];
-        }
-        categoryMap[category.ParentCategoryId].push(category);
-    });
-
-    // 부모 카테고리가 있는 카테고리에 자식 카테고리 할당
-    categories.forEach(category => {
-        if (categoryMap[category.Id]) {
-            category.CategoryChildren = categoryMap[category.Id];
-        }
-        // 최상위 카테고리인 경우 rootCategories 배열에 추가
-        if (!category.ParentCategoryId) {
-            rootCategories.push(category);
-        }
-    });
-
-    return rootCategories;
+export async function fetchLeafCategoriesAsync(dispatch: Dispatch): Promise<void> {
+  fetch("/api/blog/categories/leaf",
+    {
+      credentials: "same-origin"
+    })
+    .then((res) => {
+      if (res.ok)
+        return res.json();
+      else
+        HandleError(res);
+    })
+    .then(res => {
+      if (Array.isArray(res) && res !== undefined && res !== null)
+        dispatch(setLeafCategories(res))
+    })
+    .catch(PropagateResponse)
 }

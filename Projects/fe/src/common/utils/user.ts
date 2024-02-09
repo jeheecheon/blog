@@ -2,8 +2,8 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { UserState, setUser } from "@/common/redux/userSlice";
 import { HandleError, PropagateResponse } from "@/common/utils/responses";
 
-export const AuthenticateUser = async (dispatch: Dispatch) => {
-    return fetch("/api/auth/authentication",
+export const AuthenticateUserAsync = async (dispatch: Dispatch) => {
+    return fetch("/api/auth",
         {
             credentials: "same-origin"
         })

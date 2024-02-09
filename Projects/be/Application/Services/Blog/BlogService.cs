@@ -53,11 +53,18 @@ public class BlogService : IBlogService
         return await _blogRepository.CreatePostAsync(post);
     }
 
-    public IEnumerable<GetPostsLikesComments>? GetPosts(int page, string? category)
+    public IEnumerable<GetPostsLikesComments>? GetRecentPosts(int page)
     {
         int offset = (page - 1) * _PostsPerPage;
 
-        return _blogRepository.GetPosts(offset, _PostsPerPage);
+        return _blogRepository.GetRecentPosts(offset, _PostsPerPage);
+    }
+
+    public IEnumerable<GetPostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int page, string category)
+    {
+        int offset = (page - 1) * _PostsPerPage;
+
+        return _blogRepository.GetCategoryPosts(offset, _PostsPerPage, category);
     }
 
     public GetPostLikesHasLiked? GetPost(Guid post_id)

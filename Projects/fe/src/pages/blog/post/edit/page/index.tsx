@@ -3,25 +3,21 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import Button from '@/common/components/Button';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setBannerImageUrl } from '@/common/redux/bannerSlice';
 import ArticleLayout from '@/common/components/post/ArticleLayout';
 import Article from '@/common/components/post/Article';
-import { useLoaderData } from 'react-router-dom';
-import CategoryInfo from '@/common/types/CategoryInfo';
-import { sortCategories } from '@/common/utils/category';
+import { RootState } from '@/common/redux/store';
 
-const PostUpload = () => {
+const PostEdit = () => {
   const dispatch = useDispatch();
-  const categories = useLoaderData() as CategoryInfo[];
+  const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
 
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>();
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [showPreview, setShowPreview] = useState<boolean>(false);
-  const [selectedCategory, setCategory] = useState<string>(categories[0].Id);
-
-  console.log(categories);
+  const [selectedCategory, setCategory] = useState<string>(leafCategories[0].Id);
 
   const handleUpload: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -30,7 +26,7 @@ const PostUpload = () => {
       category: selectedCategory,
       content
     }))
-    fetch("/api/blog/post-upload",
+    fetch("/api/blog/post/upload",
       {
         credentials: "same-origin",
         method: "POST",
@@ -58,7 +54,8 @@ const PostUpload = () => {
             LikeCnt: 0,
             Title: title,
             Content: content,
-            UploadedAt: new Date(Date.now())
+            UploadedAt: new Date(Date.now()),
+            CategoryId: selectedCategory
           }}
         />
       </ArticleLayout>
@@ -83,10 +80,10 @@ const PostUpload = () => {
 
         <label>
           Choose Category:
-          <select className='ml-2 border-2' defaultValue={categories[0].Id}
+          <select className='ml-2 border-2' defaultValue={leafCategories[0].Id}
             onChange={(e) => setCategory(e.currentTarget.value)}>
             {
-              categories.map((cate) => {
+              leafCategories.map((cate) => {
                 return <option key={cate.Id} value={cate.Id}>{cate.Id}</option>
               })
             }
@@ -126,4 +123,4 @@ const PostUpload = () => {
   )
 }
 
-export default PostUpload
+export default PostEdit

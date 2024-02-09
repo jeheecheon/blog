@@ -1,5 +1,7 @@
+using Application.Services.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
@@ -11,12 +13,15 @@ namespace WebApi.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly ILogger<AuthController> _logger;
+    private readonly IAccountService _accountService;
 
     public AuthController(
-        ILogger<AuthController> logger
+        ILogger<AuthController> logger,
+        IAccountService accountService
     )
     {
         _logger = logger;
+        _accountService = accountService;
     }
 
     [HttpGet("sign-out")]
@@ -26,7 +31,7 @@ public class AuthController : ControllerBase
         return Ok();
     }
 
-    [HttpGet("authentication")]
+    [HttpGet]
     public async Task<IActionResult> AuthenticationAsync()
     {
         var result = await HttpContext.AuthenticateAsync();
@@ -44,5 +49,12 @@ public class AuthController : ControllerBase
         {
             return BadRequest();
         }
+    }
+
+    [HttpGet("admin")]
+    // [Authorize]
+    public IActionResult AuthenticateAdmin()
+    {
+        return _accountService.FilterAdmin() ? Ok() : BadRequest();
     }
 }

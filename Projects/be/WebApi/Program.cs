@@ -19,7 +19,9 @@ builder.Services.AddSwaggerGen();
 // {
 //     options.AddPolicy("JeheecheonCorsPolicy", builder =>
 //     {
-//         builder.WithOrigins("http://yourfrontend.com")
+//         builder.WithOrigins(new string[] {
+//             "https://localhost:7130", "https://localhost:5173"
+//         })
 //             .AllowAnyMethod()
 //             .AllowAnyHeader();
 //     });
@@ -48,6 +50,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.SlidingExpiration = true;
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
         options.Cookie.MaxAge = TimeSpan.FromDays(1);
+        options.LoginPath = "/blog";
     });
 
 // Register Authorization policy services

@@ -18,6 +18,13 @@ export const Throw500Response = () => {
     })
 };
 
+export const Throw403Response = () => {
+    throw new Response("", {
+        status: 403,
+        statusText: "Forbidden! Access denied..."
+    })
+};
+
 export const Throw404Response = () => {
     throw new Response("", {
         status: 404,

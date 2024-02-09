@@ -54,12 +54,28 @@ INSERT INTO post (title, content, category_id) VALUES
             }
         }
 
-        public IEnumerable<GetPostsLikesComments>? GetPosts(int offset, int limit)
+        public IEnumerable<GetPostsLikesComments>? GetRecentPosts(int offset, int limit)
         {
             try
             {
                 return _mainContext.get_posts_likes_comments.FromSqlInterpolated(@$"
 SELECT * FROM get_posts_likes_comments({offset}, {limit})
+                ")
+                    .AsEnumerable();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
+        }
+
+        public IEnumerable<GetPostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int offset, int limit, string category)
+        {
+            try
+            {
+                return _mainContext.get_posts_likes_comments_filtered_by_category.FromSqlInterpolated(@$"
+SELECT * FROM get_posts_likes_comments_filtered_by_category({offset}, {limit}, {category})
                 ")
                     .AsEnumerable();
             }

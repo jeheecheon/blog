@@ -39,7 +39,7 @@ public partial class MainContext : DbContext
     public virtual DbSet<Role> roles { get; set; }
 
     public virtual DbSet<GetPostsLikesComments> get_posts_likes_comments { get; set; }
-    public virtual DbSet<GetPostsLikesCommentsFilteredByCategory> get_posts_likes_comments_filted_by_category { get; set; }
+    public virtual DbSet<GetPostsLikesCommentsFilteredByCategory> get_posts_likes_comments_filtered_by_category { get; set; }
     public virtual DbSet<GetPostLikesHasLiked> get_post_likes_has_liked { get; set; }
     public virtual DbSet<GetCommentsLikesHasLiked> get_comments_likes_has_liked { get; set; }
     public virtual DbSet<GetPostLikes> get_post_likes { get; set; }

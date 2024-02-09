@@ -1,6 +1,9 @@
 import parse from 'html-react-parser';
 import DOMPurify from "isomorphic-dompurify";
 import PostInfo from '@/common/types/PostInfo';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/common/redux/store';
+import { flattenOutCategories } from '@/common/utils/category';
 
 interface PostCardProps {
     className?: string,
@@ -8,6 +11,8 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
+    const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
+
     return (
         <div className={`max-w-[800px] h-fit w-full
         group hover:cursor-pointer pb-3 border-b-2
@@ -42,8 +47,12 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                     </span>
                 </div>
 
-                {/* Tags */}
-                <div className='ml-auto text-sky-700 text-pretty'>{post.CategoryId}</div>
+                {/* Categories */}
+                <div className='ml-auto text-sky-700 text-pretty'>
+                    {
+                        leafCategories && flattenOutCategories(leafCategories.find(category => category.Id === post.CategoryId))
+                    }
+                </div>
             </div>
         </div>
     )

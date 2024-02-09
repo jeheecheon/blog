@@ -1,11 +1,16 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import PostCard from "@/pages/blog/posts/page/components/PostCard"
-import Post from "@/common/types/PostInfo";
+import PostCard from "@/common/components/post/PostCard"
+import PostInfo from "@/common/types/PostInfo";
 import { createSlug } from "@/common/utils/post";
+import { PromiseAwaiter } from "@/common/utils/promiseWrapper";
 
-const Posts = () => {
-  const posts = useLoaderData() as Post[];
+interface PostsProps {
+  postsAwaiter: PromiseAwaiter;
+}
+
+const Posts: React.FC<PostsProps> = ({ postsAwaiter }) => {
+  const posts = postsAwaiter.Await() as PostInfo[]
 
   return (
     <div className="flex flex-col items-center mx-3 mb-5">
@@ -15,7 +20,6 @@ const Posts = () => {
       </h1>
       <div className="flex flex-col items-center gap-[70px] w-full">
         {
-
           posts.map((p, idx) => (
             <Link
               to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}

@@ -24,14 +24,14 @@ public class BlogController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("post-upload")]
+    [HttpPost("post/upload")]
     public async Task<IActionResult> PostUploadAsync([FromBody] PostUploadRequestDto post)
     {
         return await _blogService.UploadPostAsync(post) ? Ok() : BadRequest();
     }
 
     // [Authorize]
-    [HttpGet("all-categories")]
+    [HttpGet("categories/leaf")]
     public IActionResult AllCategories()
     {
         var result = _blogService.GetAllCategories()?.Where(
@@ -41,13 +41,16 @@ public class BlogController : ControllerBase
         return Ok(JsonSerializer.Serialize(result));
     }
 
-    [HttpGet("posts/categories/{category}/pages/{page}")]
-    public IActionResult GetPosts([FromRoute] int page, [FromRoute] string? category)
+    [HttpGet("recent-posts/pages/{page}")]
+    public IActionResult GetRecentPosts([FromRoute] int page)
     {
-        var result = _blogService.GetPosts(page, category);
-        if (result is null || result.Count() == 0)
-            return BadRequest();
-        return Ok(JsonSerializer.Serialize(result));
+        return Ok(JsonSerializer.Serialize(_blogService.GetRecentPosts(page)));
+    }
+
+    [HttpGet("categories/{category}/pages/{page}")]
+    public IActionResult GetPosts([FromRoute] int page, [FromRoute] string category)
+    {
+        return Ok(JsonSerializer.Serialize(_blogService.GetCategoryPosts(page, category)));
     }
 
     [HttpGet("post/{post_id}")]

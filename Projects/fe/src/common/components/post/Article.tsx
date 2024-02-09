@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import parse from 'html-react-parser';
 
@@ -8,6 +7,7 @@ import PostInfo from '@/common/types/PostInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
 import { makeVisible } from '@/common/redux/signInModalSlice';
+import { flattenOutCategories } from '@/common/utils/category';
 
 interface ArticleProps {
     className?: string,
@@ -22,13 +22,14 @@ const Article: React.FC<ArticleProps> = React.memo(({
     const user = useSelector((state: RootState) => state.user)
     const isAuthenticated = useRef(user.email !== undefined && user.email !== null && user.email !== '');
 
+    const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
+
     const content = useRef<string | JSX.Element | JSX.Element[]>(parse(DOMPurify.sanitize(post.Content)));
     const [hasLiked, setHasLiked] = useState(post.HasLiked);
     const isLoadingLikes = useRef(false);
 
     const [likes, setLikes] = useState(post.LikeCnt);
 
-    const dummyCategories = ['Algorithm', 'DP'];
     useEffect(() => {
         import('@/common/assets/css/Article.css')
     }, []);
@@ -70,12 +71,9 @@ const Article: React.FC<ArticleProps> = React.memo(({
     return (
         <div className={`flex flex-col items-center w-full ${className}`}>
             <div className='text-slate-50 max-w-[780px] w-full text-left pl-2 pb-1 text-xl'>
-                {dummyCategories.map((cate, idx) => {
-                    return (
-                        <Link to='/blog/posts' key={idx}> {cate}
-                            {idx < dummyCategories.length - 1 && <span>&#160;&gt;</span>}
-                        </Link>);
-                })}
+                {
+                    leafCategories && flattenOutCategories(leafCategories.find(category => category.Id === post.CategoryId))
+                }
             </div>
             {/* blog content goes here */}
             <div className='px-3 pt-2 text-pretty max-w-[780px] h-fit min-h-[25vh] bg-slate-50 rounded-2xl shadow-md

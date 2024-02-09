@@ -66,7 +66,7 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
                 About me
             </Link>
             <Link
-                to="/blog/post-upload"
+                to="/blog/post/edit"
                 onClick={handleLinkClicked}
                 className={`pointer-events-auto ${content5}`}>
                 새 포스트 쓰기

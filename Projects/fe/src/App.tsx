@@ -7,21 +7,21 @@ import {
     createRoutesFromElements,
 } from "react-router-dom";
 
-import { PostLoader, PostUploadLoader, PostsLoader } from '@/common/utils/loaders';
-import { AuthenticateUser } from '@/common/utils/user';
+import { PostLoader, PostEditLoader } from '@/common/utils/loaders';
+import { AuthenticateUserAsync } from '@/common/utils/user';
 import PageLoadingSpinner from './common/components/PageLoadingSpinner';
+import { fetchLeafCategoriesAsync } from './common/utils/category';
 
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
 const BlogLayout = lazy(() => import('@/pages/blog/page/components/Layout'));
 const ErrorArea = lazy(() => import('@/common/components/error/ErrorArea'));
 const BlogErrorArea = lazy(() => import('@/pages/blog/page/BlogErrorArea'));
-const Posts = lazy(() => import('@/pages/blog/posts/page/index'));
 const Post = lazy(() => import('@/pages/blog/post/page/index'));
 const AboutMe = lazy(() => import('@/pages/blog/about-me/page'));
-const PostEdit = lazy(() => import('@/pages/blog/post-edit/page'));
-const PostUpload = lazy(() => import('@/pages/blog/post-upload/page'));
+const PostEdit = lazy(() => import('@/pages/blog/post/edit/page'));
 const TestPage = lazy(() => import('@/pages/test/page'));
+const PostsFetcher = lazy(() => import('@/common/components/post/PostsFetcher'));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const App = () => {
             <Route
                 errorElement={<ErrorArea />}
                 loader={async () => {
-                    AuthenticateUser(dispatch);
+                    AuthenticateUserAsync(dispatch);
                     return null;
                 }}>
 
@@ -51,15 +51,22 @@ const App = () => {
                         </Suspense>
                     }
                     errorElement={<BlogErrorArea />}
+                    loader={async () => {
+                        fetchLeafCategoriesAsync(dispatch);
+                        return null;
+                    }}
                 >
                     <Route
                         path='blog'
                         element={<Blog />}
                     />
                     <Route
-                        path='blog/:categories?/:category?/pages/:page'
-                        element={<Posts />}
-                        loader={PostsLoader}
+                        path='blog/recent-posts/pages/:page'
+                        element={<PostsFetcher />}
+                    />
+                    <Route
+                        path='blog/categories/:category/pages/:page'
+                        element={<PostsFetcher />}
                     />
                     <Route
                         path='blog/post/:id/:slug?'
@@ -67,13 +74,9 @@ const App = () => {
                         loader={PostLoader}
                     />
                     <Route
-                        path='blog/post-upload'
-                        element={<PostUpload />}
-                        loader={PostUploadLoader}
-                    />
-                    <Route
-                        path='blog/post-edit'
+                        path='blog/post/edit'
                         element={<PostEdit />}
+                        loader={PostEditLoader}
                     />
                     <Route
                         path='blog/about-me'
@@ -88,14 +91,11 @@ const App = () => {
                 {/* Diary */}
                 <Route
                     path='diary' >
-                    {/* Page for writing an entry */}
                     < Route
-                        path='upload-entry'
+                        path='entry/upload'
                     />
-
-                    {/* Edit entry page */}
                     < Route
-                        path='edit-entry'
+                        path='entry/edit'
                     />
                 </Route>
             </Route >
