@@ -16,7 +16,8 @@ export const PostLoader: LoaderFunction = async ({ params }) => {
                 HandleError(res);
         })
         .then(post => {
-            convertStringDateIntoDate(post)
+            if (post !== undefined && post !== null)
+                convertStringDateIntoDate(post)
             return post;
         })
         .catch(PropagateResponse);
@@ -28,8 +29,12 @@ export const PostEditLoader: LoaderFunction = async () => {
             credentials: "same-origin"
         })
         .then(res => {
-            if (res.status === 400)
-                Throw403Response()
+            if (res.ok)
+                return null
+            else if (res.status === 400)
+                Throw403Response();
+            else
+                HandleError(res);
         })
         .catch(PropagateResponse)
 }

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useIsMounted } from "@/common/hooks/useIsMounted";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 
 import { makeVisible } from "@/common/redux/signInModalSlice";
-import { AuthTest, SignOut } from "@/common/utils/user";
+import { SignOut } from "@/common/utils/user";
+import { RootState } from "@/common/redux/store";
 
 interface SidebarProps {
     show: string,
@@ -13,8 +14,14 @@ interface SidebarProps {
 }
 
 const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
+    const user = useSelector((state: RootState) => state.user)
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(user.email !== '');
     const dispatch = useDispatch();
     const justMounted = useIsMounted();
+
+    useEffect(() => {
+        setIsAuthenticated(user.email !== '')
+    }, [user]);
 
     if (justMounted === true)
         return <></>;
@@ -24,7 +31,7 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
     const content2 = show === "true" ? "animate-show-sidebar-content2" : "animate-hide-sidebar-content4 pointer-events-none";
     const content3 = show === "true" ? "animate-show-sidebar-content3" : "animate-hide-sidebar-content3 pointer-events-none";
     const content4 = show === "true" ? "animate-show-sidebar-content4" : "animate-hide-sidebar-content2 pointer-events-none";
-    const content5 = show === "true" ? "animate-show-sidebar-content5" : "animate-hide-sidebar-content1 pointer-events-none";
+    // const content5 = show === "true" ? "animate-show-sidebar-content5" : "animate-hide-sidebar-content1 pointer-events-none";
     const handleLinkClicked = () => setShowSidebar("false");
 
     return (<>
@@ -51,11 +58,17 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
             </Link>
 
             <Link to="/blog" onClick={() => {
-                dispatch(makeVisible());
-                handleLinkClicked();
+                if (isAuthenticated) {
+                    SignOut(dispatch);
+                    handleLinkClicked();
+                }
+                else {
+                    dispatch(makeVisible());
+                    handleLinkClicked();
+                }
             }} className={`pointer-events-auto ${content3}`}
             >
-                Sign in test button
+                {isAuthenticated ? "Sign Out" : "Sign in"}
             </Link>
 
             <Link
@@ -65,30 +78,6 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
             >
                 About me
             </Link>
-            <Link
-                to="/blog/post/edit"
-                onClick={handleLinkClicked}
-                className={`pointer-events-auto ${content5}`}>
-                새 포스트 쓰기
-            </Link>
-            <button
-                onClick={(e) => {
-                    e.preventDefault();
-                    SignOut();
-                }}
-                className={`pointer-events-auto ${content5}`}
-            >
-                Sign out test button
-            </button>
-            <button
-                onClick={(e) => {
-                    e.preventDefault();
-                    AuthTest();
-                }}
-                className={`pointer-events-auto ${content5}`}
-            >
-                Auth test button
-            </button>
         </div>
     </>
     )

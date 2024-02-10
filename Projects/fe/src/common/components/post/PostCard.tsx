@@ -18,7 +18,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
         group hover:cursor-pointer pb-3 border-b-2
         ${className}`}>
             <div className='flex justify-between text-slate-500 text-sm'>
-                <span className='text-right'>{post.UploadedAt.toLocaleString()}</span>
+                <span className='text-right'>{post.UploadedAt.toLocaleDateString()}</span>
                 {/* <span className='self-end'>23 views</span> */}
             </div>
             <div className='font-semibold text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>

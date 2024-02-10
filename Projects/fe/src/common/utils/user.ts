@@ -30,16 +30,15 @@ export const AuthenticateUserAsync = async (dispatch: Dispatch) => {
         })
 };
 
-export const SignOut = async () => {
-    fetch("/api/auth/sign-out", {
+export const SignOut = async (dispatch: Dispatch) => {
+    await fetch("/api/auth/sign-out", {
         credentials: "same-origin"
     })
         .catch((res) => console.error(res));
-}
 
-export const AuthTest = async () => {
-    fetch("/api/test/auth", {
-        credentials: "same-origin"
-    })
-        .catch((res) => console.error(res));
+    dispatch(setUser({
+        email: '',
+        name: '',
+        avatar: ''
+    }))
 }
