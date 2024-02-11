@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: jeheecheon/jeheecheon-blog-be:latest
+    container_name: jeheecheon-blog
+    restart: always
+    ports:
+      - "8080:8080"
+      - "7130:7130"
+    environment:
+      - ASPNETCORE_HTTPS_PORTS=7130
+      - ASPNETCORE_HTTP_PORTS=5154
