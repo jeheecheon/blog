@@ -76,10 +76,8 @@ public class BlogService : IBlogService
     public IEnumerable<GetPostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int page, string category)
     {
         int offset = (page - 1) * _PostsPerPage;
-        System.Console.WriteLine(category);
-        var result = _blogRepository.GetCategoryPosts(offset, _PostsPerPage, category).ToList();
-        System.Console.WriteLine(result[0].Title);
-        return result;
+
+        return _blogRepository.GetCategoryPosts(offset, _PostsPerPage, category);
     }
 
     public GetPostLikesHasLiked? GetPost(Guid post_id)

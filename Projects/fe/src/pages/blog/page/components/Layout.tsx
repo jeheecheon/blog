@@ -41,7 +41,7 @@ const Layout = (props: LayoutProps) => {
                     {titleOnCover}
                 </span>
                 <span className='absolute top-[65px] right-[5px] text-white text-lg 
-                bg-opacity-60 bg-yellow-400'>
+                bg-opacity-30 bg-yellow-400'>
                     😁 항상 &#160;<span className=''>화이팅</span>
                 </span>
             </div>
