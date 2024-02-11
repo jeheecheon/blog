@@ -17,7 +17,7 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-DROP FUNCTION get_posts_likes_comments;
+DROP FUNCTION IF EXISTS get_posts_likes_comments;
 CREATE OR REPLACE FUNCTION get_posts_likes_comments(offset_val INT, limit_val INT)
 RETURNS TABLE (
 	id UUID,
@@ -62,7 +62,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION get_posts_likes_comments_filtered_by_category;
+DROP FUNCTION IF EXISTS get_posts_likes_comments_filtered_by_category;
 CREATE OR REPLACE FUNCTION get_posts_likes_comments_filtered_by_category(offset_val INT, limit_val INT, category_to_filter TEXT)
 RETURNS TABLE (
 	id UUID,

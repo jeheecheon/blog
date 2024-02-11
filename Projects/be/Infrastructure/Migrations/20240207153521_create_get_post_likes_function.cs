@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    /// <inheritdoc />
+	/// <inheritdoc />
 	[DbContext(typeof(MainContext))]
 	[Migration("20240207153521_create_get_post_likes_function")]
-    public partial class create_get_post_likes_function : Migration
-    {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
+	public partial class create_get_post_likes_function : Migration
+	{
+		/// <inheritdoc />
+		protected override void Up(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.Sql(@"
 CREATE OR REPLACE FUNCTION get_post_likes(target_post_id UUID)
 RETURNS TABLE (
 	id UUID,
@@ -44,14 +44,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
             ");
-        }
+		}
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
-DROP FUNCTION get_post_likes;
+		/// <inheritdoc />
+		protected override void Down(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.Sql(@"
+DROP FUNCTION IF EXISTS get_post_likes;
             ");
-        }
-    }
+		}
+	}
 }
