@@ -62,7 +62,7 @@ public class BlogService : IBlogService
     }
 
     public async Task<bool> UpdatePostAsync(PostWithMetadata post)
-    {   
+    {
         return await _blogRepository.UpdatePostAsync(post);
     }
 
@@ -222,7 +222,7 @@ public class BlogService : IBlogService
         return await UploadFileToS3Async(image, key);
     }
 
-    public IEnumerable<PostsList>? GetPostLists()
+    public IEnumerable<PostSummary>? GetPostLists()
     {
         if (_accountService.FilterAdmin())
             return _blogRepository.GetPostLists();
@@ -234,9 +234,37 @@ public class BlogService : IBlogService
     {
         return _blogRepository.GetPostWithMetadata(post_id);
     }
-    
+
     public async Task<bool> DeletePostAsync(Guid post_id)
     {
         return await _blogRepository.DeletePostAsync(post_id);
+    }
+
+    public GetStaticLikePostLikesHasLiked? GetStaticLikePost(Guid post_id)
+    {
+        if (string.IsNullOrWhiteSpace(post_id.ToString()))
+            return null;
+        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+
+        GetStaticLikePostLikesHasLiked post;
+        if (string.IsNullOrWhiteSpace(guidString))
+        {
+            var temp = _blogRepository.GetStaticLikePost(post_id);
+            if (temp is null)
+                return null;
+            post = new GetStaticLikePostLikesHasLiked(temp);
+        }
+        else
+        {
+            Guid account_id = Guid.Parse(guidString);
+            var temp = _blogRepository.GetStaticLikePostWithHasLiked(post_id, account_id);
+            if (temp is null)
+                return null;
+            post = temp;
+        }
+        if (post.Title == "About Me")
+            return post;
+        else
+            return null;
     }
 }

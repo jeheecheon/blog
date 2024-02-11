@@ -1,4 +1,4 @@
-import defaultAvatar from '@/common/assets/images/default/default-avatar.jpg';
+import defaultAvatar from '@/common/assets/images/icons/avatar.png';
 import CommentInfo from '@/common/types/Comment';
 import { useRef, useState } from 'react';
 import CommentWriteArea from './CommentWriteArea';

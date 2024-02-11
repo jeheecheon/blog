@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructur.Models;
 
-public partial class PostsList
+public partial class PostSummary
 {
     [Column("id")]
     public Guid Id { get; set; }

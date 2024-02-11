@@ -39,13 +39,15 @@ public partial class MainContext : DbContext
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<GetPostsLikesComments> GetPostsLikesComments { get; set; }
-    public virtual DbSet<GetPostsLikesCommentsFilteredByCategory> GetPostsLikesCommentsFilteredByCategory { get; set; }
-    public virtual DbSet<GetPostLikesHasLiked> GetPostLikesHasLiked { get; set; }
+    public virtual DbSet<GetPostsLikesCommentsFilteredByCategory> GetPostsLikesCommentsFilteredByCategories { get; set; }
+    public virtual DbSet<GetPostLikesHasLiked> GetPostLikesHasLikeds { get; set; }
     public virtual DbSet<GetCommentsLikesHasLiked> GetCommentsLikesHasLiked { get; set; }
-    public virtual DbSet<GetPostLikes> GetPostLikes { get; set; }
-    public virtual DbSet<GetCommentsLikes> GetCommentsLikes { get; set; }
-    public virtual DbSet<PostsList> PostsList { get; set; }
+    public virtual DbSet<GetPostLikes> GetPostLikess { get; set; }
+    public virtual DbSet<GetCommentsLikes> GetCommentsLikess { get; set; }
+    public virtual DbSet<PostSummary> PostSummaru { get; set; }
     public virtual DbSet<PostWithMetadata> PostWithMetadata { get; set; }
+    public virtual DbSet<GetStaticLikePostLikes> GetStaticLikePostLikess { get; set; }
+    public virtual DbSet<GetStaticLikePostLikesHasLiked> GetStaticLikePostLikesHasLikeds { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:MainContext");

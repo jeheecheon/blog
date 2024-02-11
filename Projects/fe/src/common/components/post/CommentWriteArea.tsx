@@ -3,8 +3,8 @@ import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@/common/components/Button';
 import CustomTextArea from '@/common/components/CustomTextArea';
-import defaultAvatar from '@/common/assets/images/icons/default-avatar.png'
-import Avatar from '@/common/components/Avatar';
+import defaultAvatar from '@/common/assets/images/icons/avatar.png'
+import Avatar from '@/common/components/post/Avatar';
 import { makeVisible } from '../../redux/signInModalSlice';
 import { PromiseAwaiter, wrapPromise } from '@/common/utils/promiseWrapper';
 

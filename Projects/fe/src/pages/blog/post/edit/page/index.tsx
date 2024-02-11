@@ -89,7 +89,7 @@ const PostEdit = () => {
   }
 
   const handleDeleteClicked: React.MouseEventHandler<HTMLButtonElement> = () => {
-    if (confirm("Are you sure you wnat to delete thie post?????!"))
+    if (confirm("Are you sure you wnat to delete this post?????!"))
       fetch(`/api/blog/post/${postEditing?.Id}`,
         {
           credentials: "same-origin",

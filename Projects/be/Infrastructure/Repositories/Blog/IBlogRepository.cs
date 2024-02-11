@@ -19,10 +19,12 @@ namespace Infrastructure.Repositories.Blog
         public Task<bool> CreateLikedPostAsync(Guid post_id, Guid account_id);
         public Task<bool> DeleteLikedCommentAsync(Guid comment_id, Guid account_id);
         public Task<bool> CreateLikedCommentAsync(Guid comment_id, Guid account_id);
-        public IEnumerable<PostsList>? GetPostLists();
+        public IEnumerable<PostSummary>? GetPostLists();
         public PostWithMetadata? GetPostWithMetadata(Guid post_id);
         public Task<bool> UpdatePostAsync(PostWithMetadata post);
         public Task<bool> CreateEmptyPostAsync();
         public Task<bool> DeletePostAsync(Guid post_id);
+        public GetStaticLikePostLikes? GetStaticLikePost(Guid post_id);
+        public GetStaticLikePostLikesHasLiked? GetStaticLikePostWithHasLiked(Guid post_id, Guid account_id);
     }
 }

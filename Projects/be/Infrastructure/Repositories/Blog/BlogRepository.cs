@@ -90,7 +90,7 @@ SELECT * FROM get_posts_likes_comments({offset}, {limit})
         {
             try
             {
-                return _mainContext.GetPostsLikesCommentsFilteredByCategory.FromSqlInterpolated(@$"
+                return _mainContext.GetPostsLikesCommentsFilteredByCategories.FromSqlInterpolated(@$"
 SELECT * FROM get_posts_likes_comments_filtered_by_category({offset}, {limit}, {category})
                 ")
                     .AsEnumerable();
@@ -106,7 +106,7 @@ SELECT * FROM get_posts_likes_comments_filtered_by_category({offset}, {limit}, {
         {
             try
             {
-                return _mainContext.GetPostLikesHasLiked.FromSqlInterpolated(@$"
+                return _mainContext.GetPostLikesHasLikeds.FromSqlInterpolated(@$"
 SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
                 ")
                     .AsEnumerable()
@@ -123,7 +123,7 @@ SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
         {
             try
             {
-                return _mainContext.GetPostLikes.FromSqlInterpolated(@$"
+                return _mainContext.GetPostLikess.FromSqlInterpolated(@$"
 SELECT * FROM get_post_likes({post_id})
                 ")
                     .AsEnumerable()
@@ -177,7 +177,7 @@ SELECT * FROM get_comments_likes_has_liked({post_id}, {account_id})
         {
             try
             {
-                return _mainContext.GetCommentsLikes.FromSqlInterpolated(@$"
+                return _mainContext.GetCommentsLikess.FromSqlInterpolated(@$"
 SELECT * FROM get_comments_likes({post_id})
                 ");
             }
@@ -259,11 +259,11 @@ INSERT INTO liked_comment (comment_id, account_id) VALUES
             }
         }
 
-        public IEnumerable<PostsList>? GetPostLists()
+        public IEnumerable<PostSummary>? GetPostLists()
         {
             try
             {
-                return _mainContext.PostsList.FromSql(@$"
+                return _mainContext.PostSummaru.FromSql(@$"
 SELECT id, title, uploaded_at, edited_at FROM post;
                 ")
                     .AsEnumerable();
@@ -330,6 +330,40 @@ WHERE id = {post_id}
             {
                 _logger.LogInformation($"{e.Source}: {e.Message}");
                 return false;
+            }
+        }
+
+        public GetStaticLikePostLikesHasLiked? GetStaticLikePostWithHasLiked(Guid post_id, Guid account_id)
+        {
+            try
+            {
+                return _mainContext.GetStaticLikePostLikesHasLikeds.FromSqlInterpolated(@$"
+SELECT * FROM get_static_like_post_likes_has_liked({post_id}, {account_id})
+                ")
+                    .AsEnumerable()
+                    .FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
+        }
+
+        public GetStaticLikePostLikes? GetStaticLikePost(Guid post_id)
+        {
+            try
+            {
+                return _mainContext.GetStaticLikePostLikess.FromSqlInterpolated(@$"
+SELECT * FROM get_static_like_post_likes({post_id})
+                ")
+                    .AsEnumerable()
+                    .FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
             }
         }
     }

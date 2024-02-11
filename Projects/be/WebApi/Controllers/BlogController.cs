@@ -179,9 +179,19 @@ public class BlogController : ControllerBase
 
     [HttpDelete("post/{post_id}")]
     public async Task<IActionResult> DeletePostAsync([FromRoute] Guid post_id)
-    {  
+    {
         if (_accountService.FilterAdmin() == false)
             return Forbid();
         return await _blogService.DeletePostAsync(post_id) ? Ok() : BadRequest();
+    }
+
+    [HttpGet("post/{post_id}/static-like")]
+    public IActionResult GetStaticLikePost([FromRoute] Guid post_id)
+    {
+        var blog = _blogService.GetStaticLikePost(post_id);
+        if (blog is not null)
+            return Ok(JsonSerializer.Serialize(blog));
+        else
+            return BadRequest();
     }
 }
