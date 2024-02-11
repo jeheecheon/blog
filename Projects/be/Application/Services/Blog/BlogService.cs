@@ -10,6 +10,7 @@ using Infrastructure.Models;
 using Application.Services.Account;
 using Amazon.S3.Transfer;
 using Amazon.S3;
+using Amazon.S3.Model;
 
 namespace Application.Services.Blog;
 
@@ -20,7 +21,7 @@ public class BlogService : IBlogService
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAccountService _accountService;
     private readonly AmazonS3Client _s3Client;
-
+    static private readonly string _DefaultBucketName = "jeheecheon";
     static private readonly int _PostsPerPage = 99;
     public BlogService(
         ILogger<BlogService> logger,
@@ -171,26 +172,29 @@ public class BlogService : IBlogService
             return await _blogRepository.DeleteLikedCommentAsync(comment_id, account_id);
     }
 
-    public async Task<string?> UploadImageToS3Async(IFormFile image, int post_id)
+    public async Task<string?> UploadFileToS3Async(IFormFile file, string key)
     {
-        if (image != null && image.Length > 0)
+        if (file != null && file.Length > 0)
         {
             var response = await _s3Client.ListBucketsAsync();
-            if (response.Buckets.Any(bucket => bucket.BucketName == "jeheecheon"))
+            if (response.Buckets.Any(bucket => bucket.BucketName == _DefaultBucketName))
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     try
                     {
-                        await image.CopyToAsync(memoryStream);
-
-                        var fileName = Guid.NewGuid().ToString();
-                        var key = $"blog/posts/{post_id}/images/{fileName}";
+                        await file.CopyToAsync(memoryStream);
 
                         var transferUtility = new TransferUtility(_s3Client);
-                        await transferUtility.UploadAsync(memoryStream, "jeheecheon", key);
+                        await transferUtility.UploadAsync(memoryStream, _DefaultBucketName, key);
 
-                        return $"https://jeheecheon.s3.ap-northeast-2.amazonaws.com/{key}";
+                        var location = (await _s3Client.GetBucketLocationAsync(new GetBucketLocationRequest
+                        {
+                            BucketName = _DefaultBucketName
+                        }))
+                            .Location;
+
+                        return $"https://jeheecheon.s3.{location}.amazonaws.com/{key}";
                     }
                     catch (Exception e)
                     {
@@ -201,5 +205,13 @@ public class BlogService : IBlogService
         }
 
         return string.Empty;
+    }
+    
+    public async Task<string?> UploadImageToS3Async(IFormFile image, string post_id)
+    {
+        var fileName = Guid.NewGuid().ToString();
+        var key = $"blog/posts/{post_id}/images/{fileName}";
+
+        return await UploadFileToS3Async(image, key);
     }
 }

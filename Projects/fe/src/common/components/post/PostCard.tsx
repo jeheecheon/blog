@@ -4,6 +4,7 @@ import PostInfo from '@/common/types/PostInfo';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
 import { flattenOutCategories } from '@/common/utils/category';
+import React, { useState } from 'react';
 
 interface PostCardProps {
     className?: string,
@@ -12,6 +13,14 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
     const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
+    const [parsed] = useState(
+        parse(DOMPurify.sanitize(post.Content), {
+            replace: (domNode) => {
+                if (domNode.type === 'tag' && domNode.name === 'img')
+                    return <></>;
+            }
+        })
+    );
 
     return (
         <div className={`max-w-[800px] h-fit w-full
@@ -26,7 +35,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
             </div>
             <div className='text-md text-pretty mb-2 h-[70px] truncate'>
                 {
-                    parse(DOMPurify.sanitize(post.Content))
+                    parsed
                 }
             </div>
             <div className='flex flex-row justify-start items-start fill-sky-700 '>

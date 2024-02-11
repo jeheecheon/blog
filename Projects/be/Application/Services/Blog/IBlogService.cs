@@ -17,5 +17,6 @@ public interface IBlogService
     public IEnumerable<GetCommentsLikesHasLiked>? GetComments(Guid post_id);
     public Task<bool> SetPostHasLikedAsync(Guid post_id, bool has_liked);
     public Task<bool> SetCommentHasLikedAsync(Guid comment_id, bool has_liked);
-    public Task<string?> UploadImageToS3Async(IFormFile image, int post_id);
+    public Task<string?> UploadFileToS3Async(IFormFile file, string key);
+    public Task<string?> UploadImageToS3Async(IFormFile image, string post_id);
 }

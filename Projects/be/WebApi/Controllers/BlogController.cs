@@ -116,7 +116,7 @@ public class BlogController : ControllerBase
 
     [HttpPost("posts/{post_id}/images/upload")]
     [Authorize]
-    public async Task<IActionResult> UploadImageAsync(IFormFile image, [FromRoute] int post_id)
+    public async Task<IActionResult> UploadImageAsync(IFormFile image, [FromRoute] string post_id)
     {
         if (_accountService.FilterAdmin() == false)
             return Forbid("The user doesn't have permission to upload");

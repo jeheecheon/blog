@@ -60,7 +60,7 @@ export async function insertImage(this: any) {
   let imageUrl = "";
   const formData = new FormData();
   formData.append('image', image)
-  await fetch(`/api/test/posts/${1}/images/upload`, {
+  await fetch(`/api/blog/posts/${"asd"}/images/upload`, {
     credentials: 'same-origin',
     method: 'POST',
     body: formData

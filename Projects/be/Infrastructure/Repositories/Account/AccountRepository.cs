@@ -95,7 +95,7 @@ SELECT * FROM role WHERE name = 'admin';
         }
         catch (Exception e)
         {
-            _logger.LogInfor    mation($"{e.Source}: {e.Message}");
+            _logger.LogInformation($"{e.Source}: {e.Message}");
             return null;
         }
     }
