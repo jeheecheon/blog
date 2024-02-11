@@ -45,29 +45,28 @@ const PostEdit = () => {
   const handlePostIdSelected: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     const selectedPostId = e.currentTarget.value;
     setSelectedPostIdToEdit(selectedPostId);
-    if (selectedPostId === "")
-      setPostEditing({} as PostInfo);
-    else
-      fetch(`/api/blog/post/${selectedPostId}/with-metadata`, {
-        credentials: "same-origin"
+    setPostEditing({} as PostInfo);
+
+    fetch(`/api/blog/post/${selectedPostId}/with-metadata`, {
+      credentials: "same-origin"
+    })
+      .then(res => {
+        if (res.ok)
+          return res.json();
+        return null;
       })
-        .then(res => {
-          if (res.ok)
-            return res.json();
-          return null;
-        })
-        .then(res => {
-          if (res === null)
-            console.error("something went wrong with my server...");
-          else {
-            const post = res as PostInfo;
-            convertStringDateIntoDate(post)
-            setPostEditing(post);
-            if (post.Cover !== undefined && post.Cover !== null) {
-              dispatch(setCoverImageUrl(post.Cover));
-            }
+      .then(res => {
+        if (res === null)
+          console.error("something went wrong with my server...");
+        else {
+          const post = res as PostInfo;
+          convertStringDateIntoDate(post)
+          setPostEditing(post);
+          if (post.Cover !== undefined && post.Cover !== null) {
+            dispatch(setCoverImageUrl(post.Cover));
           }
-        })
+        }
+      })
   }
 
   const handleUpdateClicked: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -209,7 +208,7 @@ const PostEdit = () => {
                 제목:
                 <input
                   value={postEditing.Title}
-                  onInput={(e) => setPostEditing({
+                  onChange={(e) => setPostEditing({
                     ...postEditing, Title: e.currentTarget.value
                   })}
                   className='border-2 ml-2'
@@ -217,7 +216,7 @@ const PostEdit = () => {
               </label>
 
               <div className='max-w-[780px]'>
-                <input type='text' value={postEditing.Id} id='IdOfPostEditing' className='hidden'/>
+                {/* <input type='text' value={postEditing.Id} onChange={() => { }} id='IdOfPostEditing' className='' /> */}
                 <CustomQuillToolbar />
                 <CustomQuill
                   setContent={(value) => {

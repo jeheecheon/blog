@@ -31,7 +31,7 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
     const content2 = show === "true" ? "animate-show-sidebar-content2" : "animate-hide-sidebar-content4 pointer-events-none";
     const content3 = show === "true" ? "animate-show-sidebar-content3" : "animate-hide-sidebar-content3 pointer-events-none";
     const content4 = show === "true" ? "animate-show-sidebar-content4" : "animate-hide-sidebar-content2 pointer-events-none";
-    // const content5 = show === "true" ? "animate-show-sidebar-content5" : "animate-hide-sidebar-content1 pointer-events-none";
+    const content5 = show === "true" ? "animate-show-sidebar-content5" : "animate-hide-sidebar-content1 pointer-events-none";
     const handleLinkClicked = () => setShowSidebar("false");
 
     return (<>
@@ -50,33 +50,60 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
                 Home
             </Link>
 
+            <Link
+                to="/blog/about-me"
+                onClick={handleLinkClicked}
+                className={`pointer-events-auto ${content2}`}
+            >
+                About me
+            </Link>
+
             <Link to="/blog/recent-posts/pages/1"
                 onClick={handleLinkClicked}
-                className={`mt-5 pointer-events-auto ${content2}`}
+                className={`mt-5 pointer-events-auto ${content3}`}
             >
                 Latest posts
             </Link>
 
-            <Link to="/blog" onClick={() => {
-                if (isAuthenticated) {
-                    SignOut(dispatch);
-                    handleLinkClicked();
-                }
-                else {
-                    dispatch(makeVisible());
-                    handleLinkClicked();
-                }
-            }} className={`pointer-events-auto ${content3}`}
-            >
-                {isAuthenticated ? "Sign Out" : "Sign in"}
-            </Link>
-
-            <Link
-                to="/blog/about-me"
-                onClick={handleLinkClicked}
+            <div
                 className={`pointer-events-auto ${content4}`}
             >
-                About me
+                <span>Categories</span>
+                <div
+                    className="pl-4 flex flex-col"
+                >
+                    <Link to="/blog/categories/Algorithm/pages/1" onClick={handleLinkClicked}>│ Algorithm</Link>
+                    <div>
+                        <span>└ Backend</span>
+                        <div className="pl-8 flex flex-col">
+                            <Link to="/blog/categories/Spring/pages/1" onClick={handleLinkClicked}>│ Spring</Link>
+                            <Link to="/blog/categories/ASP.NET/pages/1" onClick={handleLinkClicked}>└ ASP.NET</Link>
+                        </div>
+                    </div>
+                    <div>
+                        <span>└ Frontend</span>
+                        <div className="pl-8 flex-flex-col">
+                            <Link to="/blog/categories/React/pages/1" onClick={handleLinkClicked}>└ React</Link>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <Link
+                to="/blog" onClick={() => {
+                    if (isAuthenticated) {
+                        SignOut(dispatch);
+                        handleLinkClicked();
+                    }
+                    else {
+                        dispatch(makeVisible());
+                        handleLinkClicked();
+                    }
+                }}
+                className={`pointer-events-auto mt-5 ${content5}`}
+            >
+                {isAuthenticated ? "Sign Out" : "Sign in"}
             </Link>
         </div>
     </>
