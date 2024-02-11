@@ -7,7 +7,7 @@ import {
     createRoutesFromElements,
 } from "react-router-dom";
 
-import { PostLoader, PostEditLoader } from '@/common/utils/loaders';
+import { PostLoader, PostEditLoader, AboutMeLoader } from '@/common/utils/loaders';
 import { AuthenticateUserAsync } from '@/common/utils/user';
 import PageLoadingSpinner from './common/components/PageLoadingSpinner';
 import { fetchLeafCategoriesAsync } from './common/utils/category';
@@ -75,12 +75,17 @@ const App = () => {
                     />
                     <Route
                         path='blog/post/edit'
-                        element={<PostEdit />}
+                        element={
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <PostEdit />
+                            </Suspense>
+                        }
                         loader={PostEditLoader}
                     />
                     <Route
                         path='blog/about-me'
                         element={<AboutMe />}
+                        loader={AboutMeLoader}
                     />
                     <Route
                         path='test'

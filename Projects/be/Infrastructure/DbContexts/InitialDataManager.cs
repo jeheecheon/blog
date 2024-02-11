@@ -63,7 +63,7 @@ INSERT INTO category (id, parent_category_id, is_bottom_level) VALUES
 
             try
             {
-                var admin = context.roles.FromSql(@$"
+                var admin = context.Roles.FromSql(@$"
 SELECT * FROM role WHERE name = 'admin';
                 ")
                     .AsEnumerable()
@@ -71,7 +71,7 @@ SELECT * FROM role WHERE name = 'admin';
 
                 if (admin is not null)
                 {
-                    var jeheecheon = context.accounts.FromSql(@$"
+                    var jeheecheon = context.Accounts.FromSql(@$"
 SELECT * FROM account WHERE normalized_email = 'JEHEECHEON@GMAIL.COM';
                     ")
                         .AsEnumerable()

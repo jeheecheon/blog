@@ -17,33 +17,35 @@ public partial class MainContext : DbContext
     {
     }
 
-    public virtual DbSet<Account> accounts { get; set; }
-    public virtual DbSet<AccountRole> account_roles { get; set; }
+    public virtual DbSet<Account> Accounts { get; set; }
+    public virtual DbSet<AccountRole> AccountRoles { get; set; }
 
-    public virtual DbSet<Category> categories { get; set; }
+    public virtual DbSet<Category> Categories { get; set; }
 
-    public virtual DbSet<Comment> comments { get; set; }
+    public virtual DbSet<Comment> Comments { get; set; }
 
-    public virtual DbSet<ExternalAuthentication> external_authentications { get; set; }
+    public virtual DbSet<ExternalAuthentication> ExternalAuthentications { get; set; }
 
-    public virtual DbSet<ExternalLoginProvider> external_login_providers { get; set; }
+    public virtual DbSet<ExternalLoginProvider> ExternalLoginProviders { get; set; }
 
-    public virtual DbSet<Hashtag> hashtags { get; set; }
+    public virtual DbSet<Hashtag> Hashtags { get; set; }
 
-    public virtual DbSet<LikedComment> liked_comments { get; set; }
+    public virtual DbSet<LikedComment> LikedComments { get; set; }
 
-    public virtual DbSet<LikedPost> liked_posts { get; set; }
+    public virtual DbSet<LikedPost> LikedPosts { get; set; }
 
-    public virtual DbSet<Post> posts { get; set; }
+    public virtual DbSet<Post> Posts { get; set; }
 
-    public virtual DbSet<Role> roles { get; set; }
+    public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<GetPostsLikesComments> get_posts_likes_comments { get; set; }
-    public virtual DbSet<GetPostsLikesCommentsFilteredByCategory> get_posts_likes_comments_filtered_by_category { get; set; }
-    public virtual DbSet<GetPostLikesHasLiked> get_post_likes_has_liked { get; set; }
-    public virtual DbSet<GetCommentsLikesHasLiked> get_comments_likes_has_liked { get; set; }
-    public virtual DbSet<GetPostLikes> get_post_likes { get; set; }
-    public virtual DbSet<GetCommentsLikes> get_comments_likes { get; set; }
+    public virtual DbSet<GetPostsLikesComments> GetPostsLikesComments { get; set; }
+    public virtual DbSet<GetPostsLikesCommentsFilteredByCategory> GetPostsLikesCommentsFilteredByCategory { get; set; }
+    public virtual DbSet<GetPostLikesHasLiked> GetPostLikesHasLiked { get; set; }
+    public virtual DbSet<GetCommentsLikesHasLiked> GetCommentsLikesHasLiked { get; set; }
+    public virtual DbSet<GetPostLikes> GetPostLikes { get; set; }
+    public virtual DbSet<GetCommentsLikes> GetCommentsLikes { get; set; }
+    public virtual DbSet<PostsList> PostsList { get; set; }
+    public virtual DbSet<PostWithMetadata> PostWithMetadata { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:MainContext");

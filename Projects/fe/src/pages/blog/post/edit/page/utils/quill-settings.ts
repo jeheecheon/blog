@@ -36,6 +36,11 @@ export function insertStar(this: any) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function insertImage(this: any) {
+  // Get the post id that the writer is editing on
+  const post_id = (document.getElementById("IdOfPostEditing") as HTMLInputElement).value;
+  if (post_id === null || post_id === undefined)
+    return;
+
   // Create an input tag and get it clicked
   const input = document.createElement('input');
   input.type = 'file';
@@ -60,7 +65,7 @@ export async function insertImage(this: any) {
   let imageUrl = "";
   const formData = new FormData();
   formData.append('image', image)
-  await fetch(`/api/blog/posts/${"asd"}/images/upload`, {
+  await fetch(`/api/blog/posts/${post_id}/images/upload`, {
     credentials: 'same-origin',
     method: 'POST',
     body: formData

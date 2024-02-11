@@ -2,7 +2,7 @@ import ReactQuill from "react-quill";
 import { formats, modules } from "@/pages/blog/post/edit/page/utils/quill-settings";
 
 interface CustomQullProps {
-    setContent: React.Dispatch<React.SetStateAction<string>>;
+    setContent: (arg0: string) => void;
     content: string;
     className?: string;
 }

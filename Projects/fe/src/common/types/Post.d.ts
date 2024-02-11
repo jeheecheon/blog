@@ -1,4 +1,4 @@
-export default interface PostInfo {
+export interface PostInfo {
     Id: string,
     Title: string,
     UploadedAt: Date,
@@ -9,4 +9,12 @@ export default interface PostInfo {
     CommentCnt: number,
     LikeCnt: number,
     HasLiked?: boolean
+    IsPublic?: boolean
+}
+
+export interface PostSummary {
+    Id: string,
+    Title: string,
+    UploadedAt: Date,
+    EditedAt?: Date,
 }

@@ -1,5 +1,5 @@
 import defaultAvatar from '@/common/assets/images/default/default-avatar.jpg';
-import CommentInfo from '@/common/types/CommentInfo';
+import CommentInfo from '@/common/types/Comment';
 import { useRef, useState } from 'react';
 import CommentWriteArea from './CommentWriteArea';
 import { getTimeAgo } from '@/common/utils/comment';

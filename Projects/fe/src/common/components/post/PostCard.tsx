@@ -1,6 +1,6 @@
 import parse from 'html-react-parser';
 import DOMPurify from "isomorphic-dompurify";
-import PostInfo from '@/common/types/PostInfo';
+import { PostInfo } from '@/common/types/Post';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
 import { flattenOutCategories } from '@/common/utils/category';

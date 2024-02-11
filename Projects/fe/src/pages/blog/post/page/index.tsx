@@ -1,7 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 
 import ArticleViewWrapper from '@/common/components/post/ArticleViewWrapper';
-import PostInfo from '@/common/types/PostInfo';
+import { PostInfo } from '@/common/types/Post';
 import { useState } from 'react';
 import { wrapPromise } from '@/common/utils/promiseWrapper';
 

@@ -18,7 +18,7 @@ interface LayoutProps {
 
 const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
-    const { bannerImageUrl, bannerTitle } = useSelector((state: RootState) => state.banner);
+    const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
 
     return (<>
         <ScrollRestoration />
@@ -33,14 +33,16 @@ const Layout = (props: LayoutProps) => {
 
             {/* Page Header Image */}
             <div className='bg-fixed h-[75vh] bg-center' style={{
-                backgroundImage: `url(${bannerImageUrl})`
+                backgroundImage: `url(${coverImageUrl})`
             }}>
-                <span className='absolute bottom-[60%] right-[50%] translate-y-[60%] translate-x-[50%]
-                    text-white text-3xl text-pretty text-center'>
-                    {bannerTitle}
+                <span className={`absolute bottom-[60%] right-[50%] translate-y-[60%] translate-x-[50%]
+                    text-slate-200 w-full text-3xl text-pretty text-center 
+                    bg-stone-700 bg-opacity-50 ${titleOnCover && "py-3"}`}>
+                    {titleOnCover}
                 </span>
-                <span className='absolute top-[65px] right-[5px] text-white text-lg '>
-                    😁 항상 &#160;<span className='bg-yellow-400 bg-opacity-60'>화이팅</span>
+                <span className='absolute top-[65px] right-[5px] text-white text-lg 
+                bg-opacity-60 bg-yellow-400'>
+                    😁 항상 &#160;<span className=''>화이팅</span>
                 </span>
             </div>
 

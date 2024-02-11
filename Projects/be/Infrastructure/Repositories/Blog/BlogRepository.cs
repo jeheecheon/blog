@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories.Blog
         {
             try
             {
-                return _mainContext.categories.FromSqlInterpolated(@$"
+                return _mainContext.Categories.FromSqlInterpolated(@$"
 SELECT * FROM category;
                 ")
                     .AsEnumerable();
@@ -54,11 +54,27 @@ INSERT INTO post (title, content, category_id) VALUES
             }
         }
 
+        public async Task<bool> CreateEmptyPostAsync()
+        {
+            try
+            {
+                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+INSERT INTO post (title, content) VALUES
+    ({"Example title"}, {"Example Context"})            
+                ") > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
         public IEnumerable<GetPostsLikesComments>? GetRecentPosts(int offset, int limit)
         {
             try
             {
-                return _mainContext.get_posts_likes_comments.FromSqlInterpolated(@$"
+                return _mainContext.GetPostsLikesComments.FromSqlInterpolated(@$"
 SELECT * FROM get_posts_likes_comments({offset}, {limit})
                 ")
                     .AsEnumerable();
@@ -74,7 +90,7 @@ SELECT * FROM get_posts_likes_comments({offset}, {limit})
         {
             try
             {
-                return _mainContext.get_posts_likes_comments_filtered_by_category.FromSqlInterpolated(@$"
+                return _mainContext.GetPostsLikesCommentsFilteredByCategory.FromSqlInterpolated(@$"
 SELECT * FROM get_posts_likes_comments_filtered_by_category({offset}, {limit}, {category})
                 ")
                     .AsEnumerable();
@@ -90,7 +106,7 @@ SELECT * FROM get_posts_likes_comments_filtered_by_category({offset}, {limit}, {
         {
             try
             {
-                return _mainContext.get_post_likes_has_liked.FromSqlInterpolated(@$"
+                return _mainContext.GetPostLikesHasLiked.FromSqlInterpolated(@$"
 SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
                 ")
                     .AsEnumerable()
@@ -107,7 +123,7 @@ SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
         {
             try
             {
-                return _mainContext.get_post_likes.FromSqlInterpolated(@$"
+                return _mainContext.GetPostLikes.FromSqlInterpolated(@$"
 SELECT * FROM get_post_likes({post_id})
                 ")
                     .AsEnumerable()
@@ -146,7 +162,7 @@ INSERT INTO comment (account_id, post_id, content, parent_comment_id) VALUES
         {
             try
             {
-                return _mainContext.get_comments_likes_has_liked.FromSqlInterpolated(@$"
+                return _mainContext.GetCommentsLikesHasLiked.FromSqlInterpolated(@$"
 SELECT * FROM get_comments_likes_has_liked({post_id}, {account_id})
                 ");
             }
@@ -161,7 +177,7 @@ SELECT * FROM get_comments_likes_has_liked({post_id}, {account_id})
         {
             try
             {
-                return _mainContext.get_comments_likes.FromSqlInterpolated(@$"
+                return _mainContext.GetCommentsLikes.FromSqlInterpolated(@$"
 SELECT * FROM get_comments_likes({post_id})
                 ");
             }
@@ -210,7 +226,6 @@ INSERT INTO liked_post (post_id, account_id) VALUES
 
         public async Task<bool> DeleteLikedCommentAsync(Guid comment_id, Guid account_id)
         {
-            System.Console.WriteLine("reached");
             try
             {
                 var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
@@ -229,7 +244,6 @@ WHERE comment_id = {comment_id}
 
         public async Task<bool> CreateLikedCommentAsync(Guid comment_id, Guid account_id)
         {
-            System.Console.WriteLine("reached");
             try
             {
                 var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
@@ -237,6 +251,80 @@ INSERT INTO liked_comment (comment_id, account_id) VALUES
     ({comment_id}, {account_id})
                 ");
                 return affectedRowsCnt > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
+        public IEnumerable<PostsList>? GetPostLists()
+        {
+            try
+            {
+                return _mainContext.PostsList.FromSql(@$"
+SELECT id, title, uploaded_at, edited_at FROM post;
+                ")
+                    .AsEnumerable();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
+        }
+
+        public PostWithMetadata? GetPostWithMetadata(Guid post_id)
+        {
+            try
+            {
+                return _mainContext.PostWithMetadata.FromSqlInterpolated(@$"
+SELECT * FROM post WHERE id = {post_id};
+                ")
+                    .AsEnumerable()
+                    .FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return null;
+            }
+        }
+
+        public async Task<bool> UpdatePostAsync(PostWithMetadata post)
+        {
+            try
+            {
+                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+UPDATE post 
+SET 
+    title = {post.Title},
+    content = {post.Content},
+    edited_at = CURRENT_TIMESTAMP,
+    cover = {post.Cover},
+    category_id = {post.CategoryId},
+    is_public = {post.IsPublic}
+WHERE id = {post.Id};
+                ")
+                    > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> DeletePostAsync(Guid post_id)
+        {
+            try
+            {
+                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+DELETE FROM post
+WHERE id = {post_id}
+                ")
+                    > 0;
             }
             catch (Exception e)
             {

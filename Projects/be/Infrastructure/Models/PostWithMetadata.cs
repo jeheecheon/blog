@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructur.Models;
 
-[Table("post")]
-[PrimaryKey(nameof(Id))]
-public partial class Post
+public partial class PostWithMetadata
 {
     [Column("id")]
     public Guid Id { get; set; }
@@ -33,12 +28,4 @@ public partial class Post
 
     [Column("is_public")]
     public bool? IsPublic { get; set; }
-
-    public virtual Category? Category { get; set; }
-
-    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
-
-    public virtual ICollection<LikedPost> LikedPosts { get; set; } = new List<LikedPost>();
-
-    public virtual ICollection<Hashtag> Hashtags { get; set; } = new List<Hashtag>();
 }

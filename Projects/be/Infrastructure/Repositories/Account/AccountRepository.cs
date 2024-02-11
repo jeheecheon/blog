@@ -53,7 +53,7 @@ INSERT INTO external_authentication (provider_id, account_id_from_provider, acco
     {
         try
         {
-            return _mainContext.external_login_providers.FromSqlInterpolated(@$"
+            return _mainContext.ExternalLoginProviders.FromSqlInterpolated(@$"
 SELECT * FROM external_login_provider WHERE name = {provider}
             ")
                 .AsEnumerable()
@@ -70,7 +70,7 @@ SELECT * FROM external_login_provider WHERE name = {provider}
     {
         try
         {
-            return _mainContext.accounts.FromSqlInterpolated(@$"
+            return _mainContext.Accounts.FromSqlInterpolated(@$"
 SELECT * FROM account WHERE normalized_email = {email}
         ")
             .AsEnumerable()
@@ -87,7 +87,7 @@ SELECT * FROM account WHERE normalized_email = {email}
     {
         try
         {
-            return _mainContext.roles.FromSql(@$"
+            return _mainContext.Roles.FromSql(@$"
 SELECT * FROM role WHERE name = 'admin';
         ")
             .AsEnumerable()
@@ -104,7 +104,7 @@ SELECT * FROM role WHERE name = 'admin';
     {
         try
         {
-            return _mainContext.account_roles.FromSqlInterpolated(@$"
+            return _mainContext.AccountRoles.FromSqlInterpolated(@$"
 SELECT * FROM account_role WHERE account_id = {account_id} AND role_id = {role_id};
         ")
             .AsEnumerable()

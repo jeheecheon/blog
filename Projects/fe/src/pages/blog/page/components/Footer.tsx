@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <>
@@ -15,7 +17,9 @@ const Footer = () => {
         <span className='mt-10 text-slate-600 text-sm'>
           All designed and developed by&#160;
           <span className='text-blue-600 font-bold'>
-            "나, 천제희"
+            <Link to="/blog/post/edit" className="cursor-text">
+              "나, 천제희"
+            </Link>
           </span>
         </span>
         <span className='text-slate-600 text-sm'>

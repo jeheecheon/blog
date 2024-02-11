@@ -13,8 +13,8 @@ const PostsPagination = () => {
 
             {
                 dummyData.map((_, index) => (
-                    <Link to='/blog/post' key={index} className='flex flex-row justify-between items-center py-2 border-b-2 w-full cursor-pointer'>
-                        <span>포스트 제목입니다 이렇게 출력<span className='pl-2 text-blue-500'>(3)</span></span>
+                    <Link to='/blog' key={index} className='flex flex-row justify-between items-center py-2 border-b-2 w-full cursor-pointer'>
+                        <span>이거 누르지 마세요<span className='pl-2 text-blue-500'>(88)</span></span>
                         <span>2024-01-01</span>
                     </Link>
                 ))

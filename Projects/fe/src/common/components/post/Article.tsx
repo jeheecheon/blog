@@ -3,11 +3,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import parse from 'html-react-parser';
 
 import DOMPurify from "isomorphic-dompurify";
-import PostInfo from '@/common/types/PostInfo';
+import { PostInfo } from '@/common/types/Post';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
 import { makeVisible } from '@/common/redux/signInModalSlice';
 import { flattenOutCategories } from '@/common/utils/category';
+import { setCoverImageUrl, setTitleOnCover } from '@/common/redux/bannerSlice';
+import backgroundImage from '@/common/assets/images/default/cover.jpg';
 
 interface ArticleProps {
     className?: string,
@@ -32,6 +34,15 @@ const Article: React.FC<ArticleProps> = React.memo(({
 
     useEffect(() => {
         import('@/common/assets/css/Article.css')
+        if (post.Cover !== null && post.Cover !== undefined)
+            dispatch(setCoverImageUrl(post.Cover));
+
+        dispatch(setTitleOnCover(post.Title))
+
+        return () => {
+            dispatch(setCoverImageUrl(backgroundImage));
+            dispatch(setTitleOnCover(""))
+        }
     }, []);
 
     const handleLikeCliked = () => {
@@ -70,21 +81,24 @@ const Article: React.FC<ArticleProps> = React.memo(({
 
     return (
         <div className={`flex flex-col items-center w-full ${className}`}>
-            <div className='text-slate-50 max-w-[780px] w-full text-left pl-2 pb-1 text-xl'>
-                {
-                    leafCategories && flattenOutCategories(leafCategories.find(category => category.Id === post.CategoryId))
-                }
+            <div className='text-slate-50 max-w-[780px] w-full text-left pl-2 text-xl h-fit'>
+                <span className='bg-stone-700 bg-opacity-60 px-3 rounded-md 
+                text-slate-200 font-medium pb-3'>
+                    {leafCategories && flattenOutCategories(leafCategories.find(category => category.Id === post.CategoryId))}
+                </span>
             </div>
+
             {/* blog content goes here */}
-            <div className='px-3 pt-2 text-pretty max-w-[780px] h-fit min-h-[25vh] bg-slate-50 rounded-2xl shadow-md
+            <div className='px-3 text-pretty max-w-[780px] h-fit min-h-[25vh] bg-slate-50 rounded-2xl shadow-md
                     overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center'>
-                <span className='block text-center text-slate-600 text-sm mb-3'>
-                    <span>
-                        {post.EditedAt !== undefined && post.EditedAt !== null ?
-                            `Last Edited: ${post.EditedAt.toLocaleDateString()}` :
-                            `Published: ${post.UploadedAt.toLocaleDateString()}`
-                        }
-                    </span>
+                <div className='bg-stone-600 h-[10px] w-[170px] rounded-2xl relative bottom-1' />
+                <span className='block text-center text-slate-900 font-medium text-sm mb-3'>
+                    {post.EditedAt !== undefined && post.EditedAt !== null ?
+                        // `Last Edited: ${post.EditedAt.toLocaleDateString()}` :
+                        // `Published: ${post.UploadedAt.toLocaleDateString()}`
+                        `Published: ${post.EditedAt.toLocaleDateString()}` :
+                        `Published: ${post.UploadedAt.toLocaleDateString()}`
+                    }
                 </span>
                 <div className='text-left w-full'>
                     {content.current}

@@ -1,5 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import CategoryInfo from "@/common/types/CategoryInfo";
+import CategoryInfo from "@/common/types/Category";
 import { HandleError, PropagateResponse } from "@/common/utils/responses";
 import { setLeafCategories } from "@/common/redux/categorySlice";
 

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import CategoryInfo from '../types/CategoryInfo'
+import CategoryInfo from '../types/Category'
 
 export interface categoryState {
   leafCategories: CategoryInfo[],

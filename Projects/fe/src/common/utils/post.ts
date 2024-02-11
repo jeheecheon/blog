@@ -1,4 +1,4 @@
-import PostInfo from "@/common/types/PostInfo"
+import { PostInfo } from "@/common/types/Post"
 
 export const convertStringDateIntoDate = (
     data: PostInfo[] | PostInfo

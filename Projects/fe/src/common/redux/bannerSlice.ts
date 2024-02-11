@@ -1,35 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import backgroundImage from '@/common/assets/images/default/banner.jpg';
+import defaultCover from '@/common/assets/images/default/cover.jpg';
 
-export interface BannerState {
-  bannerImageUrl: string,
-  bannerTitle: string,
+export interface CoverState {
+  coverImageUrl: string,
+  titleOnCover: string,
 }
 
-const initialState: BannerState = {
-  bannerImageUrl: backgroundImage,
-  bannerTitle: '',
+const initialState: CoverState = {
+  coverImageUrl: defaultCover,
+  titleOnCover: '',
 }
 
-export const bannerSlice = createSlice({
-  name: 'user',
+export const coverSlice = createSlice({
+  name: 'slice',
   initialState,
   reducers: {
-    setBannerImageUrl: (state, action: PayloadAction<string>) => {
-      state.bannerImageUrl = action.payload
+    setCoverImageUrl: (state, action: PayloadAction<string>) => {
+      state.coverImageUrl = action.payload
     },
-    setBannerTitle: (state, action: PayloadAction<string>) => {
-      state.bannerTitle = action.payload
+    setTitleOnCover: (state, action: PayloadAction<string>) => {
+      state.titleOnCover = action.payload
     },
-    setBanner: (state, action: PayloadAction<BannerState>) => {
-      state.bannerImageUrl = action.payload.bannerImageUrl;
-      state.bannerTitle = action.payload.bannerTitle;
+    setCover: (state, action: PayloadAction<CoverState>) => {
+      state.coverImageUrl = action.payload.coverImageUrl;
+      state.titleOnCover = action.payload.titleOnCover;
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setBannerImageUrl, setBannerTitle, setBanner } = bannerSlice.actions
+export const { setCoverImageUrl, setTitleOnCover, setCover } = coverSlice.actions
 
-export default bannerSlice.reducer
+export default coverSlice.reducer

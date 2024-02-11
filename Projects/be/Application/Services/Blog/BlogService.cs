@@ -49,14 +49,21 @@ public class BlogService : IBlogService
         return sanitizer.Sanitize(dirty);
     }
 
+    public async Task<bool> UploadEmptyPost()
+    {
+        return await _blogRepository.CreateEmptyPostAsync();
+    }
+
     public async Task<bool> UploadPostAsync(PostUploadRequestDto post)
     {
-        if (_accountService.FilterAdmin() is false)
-            return false;
-        System.Console.WriteLine("통과");
         post.title = SanitizeContent(post.title);
         post.content = SanitizeContent(post.content);
         return await _blogRepository.CreatePostAsync(post);
+    }
+
+    public async Task<bool> UpdatePostAsync(PostWithMetadata post)
+    {   
+        return await _blogRepository.UpdatePostAsync(post);
     }
 
     public IEnumerable<GetPostsLikesComments>? GetRecentPosts(int page)
@@ -206,12 +213,30 @@ public class BlogService : IBlogService
 
         return string.Empty;
     }
-    
+
     public async Task<string?> UploadImageToS3Async(IFormFile image, string post_id)
     {
         var fileName = Guid.NewGuid().ToString();
         var key = $"blog/posts/{post_id}/images/{fileName}";
 
         return await UploadFileToS3Async(image, key);
+    }
+
+    public IEnumerable<PostsList>? GetPostLists()
+    {
+        if (_accountService.FilterAdmin())
+            return _blogRepository.GetPostLists();
+        else
+            return null;
+    }
+
+    public PostWithMetadata? GetPostWithMetadata(Guid post_id)
+    {
+        return _blogRepository.GetPostWithMetadata(post_id);
+    }
+    
+    public async Task<bool> DeletePostAsync(Guid post_id)
+    {
+        return await _blogRepository.DeletePostAsync(post_id);
     }
 }

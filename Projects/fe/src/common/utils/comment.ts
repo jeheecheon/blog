@@ -1,4 +1,4 @@
-import CommentInfo from "../types/CommentInfo";
+import CommentInfo from "../types/Comment";
 import DOMPurify from 'isomorphic-dompurify';
 import parse from 'html-react-parser';
 

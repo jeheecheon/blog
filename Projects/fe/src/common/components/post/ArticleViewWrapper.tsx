@@ -5,7 +5,7 @@ import PostsPagination from '@/common/components/post/PostsPagination'
 import ErrorBoundary from '@/common/components/error/ErrorBoundary'
 import Comments from '@/common/components/post/Comments'
 
-import PostInfo from '@/common/types/PostInfo'
+import { PostInfo } from '@/common/types/Post'
 import { PromiseAwaiter } from '@/common/utils/promiseWrapper'
 
 interface ArticleViewWrapperProps {
