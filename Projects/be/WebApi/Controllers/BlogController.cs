@@ -1,7 +1,7 @@
 using System.Text.Json;
+using Application.Services.Account;
 using Application.Services.Blog;
 using Core.DTOs;
-using Infrastructur.Models;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +14,17 @@ public class BlogController : ControllerBase
 {
     private readonly ILogger<BlogController> _logger;
     private readonly IBlogService _blogService;
+    private readonly IAccountService _accountService;
+
     public BlogController(
         ILogger<BlogController> logger,
-        IBlogService blogService
+        IBlogService blogService,
+        IAccountService accountService
     )
     {
         _logger = logger;
         _blogService = blogService;
+        _accountService = accountService;
     }
 
     [Authorize]
@@ -108,5 +112,22 @@ public class BlogController : ControllerBase
             }));
         else
             return BadRequest();
+    }
+
+    [HttpPost("posts/{post_id}/images/upload")]
+    [Authorize]
+    public async Task<IActionResult> UploadImageAsync(IFormFile image, [FromRoute] int post_id)
+    {
+        if (_accountService.FilterAdmin() == false)
+            return Forbid("The user doesn't have permission to upload");
+
+        string? imageUrl = await _blogService.UploadImageToS3Async(image, post_id);
+        if (string.IsNullOrWhiteSpace(imageUrl))
+            return BadRequest("File hasn't been provided properly");
+
+        return Ok(JsonSerializer.Serialize(new
+        {
+            imageUrl
+        }));
     }
 }

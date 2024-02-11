@@ -1,3 +1,4 @@
+using Amazon.S3;
 using Application.Services.Account;
 using Application.Services.Blog;
 using Application.Services.OAuth;
@@ -55,6 +56,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 // Register Authorization policy services
 builder.Services.AddAuthorization();
+
+// Register S3 Client
+builder.Services.AddScoped<AmazonS3Client>(_ =>
+{
+    var accessKey = builder.Configuration["AWSSDK:S3:AccessKey"];
+    var secretKey = builder.Configuration["AWSSDK:S3:SecretKey"];
+    var credentials = new Amazon.Runtime.BasicAWSCredentials(accessKey, secretKey);
+    return new AmazonS3Client(credentials, Amazon.RegionEndpoint.APNortheast2);
+});
 
 // Register repositories
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();

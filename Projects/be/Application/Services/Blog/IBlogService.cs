@@ -1,6 +1,7 @@
 using Core.DTOs;
 using Infrastructur.Models;
 using Infrastructure.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Services.Blog;
 
@@ -16,4 +17,5 @@ public interface IBlogService
     public IEnumerable<GetCommentsLikesHasLiked>? GetComments(Guid post_id);
     public Task<bool> SetPostHasLikedAsync(Guid post_id, bool has_liked);
     public Task<bool> SetCommentHasLikedAsync(Guid comment_id, bool has_liked);
+    public Task<string?> UploadImageToS3Async(IFormFile image, int post_id);
 }

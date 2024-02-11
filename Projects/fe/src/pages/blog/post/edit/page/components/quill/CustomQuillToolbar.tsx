@@ -1,6 +1,7 @@
-import CustomUndo from "./CustomUndo";
-import CustomRedo from "./CustomRedo";
-import CustomInsertStar from "./CustomInsertStar";
+import CustomUndo from "@/pages/blog/post/edit/page/components/quill/CustomUndo";
+import CustomRedo from "@/pages/blog/post/edit/page/components/quill/CustomRedo";
+import CustomInsertStar from "@/pages/blog/post/edit/page/components/quill/CustomInsertStar";
+import CustomImage from "@/pages/blog/post/edit/page/components/quill/CustomImage";
 
 const CustomQuillToolbar = () => {
     return (
@@ -13,7 +14,7 @@ const CustomQuillToolbar = () => {
                     <option value="4">Header 4</option>
                     <option value="5">Header 5</option>
                     <option value="6">Header 6</option>
-                    <option value="" selected>Normal</option>
+                    <option value="">Normal</option>
                 </select>
             </div>
 
@@ -21,7 +22,7 @@ const CustomQuillToolbar = () => {
                 <select className="ql-size" defaultValue={""} onChange={e => e.persist()}>
                     <option value="extra-small">Extra Small</option>
                     <option value="small">Small</option>
-                    <option value="" selected>Normal</option>
+                    <option value="">Normal</option>
                     <option value="large">Large</option>
                     <option value="huge">Huge</option>
                 </select>
@@ -80,13 +81,16 @@ const CustomQuillToolbar = () => {
 
             <span className="ql-formats">
                 <button className="ql-link"></button>
-                <button className="ql-image"></button>
+                <button className="ql-customImage">
+                    <CustomImage />
+                </button>
+                {/* <button className="ql-image"></button> */}
                 <button className="ql-video"></button>
             </span>
 
-            <span className="ql-formats">
+            {/* <span className="ql-formats">
                 <button className="ql-direction" value="rtl"></button>
-            </span>
+            </span> */}
 
             <span className="ql-formats">
                 <button className="ql-undo">

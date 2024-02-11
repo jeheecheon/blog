@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Infrastructure.Models;
 using Application.Services.Account;
+using Amazon.S3.Transfer;
+using Amazon.S3;
 
 namespace Application.Services.Blog;
 
@@ -17,19 +19,22 @@ public class BlogService : IBlogService
     private readonly IBlogRepository _blogRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAccountService _accountService;
+    private readonly AmazonS3Client _s3Client;
 
     static private readonly int _PostsPerPage = 99;
     public BlogService(
         ILogger<BlogService> logger,
         IBlogRepository blogRepository,
         IHttpContextAccessor httpContextAccessor,
-        IAccountService accountService
+        IAccountService accountService,
+        AmazonS3Client s3Client
     )
     {
         _logger = logger;
         _blogRepository = blogRepository;
         _httpContextAccessor = httpContextAccessor;
         _accountService = accountService;
+        _s3Client = s3Client;
     }
 
     public IEnumerable<Category>? GetAllCategories()
@@ -164,5 +169,37 @@ public class BlogService : IBlogService
             return await _blogRepository.CreateLikedCommentAsync(comment_id, account_id);
         else
             return await _blogRepository.DeleteLikedCommentAsync(comment_id, account_id);
+    }
+
+    public async Task<string?> UploadImageToS3Async(IFormFile image, int post_id)
+    {
+        if (image != null && image.Length > 0)
+        {
+            var response = await _s3Client.ListBucketsAsync();
+            if (response.Buckets.Any(bucket => bucket.BucketName == "jeheecheon"))
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    try
+                    {
+                        await image.CopyToAsync(memoryStream);
+
+                        var fileName = Guid.NewGuid().ToString();
+                        var key = $"blog/posts/{post_id}/images/{fileName}";
+
+                        var transferUtility = new TransferUtility(_s3Client);
+                        await transferUtility.UploadAsync(memoryStream, "jeheecheon", key);
+
+                        return $"https://jeheecheon.s3.ap-northeast-2.amazonaws.com/{key}";
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError($"{e.Source}: {e.Message}");
+                    }
+                }
+            }
+        }
+
+        return string.Empty;
     }
 }

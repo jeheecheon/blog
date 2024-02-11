@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import 'react-quill/dist/quill.snow.css';
-import ReactQuill from 'react-quill';
 import Button from '@/common/components/Button';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +7,6 @@ import { setBannerImageUrl } from '@/common/redux/bannerSlice';
 import ArticleLayout from '@/common/components/post/ArticleLayout';
 import Article from '@/common/components/post/Article';
 import { RootState } from '@/common/redux/store';
-import QuillToolbar from './components/quill/CustomQuillToolbar';
-import { redoChange, undoChange } from './utill/quill';
 import CustomQuillToolbar from './components/quill/CustomQuillToolbar';
 import CustomQuill from './components/quill/CustomQuill';
 
@@ -105,6 +102,7 @@ const PostEdit = () => {
           <CustomQuill
             setContent={setContent}
             content={content}
+            className='w-full'
           />
         </div>
 
