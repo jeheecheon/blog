@@ -262,7 +262,7 @@ public class BlogService : IBlogService
                 return null;
             post = temp;
         }
-        if (post.Title == "About Me")
+        if (post.Title == "About Me" || post.Title == "Privacy Policy")
             return post;
         else
             return null;

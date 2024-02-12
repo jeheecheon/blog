@@ -41,6 +41,23 @@ export const AboutMeLoader: LoaderFunction = async () => {
         .catch(PropagateResponse);
 }
 
+export const PrivacyPolicyLoader: LoaderFunction = async () => {
+    return fetch(`/api/blog/post/670e46d5-4970-4e9b-b969-4a7272209367/static-like`)
+        .then(res => {
+            if (res.ok)
+                return res.json();
+            else if (res.status === 400)
+                Throw404Response();
+            else
+                HandleError(res);
+        })
+        .then(post => {
+            if (post !== undefined && post !== null)
+                convertStringDateIntoDate(post)
+            return post;
+        })
+        .catch(PropagateResponse);
+}
 
 export const PostEditLoader: LoaderFunction = async () => {
     return fetch("/api/auth/admin",
