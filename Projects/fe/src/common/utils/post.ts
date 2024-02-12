@@ -24,3 +24,9 @@ export const createSlug = (title: string) => {
         .replace(/\s+/g, '-')           // 단어 사이에 하이픈(-) 추가하여 각 단어를 구분
         .replace(/-+/g, '-');
 }
+
+export const sortPostsByUploadedAt = (posts: PostInfo[]) => {
+    // Sort posts by descending order of UploadedAt date
+    posts.sort((a, b) => b.UploadedAt.getTime() - a.UploadedAt.getTime());
+    return posts;
+}

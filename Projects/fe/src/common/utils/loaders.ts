@@ -24,7 +24,7 @@ export const PostLoader: LoaderFunction = async ({ params }) => {
 }
 
 export const AboutMeLoader: LoaderFunction = async () => {
-    return fetch(`/api/blog/post/85e3d035-5ab4-4835-918d-c580848921eb/static-like`)
+    return fetch(`/api/blog/post/f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a/static-like`)
         .then(res => {
             if (res.ok)
                 return res.json();
