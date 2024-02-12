@@ -79,7 +79,10 @@ export const Comment: React.FC<CommentProps> = ({
                         <div className='flex flex-row justify-start items-center gap-3'>
                             <img src={comment.Avatar ? comment.Avatar : defaultAvatar} className='w-[40px] h-auto rounded-full' />
                             <span>{comment.Email}</span>
-                            <span className='border rounded-2xl px-[5px] py-[2px] text-xs border-green-500 text-green-500'>블로그 주인</span>
+                            {
+                                comment.Email === "jeheecheon@gmail.com" &&
+                                <span className='border rounded-2xl px-[5px] py-[2px] text-xs border-green-500 text-green-500'>블로그 주인</span>
+                            }
                         </div>
                         {/* 메뉴버튼 */}
                         <div className='text-2xl cursor-pointer self-start'
