@@ -16,6 +16,5 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final-env
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-ENV ASPNETCORE_HTTPS_PORTS=7130
 ENV ASPNETCORE_HTTP_PORTS=8080
 ENTRYPOINT ["dotnet", "WebApi.dll"]
