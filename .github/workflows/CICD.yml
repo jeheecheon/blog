@@ -71,7 +71,7 @@ jobs:
       - name: Delete old container
         run: sudo docker rm -f jeheecheon-blog-be-container
       - name: Run docker container
-        run: sudo docker run -d -p 7130:7130 -p 8080:8080 --name jeheecheon-blog-be-container jeheecheon/jeheecheon-blog-be 
+        run: sudo docker run -d -p 8080:8080 --name jeheecheon-blog-be-container jeheecheon/jeheecheon-blog-be 
           -e "OAuth:Google:ClientId=${{ secrets.OAUTH_GOOGLE_CLIENTID }}" \
           -e "OAuth:Google:ClientSecret=${{ secrets.OAUTH_GOOGLE_CLIENTSECRET }}" \
           -e "AWSSDK:S3:AccessKey=${{ secrets.AWSSDK_S3_ACCESSKEY }}" \
