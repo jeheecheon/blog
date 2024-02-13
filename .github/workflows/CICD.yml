@@ -47,9 +47,9 @@ jobs:
       - name: Checkout sourse
         uses: actions/checkout@v3
       - name: Use .NET SDK version
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.101' # 필요한 .NET SDK 버전으로 변경
+          global-json-file: Projects/be/global.json
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build docker image
