@@ -6,8 +6,6 @@ COPY ./WebApi/*.csproj ./WebApi/
 COPY ./Application/*.csproj ./Application/
 COPY ./Infrastructure/*.csproj ./Infrastructure/
 COPY ./Core/*.csproj ./Core/
-RUN dotnet restore .
-COPY . .
 RUN dotnet publish -c Release -o out
 
 
