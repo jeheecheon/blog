@@ -72,8 +72,19 @@ export const Comment: React.FC<CommentProps> = ({
     return (
         <>
             <div className={`flex flex-row`}>
-                {comment.ParentCommentId && (<svg className='mt-2 mx-3 fill-slate-600' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" /></svg>)}
-                <div className={`flex flex-col w-full ${className}`}>
+                {comment.ParentCommentId && (
+                    <div className='flex flex-row'>
+                        {
+                            Array.from({ length: comment.depth - 1 }).map((_, idx) => {
+                                return <span key={idx} className='ml-12'></span>
+                            })
+                        }
+                        <svg className={`mt-2 m-3 fill-slate-600`}
+                            xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" />
+                        </svg>
+                    </div>
+                )}
+                <div className={`flex flex-col w-full shadow shadow-slate-400 p-1 ${className}`}>
                     <div className='flex flex-row justify-between items-center'>
                         {/* 댓글 작성자 정보 */}
                         <div className='flex flex-row justify-start items-center gap-3'>
@@ -81,7 +92,7 @@ export const Comment: React.FC<CommentProps> = ({
                             <span>{comment.Email}</span>
                             {
                                 comment.Email === "jeheecheon@gmail.com" &&
-                                <span className='border rounded-2xl px-[5px] py-[2px] text-xs border-green-500 text-green-500'>블로그 주인</span>
+                                <span className='border rounded-2xl px-[5px] py-[2px] text-xs border-green-500 text-green-500'>Site Owner</span>
                             }
                         </div>
                         {/* 메뉴버튼 */}
@@ -97,7 +108,7 @@ export const Comment: React.FC<CommentProps> = ({
                         {content.current}
                     </span>
 
-                    {/* 작성 날짜 */}
+                    {/* 작성 시간 */}
                     <span className='text-slate-700 text-sm mb-3'>{getTimeAgo(comment.UploadedAt as Date)}</span>
 
                     <div className='flex flex-row justify-between'>
@@ -108,7 +119,7 @@ export const Comment: React.FC<CommentProps> = ({
                                 setIsReplying(!isReplying);
                             }}
                         >
-                            답글
+                            Reply
                         </button>
 
                         {/* 좋아요 */}
@@ -134,6 +145,7 @@ export const Comment: React.FC<CommentProps> = ({
                             replyingTo={comment.Id}
                             handleCancelClicked={() => setIsReplying(false)}
                             setCommentsAwaiter={setCommentsAwaiter}
+                            className='mt-1'
                         />
                     )}
 

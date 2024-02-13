@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store'
 import { makeInvisible } from '@/common/redux/signInModalSlice';
 import { useIsMounted } from '@/common/hooks/useIsMounted';
+import ContinueWithGoogleButton from '@/common/components/ContinueWithGoogleButton';
 
-const ContinueWithGoogleButton = lazy(() => import("@/common/components/ContinueWithGoogleButton"));
 const Rodal = lazy(() => import("rodal"));
 import 'rodal/lib/rodal.css';
 
@@ -38,36 +38,20 @@ const SignInModal = () => {
 
     return (
         <Rodal visible={visible} onClose={() => { dispatch(makeInvisible()) }}
-            className='' width={modalWidth}>
+            width={modalWidth}
+            className=''
+        >
+            <div className='w-full h-full flex flex-col items-center justify-between'>
+                <span className='text-lg text-slate-800 font-bold'>Please Sign in...</span>
 
-            <div >
-
+                <div className='flex flex-col gap-6 items-center'>
+                    <ContinueWithGoogleButton
+                        onClick={() => { window.location.replace("/api/oauth/sign-in?provider=google"); }}
+                        className=''
+                    />
+                    <span>네이버 로그인 준비 중...</span>
+                </div>
             </div>
-            <ContinueWithGoogleButton
-                onClick={() => { window.location.replace("/api/oauth/sign-in?provider=google"); }}
-            />
-
-
-            {/* <button
-                onClick={(e) => {
-                    e.preventDefault();
-
-                    console.log("Clicked");
-
-                    fetch("/api/Test/abcd",
-                        {
-                            credentials: "same-origin"
-                        })
-                        .then((response) => response.json())
-                        .then((json) => console.log(json))
-                        .catch((error) => {
-                            console.log(error);
-                            console.log("failed to fetch");
-                        });
-                }}
-            >
-                Auth test
-            </button> */}
         </Rodal>
     )
 }

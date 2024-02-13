@@ -8,4 +8,5 @@ export default interface CommentInfo {
 	Id: string;
 	Email: string;
 	Avatar: string | null;
+	depth: number;
 }

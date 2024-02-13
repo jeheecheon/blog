@@ -29,18 +29,20 @@ export const sortComments = (
 
     // Retrieve and flatten comments from the map
     const sortedComments: CommentInfo[] = [];
-    const processComments = (parentId: string) => {
+    const processComments = (parentId: string, depth: number) => {
         const parentComments = commentsByParent.get(parentId) || [];
         for (const parentComment of parentComments) {
+            parentComment.depth = depth;
             sortedComments.push(parentComment);
-            processComments(parentComment.Id);
+            processComments(parentComment.Id, depth + 1);
         }
     };
 
-    processComments('');
+    processComments('', 0);
 
     return sortedComments;
 }
+
 
 export const getTimeAgo = (uploadedAt: Date): string => {
     const now = new Date();
@@ -53,22 +55,28 @@ export const getTimeAgo = (uploadedAt: Date): string => {
     const year = day * 365;
 
     if (timeDifference < minute) {
-        const seconds = Math.floor(timeDifference / 1000);
+        let seconds = Math.floor(timeDifference / 1000);
+        seconds = seconds < 0 ? 0 : seconds;
         return `${seconds} ${seconds === 1 ? 'second' : 'seconds'} ago`;
     } else if (timeDifference < hour) {
-        const minutes = Math.floor(timeDifference / minute);
+        let minutes = Math.floor(timeDifference / minute);
+        minutes = minutes < 0 ? 0 : minutes;
         return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
     } else if (timeDifference < day) {
-        const hours = Math.floor(timeDifference / hour);
+        let hours = Math.floor(timeDifference / hour);
+        hours = hours < 0 ? 0 : hours;
         return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
     } else if (timeDifference < month) {
-        const days = Math.floor(timeDifference / day);
+        let days = Math.floor(timeDifference / day);
+        days = days < 0 ? 0 : days;
         return `${days} ${days === 1 ? 'day' : 'days'} ago`;
     } else if (timeDifference < year) {
-        const months = Math.floor(timeDifference / month);
+        let months = Math.floor(timeDifference / month);
+        months = months < 0 ? 0 : months;
         return `${months} ${months === 1 ? 'month' : 'months'} ago`;
     } else {
-        const years = Math.floor(timeDifference / year);
+        let years = Math.floor(timeDifference / year);
+        years = years < 0 ? 0 : years;
         return `${years} ${years === 1 ? 'year' : 'years'} ago`;
     }
 };

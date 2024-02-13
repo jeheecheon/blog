@@ -13,13 +13,15 @@ interface CommentWriteAreaProps {
     replyingTo?: string;
     handleCancelClicked?: () => void | undefined;
     setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
+    className?: string;
 }
 
 const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
     postId,
     replyingTo,
     handleCancelClicked,
-    setCommentsAwaiter
+    setCommentsAwaiter,
+    className
 }) => {
     const user = useSelector((state: RootState) => state.user)
     const isAuthenticated = useRef(user.email !== undefined && user.email !== null && user.email !== '');
@@ -58,7 +60,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
 
     return (
         <div className={`rounded-lg flex flex-row justify-between items-start
-                px-4 pt-2 pb-4 bg-slate-200 bg-opacity-40`} >
+                px-4 pt-2 pb-4 bg-slate-300 bg-opacity-20 ${className}`} >
 
             <Avatar
                 avatar={isAuthenticated.current ? user.avatar : defaultAvatar}

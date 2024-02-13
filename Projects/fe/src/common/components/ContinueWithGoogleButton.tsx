@@ -1,14 +1,18 @@
-import { useEffect } from 'react'
+import '@/common/assets/css/ContinueWithGoogleButton.css'
 
-const ContinueWithGoogleButton = ({ onClick }: {
-    onClick: () => void
+interface ContinueWithGoogleButtonProps {
+    onClick: () => void;
+    className?: string;
+}
+const ContinueWithGoogleButton: React.FC<ContinueWithGoogleButtonProps> = ({
+    onClick,
+    className
 }) => {
-    useEffect(() => {
-        import('@/common/assets/css/ContinueWithGoogleButton.css');
-    }, []);
-
     return (
-        <button className="gsi-material-button" onClick={() => onClick()}>
+        <button
+            className={`gsi-material-button ${className}`}
+            onClick={() => onClick()}
+        >
             <div className="gsi-material-button-state" />
             <div className="gsi-material-button-content-wrapper">
                 <div className="gsi-material-button-icon">
