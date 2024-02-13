@@ -8,7 +8,7 @@ COPY ./Infrastructure/*.csproj ./Infrastructure/
 COPY ./Core/*.csproj ./Core/
 RUN dotnet restore .
 COPY . .
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -o out --framework net8.0
 
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final-env
