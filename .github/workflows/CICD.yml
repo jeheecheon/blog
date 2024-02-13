@@ -49,7 +49,7 @@ jobs:
       - name: Use .NET SDK version
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.101'
+          global-json-file: Projects/be/global.json
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build docker image
