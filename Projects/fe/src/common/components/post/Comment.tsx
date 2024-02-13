@@ -84,7 +84,7 @@ export const Comment: React.FC<CommentProps> = ({
                         </svg>
                     </div>
                 )}
-                <div className={`flex flex-col w-full shadow shadow-slate-400 p-1 ${className}`}>
+                <div className={`flex flex-col w-full shadow shadow-slate-400 p-2 ${className}`}>
                     <div className='flex flex-row justify-between items-center'>
                         {/* 댓글 작성자 정보 */}
                         <div className='flex flex-row justify-start items-center gap-3'>
@@ -145,7 +145,7 @@ export const Comment: React.FC<CommentProps> = ({
                             replyingTo={comment.Id}
                             handleCancelClicked={() => setIsReplying(false)}
                             setCommentsAwaiter={setCommentsAwaiter}
-                            className='mt-1'
+                            className='mt-2'
                         />
                     )}
 

@@ -20,7 +20,7 @@ const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter,
   console.log(sortedComments);
 
   return (
-    <div className={`max-w-5xl w-full flex flex-col gap-1
+    <div className={`max-w-5xl w-full flex flex-col gap-2
     ${className}`}>
       {
         sortedComments.map(
@@ -37,7 +37,7 @@ const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter,
       <CommentWriteArea
         postId={postId}
         setCommentsAwaiter={setCommentsAwaiter}
-        className='mt-1'
+        className='mt-2'
       />
     </div>
   )
