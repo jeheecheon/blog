@@ -15,6 +15,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Set up cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", CorsPolicyBuilder =>
+    {
+        CorsPolicyBuilder.WithOrigins(builder.Configuration["ClientUrls:root"]!)
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 // Add DB contexts
 builder.Services.AddDbContext<MainContext>();
 
@@ -67,33 +78,14 @@ var app = builder.Build();
 // using nginx as reverse-prox set up to handle https redirection
 // app.UseHsts();
 // app.UseHttpsRedirection();
-app.Use(async (context, next) =>
-{
-    System.Console.WriteLine(context.Request.Host.Host);
-    if (app.Environment.IsDevelopment())
-    {
-        if (context.Request.Host.Host != "localhost")
-        {
-            context.Response.StatusCode = 403; // Forbidden
-            return;
-        }
-    }
-    else
-    {
-        if (context.Request.Host.Host != "jeheecheon.com")
-        {
-            context.Response.StatusCode = 403; // Forbidden
-            return;
-        }
-    }
-    await next.Invoke();
-});
+
 if (app.Environment.IsDevelopment())
 {
     await InitialDataManager.SeedAsync(app.Services);
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
