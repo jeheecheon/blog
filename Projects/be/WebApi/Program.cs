@@ -15,19 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// CORS Settings
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("JeheecheonCorsPolicy", builder =>
-//     {
-//         builder.WithOrigins(new string[] {
-//             "https://localhost:7130", "https://localhost:5173"
-//         })
-//             .AllowAnyMethod()
-//             .AllowAnyHeader();
-//     });
-// });
-
 // Add DB contexts
 builder.Services.AddDbContext<MainContext>();
 
@@ -77,10 +64,30 @@ builder.Services.AddScoped<IBlogService, BlogService>();
 
 var app = builder.Build();
 
-// // Commented out https setup for now
-app.UseHttpsRedirection();
-// app.UseCors("JeheecheonCorsPolicy");
-// Configure the HTTP request pipeline.
+// using nginx as reverse-prox set up to handle https redirection
+// app.UseHsts();
+// app.UseHttpsRedirection();
+app.Use(async (context, next) =>
+{
+    System.Console.WriteLine(context.Request.Host.Host);
+    if (app.Environment.IsDevelopment())
+    {
+        if (context.Request.Host.Host != "localhost")
+        {
+            context.Response.StatusCode = 403; // Forbidden
+            return;
+        }
+    }
+    else
+    {
+        if (context.Request.Host.Host != "jeheecheon.com")
+        {
+            context.Response.StatusCode = 403; // Forbidden
+            return;
+        }
+    }
+    await next.Invoke();
+});
 if (app.Environment.IsDevelopment())
 {
     await InitialDataManager.SeedAsync(app.Services);
