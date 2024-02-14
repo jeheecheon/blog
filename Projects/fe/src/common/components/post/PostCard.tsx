@@ -27,7 +27,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
         group hover:cursor-pointer pb-3 border-b-2
         ${className}`}>
             <div className='flex justify-between text-slate-500 text-sm'>
-                <span className='text-right'>{post.UploadedAt.toLocaleDateString()}</span>
+                <span className='text-right'>Published: {post.UploadedAt.toLocaleDateString()}</span>
                 {/* <span className='self-end'>23 views</span> */}
             </div>
             <div className='font-semibold text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>
@@ -38,7 +38,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                     parsed
                 }
             </span>
-            <div className='flex flex-row justify-start items-start fill-sky-700 '>
+            <div className='flex flex-row justify-start items-start fill-sky-700 mt-3'>
                 {/* Likes */}
                 <div className='flex flex-row items-center mr-2 cursor-pointer'>
                     {/* <svg className='mr-1 text-1xl' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M720-120H320v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h218q32 0 56 24t24 56v80q0 7-1.5 15t-4.5 15L794-168q-9 20-30 34t-44 14ZM240-640v520H80v-520h160Z" /></svg> */}

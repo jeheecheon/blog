@@ -42,7 +42,7 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
             </div>
 
             <nav className={`fixed w-screen h-screen z-30 pointer-events-none 
-            flex flex-col items-start justify-center gap-3 text-slate-500 pl-[10vw] text-2xl md:text-3xl`}>
+            flex flex-col items-start justify-start gap-3 text-slate-500 pl-[10vw] text-2xl md:text-3xl pt-[8%]`}>
                 <Link
                     to="/blog"
                     onClick={handleLinkClicked}
@@ -87,7 +87,7 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
                                 <Link to="/blog/categories/React/pages/1" onClick={handleLinkClicked}>└ React</Link>
                             </div>
                         </div>
-
+                        <Link to="/blog/categories/Uncategorized/pages/1" onClick={handleLinkClicked}>└ Uncategorized</Link>
                     </div>
                 </div>
 
