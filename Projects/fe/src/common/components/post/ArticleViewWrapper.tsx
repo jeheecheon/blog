@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense } from 'react'
 import ArticleLayout from '@/common/components/post/ArticleLayout'
 import Article from '@/common/components/post/Article'
 import PostsPagination from '@/common/components/post/PostsPagination'
