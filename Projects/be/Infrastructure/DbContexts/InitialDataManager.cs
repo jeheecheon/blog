@@ -44,16 +44,16 @@ INSERT INTO external_login_provider (name) VALUES ('google');
 INSERT INTO category (id, is_bottom_level) VALUES
     ('backend', false),
     ('frontend', false),
-    ('Algorithm', false),
-    ('test1', false);
+    ('Algorithm', false);
+    // ('test1', false);
 
 INSERT INTO category (id, parent_category_id, is_bottom_level) VALUES 
     ('ASP.NET', 'backend', true),
-    ('Spring', 'backend', true),
-    ('test2', 'test1', false),
-    ('test3', 'test2', false),
-    ('test4', 'test3', false),
-    ('test5', 'test4', true);
+    ('Spring', 'backend', true);
+    // ('test2', 'test1', false),
+    // ('test3', 'test2', false),
+    // ('test4', 'test3', false),
+    // ('test5', 'test4', true);
                 ");
             }
             catch (Exception e)

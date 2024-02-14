@@ -81,7 +81,6 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    await InitialDataManager.SeedAsync(app.Services);
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -89,5 +88,8 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+if (app.Environment.IsDevelopment())
+    await InitialDataManager.SeedAsync(app.Services);
 
 app.Run();

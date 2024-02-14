@@ -62,7 +62,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
 
     return (
         <div className={`rounded-lg flex flex-row justify-between items-start
-                px-4 pt-2 pb-4 bg-slate-300 bg-opacity-25 ${className}`} >
+                px-4 pt-2 pb-4 bg-slate-300 bg-opacity-20 ${className}`} >
 
             <Avatar
                 avatar={isAuthenticated.current ? user.avatar : defaultAvatar}

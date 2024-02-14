@@ -81,7 +81,7 @@ export const Comment: React.FC<CommentProps> = ({
                 </div>
             }
 
-            <div className={`flex flex-col pb-4 pr-4 w-full gap-3 border-r-2 border-r-slate-300 rounded-lg`}>
+            <div className={`flex flex-col py-4 w-full gap-3`}>
                 <div className='flex flex-row gap-2'>
                     {/* 댓글 작성자 정보 */}
                     <img src={comment.Avatar ? comment.Avatar : defaultAvatar} className='w-[40px] h-[40px] rounded-full' />
@@ -99,11 +99,10 @@ export const Comment: React.FC<CommentProps> = ({
                     </div>
                 </div>
 
-                <span className='text-slate-700 rounded'>
-                    <div className='text-pretty min-h-[50px] p-2 bg-blue-200 bg-opacity-20 w-full rounded-lg'>
-                        {content.current}
-                    </div>
-                </span>
+                <div className='text-pretty min-h-[50px] p-2 bg-blue-100 bg-opacity-20 w-full rounded-lg
+                text-slate-700'>
+                    {content.current}
+                </div>
 
                 <div className='flex flex-row gap-3'>
                     <button type='button' className='border-2 border-blue-200 rounded text-sm py-[3px] px-2 w-fit
