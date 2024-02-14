@@ -20,7 +20,7 @@ const PostsWrapper = () => {
     }, [category, page])
 
     return (
-        <div className="m-auto max-w-[800px]">
+        <div className="m-auto max-w-[800px] px-3">
             <h1 className="inline-block uppercase max-w-[800px] w-full text-3xl font-medium text-sky-700 
             mt-[60px] mb-[20px] text-left">
                 Recently published

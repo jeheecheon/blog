@@ -15,7 +15,7 @@ const Posts: React.FC<PostsProps> = ({ postsAwaiter }) => {
   posts = sortPostsByUploadedAt(posts);
 
   return (
-    <nav className="flex flex-col items-center mx-3 mb-5 gap-[70px] w-full">
+    <nav className="flex flex-col items-center mb-5 gap-[70px] w-full">
       {
         posts.map((p, idx) => (
           <Link
