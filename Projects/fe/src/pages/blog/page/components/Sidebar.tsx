@@ -34,79 +34,80 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
     const content5 = show === "true" ? "animate-show-sidebar-content5" : "animate-hide-sidebar-content1 pointer-events-none";
     const handleLinkClicked = () => setShowSidebar("false");
 
-    return (<>
-        <div className={`w-screen h-screen z-30 bg-white bg-opacity-90 fixed cursor-pointer 
-        ${overlay}`}
-            onClick={() => handleLinkClicked()}>
-        </div>
-
-        <div className={`fixed w-screen h-screen z-30 pointer-events-none 
-        flex flex-col items-start justify-center gap-3 text-slate-500 pl-[10vw] text-2xl md:text-3xl`}>
-            <Link
-                to="/blog"
-                onClick={handleLinkClicked}
-                className={`pointer-events-auto ${content1}`}
-            >
-                Home
-            </Link>
-
-            <Link
-                to="/blog/about-me"
-                onClick={handleLinkClicked}
-                className={`pointer-events-auto ${content2}`}
-            >
-                About me
-            </Link>
-
-            <Link to="/blog/recent-posts/pages/1"
-                onClick={handleLinkClicked}
-                className={`mt-5 pointer-events-auto ${content3}`}
-            >
-                Latest posts
-            </Link>
-
-            <div
-                className={`pointer-events-auto ${content4}`}
-            >
-                <span>Categories</span>
-                <div
-                    className="pl-4 flex flex-col"
-                >
-                    <Link to="/blog/categories/Algorithm/pages/1" onClick={handleLinkClicked}>│ Algorithm</Link>
-                    <div>
-                        <span>└ Backend</span>
-                        <div className="pl-8 flex flex-col">
-                            <Link to="/blog/categories/Spring/pages/1" onClick={handleLinkClicked}>│ Spring</Link>
-                            <Link to="/blog/categories/ASP.NET/pages/1" onClick={handleLinkClicked}>└ ASP.NET</Link>
-                        </div>
-                    </div>
-                    <div>
-                        <span>└ Frontend</span>
-                        <div className="pl-8 flex-flex-col">
-                            <Link to="/blog/categories/React/pages/1" onClick={handleLinkClicked}>└ React</Link>
-                        </div>
-                    </div>
-
-                </div>
+    return (
+        <section>
+            <div className={`w-screen h-screen z-30 bg-white bg-opacity-90 fixed cursor-pointer 
+            ${overlay}`}
+                onClick={() => handleLinkClicked()}>
             </div>
 
-            <Link
-                to="/blog" onClick={() => {
-                    if (isAuthenticated) {
-                        SignOut(dispatch);
-                        handleLinkClicked();
-                    }
-                    else {
-                        dispatch(makeVisible());
-                        handleLinkClicked();
-                    }
-                }}
-                className={`pointer-events-auto mt-5 ${content5}`}
-            >
-                {isAuthenticated ? "Sign Out" : "Sign in"}
-            </Link>
-        </div>
-    </>
+            <nav className={`fixed w-screen h-screen z-30 pointer-events-none 
+            flex flex-col items-start justify-center gap-3 text-slate-500 pl-[10vw] text-2xl md:text-3xl`}>
+                <Link
+                    to="/blog"
+                    onClick={handleLinkClicked}
+                    className={`pointer-events-auto ${content1}`}
+                >
+                    Home
+                </Link>
+
+                <Link
+                    to="/blog/about-me"
+                    onClick={handleLinkClicked}
+                    className={`pointer-events-auto ${content2}`}
+                >
+                    About me
+                </Link>
+
+                <Link to="/blog/recent-posts/pages/1"
+                    onClick={handleLinkClicked}
+                    className={`mt-5 pointer-events-auto ${content3}`}
+                >
+                    Latest posts
+                </Link>
+
+                <div
+                    className={`pointer-events-auto ${content4}`}
+                >
+                    <span>Categories</span>
+                    <div
+                        className="pl-4 flex flex-col"
+                    >
+                        <Link to="/blog/categories/Algorithm/pages/1" onClick={handleLinkClicked}>│ Algorithm</Link>
+                        <div>
+                            <span>└ Backend</span>
+                            <div className="pl-8 flex flex-col">
+                                <Link to="/blog/categories/Spring/pages/1" onClick={handleLinkClicked}>│ Spring</Link>
+                                <Link to="/blog/categories/ASP.NET/pages/1" onClick={handleLinkClicked}>└ ASP.NET</Link>
+                            </div>
+                        </div>
+                        <div>
+                            <span>└ Frontend</span>
+                            <div className="pl-8 flex-flex-col">
+                                <Link to="/blog/categories/React/pages/1" onClick={handleLinkClicked}>└ React</Link>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <Link
+                    to="/blog" onClick={() => {
+                        if (isAuthenticated) {
+                            SignOut(dispatch);
+                            handleLinkClicked();
+                        }
+                        else {
+                            dispatch(makeVisible());
+                            handleLinkClicked();
+                        }
+                    }}
+                    className={`pointer-events-auto mt-5 ${content5}`}
+                >
+                    {isAuthenticated ? "Sign Out" : "Sign in"}
+                </Link>
+            </nav>
+        </section>
     )
 });
 

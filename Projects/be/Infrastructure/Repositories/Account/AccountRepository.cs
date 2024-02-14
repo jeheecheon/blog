@@ -116,4 +116,20 @@ SELECT * FROM account_role WHERE account_id = {account_id} AND role_id = {role_i
             return null;
         }
     }
+
+    public async Task<bool> UpdateAvatarAsync(Guid account_id, string avatar)
+    {
+        try
+        {
+            return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+UPDATE account SET avatar = {avatar} WHERE id = {account_id}
+            ")
+                > 0;
+        }
+        catch (Exception e)
+        {
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
 }

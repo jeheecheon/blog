@@ -37,10 +37,10 @@ const SidebarButton: React.FC<SidebarButtonProps> = (props) => {
     };
 
     return (
-        <div className={`inline-block cursor-pointer ${props.className}`} onClick={handleClicked}>
+        <button className={`${props.className}`} onClick={handleClicked}>
             <div ref={barRef1} className={`${props.color} w-[30px] h-[4px] transition duration-700 ease-in-out rounded-2xl mb-[8px]`}></div>
             <div ref={barRef2} className={`${props.color} w-[30px] h-[4px] transition duration-700 ease-in-out rounded-2xl`}></div>
-        </div>
+        </button>
     )
 }
 

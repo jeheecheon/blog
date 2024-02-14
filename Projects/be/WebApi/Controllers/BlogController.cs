@@ -54,11 +54,11 @@ public class BlogController : ControllerBase
 
     [Authorize]
     [HttpPost("post/update")]
-    public async Task<IActionResult> PostUpdateAsync([FromBody] PostWithMetadata post)
+    public async Task<IActionResult> PostUpdateAsync([FromBody] PostWithMetadata post, [FromQuery] bool update_published_date)
     {
         if (_accountService.FilterAdmin() is false)
             return Forbid();
-        return await _blogService.UpdatePostAsync(post) ? Ok() : BadRequest();
+        return await _blogService.UpdatePostAsync(post, update_published_date) ? Ok() : BadRequest();
     }
 
     // [Authorize]

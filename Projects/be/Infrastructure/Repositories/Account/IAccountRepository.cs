@@ -11,4 +11,5 @@ public interface IAccountRepository
     public Infrastructur.Models.Account? GetAccountByNormalizedEmail(string email);
     public Role? GetAdminRole();
     public AccountRole? GetAccountRole(int role_id, Guid account_id);
+    public Task<bool> UpdateAvatarAsync(Guid account_id, string avatar);
 }

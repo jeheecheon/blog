@@ -23,7 +23,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
     );
 
     return (
-        <div className={`max-w-[800px] h-fit w-full
+        <article className={`max-w-[800px] h-fit w-full
         group hover:cursor-pointer pb-3 border-b-2
         ${className}`}>
             <div className='flex justify-between text-slate-500 text-sm'>
@@ -33,11 +33,11 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
             <div className='font-semibold text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>
                 {post.Title}
             </div>
-            <div className='text-md text-pretty mb-2 h-[70px] truncate'>
+            <span className='text-md text-pretty mb-2 h-[70px] truncate'>
                 {
                     parsed
                 }
-            </div>
+            </span>
             <div className='flex flex-row justify-start items-start fill-sky-700 '>
                 {/* Likes */}
                 <div className='flex flex-row items-center mr-2 cursor-pointer'>
@@ -63,7 +63,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                     }
                 </div>
             </div>
-        </div>
+        </article>
     )
 }
 

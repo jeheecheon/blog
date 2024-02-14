@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import ArticleLayout from '@/common/components/post/ArticleLayout'
-import Article from '@/common/components/post/Article'
+import ArticleContent from '@/common/components/post/ArticleContent'
 import PostsPagination from '@/common/components/post/PostsPagination'
 import ErrorBoundary from '@/common/components/error/ErrorBoundary'
 import Comments from '@/common/components/post/Comments'
@@ -23,7 +23,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
 }) => {
     return (
         <ArticleLayout className='flex flex-col items-center relative -top-[150px] z-10'>
-            <Article
+            <ArticleContent
                 post={post}
             />
             <PostsPagination />

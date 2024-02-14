@@ -136,6 +136,9 @@ public class OAuthService : IOAuthService
         Infrastructur.Models.Account? account = _accountRepository.GetAccountByNormalizedEmail(userInfo.email.ToUpper());
         if (account is null || string.IsNullOrWhiteSpace(account.NormalizedEmail))
             return null;
+        
+        // Try to update avatar url
+        await _accountRepository.UpdateAvatarAsync(account.Id, userInfo.picture);
 
         // Fetch provider's id
         var providerInfo = _accountRepository.GetExternalLoginProviderByName(provider);

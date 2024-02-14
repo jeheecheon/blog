@@ -60,7 +60,7 @@ INSERT INTO post (title, content, category_id) VALUES
             {
                 return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO post (title, content) VALUES
-    ({"Example title"}, {"Example Context"})            
+    ({"Example title"}, {"Example content"})            
                 ") > 0;
             }
             catch (Exception e)
@@ -305,6 +305,31 @@ SET
     cover = {post.Cover},
     category_id = {post.CategoryId},
     is_public = {post.IsPublic}
+WHERE id = {post.Id};
+                ")
+                    > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdatePostAlongWithUpdatedAtAsync(PostWithMetadata post)
+        {
+            try
+            {
+                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+UPDATE post 
+SET 
+    title = {post.Title},
+    content = {post.Content},
+    edited_at = NULL,
+    cover = {post.Cover},
+    category_id = {post.CategoryId},
+    is_public = {post.IsPublic},
+    uploaded_at = CURRENT_TIMESTAMP
 WHERE id = {post.Id};
                 ")
                     > 0;

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <>
+    <section>
       <div className='flex flex-col items-center bg-slate-50 py-[40px] shadow-xl shadow-slate-700'>
         <span className='text-2xl text-slate-600 font-bold'>
           <span className='italic'>JeheeCheon</span>
@@ -26,7 +26,7 @@ const Footer = () => {
           © 2024-present Jehee Cheon. All Rights Reserved.
         </span>
       </div>
-    </>
+    </section>
 
     // <div className='flex flex-row justify-center w-full h-[200px] bg-slate-100 text-slate-600'>
 

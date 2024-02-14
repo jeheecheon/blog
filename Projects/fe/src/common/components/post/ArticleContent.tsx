@@ -11,12 +11,12 @@ import { flattenOutCategories } from '@/common/utils/category';
 import { setCoverImageUrl, setTitleOnCover } from '@/common/redux/bannerSlice';
 import backgroundImage from '@/common/assets/images/default/cover.jpg';
 
-interface ArticleProps {
+interface ArticleContentProps {
     className?: string,
     post: PostInfo
 }
 
-const Article: React.FC<ArticleProps> = React.memo(({
+const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
     className,
     post
 }) => {
@@ -94,10 +94,10 @@ const Article: React.FC<ArticleProps> = React.memo(({
                 <div className='bg-stone-600 h-[10px] w-[170px] rounded-2xl relative bottom-1' />
                 <span className='block text-center text-slate-900 font-medium text-sm mb-3'>
                     {post.EditedAt !== undefined && post.EditedAt !== null ?
-                        // `Last Edited: ${post.EditedAt.toLocaleDateString()}` :
-                        // `Published: ${post.UploadedAt.toLocaleDateString()}`
-                        `Published: ${post.EditedAt.toLocaleDateString()}` :
+                        `Last Edited: ${post.EditedAt.toLocaleDateString()}` :
                         `Published: ${post.UploadedAt.toLocaleDateString()}`
+                        // `Published: ${post.EditedAt.toLocaleDateString()}` :
+                        // `Published: ${post.UploadedAt.toLocaleDateString()}`
                     }
                 </span>
                 <div className='text-left w-full'>
@@ -130,4 +130,4 @@ const Article: React.FC<ArticleProps> = React.memo(({
     )
 });
 
-export default Article;
+export default ArticleContent;

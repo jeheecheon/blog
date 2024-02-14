@@ -5,7 +5,7 @@ import Button from '@/common/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCoverImageUrl } from '@/common/redux/bannerSlice';
 import ArticleLayout from '@/common/components/post/ArticleLayout';
-import Article from '@/common/components/post/Article';
+import ArticleContent from '@/common/components/post/ArticleContent';
 import { RootState } from '@/common/redux/store';
 import CustomQuillToolbar from './components/quill/CustomQuillToolbar';
 import CustomQuill from './components/quill/CustomQuill';
@@ -20,6 +20,7 @@ const PostEdit = () => {
   const [selectedPostIdToEdit, setSelectedPostIdToEdit] = useState("");
   const [postEditing, setPostEditing] = useState<PostInfo>();
   const [showPreview, setShowPreview] = useState<boolean>(false);
+  const [updatePublishedDate, setUpdatePublishedDate] = useState<boolean>(false);
 
   useEffect(() => {
     fetchPostsList();
@@ -71,7 +72,7 @@ const PostEdit = () => {
 
   const handleUpdateClicked: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (confirm("You want to update the post, right?"))
-      fetch("/api/blog/post/update",
+      fetch(`/api/blog/post/update?update_published_date=${updatePublishedDate}`,
         {
           credentials: "same-origin",
           method: "POST",
@@ -157,7 +158,7 @@ const PostEdit = () => {
       showPreview && postEditing
         ?
         <ArticleLayout>
-          <Article
+          <ArticleContent
             post={postEditing}
           />
         </ArticleLayout>
@@ -237,20 +238,28 @@ const PostEdit = () => {
                   })}
                 />
               </label>
+
+              <label>
+                Update publised date:&#160;
+                <input type='checkbox' checked={updatePublishedDate} onChange={
+                  () => setUpdatePublishedDate(!updatePublishedDate)
+                }
+                />
+              </label>
             </>
           }
         </div>
     }
-    <div className='flex flex-row justify-center gap-3 '>
+    <div className='flex flex-row justify-center gap-3 mb-3'>
       <Button
         onClick={handleDeleteClicked}
-        className='bg-red-500'
+        className='text-red-500'
       >
         Delete
       </Button>
       <Button
         onClick={handleUpdateClicked}
-        className='bg-red-500'
+        className='text-blue-500'
       >
         Update
       </Button>

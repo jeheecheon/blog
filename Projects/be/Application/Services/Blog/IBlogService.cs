@@ -21,7 +21,7 @@ public interface IBlogService
     public Task<string?> UploadImageToS3Async(IFormFile image, string post_id);
     public IEnumerable<PostSummary>? GetPostLists();
     public PostWithMetadata? GetPostWithMetadata(Guid post_id);
-    public Task<bool> UpdatePostAsync(PostWithMetadata post);
+    public Task<bool> UpdatePostAsync(PostWithMetadata post, bool setUpdatedAt);
     public Task<bool> UploadEmptyPost();
     public Task<bool> DeletePostAsync(Guid post_id);
     public GetStaticLikePostLikesHasLiked? GetStaticLikePost(Guid post_id);

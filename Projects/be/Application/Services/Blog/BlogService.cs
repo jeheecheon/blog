@@ -61,9 +61,11 @@ public class BlogService : IBlogService
         return await _blogRepository.CreatePostAsync(post);
     }
 
-    public async Task<bool> UpdatePostAsync(PostWithMetadata post)
+    public async Task<bool> UpdatePostAsync(PostWithMetadata post, bool setUpdatedAt)
     {
-        return await _blogRepository.UpdatePostAsync(post);
+        return setUpdatedAt
+            ? await _blogRepository.UpdatePostAlongWithUpdatedAtAsync(post)
+            : await _blogRepository.UpdatePostAsync(post);
     }
 
     public IEnumerable<GetPostsLikesComments>? GetRecentPosts(int page)

@@ -17,7 +17,7 @@ const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter,
   const sortedComments: CommentInfo[] = sortComments(convertStringDateIntoDate(awaitedComments));
 
   return (
-    <div className={`max-w-[1024px] w-full flex flex-col gap-2
+    <div className={`max-w-[1024px] w-full flex flex-col
     ${className}`}>
       {
         sortedComments.map(
