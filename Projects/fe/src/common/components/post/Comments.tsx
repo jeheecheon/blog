@@ -17,10 +17,9 @@ const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter,
 
   convertStringDateIntoDate(comments);
   const sortedComments = sortComments(comments);
-  console.log(sortedComments);
 
   return (
-    <div className={`max-w-5xl w-full flex flex-col gap-2
+    <div className={`max-w-[1024px] w-full flex flex-col gap-2
     ${className}`}>
       {
         sortedComments.map(

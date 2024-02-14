@@ -10,6 +10,7 @@ import SignInModal from '@/common/components/SignInModal';
 
 import('@/pages/blog/page/css/font.css');
 import('@/pages/blog/page/css/scrollbar.css');
+import('react-loading-skeleton/dist/skeleton.css');
 
 interface LayoutProps {
     children?: ReactElement | ReactElement[],

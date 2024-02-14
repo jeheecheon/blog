@@ -21,7 +21,7 @@ const Post = lazy(() => import('@/pages/blog/post/page/index'));
 const AboutMe = lazy(() => import('@/pages/blog/about-me/page'));
 const PostEdit = lazy(() => import('@/pages/blog/post/edit/page'));
 const TestPage = lazy(() => import('@/pages/test/page'));
-const PostsFetcher = lazy(() => import('@/common/components/post/PostsFetcher'));
+const PostsWrapper = lazy(() => import('@/common/components/post/PostsWrapper'));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -62,11 +62,11 @@ const App = () => {
                     />
                     <Route
                         path='blog/recent-posts/pages/:page'
-                        element={<PostsFetcher />}
+                        element={<PostsWrapper />}
                     />
                     <Route
                         path='blog/categories/:category/pages/:page'
-                        element={<PostsFetcher />}
+                        element={<PostsWrapper />}
                     />
                     <Route
                         path='blog/post/:id/:slug?'
