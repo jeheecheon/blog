@@ -6,7 +6,8 @@ import CustomTextArea from '@/common/components/CustomTextArea';
 import defaultAvatar from '@/common/assets/images/icons/avatar.png'
 import Avatar from '@/common/components/post/Avatar';
 import { makeVisible } from '../../redux/signInModalSlice';
-import { PromiseAwaiter, wrapPromise } from '@/common/utils/promiseWrapper';
+import { PromiseAwaiter } from '@/common/utils/promiseWrapper';
+import { HandleError } from '@/common/utils/responses';
 
 interface CommentWriteAreaProps {
     postId: string;
@@ -20,7 +21,6 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
     postId,
     replyingTo,
     handleCancelClicked,
-    setCommentsAwaiter,
     className
 }) => {
     const user = useSelector((state: RootState) => state.user)
@@ -49,12 +49,14 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
             })
         })
             .then(res => {
-                if (res.ok) {
-                    setCommentsAwaiter(wrapPromise(fetch(`/api/blog/post/${postId}/comments`)));
-                    setContent('');
-                    if (handleCancelClicked !== undefined)
-                        handleCancelClicked();
-                }
+                if (res.ok)
+                    window.location.reload();
+                else
+                    HandleError(res);
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Failed to upload the comment..");
             })
     }
 

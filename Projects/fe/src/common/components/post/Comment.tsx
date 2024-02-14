@@ -71,7 +71,7 @@ export const Comment: React.FC<CommentProps> = ({
 
     return (
         <>
-            <div className={`flex flex-row`}>
+            <div className={`flex flex-row w-full max-w-[1024px]`}>
                 {comment.ParentCommentId && (
                     <div className='flex flex-row'>
                         {

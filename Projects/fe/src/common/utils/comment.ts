@@ -8,6 +8,7 @@ export const convertStringDateIntoDate = (
     comments.forEach(ele =>
         ele.UploadedAt = new Date(Date.parse(ele.UploadedAt.toString()))
     );
+    return comments;
 }
 
 export const sortComments = (

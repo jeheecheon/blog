@@ -13,10 +13,8 @@ interface CommentsProps {
 }
 
 const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter, setCommentsAwaiter }) => {
-  const comments: CommentInfo[] = commentsAwaiter.Await() as CommentInfo[];
-
-  convertStringDateIntoDate(comments);
-  const sortedComments = sortComments(comments);
+  const awaitedComments: CommentInfo[] = commentsAwaiter.Await() as CommentInfo[];
+  const sortedComments: CommentInfo[] = sortComments(convertStringDateIntoDate(awaitedComments));
 
   return (
     <div className={`max-w-[1024px] w-full flex flex-col gap-2
