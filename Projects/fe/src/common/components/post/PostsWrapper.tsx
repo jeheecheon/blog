@@ -3,7 +3,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ErrorBoundary from "../error/ErrorBoundary";
 import Posts from "@/pages/blog/posts/page";
-import PostsFallback from "@/pages/blog/posts/page/components/fallback";
+import PostsFallback from "@/pages/blog/posts/page/components/Fallback";
 import ErrorMessageWrapper from "../ErrorMessageWrapper";
 
 const PostsWrapper = () => {

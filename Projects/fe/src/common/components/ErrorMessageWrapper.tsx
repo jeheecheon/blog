@@ -1,7 +1,7 @@
 interface ErrorMessageWrapperProps {
     children?: string;
 }
-const ErrorMessageWrapper: React.Fc<ErrorMessageWrapperProps> = ({
+const ErrorMessageWrapper: React.FC<ErrorMessageWrapperProps> = ({
     children
 }) => {
     return (
