@@ -240,7 +240,7 @@ const PostEdit = () => {
               </label>
 
               <label>
-                Update publised date:&#160;
+                Update published date:&#160;
                 <input type='checkbox' checked={updatePublishedDate} onChange={
                   () => setUpdatePublishedDate(!updatePublishedDate)
                 }
