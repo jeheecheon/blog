@@ -18,9 +18,7 @@ const BlogLayout = lazy(() => import('@/pages/blog/page/components/Layout'));
 const ErrorArea = lazy(() => import('@/common/components/error/ErrorArea'));
 const BlogErrorArea = lazy(() => import('@/pages/blog/page/BlogErrorArea'));
 const Post = lazy(() => import('@/pages/blog/post/page/index'));
-const AboutMe = lazy(() => import('@/pages/blog/about-me/page'));
 const PostEdit = lazy(() => import('@/pages/blog/post/edit/page'));
-const TestPage = lazy(() => import('@/pages/test/page'));
 const PostsWrapper = lazy(() => import('@/common/components/post/PostsWrapper'));
 
 const App = () => {
@@ -84,27 +82,23 @@ const App = () => {
                     />
                     <Route
                         path='blog/about-me'
-                        element={<AboutMe />}
+                        element={<Post />}
                         loader={AboutMeLoader}
                     />
                     <Route
                         path='blog/privacy-policy'
-                        element={<AboutMe />}
+                        element={<Post />}
                         loader={PrivacyPolicyLoader}
-                    />
-                    <Route
-                        path='test'
-                        element={<TestPage />}
                     />
                 </Route>
 
                 {/* Diary */}
                 <Route
                     path='diary' >
-                    < Route
+                    <Route
                         path='entry/upload'
                     />
-                    < Route
+                    <Route
                         path='entry/edit'
                     />
                 </Route>

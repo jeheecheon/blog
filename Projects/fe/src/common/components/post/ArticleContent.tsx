@@ -7,9 +7,9 @@ import { PostInfo } from '@/common/types/Post';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
 import { makeVisible } from '@/common/redux/signInModalSlice';
-import { flattenOutCategories } from '@/common/utils/category';
+import { flattenOutCategoriesV1 } from '@/common/utils/category';
 import { setCoverImageUrl, setTitleOnCover } from '@/common/redux/bannerSlice';
-import backgroundImage from '@/common/assets/images/default/cover.jpg';
+import { image } from '@/common/utils/siteInfo';
 
 interface ArticleContentProps {
     className?: string,
@@ -40,7 +40,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
         dispatch(setTitleOnCover(post.Title))
 
         return () => {
-            dispatch(setCoverImageUrl(backgroundImage));
+            dispatch(setCoverImageUrl(image));
             dispatch(setTitleOnCover(""))
         }
     }, []);
@@ -84,7 +84,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
             <div className='text-slate-50 max-w-[780px] w-full text-left pl-2 text-xl h-fit'>
                 <span className='bg-stone-700 bg-opacity-60 px-3 rounded-md 
                 text-slate-200 font-medium pb-3'>
-                    {leafCategories && flattenOutCategories(leafCategories.find(category => category.Id === post.CategoryId))}
+                    {leafCategories && flattenOutCategoriesV1(leafCategories.find(category => category.Id === post.CategoryId))}
                 </span>
             </div>
 

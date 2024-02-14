@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import defaultCover from '@/common/assets/images/default/cover.jpg';
+import { image } from '../utils/siteInfo'
 
 export interface CoverState {
   coverImageUrl: string,
@@ -8,7 +8,7 @@ export interface CoverState {
 }
 
 const initialState: CoverState = {
-  coverImageUrl: defaultCover,
+  coverImageUrl: image,
   titleOnCover: '',
 }
 

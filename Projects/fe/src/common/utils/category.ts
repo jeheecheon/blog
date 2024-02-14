@@ -3,13 +3,22 @@ import CategoryInfo from "@/common/types/Category";
 import { HandleError, PropagateResponse } from "@/common/utils/responses";
 import { setLeafCategories } from "@/common/redux/categorySlice";
 
-export function flattenOutCategories(category: CategoryInfo | undefined): string {
+export function flattenOutCategoriesV1(category: CategoryInfo | undefined): string {
   if (category === undefined || category === null)
     return '';
   else if (category.ParentCategory === undefined || category.ParentCategory === null)
     return category.Id;
   else
-    return flattenOutCategories(category.ParentCategory) + ' > ' + category.Id;
+    return flattenOutCategoriesV1(category.ParentCategory) + ' > ' + category.Id;
+}
+
+export function flattenOutCategoriesV2(category: CategoryInfo | undefined): string {
+  if (category === undefined || category === null)
+    return '';
+  else if (category.ParentCategory === undefined || category.ParentCategory === null)
+    return category.Id;
+  else
+    return flattenOutCategoriesV2(category.ParentCategory) + ', ' + category.Id;
 }
 
 export async function fetchLeafCategoriesAsync(dispatch: Dispatch): Promise<void> {
