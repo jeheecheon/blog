@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
@@ -28,10 +28,9 @@ const Layout = (props: LayoutProps) => {
         <main className={`bg-white dark:bg-gray-900 min-h-screen h-auto font-['Noto_Sans_KR']
             flex flex-col justify-between ${props.className}`}>
 
+            <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
             <Header show={showSidebar} setShowSidebar={setShowSidebar} />
 
-            <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
-            
             {/* Content body */}
             <section className='mb-auto bg-slate-50'>
                 {/* Page Header Image */}
@@ -57,6 +56,6 @@ const Layout = (props: LayoutProps) => {
         </main>
     </>
     )
-}
+};
 
 export default Layout;

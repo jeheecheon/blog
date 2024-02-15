@@ -3,7 +3,7 @@ import CommentWriteArea from './CommentWriteArea';
 import CommentInfo from '@/common/types/Comment';
 import { PromiseAwaiter } from '@/common/utils/promiseWrapper';
 import { convertStringDateIntoDate, sortComments } from '@/common/utils/comment';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 
 interface CommentsProps {
@@ -13,7 +13,7 @@ interface CommentsProps {
   refreshComments: () => void;
 }
 
-const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter, refreshComments }) => {
+const Comments: React.FC<CommentsProps> = React.memo(({ className, postId, commentsAwaiter, refreshComments }) => {
   const sortedComments: CommentInfo[] = useMemo(() => {
     const awaitedComments: CommentInfo[] = commentsAwaiter.Await() as CommentInfo[];
     return sortComments(convertStringDateIntoDate(awaitedComments.map(c => c)))
@@ -42,6 +42,6 @@ const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter,
       />
     </div>
   )
-}
+});
 
 export default Comments;

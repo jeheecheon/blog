@@ -1,5 +1,5 @@
 import { RootState } from '@/common/redux/store';
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@/common/components/Button';
 import CustomTextArea from '@/common/components/CustomTextArea';
@@ -16,7 +16,7 @@ interface CommentWriteAreaProps {
     className?: string;
 }
 
-const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
+const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(({
     postId,
     replyingTo,
     handleCancelClicked,
@@ -106,6 +106,6 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
 
         </div>
     )
-}
+});
 
 export default CommentWriteArea

@@ -4,20 +4,22 @@ import PostCard from "@/common/components/post/PostCard"
 import { PostInfo } from "@/common/types/Post";
 import { convertStringDateIntoDate, createSlug, sortPostsByUploadedAt } from "@/common/utils/post";
 import { PromiseAwaiter } from "@/common/utils/promiseWrapper";
+import React, { useMemo } from "react";
 
 interface PostsProps {
   postsAwaiter: PromiseAwaiter;
 }
 
-const Posts: React.FC<PostsProps> = ({ postsAwaiter }) => {
-  let posts = postsAwaiter.Await() as PostInfo[]
-  posts = convertStringDateIntoDate(posts) as PostInfo[];
-  posts = sortPostsByUploadedAt(posts) as PostInfo[];
+const Posts: React.FC<PostsProps> = React.memo(({ postsAwaiter }) => {
+  const posts = postsAwaiter.Await() as PostInfo[]
+  const sortedPosts = useMemo(() => {
+    return sortPostsByUploadedAt(convertStringDateIntoDate([...posts]) as PostInfo[]) as PostInfo[];
+  }, [posts])
 
   return (
     <nav className="flex flex-col items-center mb-5 gap-[70px] w-full">
       {
-        posts.map((p) => (
+        sortedPosts.map((p) => (
           <Link
             to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}
             key={p.Id}
@@ -32,6 +34,6 @@ const Posts: React.FC<PostsProps> = ({ postsAwaiter }) => {
       }
     </nav>
   )
-}
+});
 
 export default Posts;

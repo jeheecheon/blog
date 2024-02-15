@@ -1,5 +1,5 @@
-import { CreateDummyPromiseAwaiter, PromiseAwaiter, wrapPromise } from "@/common/utils/promiseWrapper";
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import { CreateDummyPromiseAwaiter, wrapPromise } from "@/common/utils/promiseWrapper";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import ErrorBoundary from "../error/ErrorBoundary";
 import Posts from "@/pages/blog/posts/page";
@@ -8,9 +8,7 @@ import ErrorMessageWrapper from "../ErrorMessageWrapper";
 import { Helmet } from "react-helmet";
 import { image, name, url } from "@/common/utils/siteInfo";
 
-let storePostsAwaiter: PromiseAwaiter | undefined;
-
-const PostsWrapper = React.memo(() => {
+const PostsWrapper = () => {
     const { category, page } = useParams();
 
     const fetchUrl = useMemo(
@@ -23,14 +21,9 @@ const PostsWrapper = React.memo(() => {
         [category, page]
     )
 
-    storePostsAwaiter = storePostsAwaiter
-        ? storePostsAwaiter
-        : wrapPromise(fetch(fetchUrl));
-
     const [postsAwaiter, setPostsAwaiter] = useState(CreateDummyPromiseAwaiter());
     useEffect(() => {
-        storePostsAwaiter = wrapPromise(fetch(fetchUrl));
-        setPostsAwaiter(storePostsAwaiter);
+        setPostsAwaiter(wrapPromise(fetch(fetchUrl)));
     }, [fetchUrl])
 
     return (
@@ -64,6 +57,6 @@ const PostsWrapper = React.memo(() => {
             </Helmet>
         </>
     )
-});
+};
 
 export default PostsWrapper

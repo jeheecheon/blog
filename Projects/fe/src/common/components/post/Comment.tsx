@@ -1,6 +1,6 @@
 import defaultAvatar from '@/common/assets/images/icons/avatar.png';
 import CommentInfo from '@/common/types/Comment';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import CommentWriteArea from './CommentWriteArea';
 import { getTimeAgo } from '@/common/utils/comment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ interface CommentProps {
     refreshComments: () => void;
 }
 
-export const Comment: React.FC<CommentProps> = ({
+export const Comment: React.FC<CommentProps> = React.memo(({
     postId,
     comment,
     refreshComments
@@ -144,4 +144,4 @@ export const Comment: React.FC<CommentProps> = ({
             </div>
         </div >
     )
-}
+});

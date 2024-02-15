@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { flattenOutCategoriesV2 } from '@/common/utils/category';
 
 
-const Post = React.memo(() => {
+const Post = () => {
     const post = useLoaderData() as PostInfo;
 
     const fetchUrl = useMemo(
@@ -51,6 +51,6 @@ const Post = React.memo(() => {
             </Helmet>
         </>
     )
-});
+};
 
 export default Post;

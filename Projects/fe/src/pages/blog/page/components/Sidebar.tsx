@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useIsMounted } from "@/common/hooks/useIsMounted";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,13 +15,10 @@ interface SidebarProps {
 
 const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
     const user = useSelector((state: RootState) => state.user)
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(user.email !== '');
+    const isAuthenticated = useMemo(() => user.email !== '', [user.email]);
     const dispatch = useDispatch();
     const justMounted = useIsMounted();
-
-    useEffect(() => {
-        setIsAuthenticated(user.email !== '')
-    }, [user]);
+    const handleLinkClicked = useCallback(() => setShowSidebar("false"), [setShowSidebar]);
 
     if (justMounted === true)
         return <></>;
@@ -32,7 +29,6 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
     const content3 = show === "true" ? "animate-show-sidebar-content3" : "animate-hide-sidebar-content3 pointer-events-none";
     const content4 = show === "true" ? "animate-show-sidebar-content4" : "animate-hide-sidebar-content2 pointer-events-none";
     const content5 = show === "true" ? "animate-show-sidebar-content5" : "animate-hide-sidebar-content1 pointer-events-none";
-    const handleLinkClicked = () => setShowSidebar("false");
 
     return (
         <section>
@@ -42,11 +38,28 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
             </div>
 
             <nav className={`fixed w-screen h-screen z-30 pointer-events-none 
-            flex flex-col items-start justify-start gap-3 text-slate-500 pl-[10vw] text-2xl md:text-3xl pt-[8%]`}>
+            flex flex-col flex-wrap items-start justify-start gap-3 text-slate-500 px-[10vw] py-[10vh] text-2xl md:text-3xl`}>
+
+                <button
+                    onClick={() => {
+                        if (isAuthenticated) {
+                            SignOut(dispatch);
+                            handleLinkClicked();
+                        }
+                        else {
+                            dispatch(makeVisible());
+                            handleLinkClicked();
+                        }
+                    }}
+                    className={`pointer-events-auto ${content1}`}
+                >
+                    {isAuthenticated ? "Sign Out" : "Sign in"}
+                </button>
+
                 <Link
                     to="/blog"
                     onClick={handleLinkClicked}
-                    className={`pointer-events-auto ${content1}`}
+                    className={`pointer-events-auto mt-10 ${content2}`}
                 >
                     Home
                 </Link>
@@ -54,22 +67,23 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
                 <Link
                     to="/blog/about-me"
                     onClick={handleLinkClicked}
-                    className={`pointer-events-auto ${content2}`}
+                    className={`pointer-events-auto ${content3}`}
                 >
                     About me
                 </Link>
 
                 <Link to="/blog/recent-posts/pages/1"
                     onClick={handleLinkClicked}
-                    className={`mt-5 pointer-events-auto ${content3}`}
+                    className={`pointer-events-auto ${content4}`}
                 >
                     Latest posts
                 </Link>
 
                 <div
-                    className={`pointer-events-auto ${content4}`}
+                    className={`pointer-events-auto ${content5}`}
                 >
                     <span>Categories</span>
+
                     <div
                         className="pl-4 flex flex-col"
                     >
@@ -90,21 +104,7 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
                         <Link to="/blog/categories/Uncategorized/pages/1" onClick={handleLinkClicked}>└ Uncategorized</Link>
                     </div>
                 </div>
-                <button
-                    onClick={() => {
-                        if (isAuthenticated) {
-                            SignOut(dispatch);
-                            handleLinkClicked();
-                        }
-                        else {
-                            dispatch(makeVisible());
-                            handleLinkClicked();
-                        }
-                    }}
-                    className={`pointer-events-auto mt-5 ${content5}`}
-                >
-                    {isAuthenticated ? "Sign Out" : "Sign in"}
-                </button>
+
             </nav>
         </section>
     )
