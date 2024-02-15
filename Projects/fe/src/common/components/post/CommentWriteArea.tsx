@@ -1,19 +1,18 @@
 import { RootState } from '@/common/redux/store';
-import { useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@/common/components/Button';
 import CustomTextArea from '@/common/components/CustomTextArea';
 import defaultAvatar from '@/common/assets/images/icons/avatar.png'
 import Avatar from '@/common/components/post/Avatar';
 import { makeVisible } from '../../redux/signInModalSlice';
-import { PromiseAwaiter } from '@/common/utils/promiseWrapper';
 import { HandleError } from '@/common/utils/responses';
 
 interface CommentWriteAreaProps {
     postId: string;
     replyingTo?: string;
     handleCancelClicked?: () => void | undefined;
-    setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
+    refreshComments: () => void;
     className?: string;
 }
 
@@ -21,19 +20,22 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
     postId,
     replyingTo,
     handleCancelClicked,
+    refreshComments,
     className
 }) => {
     const user = useSelector((state: RootState) => state.user)
-    const isAuthenticated = useRef(user.email !== undefined && user.email !== null && user.email !== '');
+    const isAuthenticated = useMemo(
+        () => user.email !== undefined && user.email !== null && user.email !== '',
+        [user.email]
+    )
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
 
     const handleType: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-        if (isAuthenticated.current === false)
+        if (isAuthenticated === false)
             dispatch(makeVisible());
         else {
             setContent(e.currentTarget.value);
-            console.log(e.currentTarget.value);
         }
     }
 
@@ -50,13 +52,16 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
         })
             .then(res => {
                 if (res.ok)
-                    window.location.reload();
+                    refreshComments()
                 else
                     HandleError(res);
             })
             .catch(err => {
                 console.error(err);
                 alert("Failed to upload the comment..");
+            })
+            .finally(() => {
+                handleCancelClicked && handleCancelClicked();
             })
     }
 
@@ -65,7 +70,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = ({
                 px-4 pt-2 pb-4 bg-slate-300 bg-opacity-20 ${className}`} >
 
             <Avatar
-                avatar={isAuthenticated.current ? user.avatar : defaultAvatar}
+                avatar={isAuthenticated ? user.avatar : defaultAvatar}
                 className='w-[40px] rounded-full bg-white'
             />
 

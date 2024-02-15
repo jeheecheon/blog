@@ -7,7 +7,9 @@ export type PromiseAwaiter = {
 export const CreateDummyPromiseAwaiter = () => {
     const dummy: PromiseAwaiter = {
         Await: () => {
-            throw new Promise(res => res(null))
+            throw new Promise((res) => {
+                setTimeout(() => res(null), 9999999)
+            })
         }
     }
     return dummy;

@@ -3,7 +3,6 @@ import CommentInfo from '@/common/types/Comment';
 import { useRef, useState } from 'react';
 import CommentWriteArea from './CommentWriteArea';
 import { getTimeAgo } from '@/common/utils/comment';
-import { PromiseAwaiter } from '@/common/utils/promiseWrapper';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
 
@@ -14,13 +13,13 @@ import { makeVisible } from '@/common/redux/signInModalSlice';
 interface CommentProps {
     postId: string;
     comment: CommentInfo;
-    setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
+    refreshComments: () => void;
 }
 
 export const Comment: React.FC<CommentProps> = ({
     postId,
     comment,
-    setCommentsAwaiter
+    refreshComments
 }) => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user)
@@ -138,7 +137,7 @@ export const Comment: React.FC<CommentProps> = ({
                         postId={postId}
                         replyingTo={comment.Id}
                         handleCancelClicked={() => setIsReplying(false)}
-                        setCommentsAwaiter={setCommentsAwaiter}
+                        refreshComments={refreshComments}
                         className='mt-2'
                     />
                 )}

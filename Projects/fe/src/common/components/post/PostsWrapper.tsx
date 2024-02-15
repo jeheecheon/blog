@@ -1,5 +1,5 @@
-import { CreateDummyPromiseAwaiter, wrapPromise } from "@/common/utils/promiseWrapper";
-import { Suspense, useEffect, useState } from "react";
+import { CreateDummyPromiseAwaiter, PromiseAwaiter, wrapPromise } from "@/common/utils/promiseWrapper";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import ErrorBoundary from "../error/ErrorBoundary";
 import Posts from "@/pages/blog/posts/page";
@@ -8,24 +8,36 @@ import ErrorMessageWrapper from "../ErrorMessageWrapper";
 import { Helmet } from "react-helmet";
 import { image, name, url } from "@/common/utils/siteInfo";
 
-const PostsWrapper = () => {
-    const { category, page } = useParams();
-    const [postsAwaiter, setPostsAwaiter] = useState(CreateDummyPromiseAwaiter())
+let storePostsAwaiter: PromiseAwaiter | undefined;
 
+const PostsWrapper = React.memo(() => {
+    const { category, page } = useParams();
+
+    const fetchUrl = useMemo(
+        () => {
+            if (category === undefined)
+                return `/api/blog/recent-posts/pages/${page}`
+            else
+                return `/api/blog/categories/${category}/pages/${page}`
+        },
+        [category, page]
+    )
+
+    storePostsAwaiter = storePostsAwaiter
+        ? storePostsAwaiter
+        : wrapPromise(fetch(fetchUrl));
+
+    const [postsAwaiter, setPostsAwaiter] = useState(CreateDummyPromiseAwaiter());
     useEffect(() => {
-        let url = '';
-        if (category === undefined)
-            url = `/api/blog/recent-posts/pages/${page}`
-        else
-            url = `/api/blog/categories/${category}/pages/${page}`
-        setPostsAwaiter(wrapPromise(fetch(url)));
-    }, [category, page])
+        storePostsAwaiter = wrapPromise(fetch(fetchUrl));
+        setPostsAwaiter(storePostsAwaiter);
+    }, [fetchUrl])
 
     return (
         <>
             <div className="m-auto max-w-[800px] px-3">
                 <h1 className="inline-block uppercase max-w-[800px] w-full text-3xl font-medium text-sky-700 
-            mt-[60px] mb-[20px] text-left">
+                mt-[60px] mb-[20px] text-left">
                     Recently published
                 </h1>
                 <ErrorBoundary fallback={<ErrorMessageWrapper>Error occured while fetching posts...</ErrorMessageWrapper>}>
@@ -52,6 +64,6 @@ const PostsWrapper = () => {
             </Helmet>
         </>
     )
-}
+});
 
 export default PostsWrapper

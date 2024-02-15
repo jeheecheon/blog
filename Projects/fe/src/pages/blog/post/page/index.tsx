@@ -2,7 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 
 import ArticleViewWrapper from '@/common/components/post/ArticleViewWrapper';
 import { PostInfo } from '@/common/types/Post';
-import { useEffect, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { wrapPromise } from '@/common/utils/promiseWrapper';
 import { Helmet } from "react-helmet";
 import { image, name, url } from '@/common/utils/siteInfo';
@@ -10,29 +10,36 @@ import { RootState } from '@/common/redux/store';
 import { useSelector } from 'react-redux';
 import { flattenOutCategoriesV2 } from '@/common/utils/category';
 
-const Post = () => {
-    const post = useLoaderData() as PostInfo;
-    const [commentsAwaiter, setCommentsAwaiter] = useState(wrapPromise(fetch(`/api/blog/post/${post.Id}/comments`)))
-    const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
-    const categories = useRef<string>(flattenOutCategoriesV2(leafCategories.find(category => category.Id === post.CategoryId)))
 
-    useEffect(() => {
-        categories.current = flattenOutCategoriesV2(leafCategories.find(category => category.Id === post.CategoryId))
-    }, [leafCategories, post.CategoryId])
+const Post = React.memo(() => {
+    const post = useLoaderData() as PostInfo;
+
+    const fetchUrl = useMemo(
+        () => `/api/blog/post/${post.Id}/comments`,
+        [post.Id]
+    );
+
+    const [commentsAwaiter, setCommentsAwaiter] = useState(wrapPromise(fetch(fetchUrl)))
+
+    const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
+    const categories = useMemo(
+        () => flattenOutCategoriesV2(leafCategories.find(category => category.Id === post.CategoryId)),
+        [leafCategories, post.CategoryId]
+    )
 
     return (
         <>
             <ArticleViewWrapper
                 post={post}
                 commentsAwaiter={commentsAwaiter}
-                setCommentsAwaiter={setCommentsAwaiter}
+                refreshComments={() => setCommentsAwaiter(wrapPromise(fetch(fetchUrl))!)}
             />
 
             <Helmet>
                 <title>{post.Title} | {name}</title>
                 <link rel="canonical" href={`${url}/blog/post/${post.Id}`} />
                 <meta name="description" content={post.Title} />
-                <meta name="keywords" content={`jeheecheon, tech, blog, ${categories.current}`} />
+                <meta name="keywords" content={`jeheecheon, tech, blog, ${categories}`} />
 
                 <meta property="og:title" content={`${post.Title} | ${name}`} />
                 <meta property="og:description" content={post.Title} />
@@ -44,6 +51,6 @@ const Post = () => {
             </Helmet>
         </>
     )
-}
+});
 
 export default Post;

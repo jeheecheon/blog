@@ -11,16 +11,16 @@ interface PostsProps {
 
 const Posts: React.FC<PostsProps> = ({ postsAwaiter }) => {
   let posts = postsAwaiter.Await() as PostInfo[]
-  convertStringDateIntoDate(posts);
-  posts = sortPostsByUploadedAt(posts);
+  posts = convertStringDateIntoDate(posts) as PostInfo[];
+  posts = sortPostsByUploadedAt(posts) as PostInfo[];
 
   return (
     <nav className="flex flex-col items-center mb-5 gap-[70px] w-full">
       {
-        posts.map((p, idx) => (
+        posts.map((p) => (
           <Link
             to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}
-            key={idx}
+            key={p.Id}
             className="max-w-[800px] w-full"
             preventScrollReset={false}
           >

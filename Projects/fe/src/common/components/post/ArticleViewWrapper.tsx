@@ -13,13 +13,13 @@ import ErrorMessageWrapper from '../ErrorMessageWrapper'
 interface ArticleViewWrapperProps {
     post: PostInfo;
     commentsAwaiter: PromiseAwaiter;
-    setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
+    refreshComments: () => void;
 }
 
 const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
     post,
     commentsAwaiter,
-    setCommentsAwaiter
+    refreshComments
 }) => {
     return (
         <ArticleLayout className='flex flex-col items-center relative -top-[150px] z-10'>
@@ -34,7 +34,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
                             className=''
                             postId={post.Id}
                             commentsAwaiter={commentsAwaiter}
-                            setCommentsAwaiter={setCommentsAwaiter}
+                            refreshComments={refreshComments}
                         />
                     </Suspense>
                 </ErrorBoundary>

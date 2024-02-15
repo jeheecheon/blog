@@ -15,6 +15,7 @@ export const convertStringDateIntoDate = (
         if (data.EditedAt !== undefined && data.EditedAt !== null)
             data.EditedAt = new Date(Date.parse(data.EditedAt.toString()))
     }
+    return data;
 }
 
 export const createSlug = (title: string) => {

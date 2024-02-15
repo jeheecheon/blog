@@ -20,7 +20,6 @@ interface LayoutProps {
 const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
-
     return (<>
         <ScrollRestoration />
 

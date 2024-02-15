@@ -3,37 +3,41 @@ import CommentWriteArea from './CommentWriteArea';
 import CommentInfo from '@/common/types/Comment';
 import { PromiseAwaiter } from '@/common/utils/promiseWrapper';
 import { convertStringDateIntoDate, sortComments } from '@/common/utils/comment';
+import { useMemo } from 'react';
 
 
 interface CommentsProps {
   className?: string;
   postId: string;
   commentsAwaiter: PromiseAwaiter;
-  setCommentsAwaiter: React.Dispatch<React.SetStateAction<PromiseAwaiter>>;
+  refreshComments: () => void;
 }
 
-const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter, setCommentsAwaiter }) => {
-  const awaitedComments: CommentInfo[] = commentsAwaiter.Await() as CommentInfo[];
-  const sortedComments: CommentInfo[] = sortComments(convertStringDateIntoDate(awaitedComments));
+const Comments: React.FC<CommentsProps> = ({ className, postId, commentsAwaiter, refreshComments }) => {
+  const sortedComments: CommentInfo[] = useMemo(() => {
+    const awaitedComments: CommentInfo[] = commentsAwaiter.Await() as CommentInfo[];
+    return sortComments(convertStringDateIntoDate(awaitedComments.map(c => c)))
+  }, [commentsAwaiter]
+  );
 
   return (
     <div className={`max-w-[1024px] w-full flex flex-col
     ${className}`}>
       {
         sortedComments.map(
-          (comment, idx) =>
+          (comment) =>
             <Comment
-              key={idx}
+              key={comment.Id}
               comment={comment}
               postId={postId}
-              setCommentsAwaiter={setCommentsAwaiter}
+              refreshComments={refreshComments}
             />
         )
       }
 
       <CommentWriteArea
         postId={postId}
-        setCommentsAwaiter={setCommentsAwaiter}
+        refreshComments={refreshComments}
         className='mt-2'
       />
     </div>
