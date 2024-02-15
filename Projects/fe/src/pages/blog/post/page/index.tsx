@@ -2,7 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 
 import ArticleViewWrapper from '@/common/components/post/ArticleViewWrapper';
 import { PostInfo } from '@/common/types/Post';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { wrapPromise } from '@/common/utils/promiseWrapper';
 import { Helmet } from "react-helmet";
 import { image, name, url } from '@/common/utils/siteInfo';
