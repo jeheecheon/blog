@@ -26,6 +26,7 @@ public class OAuthController : ControllerBase
     public IActionResult SignIn(string provider)
     {
         string redirectUrl = _oauthService.MakeRedirectUrl(provider);
+
         if (string.IsNullOrWhiteSpace(redirectUrl))
             return BadRequest();
         else
@@ -33,7 +34,7 @@ public class OAuthController : ControllerBase
     }
 
     [HttpGet("cb-google")]
-    public async Task<IActionResult> GoogleCallbackAsync([FromQuery] string code, [FromQuery] string scope)
+    public async Task<IActionResult> GoogleCallbackAsync([FromQuery] string code, [FromQuery] string scope, [FromQuery] string state)
     {
         var userInfo = await _oauthService.AuthenticateUserAsync(code, scope);
         if (userInfo is not null)
@@ -42,6 +43,12 @@ public class OAuthController : ControllerBase
             if (user_id is not null)
                 await _oauthService.GenerateCookieAsync(user_id.Value, userInfo.email, userInfo.picture);
         }
-        return Redirect(_configuration["ClientUrls:blog"]!);
+        
+        string prevUrl = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(state));
+        if (string.IsNullOrWhiteSpace(prevUrl) == false
+            && prevUrl.StartsWith(_configuration["ClientUrls:root"]!))
+            return Redirect(prevUrl);
+        else
+            return Redirect(_configuration["ClientUrls:root"]!);
     }
 }

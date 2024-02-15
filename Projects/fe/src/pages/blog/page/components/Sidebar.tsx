@@ -90,9 +90,8 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
                         <Link to="/blog/categories/Uncategorized/pages/1" onClick={handleLinkClicked}>└ Uncategorized</Link>
                     </div>
                 </div>
-
-                <Link
-                    to="/blog" onClick={() => {
+                <button
+                    onClick={() => {
                         if (isAuthenticated) {
                             SignOut(dispatch);
                             handleLinkClicked();
@@ -105,7 +104,7 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
                     className={`pointer-events-auto mt-5 ${content5}`}
                 >
                     {isAuthenticated ? "Sign Out" : "Sign in"}
-                </Link>
+                </button>
             </nav>
         </section>
     )

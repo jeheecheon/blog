@@ -40,6 +40,11 @@ public class OAuthService : IOAuthService
 
     public string MakeRedirectUrl(string provider)
     {
+        string prevUrl = string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Headers["Referer"])
+            ? _configuration["ClientUrls:root"]!
+            : _httpContextAccessor.HttpContext.Request.Headers["Referer"]!;
+        string prevUrlInBase64 = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(prevUrl!));
+
         switch (provider)
         {
             case "google":
@@ -47,7 +52,8 @@ public class OAuthService : IOAuthService
                     $"?client_id={_configuration["OAuth:Google:ClientId"]}" +
                     $"&redirect_uri={_configuration["ServerUrl"]}{_GOOGLE_CB_URL}" +
                     $"&response_type=code" +
-                    $"&scope=email";
+                    $"&scope=email" +
+                    $"&state={prevUrlInBase64}";
             default:
                 return string.Empty;
         }
@@ -136,7 +142,7 @@ public class OAuthService : IOAuthService
         Infrastructur.Models.Account? account = _accountRepository.GetAccountByNormalizedEmail(userInfo.email.ToUpper());
         if (account is null || string.IsNullOrWhiteSpace(account.NormalizedEmail))
             return null;
-        
+
         // Try to update avatar url
         await _accountRepository.UpdateAvatarAsync(account.Id, userInfo.picture);
 
