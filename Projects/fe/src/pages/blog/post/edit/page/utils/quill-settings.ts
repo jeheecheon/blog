@@ -1,8 +1,15 @@
 import { Quill } from "react-quill";
+import hljs from 'highlight.js';
+import katex from "katex";
+import "highlight.js/styles/atom-one-light.css";
+
+// Add formular format
+import "katex/dist/katex.min.css";
+window.katex = katex;
 
 // Add sizes to whitelist and register them
 const Size = Quill.import("formats/size");
-Size.whitelist = ["extra-small", "small", "medium", "large"];
+Size.whitelist = ["10", "12", "14", "16", "18", "20"];
 Quill.register(Size, true);
 
 // Add fonts to whitelist and register them
@@ -13,7 +20,8 @@ Font.whitelist = [
   "courier-new",
   "georgia",
   "helvetica",
-  "lucida"
+  "lucida",
+  "Noto_Sans_KR"
 ];
 Quill.register(Font, true);
 
@@ -87,6 +95,12 @@ export async function insertImage(this: any) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function insertCodeBlock(this: any) {
+    const cursorPosition = this.quill.getSelection().index;
+    console.log("asd")
+}
+
 export const modules = {
   toolbar: {
     container: "#toolbar",
@@ -94,7 +108,8 @@ export const modules = {
       undo: undoChange,
       redo: redoChange,
       insertStar: insertStar,
-      customImage: insertImage
+      customImage: insertImage,
+      "code-custom": insertCodeBlock
     }
   },
   clipboard: {
@@ -104,6 +119,9 @@ export const modules = {
     delay: 500,
     maxStack: 100,
     userOnly: true
+  },
+  syntax: {
+    highlight: (text: string) => hljs.highlightAuto(text).value
   }
 }
 
@@ -125,5 +143,8 @@ export const formats = [
   "link",
   "image",
   "color",
-  "code-block"
+  "code-block",
+  "formula",
+  "pre",
+  "syntax",
 ];

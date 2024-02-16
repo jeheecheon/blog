@@ -33,7 +33,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
     const [likes, setLikes] = useState(post.LikeCnt);
 
     useEffect(() => {
-        import('@/common/assets/css/Article.css')
+        import('@/common/assets/css/Article.scss')
         if (post.Cover !== null && post.Cover !== undefined)
             dispatch(setCoverImageUrl(post.Cover));
 
@@ -80,7 +80,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
     };
 
     return (
-        <div className={`flex flex-col items-center w-full ${className}`}>
+        <div className={`blog-post flex flex-col items-center w-full ${className}`}>
             <div className='text-slate-50 max-w-[780px] w-full text-left pl-2 text-xl h-fit'>
                 <span className='bg-stone-700 bg-opacity-60 px-3 rounded-md 
                 text-slate-200 font-medium pb-3'>
@@ -100,7 +100,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
                         // `Published: ${post.UploadedAt.toLocaleDateString()}`
                     }
                 </span>
-                <div className='text-left w-full'>
+                <div className='text-left w-full blog-post-content'>
                     {content.current}
                 </div>
                 {/* {props.headerImage && (<img src={props.headerImage} className='bg-fixed bg-center' />)} */}

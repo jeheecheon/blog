@@ -1,11 +1,16 @@
 import CustomUndo from "@/pages/blog/post/edit/page/components/quill/CustomUndo";
 import CustomRedo from "@/pages/blog/post/edit/page/components/quill/CustomRedo";
-import CustomInsertStar from "@/pages/blog/post/edit/page/components/quill/CustomInsertStar";
+// import CustomInsertStar from "@/pages/blog/post/edit/page/components/quill/CustomInsertStar";
 import CustomImage from "@/pages/blog/post/edit/page/components/quill/CustomImage";
+import CustomCodeBlock from "./CustomCodeBlock";
 
-const CustomQuillToolbar = () => {
+interface CustomQuillToolbarProps {
+    className?: string
+}
+
+const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) => {
     return (
-        <div id="toolbar">
+        <div id="toolbar" className={`${className}`}>
             <div className="ql-formats">
                 <select className="ql-header" defaultValue={""} onChange={e => e.persist()}>
                     <option value="1">Header 1</option>
@@ -19,12 +24,13 @@ const CustomQuillToolbar = () => {
             </div>
 
             <div className="ql-formats">
-                <select className="ql-size" defaultValue={""} onChange={e => e.persist()}>
-                    <option value="extra-small">Extra Small</option>
-                    <option value="small">Small</option>
-                    <option value="">Normal</option>
-                    <option value="large">Large</option>
-                    <option value="huge">Huge</option>
+                <select className="ql-size" defaultValue={"16"} onChange={e => e.persist()}>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="14">14</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                    <option value="20">20</option>
                 </select>
             </div>
 
@@ -36,6 +42,7 @@ const CustomQuillToolbar = () => {
                     <option value="georgia">Georgia</option>
                     <option value="helvetica">Helvetica</option>
                     <option value="lucida">Lucida</option>
+                    <option value="Noto_Sans_KR">Noto KR</option>
                 </select>
             </div>
 
@@ -60,9 +67,14 @@ const CustomQuillToolbar = () => {
                 <button className="ql-indent" value="+1" />
             </span>
 
+
             <span className="ql-formats">
+                {/* <button className="ql-code-block" /> */}
+
+                <button className="ql-code-custom">
+                    <CustomCodeBlock />
+                </button>
                 <button className="ql-formula" />
-                <button className="ql-code-block"></button>
                 <button className="ql-clean"></button>
             </span>
 
@@ -101,11 +113,11 @@ const CustomQuillToolbar = () => {
                 </button>
             </span>
 
-            <span className="ql-formats">
+            {/* <span className="ql-formats">
                 <button className="ql-insertStar">
                     <CustomInsertStar />
                 </button>
-            </span>
+            </span> */}
         </div>
     )
 }

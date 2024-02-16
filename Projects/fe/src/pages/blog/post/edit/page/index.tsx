@@ -155,16 +155,18 @@ const PostEdit = () => {
 
   return (<>
     {
-      showPreview && postEditing
-        ?
-        <ArticleLayout>
-          <ArticleContent
-            post={postEditing}
-          />
-        </ArticleLayout>
-        :
+      <>
+        {
+          showPreview && postEditing &&
+          <ArticleLayout >
+            <ArticleContent
+              post={postEditing}
+            />
+          </ArticleLayout>
+        }
 
-        <div className='flex flex-col items-center gap-5 m-7'>
+        <div className={`flex flex-col items-center gap-5 m-7
+        ${showPreview && "hidden"}`}>
           <div className='text-2xl text-slate-600 font-medium'>글 쓰기</div>
 
           <Button onClick={handleUploadEmptyPostClicked}>
@@ -218,7 +220,7 @@ const PostEdit = () => {
 
               <div className='max-w-[780px]'>
                 {/* <input type='text' value={postEditing.Id} onChange={() => { }} id='IdOfPostEditing' className='' /> */}
-                <CustomQuillToolbar />
+                <CustomQuillToolbar className='bg-white w-full' />
                 <CustomQuill
                   setContent={(value) => {
                     setPostEditing({
@@ -226,7 +228,7 @@ const PostEdit = () => {
                     })
                   }}
                   content={postEditing.Content}
-                  className='w-full'
+                  className='w-full bg-white'
                 />
               </div>
 
@@ -249,6 +251,7 @@ const PostEdit = () => {
             </>
           }
         </div>
+      </>
     }
     <div className='flex flex-row justify-center gap-3 mb-3'>
       <Button
