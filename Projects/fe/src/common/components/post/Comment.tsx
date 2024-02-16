@@ -81,19 +81,19 @@ export const Comment: React.FC<CommentProps> = React.memo(({
             }
 
             <div className={`flex flex-col py-4 w-full gap-3`}>
-                <div className='flex flex-row gap-2'>
+                <div className='flex flex-row flex-wrap'>
                     {/* 댓글 작성자 정보 */}
                     <img src={comment.Avatar ? comment.Avatar : defaultAvatar} className='w-[40px] h-[40px] rounded-full' />
 
-                    <div className='flex flex-col justify-center h-full text-sm md:text-lg'>
-                        <span className=''>{comment.Email}</span>
+                    <div className='flex flex-col ml-2 justify-center h-full text-sm md:text-base'>
+                        <p className=''>{comment.Email}</p>
                         {/* 작성 시간 */}
-                        <div className='flex flex-row items-center gap-3'>
-                            <span className='text-slate-700 text-sm'>{getTimeAgo(comment.UploadedAt as Date)}</span>
-                            <span className={`w-fit border rounded-2xl mt-1 px-[7px] py-[1px] text-xs 
+                        <div className='flex flex-row flex-wrap items-center'>
+                            <span className={`w-fit border rounded-2xl mr-1 px-[7px] py-[1px] text-xs 
                                 ${comment.Email !== "jeheecheon@gmail.com" && "hidden"} border-green-500 text-green-500`}>
                                 Site Owner
                             </span>
+                            <span className='text-slate-700 text-sm'>{getTimeAgo(comment.UploadedAt as Date)}</span>
                         </div>
                     </div>
                 </div>
@@ -103,8 +103,8 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                     {content.current}
                 </div>
 
-                <div className='flex flex-row gap-3'>
-                    <button type='button' className='border-2 border-blue-200 rounded text-sm py-[3px] px-2 w-fit
+                <div className='flex flex-row flex-wrap gap-3'>
+                    <button type='button' className='border-[1px] border-blue-200 rounded text-sm py-[3px] px-2 w-fit
                     flex flex-row items-center justify-center gap-1'
                         onClick={(e) => {
                             e.preventDefault();
@@ -116,7 +116,7 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                     </button>
 
                     <button onClick={handleLikeCliked} className='flex flex-row rounded justify-between items-center w-fit cursor-pointer
-                    border-2 py-[3px] px-2 text-sm border-blue-200 gap-1'>
+                    border-[1px] py-[3px] px-2 text-sm border-blue-200 gap-1'>
                         {
                             hasLiked ? (
                                 <svg className='fill-red-500' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" /></svg>

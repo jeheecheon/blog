@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import PostCard from "@/common/components/post/PostCard"
 import { PostInfo } from "@/common/types/Post";
-import { convertStringDateIntoDate, createSlug, sortPostsByUploadedAt } from "@/common/utils/post";
+import { convertStringIntoDate, createSlug, sortPostsByUploadedAt } from "@/common/utils/post";
 import { PromiseAwaiter } from "@/common/utils/promiseWrapper";
 import React, { useMemo } from "react";
 
@@ -13,7 +13,7 @@ interface PostsProps {
 const Posts: React.FC<PostsProps> = React.memo(({ postsAwaiter }) => {
   const posts = postsAwaiter.Await() as PostInfo[]
   const sortedPosts = useMemo(() => {
-    return sortPostsByUploadedAt(convertStringDateIntoDate([...posts]) as PostInfo[]) as PostInfo[];
+    return sortPostsByUploadedAt(convertStringIntoDate([...posts]) as PostInfo[]) as PostInfo[];
   }, [posts])
 
   return (

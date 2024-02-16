@@ -1,6 +1,6 @@
 import { LoaderFunction } from "react-router-dom";
 import { HandleError, PropagateResponse, Throw403Response, Throw404Response } from "@/common/utils/responses";
-import { convertStringDateIntoDate } from "@/common/utils/post";
+import { convertStringIntoDate } from "@/common/utils/post";
 
 export const PostLoader: LoaderFunction = async ({ params }) => {
     return fetch(`/api/blog/post/${params.id}`,
@@ -17,7 +17,7 @@ export const PostLoader: LoaderFunction = async ({ params }) => {
         })
         .then(post => {
             if (post !== undefined && post !== null)
-                convertStringDateIntoDate(post)
+                convertStringIntoDate(post)
             return post;
         })
         .catch(PropagateResponse);
@@ -35,7 +35,7 @@ export const AboutMeLoader: LoaderFunction = async () => {
         })
         .then(post => {
             if (post !== undefined && post !== null)
-                convertStringDateIntoDate(post)
+                convertStringIntoDate(post)
             return post;
         })
         .catch(PropagateResponse);
@@ -53,7 +53,7 @@ export const PrivacyPolicyLoader: LoaderFunction = async () => {
         })
         .then(post => {
             if (post !== undefined && post !== null)
-                convertStringDateIntoDate(post)
+                convertStringIntoDate(post)
             return post;
         })
         .catch(PropagateResponse);

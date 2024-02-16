@@ -1,21 +1,23 @@
 import { useEffect, useState } from 'react'
 import 'react-quill/dist/quill.snow.css';
 import Button from '@/common/components/Button';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { setCoverImageUrl } from '@/common/redux/bannerSlice';
 import ArticleLayout from '@/common/components/post/ArticleLayout';
 import ArticleContent from '@/common/components/post/ArticleContent';
 import { RootState } from '@/common/redux/store';
-import CustomQuillToolbar from './components/quill/CustomQuillToolbar';
-import CustomQuill from './components/quill/CustomQuill';
+import CustomQuillToolbar from '@/pages/blog/post/edit/page/components/quill/CustomQuillToolbar';
+import CustomQuill from '@/pages/blog/post/edit/page/components/quill/CustomQuill';
 import { PostInfo, PostSummary } from '@/common/types/Post';
-import { convertStringDateIntoDate } from '@/common/utils/post';
+import { convertStringIntoDate, sortPostsByUploadedAt } from '@/common/utils/post';
+import { image } from '@/common/utils/siteInfo';
+import { PropagateResponse } from '@/common/utils/responses';
 
 const PostEdit = () => {
   const dispatch = useDispatch();
   const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
 
+  const [coverPriviewUrl, setCoverPreviewUrl] = useState<string | ArrayBuffer | null>(image);
   const [postsList, setPostsList] = useState<PostSummary[]>();
   const [selectedPostIdToEdit, setSelectedPostIdToEdit] = useState("");
   const [postEditing, setPostEditing] = useState<PostInfo>();
@@ -24,6 +26,10 @@ const PostEdit = () => {
 
   useEffect(() => {
     fetchPostsList();
+
+    return () => {
+      dispatch(setCoverImageUrl(image))
+    }
   }, []);
 
   const fetchPostsList = () =>
@@ -33,14 +39,22 @@ const PostEdit = () => {
       .then(res => {
         if (res.ok)
           return res.json();
-        return null;
-      })
-      .then(res => {
-        if (res !== null && res !== undefined)
-          setPostsList(res);
         else
-          console.error("Error occured while fecthing a list of posts..");
-        return null;
+          PropagateResponse(res)
+      })
+      .then((res: PostSummary[]) => {
+        if (res !== null && res !== undefined) {
+          convertStringIntoDate(res);
+          sortPostsByUploadedAt(res);
+          setPostsList(res);
+        }
+        else {
+          PropagateResponse(res);
+        }
+      })
+      .catch(error => {
+        alert("Error occured while fecthing a list of posts..");
+        console.error(error)
       })
 
   const handlePostIdSelected: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
@@ -48,26 +62,33 @@ const PostEdit = () => {
     setSelectedPostIdToEdit(selectedPostId);
     setPostEditing({} as PostInfo);
 
-    fetch(`/api/blog/post/${selectedPostId}/with-metadata`, {
-      credentials: "same-origin"
-    })
-      .then(res => {
-        if (res.ok)
-          return res.json();
-        return null;
+    if (selectedPostId !== "")
+      fetch(`/api/blog/post/${selectedPostId}/with-metadata`, {
+        credentials: "same-origin"
       })
-      .then(res => {
-        if (res === null)
-          console.error("something went wrong with my server...");
-        else {
-          const post = res as PostInfo;
-          convertStringDateIntoDate(post)
-          setPostEditing(post);
-          if (post.Cover !== undefined && post.Cover !== null) {
-            dispatch(setCoverImageUrl(post.Cover));
+        .then(res => {
+          if (res.ok)
+            return res.json();
+          else
+            PropagateResponse(res);
+        })
+        .then(res => {
+          if (res === null)
+            PropagateResponse(res);
+          else {
+            const post = res as PostInfo;
+            convertStringIntoDate(post)
+            setPostEditing(post);
+            if (post.Cover !== undefined && post.Cover !== null) {
+              setCoverPreviewUrl(post.Cover);
+              dispatch(setCoverImageUrl(post.Cover));
+            }
           }
-        }
-      })
+        })
+        .catch((error) => {
+          alert("Failed to fetch the post info...");
+          console.error(error);
+        })
   }
 
   const handleUpdateClicked: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -84,8 +105,13 @@ const PostEdit = () => {
         .then(res => {
           if (res.ok)
             fetchPostsList();
+          else
+            PropagateResponse(res);
         })
-        .catch(e => console.error(e));
+        .catch(e => {
+          alert("Failed to update the current post");
+          console.error(e);
+        });
   }
 
   const handleDeleteClicked: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -97,11 +123,17 @@ const PostEdit = () => {
         })
         .then(res => {
           if (res.ok) {
+            setSelectedPostIdToEdit("");
             fetchPostsList();
             setPostEditing({} as PostInfo);
           }
+          else
+            PropagateResponse(res);
         })
-        .catch(e => console.error(e));
+        .catch(e => {
+          alert("Failed to delete the selected post")
+          console.error(e)
+        });
   }
 
   const handleUploadEmptyPostClicked = () => {
@@ -116,8 +148,13 @@ const PostEdit = () => {
       .then(res => {
         if (res.ok)
           fetchPostsList();
+        else
+          PropagateResponse(res)
       })
-      .catch(e => console.error(e));
+      .catch(e => {
+        alert("Failed to create an empty post")
+        console.error(e)
+      });
   }
 
   const handleCoverChosen: React.FormEventHandler<HTMLInputElement> = (e) => {
@@ -136,7 +173,7 @@ const PostEdit = () => {
             if (res.ok)
               return res.json();
             else
-              return null;
+              return PropagateResponse(res);
           })
           .then(res => {
             if (res !== null && res !== undefined
@@ -146,132 +183,183 @@ const PostEdit = () => {
               setPostEditing({
                 ...postEditing, Cover: res.imageUrl
               })
+              setCoverPreviewUrl(res.imageUrl)
             }
-            return "";
+            else
+              PropagateResponse(res);
+          })
+          .catch(error => {
+            alert("Failed to upload the selected image to s3")
+            console.error(error)
           })
       }
     }
   }
 
-  return (<>
-    {
-      <>
+  return (
+    <div className='flex flex-col items-center'>
+      <div className='max-w-[780px] w-full'>
         {
-          showPreview && postEditing &&
-          <ArticleLayout >
-            <ArticleContent
-              post={postEditing}
-            />
-          </ArticleLayout>
-        }
+          <>
+            {
+              showPreview && postEditing &&
+              <ArticleLayout >
+                <ArticleContent
+                  post={{ ...postEditing, LikeCnt: 1004 }}
+                />
+              </ArticleLayout>
+            }
 
-        <div className={`flex flex-col items-center gap-5 m-7
-        ${showPreview && "hidden"}`}>
-          <div className='text-2xl text-slate-600 font-medium'>글 쓰기</div>
+            <div className={`flex flex-col items-center gap-5 px-3 my-10
+            ${showPreview && "hidden"}`}>
 
-          <Button onClick={handleUploadEmptyPostClicked}>
-            Make an empty post
-          </Button>
+              <p className='text-2xl text-slate-600 font-medium'>글 쓰기</p>
 
-          <select value={selectedPostIdToEdit} onChange={handlePostIdSelected}>
-            {postsList && postsList.map(p =>
-              <option key={p.Id} value={p.Id}>
-                {`ID: ${p.Id} Title: ${p.Title} Date: ${p.EditedAt ? p.EditedAt : p.UploadedAt}`}
-              </option>
-            )}
-            <option value={""}>Select a post to start editing...</option>
-          </select>
-
-          {
-            postEditing?.Id &&
-            <>
-              <div className='flex items-center gap-3'>
-                <input type='file' className='border-2' onInput={handleCoverChosen} />
-              </div>
-
-              <label>
-                Choose Category:
+              {/* selection for posts to edit */}
+              <label className='flex p-1 '>
+                <span className='text-nowrap'>Choose post to edit:&#160;</span>
                 <select
-                  className='ml-2 border-2'
-                  value={postEditing.CategoryId ? postEditing.CategoryId : ""}
-                  onChange={(e) => setPostEditing({
-                    ...postEditing, CategoryId: e.currentTarget.value
-                  })}>
-                  {
-                    leafCategories.map((cate) => {
-                      return <option key={cate.Id} value={cate.Id}>{cate.Id}</option>
-                    })
-                  }
-                  <option value={""}>Select a category...</option>
-
+                  value={selectedPostIdToEdit}
+                  onChange={handlePostIdSelected}
+                  className='w-full'
+                >
+                  {postsList && postsList.map(p =>
+                    <option key={p.Id} value={p.Id}>
+                      {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`} */}
+                      {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()} | ID: ${p.Id}`} */}
+                      {`ID: ${p.Id} | Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`}
+                    </option>
+                  )}
+                  <option value={""}>Select a post to start editing...</option>
                 </select>
               </label>
 
-              <label className='text-slate-700 font-bold text-lg'>
-                제목:
-                <input
-                  value={postEditing.Title}
-                  onChange={(e) => setPostEditing({
-                    ...postEditing, Title: e.currentTarget.value
-                  })}
-                  className='border-2 ml-2'
-                />
-              </label>
+              {/* Create Empty post button */}
+              <Button
+                onClick={handleUploadEmptyPostClicked}
+                className='text-slate-700'
+              >
+                Make an empty post
+              </Button>
 
-              <div className='max-w-[780px]'>
-                {/* <input type='text' value={postEditing.Id} onChange={() => { }} id='IdOfPostEditing' className='' /> */}
-                <CustomQuillToolbar className='bg-white w-full' />
-                <CustomQuill
-                  setContent={(value) => {
-                    setPostEditing({
-                      ...postEditing, Content: value
-                    })
-                  }}
-                  content={postEditing.Content}
-                  className='w-full bg-white'
-                />
+              {
+                postEditing?.Id &&
+                <div className='flex flex-col max-w-[780px] gap-3'>
+
+                  {/* Separator */}
+                  <div className='block h-1 mb-5 w-full border-b-2 border-dashed border-b-slate-500' />
+
+                  {/* input for inserting images */}
+                  <input
+                    id='IdOfPostEditing'
+                    type='text'
+                    value={postEditing.Id}
+                    onChange={() => { }}
+                    className='hidden'
+                  />
+
+                  {/* Cover Image Upload */}
+                  <div className='flex flex-col gap-2 items-center mb-3'>
+                    <img
+                      src={typeof coverPriviewUrl === "string" ? coverPriviewUrl : undefined}
+                      className='w-[70vw] md:w-[50vw]'
+                    />
+                    <Button>
+                      <label className='flex items-center gap-3 text-slate-700'>
+                        Upload Cover
+                        <input type='file' className='border-2' onInput={handleCoverChosen} style={{ display: 'none' }} />
+                      </label>
+                    </Button>
+                  </div>
+
+                  {/* Title input */}
+                  <label className='flex'>
+                    <span className='text-slate-700 text-lg'>Title:&#160;</span>
+                    <input
+                      value={postEditing.Title}
+                      onChange={(e) => setPostEditing({
+                        ...postEditing, Title: e.currentTarget.value
+                      })}
+                      className='w-full border-[1px] pl-2 border-slate-500'
+                    />
+                  </label>
+
+                  {/* Category selection */}
+                  <label className='flex'>
+                    <span className='text-slate-700 text-lg'>Category:&#160;</span>
+                    <select
+                      className='border-[1px] w-full'
+                      value={postEditing.CategoryId ? postEditing.CategoryId : ""}
+                      onChange={(e) => setPostEditing({
+                        ...postEditing, CategoryId: e.currentTarget.value
+                      })}>
+                      {
+                        leafCategories.map((cate) => {
+                          return <option key={cate.Id} value={cate.Id}>{cate.Id}</option>
+                        })
+                      }
+                      <option value={""}>Select a category for the current post...</option>
+                    </select>
+                  </label>
+
+                  <div className=''>
+                    <CustomQuillToolbar className='bg-white w-full' />
+                    <CustomQuill
+                      setContent={(value) => {
+                        setPostEditing({
+                          ...postEditing, Content: value
+                        })
+                      }}
+                      content={postEditing.Content}
+                      className='w-full bg-white'
+                    />
+                  </div>
+
+                  <label className='text-slate-700'>
+                    Public:&#160;
+                    <input type='checkbox' checked={postEditing.IsPublic} onChange={
+                      () => setPostEditing({
+                        ...postEditing, IsPublic: !postEditing.IsPublic
+                      })}
+                    />
+                  </label>
+
+                  <label className='text-slate-700'>
+                    Update published date:&#160;
+                    <input type='checkbox' checked={updatePublishedDate} onChange={
+                      () => setUpdatePublishedDate(!updatePublishedDate)
+                    }
+                    />
+                  </label>
+                </div>
+              }
+            </div>
+
+            {
+              selectedPostIdToEdit &&
+              <div className='flex flex-row flex-wrap justify-center gap-3 mb-3'>
+                <Button
+                  onClick={handleDeleteClicked}
+                  className='text-red-500'
+                >
+                  Delete
+                </Button>
+                <Button
+                  onClick={handleUpdateClicked}
+                  className='text-blue-500'
+                >
+                  Update
+                </Button>
+                <Button
+                  onClick={() => { setShowPreview(!showPreview) }}>
+                  {showPreview ? "Edit" : "Preview"}
+                </Button>
               </div>
-
-              <label>
-                Public:&#160;
-                <input type='checkbox' checked={postEditing.IsPublic} onChange={
-                  () => setPostEditing({
-                    ...postEditing, IsPublic: !postEditing.IsPublic
-                  })}
-                />
-              </label>
-
-              <label>
-                Update published date:&#160;
-                <input type='checkbox' checked={updatePublishedDate} onChange={
-                  () => setUpdatePublishedDate(!updatePublishedDate)
-                }
-                />
-              </label>
-            </>
-          }
-        </div>
-      </>
-    }
-    <div className='flex flex-row justify-center gap-3 mb-3'>
-      <Button
-        onClick={handleDeleteClicked}
-        className='text-red-500'
-      >
-        Delete
-      </Button>
-      <Button
-        onClick={handleUpdateClicked}
-        className='text-blue-500'
-      >
-        Update
-      </Button>
-      <Button
-        onClick={() => { setShowPreview(!showPreview) }}>
-        {showPreview ? "Edit" : "Preview"}
-      </Button>
+            }
+          </>
+        }
+      </div>
     </div>
-  </>
   )
 }
 

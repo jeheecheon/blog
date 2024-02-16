@@ -1,9 +1,10 @@
 import { Quill } from "react-quill";
+
+// Add highlighting
 import hljs from 'highlight.js';
-import katex from "katex";
-import "highlight.js/styles/atom-one-light.css";
 
 // Add formular format
+import katex from "katex";
 import "katex/dist/katex.min.css";
 window.katex = katex;
 
@@ -97,8 +98,9 @@ export async function insertImage(this: any) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function insertCodeBlock(this: any) {
-    const cursorPosition = this.quill.getSelection().index;
-    console.log("asd")
+  const cursorPosition = this.quill.getSelection().index;
+  this.quill.pasteHTML(cursorPosition, `<pre/>`);
+  console.log("asd")
 }
 
 export const modules = {
@@ -107,9 +109,9 @@ export const modules = {
     handlers: {
       undo: undoChange,
       redo: redoChange,
-      insertStar: insertStar,
-      customImage: insertImage,
-      "code-custom": insertCodeBlock
+      "custom-star": insertStar,
+      "custom-image": insertImage,
+      "custom-code-block": insertCodeBlock
     }
   },
   clipboard: {
@@ -145,6 +147,4 @@ export const formats = [
   "color",
   "code-block",
   "formula",
-  "pre",
-  "syntax",
 ];

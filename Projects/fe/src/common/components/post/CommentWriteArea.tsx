@@ -51,8 +51,10 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(({
             })
         })
             .then(res => {
-                if (res.ok)
+                if (res.ok) {
                     refreshComments()
+                    setContent("");
+                }
                 else
                     HandleError(res);
             })
@@ -60,14 +62,12 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(({
                 console.error(err);
                 alert("Failed to upload the comment..");
             })
-            .finally(() => {
-                handleCancelClicked && handleCancelClicked();
-            })
+            .finally(() => handleCancelClicked && handleCancelClicked())
     }
 
     return (
         <div className={`rounded-lg flex flex-row justify-between items-start
-                px-4 pt-2 pb-4 bg-slate-300 bg-opacity-20 ${className}`} >
+                px-4 py-3 bg-slate-300 bg-opacity-25 ${className}`} >
 
             <Avatar
                 avatar={isAuthenticated ? user.avatar : defaultAvatar}
@@ -83,15 +83,18 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(({
                         bg-transparent'
                 />
                 <div className='flex items-center justify-end w-full gap-3'>
-                    <Button onClick={() => {
-                        setContent('');
-                        if (handleCancelClicked !== undefined)
-                            handleCancelClicked();
-                    }}
-                        className='text-slate-700'
-                    >
-                        Cancle
-                    </Button>
+                    {
+                        replyingTo &&
+                        <Button onClick={() => {
+                            setContent('');
+                            if (handleCancelClicked !== undefined)
+                                handleCancelClicked();
+                        }}
+                            className='text-slate-700'
+                        >
+                            Cancel
+                        </Button>
+                    }
                     <Button
                         onClick={handleUpload}
                         className='text-blue-400'

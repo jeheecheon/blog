@@ -1,8 +1,6 @@
 import CustomUndo from "@/pages/blog/post/edit/page/components/quill/CustomUndo";
 import CustomRedo from "@/pages/blog/post/edit/page/components/quill/CustomRedo";
-// import CustomInsertStar from "@/pages/blog/post/edit/page/components/quill/CustomInsertStar";
 import CustomImage from "@/pages/blog/post/edit/page/components/quill/CustomImage";
-import CustomCodeBlock from "./CustomCodeBlock";
 
 interface CustomQuillToolbarProps {
     className?: string
@@ -67,13 +65,8 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
                 <button className="ql-indent" value="+1" />
             </span>
 
-
             <span className="ql-formats">
-                {/* <button className="ql-code-block" /> */}
-
-                <button className="ql-code-custom">
-                    <CustomCodeBlock />
-                </button>
+                <button className="ql-code-block" />
                 <button className="ql-formula" />
                 <button className="ql-clean"></button>
             </span>
@@ -93,7 +86,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
 
             <span className="ql-formats">
                 <button className="ql-link"></button>
-                <button className="ql-customImage">
+                <button className="ql-custom-image">
                     <CustomImage />
                 </button>
                 {/* <button className="ql-image"></button> */}
@@ -114,7 +107,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
             </span>
 
             {/* <span className="ql-formats">
-                <button className="ql-insertStar">
+                <button className="ql-custom-star">
                     <CustomInsertStar />
                 </button>
             </span> */}

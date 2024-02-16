@@ -1,7 +1,7 @@
-import { PostInfo } from "@/common/types/Post"
+import { PostInfo, PostSummary } from "@/common/types/Post"
 
-export const convertStringDateIntoDate = (
-    data: PostInfo[] | PostInfo
+export const convertStringIntoDate = (
+    data: PostInfo[] | PostInfo | PostSummary[] | PostSummary
 ) => {
     if (Array.isArray(data)) {
         data.forEach(ele => {
@@ -26,7 +26,7 @@ export const createSlug = (title: string) => {
         .replace(/-+/g, '-');
 }
 
-export const sortPostsByUploadedAt = (posts: PostInfo[]) => {
+export const sortPostsByUploadedAt = (posts: PostInfo[] | PostSummary[]) => {
     // Sort posts by descending order of UploadedAt date
     posts.sort((a, b) => b.UploadedAt.getTime() - a.UploadedAt.getTime());
     return posts;

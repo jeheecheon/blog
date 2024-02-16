@@ -59,8 +59,8 @@ INSERT INTO post (title, content, category_id) VALUES
             try
             {
                 return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
-INSERT INTO post (title, content) VALUES
-    ({"Example title"}, {"Example content"})            
+INSERT INTO post (title, content, category_id) VALUES
+    ({"Example title"}, {"Example content"}, {"Uncategorized"})            
                 ") > 0;
             }
             catch (Exception e)

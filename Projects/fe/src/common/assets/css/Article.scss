@@ -257,6 +257,10 @@
   .ql-indent-8 {
     text-indent: 45%;
   }
+
+  .ql-syntax {
+    background-color: #23241F;
+  }
   
   /* 미디어 쿼리를 사용하여 블로그가 모바일 장치에서도 적절하게 표시되도록 만들 수 있습니다. */
   @media (max-width: 768px) {

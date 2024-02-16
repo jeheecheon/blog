@@ -11,6 +11,10 @@ import { flattenOutCategoriesV1 } from '@/common/utils/category';
 import { setCoverImageUrl, setTitleOnCover } from '@/common/redux/bannerSlice';
 import { image } from '@/common/utils/siteInfo';
 
+import '@/common/assets/css/Article.scss';
+import hljs from 'highlight.js';
+import "highlight.js/styles/github-dark-dimmed.css";
+
 interface ArticleContentProps {
     className?: string,
     post: PostInfo
@@ -33,11 +37,17 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
     const [likes, setLikes] = useState(post.LikeCnt);
 
     useEffect(() => {
-        import('@/common/assets/css/Article.scss')
         if (post.Cover !== null && post.Cover !== undefined)
             dispatch(setCoverImageUrl(post.Cover));
 
         dispatch(setTitleOnCover(post.Title))
+
+        const codes = document.getElementsByClassName('ql-syntax');
+        for (const code of codes) {
+            if (code instanceof HTMLElement) {
+                hljs.highlightBlock(code);
+            }
+        }
 
         return () => {
             dispatch(setCoverImageUrl(image));
