@@ -83,12 +83,20 @@ const PostEdit = () => {
               setCoverPreviewUrl(post.Cover);
               dispatch(setCoverImageUrl(post.Cover));
             }
+            else {
+              setCoverPreviewUrl(image);
+              dispatch(setCoverImageUrl(image));
+            }
           }
         })
         .catch((error) => {
           alert("Failed to fetch the post info...");
           console.error(error);
         })
+    else {
+      setCoverPreviewUrl(image);
+      dispatch(setCoverImageUrl(image));
+    }
   }
 
   const handleUpdateClicked: React.MouseEventHandler<HTMLButtonElement> = () => {
