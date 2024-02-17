@@ -1,17 +1,13 @@
-*My Blog* : [Click ME!!](https://black-bush-0a3774c00.3.azurestaticapps.net/) 🔥⚡  
-*GIthub Repository* : [Click ME!!](https://github.com/jeheecheon/jeheecheon) 🔥⚡  
-Building whith 
+*Website URL* : [https://www.jeheecheon.com](https://www.jeheecheon.com) 🔥⚡  
+Built whith 
 - ![Static Badge](https://img.shields.io/badge/React-61DAFB?logo=React&logoColor=black&style=flat-square) as the client-side
 - ![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-512BD4?logo=.net&logoColor=white&style=flat-square) for the back-end API.
-- ![sqlite](https://img.shields.io/badge/Sqlite-003B57?logo=sqlite&logoColor=white&style=flat-square) Sqlite for the database.
-
-Additianly, utilizing the EF Core to the maximum🔥 to make the development process more efficient!  
-A bit long way to go yet tho 😒
+- ![psql](https://img.shields.io/badge/psql-003B57?logo=postgresql&logoColor=white&style=flat-square) Sqlite for the database.  
 <div align=center>
   🐌,,🐌,,,,,,,🐌,,,,,,,,,,,,,,,,,,,,,🐎(me),,,,
 </div>
 <br />
+새롭게 개발한 개인 웹사이트 Repository 입니다.
+<br />
+포트폴리오, 개인 프로젝트 업로드, 블로그 등등 다목적으로 사용 중입니다.  
 
-*This [Blog](https://jeheecheon.github.io/) built with Jekyll is ***abandoned***. Not publishing any more there. The idea of having to write posts in markdown synyax is too bothersome!!*  
-[Click here](https://black-bush-0a3774c00.3.azurestaticapps.net/) to go to the repository
-#
