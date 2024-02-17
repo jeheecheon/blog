@@ -22,7 +22,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
     refreshComments
 }) => {
     return (
-        <ArticleLayout className='flex flex-col items-center relative -top-[150px] z-10'>
+        <ArticleLayout>
             <ArticleContent
                 post={post}
             />

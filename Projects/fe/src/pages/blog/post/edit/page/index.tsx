@@ -197,169 +197,163 @@ const PostEdit = () => {
   }
 
   return (
-    <div className='flex flex-col items-center'>
-      <div className='max-w-[780px] w-full'>
-        {
-          <>
-            {
-              showPreview && postEditing &&
-              <ArticleLayout >
-                <ArticleContent
-                  post={{ ...postEditing, LikeCnt: 1004 }}
+    <>
+      {
+        showPreview && postEditing &&
+        <ArticleLayout >
+          <ArticleContent
+            post={{ ...postEditing, LikeCnt: 1004 }}
+          />
+        </ArticleLayout>
+      }
+
+      <div className={`flex flex-col items-center
+      ${showPreview && "hidden"}`}>
+        <div className='max-w-[780px] flex flex-col items-center w-full gap-5 my-10 p-3'>
+
+          <p className='text-2xl text-slate-600 font-medium'>글 쓰기</p>
+
+          {/* selection for posts to edit */}
+          <div className=''>
+            <label htmlFor='post-id-select' className='max-w-[30vw]'>Post:&#160;</label>
+            <select
+              id='post-id-select'
+              value={selectedPostIdToEdit}
+              onChange={handlePostIdSelected}
+              className='max-w-[60vw]'
+            >
+              {postsList && postsList.map(p =>
+                <option key={p.Id} value={p.Id}>
+                  {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`} */}
+                  {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()} | ID: ${p.Id}`} */}
+                  {`ID: ${p.Id} | Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`}
+                </option>
+              )}
+              <option value={""}>Select a post to start editing...</option>
+            </select>
+          </div>
+
+          {/* Create Empty post button */}
+          <Button
+            onClick={handleUploadEmptyPostClicked}
+            className='text-slate-700'
+          >
+            Make an empty post
+          </Button>
+
+          {
+            postEditing?.Id &&
+            <div className='flex flex-col gap-3'>
+
+              {/* Separator */}
+              <div className='block h-1 mb-5 w-full border-b-2 border-dashed border-b-slate-500' />
+
+              {/* input for inserting images */}
+              <input
+                id='IdOfPostEditing'
+                type='text'
+                value={postEditing.Id}
+                onChange={() => { }}
+                className='hidden'
+              />
+
+              {/* Cover Image Upload */}
+              <div className='flex flex-col gap-2 items-center mb-3'>
+                <img
+                  src={typeof coverPriviewUrl === "string" ? coverPriviewUrl : undefined}
+                  className='w-[70vw] md:w-[50vw]'
                 />
-              </ArticleLayout>
-            }
+                <Button>
+                  <label className='flex items-center gap-3 text-slate-700'>
+                    Upload Cover
+                    <input type='file' className='border-2' onInput={handleCoverChosen} style={{ display: 'none' }} />
+                  </label>
+                </Button>
+              </div>
 
-            <div className={`flex flex-col items-center gap-5 px-3 my-10
-            ${showPreview && "hidden"}`}>
-
-              <p className='text-2xl text-slate-600 font-medium'>글 쓰기</p>
-
-              {/* selection for posts to edit */}
-              <label className='flex p-1 '>
-                <span className='text-nowrap'>Choose post to edit:&#160;</span>
+              {/* Category selection */}
+              <label className='flex justify-end'>
+                <span className='text-slate-700 text-lg max-w-[30vw]'>Category:&#160;</span>
                 <select
-                  value={selectedPostIdToEdit}
-                  onChange={handlePostIdSelected}
-                  className='w-full'
-                >
-                  {postsList && postsList.map(p =>
-                    <option key={p.Id} value={p.Id}>
-                      {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`} */}
-                      {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()} | ID: ${p.Id}`} */}
-                      {`ID: ${p.Id} | Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`}
-                    </option>
-                  )}
-                  <option value={""}>Select a post to start editing...</option>
+                  className='border-[1px] max-w-[70vw]'
+                  value={postEditing.CategoryId ? postEditing.CategoryId : ""}
+                  onChange={(e) => setPostEditing({
+                    ...postEditing, CategoryId: e.currentTarget.value
+                  })}>
+                  {
+                    leafCategories.map((cate) => {
+                      return <option key={cate.Id} value={cate.Id}>{cate.Id}</option>
+                    })
+                  }
+                  <option value={""}>Select a category for the current post...</option>
                 </select>
               </label>
 
-              {/* Create Empty post button */}
-              <Button
-                onClick={handleUploadEmptyPostClicked}
-                className='text-slate-700'
-              >
-                Make an empty post
-              </Button>
+              {/* Title input */}
+              <input
+                value={postEditing.Title}
+                onChange={(e) => setPostEditing({
+                  ...postEditing, Title: e.currentTarget.value
+                })}
+                className='max-w-full w-full border-[1px] pl-2 border-slate-500'
+              />
 
-              {
-                postEditing?.Id &&
-                <div className='flex flex-col max-w-[780px] gap-3'>
-
-                  {/* Separator */}
-                  <div className='block h-1 mb-5 w-full border-b-2 border-dashed border-b-slate-500' />
-
-                  {/* input for inserting images */}
-                  <input
-                    id='IdOfPostEditing'
-                    type='text'
-                    value={postEditing.Id}
-                    onChange={() => { }}
-                    className='hidden'
-                  />
-
-                  {/* Cover Image Upload */}
-                  <div className='flex flex-col gap-2 items-center mb-3'>
-                    <img
-                      src={typeof coverPriviewUrl === "string" ? coverPriviewUrl : undefined}
-                      className='w-[70vw] md:w-[50vw]'
-                    />
-                    <Button>
-                      <label className='flex items-center gap-3 text-slate-700'>
-                        Upload Cover
-                        <input type='file' className='border-2' onInput={handleCoverChosen} style={{ display: 'none' }} />
-                      </label>
-                    </Button>
-                  </div>
-
-                  {/* Title input */}
-                  <label className='flex'>
-                    <span className='text-slate-700 text-lg'>Title:&#160;</span>
-                    <input
-                      value={postEditing.Title}
-                      onChange={(e) => setPostEditing({
-                        ...postEditing, Title: e.currentTarget.value
-                      })}
-                      className='w-full border-[1px] pl-2 border-slate-500'
-                    />
-                  </label>
-
-                  {/* Category selection */}
-                  <label className='flex'>
-                    <span className='text-slate-700 text-lg'>Category:&#160;</span>
-                    <select
-                      className='border-[1px] w-full'
-                      value={postEditing.CategoryId ? postEditing.CategoryId : ""}
-                      onChange={(e) => setPostEditing({
-                        ...postEditing, CategoryId: e.currentTarget.value
-                      })}>
-                      {
-                        leafCategories.map((cate) => {
-                          return <option key={cate.Id} value={cate.Id}>{cate.Id}</option>
-                        })
-                      }
-                      <option value={""}>Select a category for the current post...</option>
-                    </select>
-                  </label>
-
-                  <div className=''>
-                    <CustomQuillToolbar className='bg-white w-full' />
-                    <CustomQuill
-                      setContent={(value) => {
-                        setPostEditing({
-                          ...postEditing, Content: value
-                        })
-                      }}
-                      content={postEditing.Content}
-                      className='w-full bg-white'
-                    />
-                  </div>
-
-                  <label className='text-slate-700'>
-                    Public:&#160;
-                    <input type='checkbox' checked={postEditing.IsPublic} onChange={
-                      () => setPostEditing({
-                        ...postEditing, IsPublic: !postEditing.IsPublic
-                      })}
-                    />
-                  </label>
-
-                  <label className='text-slate-700'>
-                    Update published date:&#160;
-                    <input type='checkbox' checked={updatePublishedDate} onChange={
-                      () => setUpdatePublishedDate(!updatePublishedDate)
-                    }
-                    />
-                  </label>
-                </div>
-              }
-            </div>
-
-            {
-              selectedPostIdToEdit &&
-              <div className='flex flex-row flex-wrap justify-center gap-3 mb-3'>
-                <Button
-                  onClick={handleDeleteClicked}
-                  className='text-red-500'
-                >
-                  Delete
-                </Button>
-                <Button
-                  onClick={handleUpdateClicked}
-                  className='text-blue-500'
-                >
-                  Update
-                </Button>
-                <Button
-                  onClick={() => { setShowPreview(!showPreview) }}>
-                  {showPreview ? "Edit" : "Preview"}
-                </Button>
+              <div className=''>
+                <CustomQuillToolbar className='bg-white w-full' />
+                <CustomQuill
+                  setContent={(value) => {
+                    setPostEditing({
+                      ...postEditing, Content: value
+                    })
+                  }}
+                  content={postEditing.Content}
+                  className='w-full bg-white'
+                />
               </div>
-            }
-          </>
-        }
+
+              <label className='text-slate-700'>
+                Public:&#160;
+                <input type='checkbox' checked={postEditing.IsPublic} onChange={
+                  () => setPostEditing({
+                    ...postEditing, IsPublic: !postEditing.IsPublic
+                  })}
+                />
+              </label>
+
+              <label className='text-slate-700'>
+                Update published date:&#160;
+                <input type='checkbox' checked={updatePublishedDate} onChange={
+                  () => setUpdatePublishedDate(!updatePublishedDate)
+                }
+                />
+              </label>
+            </div>
+          }
+        </div>
       </div>
-    </div>
+
+      {
+        selectedPostIdToEdit &&
+        <div className='flex flex-row flex-wrap justify-center gap-3 mb-3'>
+          <Button
+            onClick={handleDeleteClicked}
+            className='text-red-500'
+          >
+            Delete
+          </Button>
+          <Button
+            onClick={handleUpdateClicked}
+            className='text-blue-500'
+          >
+            Update
+          </Button>
+          <Button
+            onClick={() => { setShowPreview(!showPreview) }}>
+            {showPreview ? "Edit" : "Preview"}
+          </Button>
+        </div>
+      }
+    </>
   )
 }
 
