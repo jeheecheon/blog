@@ -45,7 +45,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
         const codes = document.getElementsByClassName('ql-syntax');
         for (const code of codes) {
             if (code instanceof HTMLElement) {
-                hljs.highlightBlock(code);
+                hljs.highlightElement(code);
             }
         }
 
