@@ -209,18 +209,18 @@ const PostEdit = () => {
 
       <div className={`flex flex-col items-center
       ${showPreview && "hidden"}`}>
-        <div className='max-w-[780px] flex flex-col items-center w-full gap-5 my-10 p-3'>
+        <div className='max-w-[780px] overflow-x-hidden flex flex-col items-center w-full gap-5 my-10 p-3'>
 
           <p className='text-2xl text-slate-600 font-medium'>글 쓰기</p>
 
           {/* selection for posts to edit */}
-          <div className='flex'>
-            <label htmlFor='post-id-select' className=''>Post:&#160;</label>
+          <label className='flex overflow-x-hidden'>
+            Post:&#160;
             <select
               id='post-id-select'
               value={selectedPostIdToEdit}
               onChange={handlePostIdSelected}
-              className='w-full'
+              className='max-w-[50vw]'
             >
               {postsList && postsList.map(p =>
                 <option key={p.Id} value={p.Id}>
@@ -231,7 +231,7 @@ const PostEdit = () => {
               )}
               <option value={""}>Select a post</option>
             </select>
-          </div>
+          </label>
 
           {/* Create Empty post button */}
           <Button
