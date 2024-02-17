@@ -198,7 +198,7 @@ const PostEdit = () => {
 
   return (
     <div className='flex flex-col items-center'>
-      <div className='max-w-[780px] w-full'>
+      <div className=''>
         {
           <>
             {
@@ -210,7 +210,7 @@ const PostEdit = () => {
               </ArticleLayout>
             }
 
-            <div className={`flex flex-col items-center gap-5 px-3 my-10
+            <div className={`flex flex-col items-center gap-5 px-3 my-10 max-w-[780px] w-full
             ${showPreview && "hidden"}`}>
 
               <p className='text-2xl text-slate-600 font-medium'>글 쓰기</p>
@@ -337,7 +337,7 @@ const PostEdit = () => {
 
             {
               selectedPostIdToEdit &&
-              <div className='flex flex-row flex-wrap justify-center gap-3 mb-3'>
+              <div className='flex flex-row flex-wrap justify-center gap-3 mb-3 max-w-[780px] w-full'>
                 <Button
                   onClick={handleDeleteClicked}
                   className='text-red-500'
