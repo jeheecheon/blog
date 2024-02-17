@@ -214,13 +214,13 @@ const PostEdit = () => {
           <p className='text-2xl text-slate-600 font-medium'>글 쓰기</p>
 
           {/* selection for posts to edit */}
-          <div className=''>
-            <label htmlFor='post-id-select' className='max-w-[30vw]'>Post:&#160;</label>
+          <div className='flex'>
+            <label htmlFor='post-id-select' className=''>Post:&#160;</label>
             <select
               id='post-id-select'
               value={selectedPostIdToEdit}
               onChange={handlePostIdSelected}
-              className='max-w-[60vw]'
+              className='w-full'
             >
               {postsList && postsList.map(p =>
                 <option key={p.Id} value={p.Id}>
@@ -229,7 +229,7 @@ const PostEdit = () => {
                   {`ID: ${p.Id} | Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`}
                 </option>
               )}
-              <option value={""}>Select a post to start editing...</option>
+              <option value={""}>Select a post</option>
             </select>
           </div>
 
@@ -273,9 +273,9 @@ const PostEdit = () => {
 
               {/* Category selection */}
               <label className='flex justify-end'>
-                <span className='text-slate-700 text-lg max-w-[30vw]'>Category:&#160;</span>
+                <span className='text-slate-700 text-lg'>Category:&#160;</span>
                 <select
-                  className='border-[1px] max-w-[70vw]'
+                  className='border-[1px]'
                   value={postEditing.CategoryId ? postEditing.CategoryId : ""}
                   onChange={(e) => setPostEditing({
                     ...postEditing, CategoryId: e.currentTarget.value
@@ -285,7 +285,7 @@ const PostEdit = () => {
                       return <option key={cate.Id} value={cate.Id}>{cate.Id}</option>
                     })
                   }
-                  <option value={""}>Select a category for the current post...</option>
+                  <option value={""}>Select a category</option>
                 </select>
               </label>
 
@@ -295,7 +295,7 @@ const PostEdit = () => {
                 onChange={(e) => setPostEditing({
                   ...postEditing, Title: e.currentTarget.value
                 })}
-                className='max-w-full w-full border-[1px] pl-2 border-slate-500'
+                className='w-full border-[1px] pl-2 border-slate-500'
               />
 
               <div className=''>
