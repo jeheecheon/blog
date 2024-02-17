@@ -12,8 +12,7 @@ import { setCoverImageUrl, setTitleOnCover } from '@/common/redux/bannerSlice';
 import { image } from '@/common/utils/siteInfo';
 
 import '@/common/assets/css/Article.scss';
-import hljs from 'highlight.js';
-import "highlight.js/styles/github-dark-dimmed.css";
+import hljs from '@/common/utils/highlightSettings'
 
 interface ArticleContentProps {
     className?: string,

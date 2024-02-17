@@ -1,7 +1,7 @@
 import { Quill } from "react-quill";
 
 // Add highlighting
-import hljs from 'highlight.js';
+import hljs from '@/common/utils/highlightSettings'
 
 // Add formular format
 import katex from "katex";
