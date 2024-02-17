@@ -217,7 +217,7 @@ const PostEdit = () => {
 
       <div className={`flex flex-col items-center
       ${showPreview && "hidden"}`}>
-        <div className='max-w-[780px] overflow-x-hidden flex flex-col items-center w-full gap-5 my-10 p-3'>
+        <div className='max-w-[780px] flex flex-col items-center w-full gap-5 my-10 p-3'>
 
           <p className='text-2xl text-slate-600 font-medium'>글 쓰기</p>
 
