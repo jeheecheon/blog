@@ -108,7 +108,7 @@ public class BlogController : ControllerBase
     [HttpGet("post/{post_id}/comments")]
     public IActionResult GetComments([FromRoute] Guid post_id)
     {
-        IEnumerable<GetCommentsLikesHasLiked>? comments = _blogService.GetComments(post_id);
+        IEnumerable<CommentsLikesHasLiked>? comments = _blogService.GetComments(post_id);
         return Ok(JsonSerializer.Serialize(comments));
     }
 

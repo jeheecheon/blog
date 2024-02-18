@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories.Blog
         {
             try
             {
-                return _mainContext.Categories.FromSqlInterpolated(@$"
+                return _mainContext.Category.FromSqlInterpolated(@$"
 SELECT * FROM category;
                 ")
                     .AsEnumerable();
@@ -70,12 +70,38 @@ INSERT INTO post (title, content, category_id) VALUES
             }
         }
 
-        public IEnumerable<GetPostsLikesComments>? GetRecentPosts(int offset, int limit)
+        public IEnumerable<PostsLikesComments>? GetRecentPosts(int offset, int limit)
         {
             try
             {
-                return _mainContext.GetPostsLikesComments.FromSqlInterpolated(@$"
-SELECT * FROM get_posts_likes_comments({offset}, {limit})
+                return _mainContext.PostsLikesComments.FromSqlInterpolated(@$"
+WITH likes AS (
+    SELECT post_id, COUNT(*) AS like_cnt
+    FROM liked_post
+    GROUP BY post_id
+),
+comments AS (
+    SELECT 
+        post_id, 
+        COUNT(*) AS comment_cnt
+    FROM comment
+    WHERE is_deleted = false
+    GROUP BY post_id
+) 
+SELECT 
+    p.*,
+    COALESCE(c.comment_cnt, 0) AS comment_cnt,
+    COALESCE(l.like_cnt, 0) AS like_cnt
+FROM (
+    SELECT 
+        post.id, post. title, post.uploaded_at, post.edited_at, 
+        post.cover, post.category_id
+    FROM post 
+    WHERE is_public = true
+    ORDER BY post.uploaded_at DESC OFFSET {offset} LIMIT {limit}
+) AS p
+LEFT JOIN comments c ON p.id = c.post_id
+LEFT JOIN likes l ON p.id = l.post_id;
                 ")
                     .AsEnumerable();
             }
@@ -86,12 +112,38 @@ SELECT * FROM get_posts_likes_comments({offset}, {limit})
             }
         }
 
-        public IEnumerable<GetPostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int offset, int limit, string category)
+        public IEnumerable<PostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int offset, int limit, string category)
         {
             try
             {
-                return _mainContext.GetPostsLikesCommentsFilteredByCategories.FromSqlInterpolated(@$"
-SELECT * FROM get_posts_likes_comments_filtered_by_category({offset}, {limit}, {category})
+                return _mainContext.PostsLikesCommentsFilteredByCategory.FromSqlInterpolated(@$"
+	WITH likes AS (
+		SELECT post_id, COUNT(*) AS like_cnt
+		FROM liked_post
+		GROUP BY post_id
+	),
+	comments AS (
+		SELECT 
+			post_id, 
+			COUNT(*) AS comment_cnt
+		FROM comment
+		WHERE is_deleted = false
+		GROUP BY post_id
+	) 
+	SELECT 
+		p.*,
+		COALESCE(c.comment_cnt, 0) AS comment_cnt,
+		COALESCE(l.like_cnt, 0) AS like_cnt
+	FROM (
+		SELECT 
+			post.id, post. title, post.uploaded_at, post.edited_at, 
+			post.cover, post.category_id
+		FROM post 
+		WHERE is_public = true AND post.category_id = {category}
+		ORDER BY post.uploaded_at DESC OFFSET {offset} LIMIT {limit}
+	) AS p
+	LEFT JOIN comments c ON p.id = c.post_id
+	LEFT JOIN likes l ON p.id = l.post_id;
                 ")
                     .AsEnumerable();
             }
@@ -102,12 +154,33 @@ SELECT * FROM get_posts_likes_comments_filtered_by_category({offset}, {limit}, {
             }
         }
 
-        public GetPostLikesHasLiked? GetPostWithHasLiked(Guid post_id, Guid account_id)
+        public PostLikesHasLiked? GetPostWithHasLiked(Guid post_id, Guid account_id)
         {
             try
             {
-                return _mainContext.GetPostLikesHasLikeds.FromSqlInterpolated(@$"
-SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
+                return _mainContext.PostLikesHasLiked.FromSqlInterpolated(@$"
+WITH likes_and_has_liked AS (
+    SELECT 
+        post_id, 
+        COUNT(*) AS like_cnt,
+        COUNT(DISTINCT CASE WHEN account_id = {account_id}
+            THEN account_id END) > 0 AS has_liked
+    FROM liked_post
+    WHERE post_id = {post_id}
+    GROUP BY post_id
+)
+SELECT 
+    p.*,
+    COALESCE(l.like_cnt, 0) AS like_cnt,
+    COALESCE(l.has_liked, false) AS has_liked
+FROM (
+    SELECT 
+        post.id, post. title, post.content, post.uploaded_at, post.edited_at, 
+        post.cover, post.category_id
+    FROM post 
+    WHERE post.id = {post_id} AND is_public = true
+) as p
+LEFT JOIN likes_and_has_liked AS l ON p.id = l.post_id;
                 ")
                     .AsEnumerable()
                     .FirstOrDefault();
@@ -119,12 +192,30 @@ SELECT * FROM get_post_likes_has_liked({post_id}, {account_id})
             }
         }
 
-        public GetPostLikes? GetPost(Guid post_id)
+        public PostLikes? GetPost(Guid post_id)
         {
             try
             {
-                return _mainContext.GetPostLikess.FromSqlInterpolated(@$"
-SELECT * FROM get_post_likes({post_id})
+                return _mainContext.PostLikes.FromSqlInterpolated(@$"
+WITH likes AS (
+    SELECT 
+        post_id, 
+        COUNT(*) AS like_cnt
+    FROM liked_post
+    WHERE post_id = {post_id}
+    GROUP BY post_id
+)
+SELECT 
+    p.*,
+    COALESCE(l.like_cnt, 0) AS like_cnt
+FROM (
+    SELECT 
+        post.id, post. title, post.content, post.uploaded_at, post.edited_at, 
+        post.cover, post.category_id
+    FROM post 
+    WHERE post.id = {post_id} AND is_public = true
+) as p
+LEFT JOIN likes AS l ON p.id = l.post_id;
                 ")
                     .AsEnumerable()
                     .FirstOrDefault();
@@ -158,12 +249,37 @@ INSERT INTO comment (account_id, post_id, content, parent_comment_id) VALUES
             }
         }
 
-        public IEnumerable<GetCommentsLikesHasLiked>? GetCommentsWithHasLiked(Guid post_id, Guid account_id)
+        public IEnumerable<CommentsLikesHasLiked>? GetCommentsWithHasLiked(Guid post_id, Guid account_id)
         {
             try
             {
-                return _mainContext.GetCommentsLikesHasLiked.FromSqlInterpolated(@$"
-SELECT * FROM get_comments_likes_has_liked({post_id}, {account_id})
+                return _mainContext.CommentsLikesHasLiked.FromSqlInterpolated(@$"
+WITH likes_has_liked AS (
+    SELECT 
+        comment_id, 
+        COUNT(comment_id) AS like_cnt,
+        COUNT(DISTINCT CASE WHEN account_id = {account_id}
+            THEN account_id END) > 0 AS has_liked
+    FROM liked_comment
+    GROUP BY comment_id
+)
+SELECT 
+    c.id, c.parent_comment_id, a.avatar, a.email, c.content, c.uploaded_at, c.is_deleted,
+    COALESCE(l.like_cnt, 0) AS like_cnt,
+    COALESCE(l.has_liked, false) AS has_liked
+FROM (
+    SELECT 
+        comment.id, 
+        comment.parent_comment_id, 
+        comment.account_id,
+        comment.content, 
+        comment.uploaded_at, 
+        comment.is_deleted
+    FROM comment
+    WHERE post_id = {post_id}
+) AS c
+LEFT JOIN likes_has_liked AS l ON l.comment_id = c.id
+JOIN account AS a ON a.id = c.account_id;
                 ");
             }
             catch (Exception e)
@@ -173,12 +289,34 @@ SELECT * FROM get_comments_likes_has_liked({post_id}, {account_id})
             }
         }
 
-        public IEnumerable<GetCommentsLikes>? GetComments(Guid post_id)
+        public IEnumerable<CommentsLikes>? GetComments(Guid post_id)
         {
             try
             {
-                return _mainContext.GetCommentsLikess.FromSqlInterpolated(@$"
-SELECT * FROM get_comments_likes({post_id})
+                return _mainContext.CommentsLikes.FromSqlInterpolated(@$"
+WITH likes_has_liked AS (
+    SELECT 
+        comment_id, 
+        COUNT(comment_id) AS like_cnt
+    FROM liked_comment
+    GROUP BY comment_id
+)
+SELECT 
+    c.id, c.parent_comment_id, a.avatar, a.email, c.content, c.uploaded_at, c.is_deleted,
+    COALESCE(l.like_cnt, 0) AS like_cnt
+FROM (
+    SELECT 
+        comment.id, 
+        comment.parent_comment_id, 
+        comment.account_id,
+        comment.content, 
+        comment.uploaded_at, 
+        comment.is_deleted
+    FROM comment
+    WHERE post_id = {post_id}
+) AS c
+LEFT JOIN likes_has_liked AS l ON l.comment_id = c.id
+JOIN account AS a ON a.id = c.account_id;
                 ");
             }
             catch (Exception e)
@@ -263,7 +401,7 @@ INSERT INTO liked_comment (comment_id, account_id) VALUES
         {
             try
             {
-                return _mainContext.PostSummaru.FromSql(@$"
+                return _mainContext.PostSummary.FromSql(@$"
 SELECT id, title, uploaded_at, edited_at FROM post;
                 ")
                     .AsEnumerable();
@@ -358,12 +496,33 @@ WHERE id = {post_id}
             }
         }
 
-        public GetStaticLikePostLikesHasLiked? GetStaticLikePostWithHasLiked(Guid post_id, Guid account_id)
+        public StaticLikePostLikesHasLiked? GetStaticLikePostWithHasLiked(Guid post_id, Guid account_id)
         {
             try
             {
-                return _mainContext.GetStaticLikePostLikesHasLikeds.FromSqlInterpolated(@$"
-SELECT * FROM get_static_like_post_likes_has_liked({post_id}, {account_id})
+                return _mainContext.StaticLikePostLikesHasLiked.FromSqlInterpolated(@$"
+WITH likes_and_has_liked AS (
+    SELECT 
+        post_id, 
+        COUNT(*) AS like_cnt,
+        COUNT(DISTINCT CASE WHEN account_id = {account_id}
+            THEN account_id END) > 0 AS has_liked
+    FROM liked_post
+    WHERE post_id = {post_id}
+    GROUP BY post_id
+)
+SELECT 
+    p.*,
+    COALESCE(l.like_cnt, 0) AS like_cnt,
+    COALESCE(l.has_liked, false) AS has_liked
+FROM (
+    SELECT 
+        post.id, post. title, post.content, post.uploaded_at, post.edited_at, 
+        post.cover, post.category_id
+    FROM post 
+    WHERE post.id = {post_id}
+) as p
+LEFT JOIN likes_and_has_liked AS l ON p.id = l.post_id;
                 ")
                     .AsEnumerable()
                     .FirstOrDefault();
@@ -375,12 +534,30 @@ SELECT * FROM get_static_like_post_likes_has_liked({post_id}, {account_id})
             }
         }
 
-        public GetStaticLikePostLikes? GetStaticLikePost(Guid post_id)
+        public StaticLikePostLikes? GetStaticLikePost(Guid post_id)
         {
             try
             {
-                return _mainContext.GetStaticLikePostLikess.FromSqlInterpolated(@$"
-SELECT * FROM get_static_like_post_likes({post_id})
+                return _mainContext.StaticLikePostLikes.FromSqlInterpolated(@$"
+WITH likes AS (
+    SELECT 
+        post_id, 
+        COUNT(*) AS like_cnt
+    FROM liked_post
+    WHERE post_id = {post_id}
+    GROUP BY post_id
+)
+SELECT 
+    p.*,
+    COALESCE(l.like_cnt, 0) AS like_cnt
+FROM (
+    SELECT 
+        post.id, post. title, post.content, post.uploaded_at, post.edited_at, 
+        post.cover, post.category_id
+    FROM post 
+    WHERE post.id = {post_id}
+) as p
+LEFT JOIN likes AS l ON p.id = l.post_id;
                 ")
                     .AsEnumerable()
                     .FirstOrDefault();

@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Infrastructure.Models;
 
 [Table("get_posts_likes_comments_filtered_by_category")]
-public class GetPostsLikesCommentsFilteredByCategory
+public class PostsLikesCommentsFilteredByCategory
 {
     [Column("id")]
     public Guid Id { get; set; }
-    
+
     [Column("title")]
     public string Title { get; set; } = string.Empty;
 

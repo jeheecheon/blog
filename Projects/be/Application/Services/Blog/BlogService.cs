@@ -68,31 +68,31 @@ public class BlogService : IBlogService
             : await _blogRepository.UpdatePostAsync(post);
     }
 
-    public IEnumerable<GetPostsLikesComments>? GetRecentPosts(int page)
+    public IEnumerable<PostsLikesComments>? GetRecentPosts(int page)
     {
         int offset = (page - 1) * _PostsPerPage;
 
         return _blogRepository.GetRecentPosts(offset, _PostsPerPage);
     }
 
-    public IEnumerable<GetPostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int page, string category)
+    public IEnumerable<PostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int page, string category)
     {
         int offset = (page - 1) * _PostsPerPage;
 
         return _blogRepository.GetCategoryPosts(offset, _PostsPerPage, category);
     }
 
-    public GetPostLikesHasLiked? GetPost(Guid post_id)
+    public PostLikesHasLiked? GetPost(Guid post_id)
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
         string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (string.IsNullOrWhiteSpace(guidString))
         {
-            GetPostLikes? post = _blogRepository.GetPost(post_id);
+            PostLikes? post = _blogRepository.GetPost(post_id);
             if (post is null)
                 return null;
-            return new GetPostLikesHasLiked(post);
+            return new PostLikesHasLiked(post);
         }
         else
         {
@@ -120,12 +120,12 @@ public class BlogService : IBlogService
         return affectedRowsCnt > 0;
     }
 
-    public IEnumerable<GetCommentsLikesHasLiked>? GetComments(Guid post_id)
+    public IEnumerable<CommentsLikesHasLiked>? GetComments(Guid post_id)
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
         string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
-        IEnumerable<GetCommentsLikesHasLiked>? comments;
+        IEnumerable<CommentsLikesHasLiked>? comments;
 
         if (string.IsNullOrWhiteSpace(guidString))
         {
@@ -134,7 +134,7 @@ public class BlogService : IBlogService
                 return null;
 
             comments = commentsWithoutHasLiked
-                .Select((comment) => new GetCommentsLikesHasLiked(comment));
+                .Select((comment) => new CommentsLikesHasLiked(comment));
         }
         else
         {
@@ -242,19 +242,19 @@ public class BlogService : IBlogService
         return await _blogRepository.DeletePostAsync(post_id);
     }
 
-    public GetStaticLikePostLikesHasLiked? GetStaticLikePost(Guid post_id)
+    public StaticLikePostLikesHasLiked? GetStaticLikePost(Guid post_id)
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
         string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
 
-        GetStaticLikePostLikesHasLiked post;
+        StaticLikePostLikesHasLiked post;
         if (string.IsNullOrWhiteSpace(guidString))
         {
             var temp = _blogRepository.GetStaticLikePost(post_id);
             if (temp is null)
                 return null;
-            post = new GetStaticLikePostLikesHasLiked(temp);
+            post = new StaticLikePostLikesHasLiked(temp);
         }
         else
         {

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Models;
 
-public class GetCommentsLikesHasLiked
+public class CommentsLikesHasLiked
 {
     [Column("id")]
     public Guid Id { get; set; }
@@ -31,12 +31,12 @@ public class GetCommentsLikesHasLiked
     [Column("avatar")]
     public string? Avatar { get; set; }
 
-    public GetCommentsLikesHasLiked()
+    public CommentsLikesHasLiked()
     {
 
     }
 
-    public GetCommentsLikesHasLiked(GetCommentsLikes commentWithoutHasLiked)
+    public CommentsLikesHasLiked(CommentsLikes commentWithoutHasLiked)
     {
         this.Id = commentWithoutHasLiked.Id;
         this.ParentCommentId = commentWithoutHasLiked.ParentCommentId;

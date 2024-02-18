@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Infrastructure.Models;
 
 [Table("get_posts_likes_comments")]
-public class GetPostsLikesComments
+public class PostsLikesComments
 {
     [Column("id")]
     public Guid Id { get; set; }

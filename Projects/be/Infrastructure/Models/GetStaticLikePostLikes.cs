@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Infrastructure.Models;
 
 [Table("get_static_like_post_likes")]
-public class GetStaticLikePostLikes
+public class StaticLikePostLikes
 {
     [Column("id")]
     public Guid Id { get; set; }

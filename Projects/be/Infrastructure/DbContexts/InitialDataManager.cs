@@ -50,11 +50,11 @@ INSERT INTO category (id, parent_category_id, is_bottom_level) VALUES
     ('ASP.NET', 'backend', true),
     ('Spring', 'backend', true);
                 ");
-    // ('test1', false);
-    // ('test2', 'test1', false),
-    // ('test3', 'test2', false),
-    // ('test4', 'test3', false),
-    // ('test5', 'test4', true);
+                // ('test1', false);
+                // ('test2', 'test1', false),
+                // ('test3', 'test2', false),
+                // ('test4', 'test3', false),
+                // ('test5', 'test4', true);
             }
             catch (Exception e)
             {
@@ -63,7 +63,7 @@ INSERT INTO category (id, parent_category_id, is_bottom_level) VALUES
 
             try
             {
-                var admin = context.Roles.FromSql(@$"
+                var admin = context.Role.FromSql(@$"
 SELECT * FROM role WHERE name = 'admin';
                 ")
                     .AsEnumerable()
@@ -71,7 +71,7 @@ SELECT * FROM role WHERE name = 'admin';
 
                 if (admin is not null)
                 {
-                    var jeheecheon = context.Accounts.FromSql(@$"
+                    var jeheecheon = context.Account.FromSql(@$"
 SELECT * FROM account WHERE normalized_email = 'JEHEECHEON@GMAIL.COM';
                     ")
                         .AsEnumerable()

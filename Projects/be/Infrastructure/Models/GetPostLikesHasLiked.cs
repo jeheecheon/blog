@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Infrastructure.Models;
 
 [Table("get_post_likes_has_liked")]
-public class GetPostLikesHasLiked
+public class PostLikesHasLiked
 {
     [Column("id")]
     public Guid Id { get; set; }
@@ -32,11 +32,11 @@ public class GetPostLikesHasLiked
     [Column("has_liked")]
     public bool HasLiked { get; set; }
 
-    public GetPostLikesHasLiked()
+    public PostLikesHasLiked()
     {
 
     }
-    public GetPostLikesHasLiked(GetPostLikes postWithoutHasLiked)
+    public PostLikesHasLiked(PostLikes postWithoutHasLiked)
     {
         this.Id = postWithoutHasLiked.Id;
         this.Title = postWithoutHasLiked.Title;
