@@ -2,7 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 
 import ArticleViewWrapper from '@/common/components/post/ArticleViewWrapper';
 import { PostInfo } from '@/common/types/Post';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { wrapPromise } from '@/common/utils/promiseWrapper';
 import { Helmet } from "react-helmet";
 import { image, name, url } from '@/common/utils/siteInfo';
@@ -13,13 +13,17 @@ import { flattenOutCategoriesV2 } from '@/common/utils/category';
 
 const Post = () => {
     const post = useLoaderData() as PostInfo;
-
+    console.log(post.Id)
     const fetchUrl = useMemo(
         () => `/api/blog/post/${post.Id}/comments`,
         [post.Id]
     );
 
     const [commentsAwaiter, setCommentsAwaiter] = useState(wrapPromise(fetch(fetchUrl)))
+
+    useEffect(() => {
+        setCommentsAwaiter(wrapPromise(fetch(fetchUrl)));
+    }, [fetchUrl])
 
     const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
     const categories = useMemo(

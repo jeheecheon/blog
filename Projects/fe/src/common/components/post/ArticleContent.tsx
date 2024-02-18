@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import parse from 'html-react-parser';
 
@@ -26,7 +26,10 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
 
     const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
 
-    const content = useRef<string | JSX.Element | JSX.Element[]>(parse(DOMPurify.sanitize(post.Content)));
+    const content = useMemo<string | JSX.Element | JSX.Element[]>(
+        () => parse(DOMPurify.sanitize(post.Content)),
+        [post.Content]
+    );
     const [hasLiked, setHasLiked] = useState(post.HasLiked);
     const isLoadingLikes = useRef(false);
 
@@ -101,7 +104,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
                     }
                 </span>
                 <div className='text-left w-full blog-post-content'>
-                    {content.current}
+                    {content}
                 </div>
                 {/* {props.headerImage && (<img src={props.headerImage} className='bg-fixed bg-center' />)} */}
             </div>
