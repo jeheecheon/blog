@@ -10,7 +10,7 @@ window.katex = katex;
 
 // Add sizes to whitelist and register them
 const Size = Quill.import("formats/size");
-Size.whitelist = ["10", "12", "14", "16", "18", "20"];
+Size.whitelist = ["10", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30"];
 Quill.register(Size, true);
 
 // Add fonts to whitelist and register them
