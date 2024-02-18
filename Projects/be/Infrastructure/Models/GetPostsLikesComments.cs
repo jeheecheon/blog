@@ -23,9 +23,6 @@ public class GetPostsLikesComments
     [Column("category_id")]
     public string? CategoryId { get; set; }
 
-    [Column("content")]
-    public string Content { get; set; } = string.Empty;
-
     [Column("comment_cnt")]
     public long CommentCnt { get; set; }
 
