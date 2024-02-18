@@ -10,7 +10,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
     return (
         <div id="toolbar" className={`${className}`}>
             <div className="ql-formats">
-                <select className="ql-header" defaultValue={""} onChange={e => e.persist()}>
+                <select className="ql-header" value={""} onChange={e => e.persist()}>
                     <option value="1">Header 1</option>
                     <option value="2">Header 2</option>
                     <option value="3">Header 3</option>
@@ -22,7 +22,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
             </div>
 
             <div className="ql-formats">
-                <select className="ql-size" defaultValue={"16"} onChange={e => e.persist()}>
+                <select className="ql-size" value={"16"} onChange={e => e.persist()}>
                     <option value="10">10</option>
                     <option value="12">12</option>
                     <option value="14">14</option>
@@ -38,7 +38,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
             </div>
 
             <div className="ql-formats">
-                <select className="ql-font" defaultValue={"Noto_Sans_KR"} onChange={e => e.persist()}>
+                <select className="ql-font" value={"Noto_Sans_KR"} onChange={e => e.persist()}>
                     <option value="arial">Arial</option>
                     <option value="comic-sans">Comic Sans</option>
                     <option value="courier-new">Courier New</option>
@@ -83,9 +83,9 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
             </span>
 
             <span className="ql-formats">
-                <select className="ql-color" defaultValue={""} onChange={e => e.persist()}>
+                <select className="ql-color" value={""} onChange={e => e.persist()}>
                 </select>
-                <select className="ql-background" defaultValue={""} onChange={e => e.persist()}>
+                <select className="ql-background" value={""} onChange={e => e.persist()}>
                 </select>
             </span>
 
