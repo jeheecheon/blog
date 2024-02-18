@@ -16,7 +16,7 @@ jobs:
       github.event_name == 'workflow_dispatch'
     runs-on: [self-hosted]
     steps:
-      - name: Login to docker hub
+      - name: Stop docker
         run: sudo docker rm -f jeheecheon-blog-be-container
 
   build-and-deploy-fe:
