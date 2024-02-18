@@ -28,6 +28,7 @@ namespace Infrastructure.Repositories.Blog
                 return _mainContext.Category.FromSqlInterpolated(@$"
 SELECT * FROM category;
                 ")
+                    .ToList()
                     .AsEnumerable();
             }
             catch (Exception e)
@@ -103,6 +104,7 @@ FROM (
 LEFT JOIN comments c ON p.id = c.post_id
 LEFT JOIN likes l ON p.id = l.post_id;
                 ")
+                    .ToList()
                     .AsEnumerable();
             }
             catch (Exception e)
@@ -145,6 +147,7 @@ LEFT JOIN likes l ON p.id = l.post_id;
 	LEFT JOIN comments c ON p.id = c.post_id
 	LEFT JOIN likes l ON p.id = l.post_id;
                 ")
+                    .ToList()
                     .AsEnumerable();
             }
             catch (Exception e)
@@ -182,7 +185,7 @@ FROM (
 ) as p
 LEFT JOIN likes_and_has_liked AS l ON p.id = l.post_id;
                 ")
-                    .AsEnumerable()
+                    .ToList()
                     .FirstOrDefault();
             }
             catch (Exception e)
@@ -217,7 +220,7 @@ FROM (
 ) as p
 LEFT JOIN likes AS l ON p.id = l.post_id;
                 ")
-                    .AsEnumerable()
+                    .ToList()
                     .FirstOrDefault();
             }
             catch (Exception e)
@@ -280,7 +283,8 @@ FROM (
 ) AS c
 LEFT JOIN likes_has_liked AS l ON l.comment_id = c.id
 JOIN account AS a ON a.id = c.account_id;
-                ");
+                ")
+                    .ToList();
             }
             catch (Exception e)
             {
@@ -317,7 +321,8 @@ FROM (
 ) AS c
 LEFT JOIN likes_has_liked AS l ON l.comment_id = c.id
 JOIN account AS a ON a.id = c.account_id;
-                ");
+                ")
+                    .ToList();
             }
             catch (Exception e)
             {
@@ -404,6 +409,7 @@ INSERT INTO liked_comment (comment_id, account_id) VALUES
                 return _mainContext.PostSummary.FromSql(@$"
 SELECT id, title, uploaded_at, edited_at FROM post;
                 ")
+                    .ToList()
                     .AsEnumerable();
             }
             catch (Exception e)
@@ -524,7 +530,7 @@ FROM (
 ) as p
 LEFT JOIN likes_and_has_liked AS l ON p.id = l.post_id;
                 ")
-                    .AsEnumerable()
+                    .ToList()
                     .FirstOrDefault();
             }
             catch (Exception e)
@@ -559,7 +565,7 @@ FROM (
 ) as p
 LEFT JOIN likes AS l ON p.id = l.post_id;
                 ")
-                    .AsEnumerable()
+                    .ToList()
                     .FirstOrDefault();
             }
             catch (Exception e)
