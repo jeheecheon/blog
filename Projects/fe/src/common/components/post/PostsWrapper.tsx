@@ -31,7 +31,9 @@ const PostsWrapper = () => {
             <div className="m-auto max-w-[800px] px-3">
                 <h1 className="inline-block uppercase max-w-[800px] w-full text-3xl font-medium text-sky-700 
                 mt-[60px] mb-[20px] text-left">
-                    Recently published
+                    {category
+                        ? `Posts under ${category}` 
+                        : "Recently published"}
                 </h1>
                 <ErrorBoundary fallback={<ErrorMessageWrapper>Error occured while fetching posts...</ErrorMessageWrapper>}>
                     <Suspense
