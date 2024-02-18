@@ -112,7 +112,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
                         // `Published: ${post.UploadedAt.toLocaleDateString()}`
                     }
                 </span>
-                <div className='text-left w-full blog-post-content'>
+                <div className='text-left w-full blog-post-content text-pretty'>
                     {content}
                 </div>
                 {/* {props.headerImage && (<img src={props.headerImage} className='bg-fixed bg-center' />)} */}
