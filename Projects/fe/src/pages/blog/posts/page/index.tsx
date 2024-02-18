@@ -17,7 +17,7 @@ const Posts: React.FC<PostsProps> = React.memo(({ postsAwaiter }) => {
   }, [posts])
 
   return (
-    <nav className="flex flex-col items-center mb-5 gap-[70px] w-full">
+    <nav className="flex flex-col items-center mb-5 gap-[20px] w-full">
       {
         sortedPosts.map((p) => (
           <Link

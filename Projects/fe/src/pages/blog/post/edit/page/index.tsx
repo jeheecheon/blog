@@ -315,7 +315,7 @@ const PostEdit = () => {
                     })
                   }}
                   content={postEditing.Content}
-                  className='w-full bg-white'
+                  className='max-w-[780px] bg-white'
                 />
               </div>
 

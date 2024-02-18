@@ -1,10 +1,8 @@
-import parse from 'html-react-parser';
-import DOMPurify from "isomorphic-dompurify";
 import { PostInfo } from '@/common/types/Post';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/common/redux/store';
 import { flattenOutCategoriesV1 } from '@/common/utils/category';
-import React, { useState } from 'react';
+import React from 'react';
 
 interface PostCardProps {
     className?: string,
@@ -13,31 +11,20 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
     const leafCategories = useSelector((state: RootState) => state.category.leafCategories);
-    const [parsed] = useState(
-        parse(DOMPurify.sanitize(post.Content), {
-            replace: (domNode) => {
-                if (domNode.type === 'tag' && domNode.name === 'img')
-                    return <></>;
-            }
-        })
-    );
 
     return (
         <article className={`max-w-[800px] h-fit w-full
         group hover:cursor-pointer pb-3 border-b-2
         ${className}`}>
             <div className='flex justify-between text-slate-500 text-sm'>
-                <span className='text-right'>Published: {post.UploadedAt.toLocaleDateString()}</span>
+                <span className='text-right text-sm'>Published: {post.UploadedAt.toLocaleDateString()}</span>
                 {/* <span className='self-end'>23 views</span> */}
             </div>
-            <div className='font-semibold text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>
+
+            <div className='font-semibold text-xl md:text-2xl mb-3 text-pretty text-slate-600 group-hover:text-sky-700'>
                 {post.Title}
             </div>
-            <span className='text-md text-pretty mb-2 h-[70px] truncate'>
-                {
-                    parsed
-                }
-            </span>
+            
             <div className='flex flex-row justify-start items-start fill-sky-700 mt-3'>
                 {/* Likes */}
                 <div className='flex flex-row items-center mr-2 cursor-pointer'>
