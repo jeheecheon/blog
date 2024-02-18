@@ -46,7 +46,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
             dispatch(setCoverImageUrl(image));
             dispatch(setTitleOnCover(""))
         }
-    }, []);
+    }, [post.Title, post.Cover]);
 
     const handleLikeCliked = () => {
         if (isLoadingLikes.current === true)
