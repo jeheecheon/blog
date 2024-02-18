@@ -11,6 +11,9 @@ import { flattenOutCategoriesV1 } from '@/common/utils/category';
 import { setCoverImageUrl, setTitleOnCover } from '@/common/redux/bannerSlice';
 import { image } from '@/common/utils/siteInfo';
 
+import '@/common/assets/css/Article.scss';
+import hljs from '@/common/utils/highlightSettings'
+
 interface ArticleContentProps {
     className?: string,
     post: PostInfo
@@ -36,11 +39,17 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
     const [likes, setLikes] = useState(post.LikeCnt);
 
     useEffect(() => {
-        import('@/common/assets/css/Article.scss')
         if (post.Cover !== null && post.Cover !== undefined)
             dispatch(setCoverImageUrl(post.Cover));
 
         dispatch(setTitleOnCover(post.Title))
+
+        const codes = document.getElementsByClassName('ql-syntax');
+        for (const code of codes) {
+            if (code instanceof HTMLElement) {
+                hljs.highlightElement(code);
+            }
+        }
 
         return () => {
             dispatch(setCoverImageUrl(image));
@@ -92,8 +101,8 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
             </div>
 
             {/* blog content goes here */}
-            <div className='px-3 text-pretty max-w-[780px] h-fit min-h-[25vh] bg-white rounded-2xl shadow-md
-                    overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center'>
+            <div className='px-3 text-pretty max-w-[780px] h-fit min-h-[25vh] bg-slate-50 rounded-2xl shadow-md
+                    overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center bg-white'>
                 <div className='bg-stone-600 h-[10px] w-[170px] rounded-2xl relative bottom-1' />
                 <span className='block text-center text-slate-900 font-medium text-sm mb-3'>
                     {post.EditedAt !== undefined && post.EditedAt !== null ?
