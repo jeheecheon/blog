@@ -6,7 +6,6 @@ import { setCoverImageUrl } from '@/common/redux/bannerSlice';
 import ArticleLayout from '@/common/components/post/ArticleLayout';
 import ArticleContent from '@/common/components/post/ArticleContent';
 import { RootState } from '@/common/redux/store';
-import CustomQuillToolbar from '@/pages/blog/post/edit/page/components/quill/CustomQuillToolbar';
 import CustomQuill from '@/pages/blog/post/edit/page/components/quill/CustomQuill';
 import { PostInfo, PostSummary } from '@/common/types/Post';
 import { convertStringIntoDate, sortPostsByUploadedAt } from '@/common/utils/post';
@@ -306,8 +305,7 @@ const PostEdit = () => {
                 className='w-full border-[1px] pl-2 border-slate-500'
               />
 
-              <div className=''>
-                <CustomQuillToolbar className='bg-white w-full' />
+              <div className='max-w-[780px]'>
                 <CustomQuill
                   setContent={(value) => {
                     setPostEditing({
@@ -315,7 +313,7 @@ const PostEdit = () => {
                     })
                   }}
                   content={postEditing.Content}
-                  className='max-w-[780px] bg-white'
+                  className='bg-white'
                 />
               </div>
 

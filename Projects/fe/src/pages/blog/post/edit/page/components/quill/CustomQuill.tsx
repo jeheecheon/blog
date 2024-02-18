@@ -1,5 +1,6 @@
 import ReactQuill from "react-quill";
 import { formats, modules } from "@/pages/blog/post/edit/page/utils/quill-settings";
+import CustomQuillToolbar from "./CustomQuillToolbar";
 
 interface CustomQullProps {
     setContent: (arg0: string) => void;
@@ -13,17 +14,20 @@ const CustomQuill: React.FC<CustomQullProps> = ({
     className
 }) => {
     return (
-        <ReactQuill
-            theme="snow"
-            value={content}
-            modules={modules}
-            formats={formats}
-            className={`${className}`}
-            onChange={(value) => {
-                console.log(value)
-                setContent(value)
-            }}
-        />
+        <div className={`${className}`}>
+            <CustomQuillToolbar className="w-full" />
+            <ReactQuill
+                theme="snow"
+                className="w-full"
+                value={content}
+                modules={modules}
+                formats={formats}
+                onChange={(value) => {
+                    console.log(value)
+                    setContent(value)
+                }}
+            />
+        </div>
     )
 }
 
