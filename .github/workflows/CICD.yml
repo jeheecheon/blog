@@ -5,15 +5,24 @@ name: CI/CD
 
 on:
   push:
-    branches: [ "publish-fe", "publish-be", "publish-all" ]
+    branches: [ "publish-fe", "publish-be" ]
     paths: ['.github/workflows/**', 'Projects/**']
   workflow_dispatch:
 
-
 jobs:
+  stop-docker:
+    if: | 
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch'
+    runs-on: [self-hosted]
+    steps:
+      - name: Login to docker hub
+        run: sudo docker rm -f jeheecheon-blog-be-container
+
   build-and-deploy-fe:
+    needs: stop-docker
     if: |
-      github.event_name == 'push' && (github.ref == 'refs/heads/publish-fe' || github.ref == 'refs/heads/publish-all') || 
+      github.event_name == 'push' && (github.ref == 'refs/heads/publish-fe') ||
       github.event_name == 'workflow_dispatch'
     runs-on: [self-hosted]
     defaults:
@@ -22,7 +31,6 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -33,11 +41,14 @@ jobs:
           cache-dependency-path: Projects/fe/package-lock.json
       - run: npm ci
       - run: npm run build --if-present
+      - name: Run docker container
+        run: sudo systemctl restart docker-container-start.service
 
 
   build-be:
+    needs: stop-docker
     if: | 
-      github.event_name == 'push' && (github.ref == 'refs/heads/publish-be' || github.ref == 'refs/heads/publish-all') || 
+      github.event_name == 'push' && (github.ref == 'refs/heads/publish-be') || 
       github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     defaults:
@@ -60,7 +71,7 @@ jobs:
 
   deploy-be:
     if: | 
-      github.event_name == 'push' && (github.ref == 'refs/heads/publish-be' || github.ref == 'refs/heads/publish-all') || 
+      github.event_name == 'push' && (github.ref == 'refs/heads/publish-be') || 
       github.event_name == 'workflow_dispatch'
     needs: build-be
     runs-on: [self-hosted]
@@ -75,10 +86,4 @@ jobs:
       - name: Delete old container
         run: sudo docker rm -f jeheecheon-blog-be-container
       - name: Run docker container
-        run: sudo docker run -d -p 8080:8080 --name jeheecheon-blog-be-container jeheecheon/jeheecheon-blog-be 
-          -e "OAuth:Google:ClientId=${{ secrets.OAUTH_GOOGLE_CLIENTID }}" \
-          -e "OAuth:Google:ClientSecret=${{ secrets.OAUTH_GOOGLE_CLIENTSECRET }}" \
-          -e "AWSSDK:S3:AccessKey=${{ secrets.AWSSDK_S3_ACCESSKEY }}" \
-          -e "AWSSDK:S3:SecretKey=${{ secrets.AWSSDK_S3_SECRETKEY }}" \
-          -e "ConnectionStrings:MainContext=${{ secrets.CONNECTIONSTRINGS_MAINCONTEXT }}"
-    
+        run: sudo systemctl restart docker-container-start.service
