@@ -1,6 +1,6 @@
 .blog-post-content {
   font-family: 'Noto Sans KR', 'Courier New', Courier, monospace;
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.8;
 
   img {
@@ -13,59 +13,55 @@
   
   /* 제목 */
   h1 {
-    font-size: 2.5rem; /* 원하는 크기로 조정 */
+    font-size: 1.6rem; /* 원하는 크기로 조정 */
     // font-weight: bold;
-    margin-bottom: 1rem; /* 아래 여백 */
   }
   
   h2 {
-    font-size: 2.25rem;
+    font-size: 1.5rem;
     // font-weight: bold;
-    margin-bottom: 0.75rem;
   }
   
   h3 {
-    font-size: 2rem;
+    font-size: 1.45rem;
     // font-weight: bold;
-    margin-bottom: 0.5rem;
   }
   
   /* h4 스타일 */
   h4 {
-    font-size: 1.75rem;
+    font-size: 1.4rem;
     // font-weight: bold;
-    margin-bottom: 0.5rem;
   }
   
   /* h5 스타일 */
   h5 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     // font-weight: bold;
-    margin-bottom: 0.5rem;
   }
   
   /* h6 스타일 */
   h6 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     // font-weight: bold;
-    margin-bottom: 0.5rem;
   }
   
   /* 본문 텍스트 */
-  p {
-    // font-size: 1.1rem;
-    // line-height: 1.6;
-  }
+  // p {
+  //   // font-size: 1.0rem;
+  //   // line-height: 1.8;
+  // }
   
   /* 목록 */
   ul,
   ol {
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
   
   li {
     // font-size: 1.1rem;
-    line-height: 1.5;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
   }
   
   /* 하이퍼링크 스타일 */
@@ -273,19 +269,27 @@
   //   // background-color: #23241F;
   // }
   
-  /* 미디어 쿼리를 사용하여 블로그가 모바일 장치에서도 적절하게 표시되도록 만들 수 있습니다. */
   @media (max-width: 768px) {
     h1 {
-      font-size: 2rem;
-    }
-    h2 {
-      font-size: 1.75rem;
-    }
-    h3 {
       font-size: 1.5rem;
     }
+    h2 {
+      font-size: 1.4rem;
+    }
+    h3 {
+      font-size: 1.35rem;
+    }
+    h4 {
+      font-size: 1.3rem;
+    }
+    h5 {
+      font-size: 1.25rem;
+    }
+    h6 {
+      font-size: 1.2rem;
+    }
     p {
-      font-size: 0.875rem;
+      font-size: 1rem;
     }
   }
 }
