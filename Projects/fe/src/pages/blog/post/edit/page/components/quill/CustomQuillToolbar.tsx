@@ -22,7 +22,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
             </div>
 
             <div className="ql-formats">
-                <select className="ql-size" value={"16"} onChange={e => e.persist()}>
+                <select className="ql-size" value={""} onChange={e => e.persist()}>
                     <option value="10">10</option>
                     <option value="12">12</option>
                     <option value="14">14</option>
@@ -38,7 +38,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
             </div>
 
             <div className="ql-formats">
-                <select className="ql-font" value={"Noto_Sans_KR"} onChange={e => e.persist()}>
+                <select className="ql-font" value={""} onChange={e => e.persist()}>
                     <option value="arial">Arial</option>
                     <option value="comic-sans">Comic Sans</option>
                     <option value="courier-new">Courier New</option>
