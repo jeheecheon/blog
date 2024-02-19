@@ -1,5 +1,7 @@
 .blog-post-content {
   font-family: 'Noto Sans KR', 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  line-height: 1.8;
 
   img {
     width: 100%;
@@ -51,8 +53,8 @@
   
   /* 본문 텍스트 */
   p {
-    font-size: 1.2rem;
-    line-height: 1.6; /* 줄 간격 */
+    // font-size: 1.1rem;
+    // line-height: 1.6;
   }
   
   /* 목록 */
@@ -62,7 +64,7 @@
   }
   
   li {
-    font-size: 1rem;
+    // font-size: 1.1rem;
     line-height: 1.5;
   }
   
@@ -86,8 +88,8 @@
   
   code {
     padding: 0.25rem 0.5rem; /* 내부 여백 */
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
+    // border-radius: 0.25rem;
+    // font-size: 0.875rem;
     font-family: "Courier New", Courier, monospace; /* 고정폭 글꼴 사용 */
   }
   
