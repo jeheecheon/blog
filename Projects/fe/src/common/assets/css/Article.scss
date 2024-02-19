@@ -45,11 +45,10 @@
     // font-weight: bold;
   }
   
-  /* 본문 텍스트 */
-  // p {
-  //   // font-size: 1.0rem;
-  //   // line-height: 1.8;
-  // }
+   p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+  }
   
   /* 목록 */
   ul,
@@ -59,7 +58,7 @@
   }
   
   li {
-    // font-size: 1.1rem;
+    font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 0.5rem;
   }
