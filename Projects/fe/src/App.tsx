@@ -56,20 +56,55 @@ const App = () => {
                 >
                     <Route
                         path='blog'
-                        element={<Blog />}
+                        element={
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <Blog />
+                            </Suspense>
+                        }
                     />
                     <Route
                         path='blog/recent-posts/pages/:page'
-                        element={<PostsWrapper />}
+                        element={
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <PostsWrapper />
+                            </Suspense>
+                        }
+
                     />
                     <Route
                         path='blog/categories/:category/pages/:page'
-                        element={<PostsWrapper />}
+                        element={
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <PostsWrapper />
+                            </Suspense>
+                        }
                     />
                     <Route
                         path='blog/post/:id/:slug?'
-                        element={<Post />}
+                        element={
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <Post />
+                            </Suspense>
+                        }
                         loader={PostLoader}
+                    />
+                    <Route
+                        path='blog/about-me'
+                        element={
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <Post />
+                            </Suspense>
+                        }
+                        loader={AboutMeLoader}
+                    />
+                    <Route
+                        path='blog/privacy-policy'
+                        element={
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <Post />
+                            </Suspense>
+                        }
+                        loader={PrivacyPolicyLoader}
                     />
                     <Route
                         path='blog/post/edit'
@@ -79,16 +114,6 @@ const App = () => {
                             </Suspense>
                         }
                         loader={PostEditLoader}
-                    />
-                    <Route
-                        path='blog/about-me'
-                        element={<Post />}
-                        loader={AboutMeLoader}
-                    />
-                    <Route
-                        path='blog/privacy-policy'
-                        element={<Post />}
-                        loader={PrivacyPolicyLoader}
                     />
                 </Route>
 
