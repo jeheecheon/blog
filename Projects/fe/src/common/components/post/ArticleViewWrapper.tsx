@@ -7,7 +7,7 @@ import Comments from '@/common/components/post/Comments'
 
 import { PostInfo } from '@/common/types/Post'
 import { PromiseAwaiter } from '@/common/utils/promiseWrapper'
-import CommentsLoadingSpinner from './CommentsLoadingSpinner'
+import LoadingSpinner from '../LoadingSpinner'
 import ErrorMessageWrapper from '../ErrorMessageWrapper'
 
 interface ArticleViewWrapperProps {
@@ -29,7 +29,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
             <PostsPagination />
             <div className='max-w-[1024px] w-full px-2 relative top-[75px]'>
                 <ErrorBoundary fallback={<ErrorMessageWrapper>Something went wrong...!</ErrorMessageWrapper>}>
-                    <Suspense fallback={<CommentsLoadingSpinner />}>
+                    <Suspense fallback={<LoadingSpinner>Comments Loading..!</LoadingSpinner>}>
                         <Comments
                             className=''
                             postId={post.Id}
