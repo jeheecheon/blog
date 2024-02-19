@@ -13,21 +13,18 @@
   h1 {
     font-size: 2.5rem; /* 원하는 크기로 조정 */
     font-weight: bold;
-    color: #333; /* 텍스트 색상 */
     margin-bottom: 1rem; /* 아래 여백 */
   }
   
   h2 {
     font-size: 2rem;
     font-weight: bold;
-    color: #333;
     margin-bottom: 0.75rem;
   }
   
   h3 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
     margin-bottom: 0.5rem;
   }
   
@@ -35,7 +32,6 @@
   h4 {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #333;
     margin-bottom: 0.5rem;
   }
   
@@ -43,7 +39,6 @@
   h5 {
     font-size: 1rem;
     font-weight: bold;
-    color: #333;
     margin-bottom: 0.5rem;
   }
   
@@ -51,16 +46,13 @@
   h6 {
     font-size: 0.875rem;
     font-weight: bold;
-    color: #333;
     margin-bottom: 0.5rem;
   }
   
   /* 본문 텍스트 */
   p {
     font-size: 1rem;
-    line-height: 1.5; /* 줄 간격 */
-    color: #555;
-    margin-bottom: 1rem;
+    line-height: 1.4; /* 줄 간격 */
   }
   
   /* 목록 */
@@ -72,7 +64,6 @@
   li {
     font-size: 1rem;
     line-height: 1.5;
-    color: #555;
   }
   
   /* 하이퍼링크 스타일 */
@@ -88,14 +79,12 @@
   
   /* 코드 블록 */
   pre {
-    background-color: #f8f9fa; /* 코드 블록 배경색 */
     padding: 1rem; /* 내부 여백 */
     overflow-x: auto; /* 가로 스크롤 바 추가 */
     border-radius: 0.5rem;
   }
   
   code {
-    background-color: #f8f9fa; /* 코드 배경색 */
     padding: 0.25rem 0.5rem; /* 내부 여백 */
     border-radius: 0.25rem;
     font-size: 0.875rem;
@@ -278,9 +267,9 @@
     text-indent: 45%;
   }
 
-  .ql-syntax {
-    background-color: #23241F;
-  }
+  // .ql-syntax {
+  //   // background-color: #23241F;
+  // }
   
   /* 미디어 쿼리를 사용하여 블로그가 모바일 장치에서도 적절하게 표시되도록 만들 수 있습니다. */
   @media (max-width: 768px) {
