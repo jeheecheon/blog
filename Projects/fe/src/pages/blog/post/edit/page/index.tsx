@@ -21,7 +21,7 @@ const PostEdit = () => {
   const [selectedPostIdToEdit, setSelectedPostIdToEdit] = useState("");
   const [postEditing, setPostEditing] = useState<PostInfo>();
   const [showPreview, setShowPreview] = useState<boolean>(false);
-  const [updateEditedDate, setUpdateEditedDate] = useState<boolean>(true);
+  const [updateEditedDate, setUpdateEditedDate] = useState<boolean>(false);
   const [updateEditedDateAsNull, setUpdateEditedDateAsNull] = useState<boolean>(false);
   const [updateUploadedDate, setUpdateUploadedDate] = useState<boolean>(false);
 
