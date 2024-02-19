@@ -17,7 +17,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
                     <option value="4">Header 4</option>
                     <option value="5">Header 5</option>
                     <option value="6">Header 6</option>
-                    <option value="">Normal</option>
+                    <option value="">Header</option>
                 </select>
             </div>
 
@@ -34,6 +34,7 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
                     <option value="26">26</option>
                     <option value="28">28</option>
                     <option value="30">30</option>
+                    <option value="">Size</option>
                 </select>
             </div>
 
@@ -45,7 +46,8 @@ const CustomQuillToolbar: React.FC<CustomQuillToolbarProps> = ({ className }) =>
                     <option value="georgia">Georgia</option>
                     <option value="helvetica">Helvetica</option>
                     <option value="lucida">Lucida</option>
-                    <option value="Noto_Sans_KR">Noto KR</option>
+                    {/* <option value="Noto_Sans_KR">Noto KR</option> */}
+                    <option value="">Font</option>
                 </select>
             </div>
 
