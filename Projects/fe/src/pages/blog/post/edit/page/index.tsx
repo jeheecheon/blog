@@ -21,7 +21,9 @@ const PostEdit = () => {
   const [selectedPostIdToEdit, setSelectedPostIdToEdit] = useState("");
   const [postEditing, setPostEditing] = useState<PostInfo>();
   const [showPreview, setShowPreview] = useState<boolean>(false);
-  const [updatePublishedDate, setUpdatePublishedDate] = useState<boolean>(false);
+  const [updateEditedDate, setUpdateEditedDate] = useState<boolean>(true);
+  const [updateEditedDateAsNull, setUpdateEditedDateAsNull] = useState<boolean>(false);
+  const [updateUploadedDate, setUpdateUploadedDate] = useState<boolean>(false);
 
   useEffect(() => {
     fetchPostsList();
@@ -100,7 +102,7 @@ const PostEdit = () => {
 
   const handleUpdateClicked: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (confirm("You want to update the post, right?"))
-      fetch(`/api/blog/post/update?update_published_date=${updatePublishedDate}`,
+      fetch(`/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
         {
           credentials: "same-origin",
           method: "POST",
@@ -110,8 +112,12 @@ const PostEdit = () => {
           body: JSON.stringify(postEditing)
         })
         .then(res => {
-          if (res.ok)
+          if (res.ok) {
             fetchPostsList();
+            setUpdateEditedDate(false);
+            setUpdateEditedDateAsNull(false);
+            setUpdateUploadedDate(false);
+          }
           else
             PropagateResponse(res);
         })
@@ -327,9 +333,42 @@ const PostEdit = () => {
               </label>
 
               <label className='text-slate-700'>
-                Update published date:&#160;
-                <input type='checkbox' checked={updatePublishedDate} onChange={
-                  () => setUpdatePublishedDate(!updatePublishedDate)
+                Reset uploaded date:&#160;
+                <input type='checkbox' checked={updateUploadedDate} onChange={
+                  () => {
+                    if (!updateUploadedDate)
+                      setUpdateEditedDateAsNull(true);
+                    setUpdateUploadedDate(!updateUploadedDate)
+                    setUpdateEditedDate(false);
+                  }
+                }
+                />
+              </label>
+
+              <label className='text-slate-700'>
+                Update edited date:&#160;
+                <input type='checkbox' checked={updateEditedDate} onChange={
+                  () => {
+                    if (updateUploadedDate)
+                      return;
+                    if (!updateEditedDate)
+                      setUpdateEditedDateAsNull(false);
+                    setUpdateEditedDate(!updateEditedDate);
+                  }
+                }
+                />
+              </label>
+
+              <label className='text-slate-700'>
+                Set edited date as null:&#160;
+                <input type='checkbox' checked={updateEditedDateAsNull} onChange={
+                  () => {
+                    if (updateUploadedDate)
+                      return;
+                    if (!updateEditedDateAsNull)
+                      setUpdateEditedDate(false)
+                    setUpdateEditedDateAsNull(!updateEditedDateAsNull)
+                  }
                 }
                 />
               </label>

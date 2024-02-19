@@ -436,19 +436,14 @@ SELECT * FROM post WHERE id = {post_id};
             }
         }
 
-        public async Task<bool> UpdatePostAsync(PostWithMetadata post)
+        public async Task<bool> UpdateEditedAtAsync(PostWithMetadata post)
         {
             try
             {
                 return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 UPDATE post 
 SET 
-    title = {post.Title},
-    content = {post.Content},
-    edited_at = CURRENT_TIMESTAMP,
-    cover = {post.Cover},
-    category_id = {post.CategoryId},
-    is_public = {post.IsPublic}
+    edited_at = CURRENT_TIMESTAMP
 WHERE id = {post.Id};
                 ")
                     > 0;
@@ -460,7 +455,45 @@ WHERE id = {post.Id};
             }
         }
 
-        public async Task<bool> UpdatePostAlongWithUpdatedAtAsync(PostWithMetadata post)
+        public async Task<bool> SetEditedAtAsNullAsync(PostWithMetadata post)
+        {
+            try
+            {
+                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+UPDATE post 
+SET 
+    edited_at = null
+WHERE id = {post.Id};
+                ")
+                    > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateUploadedAtAsync(PostWithMetadata post)
+        {
+            try
+            {
+                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+UPDATE post 
+SET 
+    uploaded_at = CURRENT_TIMESTAMP
+WHERE id = {post.Id};
+                ")
+                    > 0;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"{e.Source}: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdatePostAsync(PostWithMetadata post)
         {
             try
             {
@@ -469,11 +502,9 @@ UPDATE post
 SET 
     title = {post.Title},
     content = {post.Content},
-    edited_at = NULL,
     cover = {post.Cover},
     category_id = {post.CategoryId},
-    is_public = {post.IsPublic},
-    uploaded_at = CURRENT_TIMESTAMP
+    is_public = {post.IsPublic}
 WHERE id = {post.Id};
                 ")
                     > 0;

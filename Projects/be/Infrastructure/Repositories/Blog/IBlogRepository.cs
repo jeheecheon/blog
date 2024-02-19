@@ -26,6 +26,8 @@ namespace Infrastructure.Repositories.Blog
         public Task<bool> DeletePostAsync(Guid post_id);
         public StaticLikePostLikes? GetStaticLikePost(Guid post_id);
         public StaticLikePostLikesHasLiked? GetStaticLikePostWithHasLiked(Guid post_id, Guid account_id);
-        public Task<bool> UpdatePostAlongWithUpdatedAtAsync(PostWithMetadata post);
+        public Task<bool> UpdateEditedAtAsync(PostWithMetadata post);
+        public Task<bool> SetEditedAtAsNullAsync(PostWithMetadata post);
+        public Task<bool> UpdateUploadedAtAsync(PostWithMetadata post);
     }
 }
