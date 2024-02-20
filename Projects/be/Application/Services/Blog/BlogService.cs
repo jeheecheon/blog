@@ -11,6 +11,7 @@ using Application.Services.Account;
 using Amazon.S3.Transfer;
 using Amazon.S3;
 using Amazon.S3.Model;
+using System.Collections;
 
 namespace Application.Services.Blog;
 
@@ -275,5 +276,44 @@ public class BlogService : IBlogService
             return post;
         else
             return null;
+    }
+
+    public async Task<List<string>?> GetMusicListFromS3Async()
+    {
+        var listRequest = new ListObjectsV2Request
+        {
+            BucketName = _DefaultBucketName,
+            Prefix = $"blog/music"
+        };
+
+        List<string> musicList = new();
+        try
+        {
+            var location = (await _s3Client.GetBucketLocationAsync(new GetBucketLocationRequest
+            {
+                BucketName = _DefaultBucketName
+            }))
+                .Location;
+            do
+            {
+                ListObjectsV2Response response = await _s3Client.ListObjectsV2Async(listRequest);
+                foreach (S3Object entry in response.S3Objects)
+                {
+                    Console.WriteLine($"https://jeheecheon.s3.{location}.amazonaws.com/{entry.Key}");
+                    musicList.Add($"https://jeheecheon.s3.{location}.amazonaws.com/{entry.Key}");
+                }
+
+                listRequest.ContinuationToken = response.NextContinuationToken;
+            } while (listRequest.ContinuationToken != null);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError($"{e.Source}: {e.Message}");
+            return null;
+        }
+
+        musicList.RemoveAt(0);
+        musicList.Sort();
+        return musicList;
     }
 }

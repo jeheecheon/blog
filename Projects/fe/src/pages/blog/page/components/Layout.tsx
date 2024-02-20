@@ -10,6 +10,7 @@ import SignInModal from '@/common/components/SignInModal';
 
 import '@/pages/blog/page/css/font.css';
 import '@/pages/blog/page/css/scrollbar.css';
+import MusicPlayer from './MusicPlayer';
 
 interface LayoutProps {
     children?: ReactElement | ReactElement[],
@@ -19,9 +20,12 @@ interface LayoutProps {
 const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
-    return (<>
-        <ScrollRestoration />
 
+    return (<>
+        <MusicPlayer
+            className=''
+        />
+        <ScrollRestoration />
         <SignInModal />
 
         <main className={`bg-white dark:bg-gray-900 min-h-screen h-auto font-['Noto_Sans_KR']
