@@ -23,7 +23,7 @@ const Layout = (props: LayoutProps) => {
 
     return (<>
         <MusicPlayer
-            className=''
+            className='fixed left-[100vw]'
         />
         <ScrollRestoration />
         <SignInModal />
