@@ -80,7 +80,7 @@ export default {
     animation: {
       'spin': 'spin 0.7s ease-in-out infinite',
       'fade-out-spinner': 'fade-out 2s ease-out forwards',
-      
+
       'hide-sidebar-overlay': 'hide-sidebar-overlay 1s ease-in-out forwards',
       'show-sidebar-overlay': 'show-sidebar-overlay 2s ease-in-out forwards',
       'hide-sidebar-content1': 'hide-sidebar-content 0.7s ease-in-out forwards',
@@ -96,5 +96,5 @@ export default {
     }
   },
   plugins: [],
-  darkMode: 'class'
+  darkMode: 'selector'
 }

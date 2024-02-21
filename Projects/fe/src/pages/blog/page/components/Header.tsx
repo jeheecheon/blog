@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = React.memo((props) => {
 
     const buttonVariants = {
         off: { backgroundColor: 'rgb(225, 225, 225)', transition: { duration: 0.3 } },
-        on: { backgroundColor: 'rgb(6, 6, 6)', transition: { duration: 0.3 } }
+        on: { backgroundColor: 'rgb(60, 60, 60)', transition: { duration: 0.3 } }
     };
 
     const circleVariants = {
