@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = React.memo((props) => {
             <section>
                 <nav className='fixed h-[50px] w-full px-3 z-20
                 flex flex-row flex-unwrap justify-between items-center basis-auto
-                bg-default-2 dark:bg-default-2-dark shadow-md 
+                bg-default-2 dark:bg-default-3-dark shadow-md 
                 shadow-gray-400 dark:shadow-default-1-dark'>
                     <Link to='/blog' className="truncate font-bold italic
                     text-default-8-dark dark:text-default-18">
