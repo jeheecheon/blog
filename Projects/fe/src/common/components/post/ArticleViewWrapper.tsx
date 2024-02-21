@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 import ArticleLayout from '@/common/components/post/ArticleLayout'
 import ArticleContent from '@/common/components/post/ArticleContent'
-import PostsPagination from '@/common/components/post/PostsPagination'
 import ErrorBoundary from '@/common/components/error/ErrorBoundary'
 import Comments from '@/common/components/post/Comments'
 
@@ -26,7 +25,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(({
             <ArticleContent
                 post={post}
             />
-            <PostsPagination />
+            {/* <PostsPagination /> */}
             <div className='max-w-[1024px] w-full px-2 relative top-[75px]'>
                 <ErrorBoundary fallback={<ErrorMessageWrapper>Something went wrong...!</ErrorMessageWrapper>}>
                     <Suspense fallback={<LoadingSpinner>Comments Loading..!</LoadingSpinner>}>

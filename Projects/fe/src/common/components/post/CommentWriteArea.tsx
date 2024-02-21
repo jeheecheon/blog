@@ -67,7 +67,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(({
 
     return (
         <div className={`rounded-lg flex flex-row justify-between items-start
-                px-4 py-3 bg-slate-300 bg-opacity-25 ${className}`} >
+                px-4 py-3 bg-default-4 dark:bg-default-4-dark  ${className}`} >
 
             <Avatar
                 avatar={isAuthenticated ? user.avatar : defaultAvatar}

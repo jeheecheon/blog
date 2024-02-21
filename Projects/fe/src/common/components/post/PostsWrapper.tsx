@@ -28,7 +28,7 @@ const PostsWrapper = () => {
 
     return (
         <>
-            <div className="m-auto max-w-[800px] px-3 min-h-[35vh]">
+            <div className="m-auto max-w-[800px] px-3 min-h-[35vh] mb-[70px]">
                 <h1 className="inline-block max-w-[800px] w-full text-xl md:text-3xl font-medium  
                 mt-[60px] mb-[20px] text-left text-sky-700">
                     {category

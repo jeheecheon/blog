@@ -3,13 +3,15 @@ import signInModalReducer from '@/common/redux/signInModalSlice'
 import userReducer from '@/common/redux/userSlice'
 import coverReducer from '@/common/redux/bannerSlice'
 import categoryReducer from '@/common/redux/categorySlice'
+import themeReducer from '@/common/redux/themeSlice'
 
 export const store = configureStore({
     reducer: {
         signInModal: signInModalReducer,
         user: userReducer,
         banner: coverReducer,
-        category: categoryReducer
+        category: categoryReducer,
+        theme: themeReducer
     }
 })
 

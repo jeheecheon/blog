@@ -32,13 +32,14 @@ const Sidebar = React.memo(({ show, setShowSidebar }: SidebarProps) => {
 
     return (
         <section>
-            <div className={`w-screen h-screen z-30 bg-white bg-opacity-90 fixed cursor-pointer 
+            <div className={`w-screen h-screen z-30 fixed cursor-pointer 
+            bg-default-10 bg-opacity-90 dark:bg-default-1-dark dark:bg-opacity-95
             ${overlay}`}
                 onClick={() => handleLinkClicked()}>
             </div>
 
             <nav className={`fixed w-screen h-screen z-30 pointer-events-none 
-            flex flex-col flex-wrap items-start justify-start gap-3 text-slate-500 px-[10vw] py-[10vh] text-2xl md:text-3xl`}>
+            flex flex-col flex-wrap items-start justify-start gap-6 text-slate-500 px-[10vw] py-[10vh] text-2xl md:text-3xl`}>
 
                 <button
                     onClick={() => {
