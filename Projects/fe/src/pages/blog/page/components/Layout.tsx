@@ -38,7 +38,7 @@ const Layout = (props: LayoutProps) => {
     }, []);
 
     return (
-    <div className='dark:text-default-13 text-slate-700 bg-default-2 dark:bg-default-2-dark'>
+    <div className='dark:text-default-13 text-slate-700'>
         {
             process.env.NODE_ENV === 'production' &&
             <MusicPlayer
