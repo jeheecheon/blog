@@ -22,9 +22,12 @@ const Layout = (props: LayoutProps) => {
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
 
     return (<>
-        <MusicPlayer
-            className='fixed left-[100vw]'
-        />
+        {
+            process.env.NODE_ENV === 'production' &&
+            <MusicPlayer
+                className='fixed left-[100vw]'
+            />
+        }
         <ScrollRestoration />
         <SignInModal />
 
