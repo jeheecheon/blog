@@ -2,7 +2,7 @@ import { RootState } from '@/common/redux/store';
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@/common/components/Button';
-import CustomTextArea from '@/common/components/CustomTextArea';
+import CustomTextArea from '@/common/components/post/CustomTextArea';
 import defaultAvatar from '@/common/assets/images/icons/avatar.png'
 import Avatar from '@/common/components/post/Avatar';
 import { makeVisible } from '../../redux/signInModalSlice';

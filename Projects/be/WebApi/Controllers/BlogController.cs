@@ -200,4 +200,10 @@ public class BlogController : ControllerBase
         else
             return BadRequest();
     }
+
+    [HttpGet("music/list")]
+    public async Task<IActionResult> GetMusicListAsync()
+    {
+        return Ok(JsonSerializer.Serialize(await _blogService.GetMusicListFromS3Async()));
+    }
 }

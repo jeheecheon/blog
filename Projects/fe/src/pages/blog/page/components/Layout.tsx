@@ -8,9 +8,9 @@ import Footer from '@/pages/blog/page/components/Footer'
 import Sidebar from '@/pages/blog/page/components/Sidebar'
 import SignInModal from '@/common/components/SignInModal';
 
-import('@/pages/blog/page/css/font.css');
-import('@/pages/blog/page/css/scrollbar.css');
-import('react-loading-skeleton/dist/skeleton.css');
+import '@/pages/blog/page/css/font.css';
+import '@/pages/blog/page/css/scrollbar.css';
+import MusicPlayer from './MusicPlayer';
 
 interface LayoutProps {
     children?: ReactElement | ReactElement[],
@@ -34,8 +34,13 @@ const Layout = (props: LayoutProps) => {
     }, []);
 
     return (<>
+        {
+            process.env.NODE_ENV === 'production' &&
+            <MusicPlayer
+                className='fixed left-[100vw]'
+            />
+        }
         <ScrollRestoration />
-
         <SignInModal />
 
         <main className={`bg-white dark:bg-gray-900 min-h-screen h-auto font-['Noto_Sans_KR']

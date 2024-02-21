@@ -3,10 +3,10 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import ErrorBoundary from "../error/ErrorBoundary";
 import Posts from "@/pages/blog/posts/page";
-import PostsFallback from "@/pages/blog/posts/page/components/Fallback";
 import ErrorMessageWrapper from "../ErrorMessageWrapper";
 import { Helmet } from "react-helmet";
 import { image, name, url } from "@/common/utils/siteInfo";
+import LoadingSpinner from "../LoadingSpinner";
 
 const PostsWrapper = () => {
     const { category, page } = useParams();
@@ -28,7 +28,7 @@ const PostsWrapper = () => {
 
     return (
         <>
-            <div className="m-auto max-w-[800px] px-3">
+            <div className="m-auto max-w-[800px] px-3 min-h-[35vh]">
                 <h1 className="inline-block max-w-[800px] w-full text-xl md:text-3xl font-medium  
                 mt-[60px] mb-[20px] text-left text-sky-700">
                     {category
@@ -37,7 +37,7 @@ const PostsWrapper = () => {
                 </h1>
                 <ErrorBoundary fallback={<ErrorMessageWrapper>Error occured while fetching posts...</ErrorMessageWrapper>}>
                     <Suspense
-                        fallback={<PostsFallback />}>
+                        fallback={<LoadingSpinner>Posts Loading..!</LoadingSpinner>}>
                         <Posts postsAwaiter={postsAwaiter} />
                     </Suspense>
                 </ErrorBoundary>
