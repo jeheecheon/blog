@@ -12,7 +12,7 @@ const Root = () => {
         <div>
           포트폴리오 요약 페이지
         </div>
-        <Button className="">
+        <Button className="dark:text-default-3-dark">
           <Link to="/blog/recent-posts/pages/1">
             블로그로 가기
           </Link>

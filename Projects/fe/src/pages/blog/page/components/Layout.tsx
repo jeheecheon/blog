@@ -1,5 +1,5 @@
-import { ReactElement, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { ReactElement, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { RootState } from '@/common/redux/store';
@@ -11,7 +11,6 @@ import SignInModal from '@/common/components/SignInModal';
 import '@/pages/blog/page/css/font.css';
 import '@/pages/blog/page/css/scrollbar.css';
 import MusicPlayer from './MusicPlayer';
-import { setIsDarkMode } from '@/common/redux/themeSlice';
 
 interface LayoutProps {
     children?: ReactElement | ReactElement[],
@@ -21,25 +20,9 @@ interface LayoutProps {
 const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-            || localStorage.theme === undefined || localStorage.theme === null
-        ) {
-            document.documentElement.classList.add('dark')
-            localStorage.theme = 'dark'
-            dispatch(setIsDarkMode(true))
-        } else {
-            document.documentElement.classList.remove('dark')
-            localStorage.theme = 'light'
-            dispatch(setIsDarkMode(false))
-        }
-    }, []);
 
     return (
-        <div className='dark:text-default-13 text-slate-700
-    before:absolute before:h-100vh before:w-100vw before:bg-default-3 before:dark:bg-default-3-dark'>
+        <>
             {
                 process.env.NODE_ENV === 'production' &&
                 <MusicPlayer
@@ -78,7 +61,7 @@ const Layout = (props: LayoutProps) => {
                 <Footer />
 
             </main>
-        </div>
+        </>
     )
 };
 

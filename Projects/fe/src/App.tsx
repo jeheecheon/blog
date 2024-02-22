@@ -11,6 +11,7 @@ import { PostLoader, PostEditLoader, AboutMeLoader, PrivacyPolicyLoader } from '
 import { AuthenticateUserAsync } from '@/common/utils/user';
 import PageLoadingSpinner from './common/components/PageLoadingSpinner';
 import { fetchLeafCategoriesAsync } from './common/utils/category';
+import InitialSetUp from './pages/blog/page/components/InitialSetUp';
 
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
@@ -27,18 +28,21 @@ const App = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route
+                element={<InitialSetUp />}
                 errorElement={<ErrorArea />}
                 loader={async () => {
                     AuthenticateUserAsync(dispatch);
+                    fetchLeafCategoriesAsync(dispatch);
                     return null;
-                }}>
-
+                }}
+            >
                 <Route
                     path='/'
                     element={
                         <Suspense fallback={<PageLoadingSpinner />}>
                             <Root />
-                        </Suspense>}
+                        </Suspense>
+                    }
                 />
 
                 {/* Blog */}
@@ -49,10 +53,6 @@ const App = () => {
                         </Suspense>
                     }
                     errorElement={<BlogErrorArea />}
-                    loader={async () => {
-                        fetchLeafCategoriesAsync(dispatch);
-                        return null;
-                    }}
                 >
                     <Route
                         path='blog'
@@ -69,7 +69,6 @@ const App = () => {
                                 <PostsWrapper />
                             </Suspense>
                         }
-
                     />
                     <Route
                         path='blog/categories/:category/pages/:page'
@@ -127,7 +126,7 @@ const App = () => {
                         path='entry/edit'
                     />
                 </Route>
-            </Route >
+            </Route>
         )
     )
 

@@ -10,10 +10,10 @@ const Footer = () => {
     <section>
       <div className='flex flex-col items-center  py-[40px] shadow-xl shadow-slate-700
       bg-default-1 dark:bg-default-3-dark'>
-        <span className='text-2xl font-bold italic'>
-          <span className='uppercase '>Blog</span>
-          <span className='text-blue-500 mx-[2px]'>:</span>
-          <span>jeheecheon</span>
+        <span className='text-2xl font-medium dark:font-bold italic text-default-8-dark dark:text-default-3'>
+          <span className='uppercase text-lg'>Blog</span>
+          <span className='text-blue-500 mx-[2px] font-extrabold'>:</span>
+          <span className="">jeheecheon</span>
         </span>
 
         <span className='mt-2 italic'>
