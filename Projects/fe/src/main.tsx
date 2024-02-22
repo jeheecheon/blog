@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { store } from '@/common/redux/store';
 
 import App from '@/App';
-import '@/main.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>

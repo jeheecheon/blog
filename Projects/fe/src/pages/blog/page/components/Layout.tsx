@@ -1,5 +1,5 @@
-import { ReactElement, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { ReactElement, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { RootState } from '@/common/redux/store';
@@ -8,9 +8,12 @@ import Footer from '@/pages/blog/page/components/Footer'
 import Sidebar from '@/pages/blog/page/components/Sidebar'
 import SignInModal from '@/common/components/SignInModal';
 
+import MusicPlayer from './MusicPlayer';
+import { setIsDarkMode } from '@/common/redux/themeSlice';
+
 import '@/pages/blog/page/css/font.css';
 import '@/pages/blog/page/css/scrollbar.css';
-import MusicPlayer from './MusicPlayer';
+import '@/pages/blog/page/css/blog.css';
 
 interface LayoutProps {
     children?: ReactElement | ReactElement[],
@@ -20,6 +23,21 @@ interface LayoutProps {
 const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            || localStorage.theme === undefined || localStorage.theme === null
+        ) {
+            document.documentElement.classList.add('dark')
+            localStorage.theme = 'dark'
+            dispatch(setIsDarkMode(true))
+        } else {
+            document.documentElement.classList.remove('dark')
+            localStorage.theme = 'light'
+            dispatch(setIsDarkMode(false))
+        }
+    }, []);
 
     return (
         <>
@@ -31,9 +49,11 @@ const Layout = (props: LayoutProps) => {
             }
             <ScrollRestoration />
             <SignInModal />
+            
+            <div className='fixed w-screen h-screen bg-default-3 dark:bg-default-3-dark -z-10' />
 
             <main className={`min-h-screen font-['Noto_Sans_KR']
-            flex flex-col ${props.className}`}>
+            flex flex-col dark:text-default-13 text-default-1-dark ${props.className}`}>
 
                 <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
                 <Header show={showSidebar} setShowSidebar={setShowSidebar} />
@@ -59,8 +79,9 @@ const Layout = (props: LayoutProps) => {
                 </section>
 
                 <Footer />
-
             </main>
+            
+            <div className='fixed w-screen h-screen bg-default-3 dark:bg-default-3-dark -z-10' />
         </>
     )
 };

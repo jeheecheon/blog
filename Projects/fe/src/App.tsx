@@ -11,7 +11,6 @@ import { PostLoader, PostEditLoader, AboutMeLoader, PrivacyPolicyLoader } from '
 import { AuthenticateUserAsync } from '@/common/utils/user';
 import PageLoadingSpinner from './common/components/PageLoadingSpinner';
 import { fetchLeafCategoriesAsync } from './common/utils/category';
-import InitialSetUp from './pages/blog/page/components/InitialSetUp';
 
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
@@ -22,19 +21,15 @@ const Post = lazy(() => import('@/pages/blog/post/page/index'));
 const PostEdit = lazy(() => import('@/pages/blog/post/edit/page'));
 const PostsWrapper = lazy(() => import('@/common/components/post/PostsWrapper'));
 
+import '@/main.css'
+
 const App = () => {
     const dispatch = useDispatch();
 
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route
-                element={<InitialSetUp />}
                 errorElement={<ErrorArea />}
-                loader={async () => {
-                    AuthenticateUserAsync(dispatch);
-                    fetchLeafCategoriesAsync(dispatch);
-                    return null;
-                }}
             >
                 <Route
                     path='/'
@@ -53,6 +48,11 @@ const App = () => {
                         </Suspense>
                     }
                     errorElement={<BlogErrorArea />}
+                    loader={async () => {
+                        AuthenticateUserAsync(dispatch);
+                        fetchLeafCategoriesAsync(dispatch);
+                        return null;
+                    }}
                 >
                     <Route
                         path='blog'
