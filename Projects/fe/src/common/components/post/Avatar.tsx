@@ -1,15 +1,18 @@
 interface AvatarProps {
-    className?: string,
-    avatar: string | undefined
+    className?: string;
+    avatar: string | undefined;
+    width?: number;
 }
 
 const Avatar: React.FC<AvatarProps> = ({
     className,
-    avatar
+    avatar,
+    width = 40
 }) => {
     return (
-        <img src={avatar} className={`w-[40px] rounded-full
-        ${className}`} />
+        <img src={avatar} className={`w-[${width}px] h-[${width}px] rounded-full
+        ${className}`} 
+        />
     )
 }
 
