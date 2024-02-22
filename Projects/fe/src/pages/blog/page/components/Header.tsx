@@ -41,16 +41,7 @@ const Header: React.FC<HeaderProps> = React.memo((props) => {
 
                 <motion.button
                     className="mr-[50px]"
-                    onClick={() => {
-                        dispatch(setIsDarkMode(!isDarkMode));
-                        if (isDarkMode) {
-                            document.documentElement.classList.remove('dark')
-                            localStorage.theme = 'light'
-                        } else {
-                            document.documentElement.classList.add('dark')
-                            localStorage.theme = 'dark'
-                        }
-                    }}
+                    onClick={() => dispatch(setIsDarkMode(!isDarkMode))}
                     variants={buttonVariants}
                     initial={false}
                     animate={isDarkMode ? 'on' : 'off'}

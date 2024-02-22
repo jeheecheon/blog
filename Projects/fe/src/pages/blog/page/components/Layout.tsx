@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { RootState } from '@/common/redux/store';
@@ -9,7 +9,6 @@ import Sidebar from '@/pages/blog/page/components/Sidebar'
 import SignInModal from '@/common/components/SignInModal';
 
 import MusicPlayer from './MusicPlayer';
-import { setIsDarkMode } from '@/common/redux/themeSlice';
 
 import '@/pages/blog/page/css/font.css';
 import '@/pages/blog/page/css/scrollbar.css';
@@ -24,42 +23,32 @@ interface LayoutProps {
 const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
-    const dispatch = useDispatch();
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
     useEffect(() => {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-            || localStorage.theme === undefined || localStorage.theme === null
+        if (isDarkMode === true
         ) {
             document.documentElement.classList.add('dark')
             localStorage.theme = 'dark'
-            dispatch(setIsDarkMode(true))
+            document.querySelector('meta[name="theme-color"]')!.setAttribute('content', '#1c1c1c');
+            document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')!.setAttribute('content', '#1c1c1c');
+            document.querySelector('meta[name="msapplication-navbutton-color"]')!.setAttribute('content', '#1c1c1c');
         } else {
             document.documentElement.classList.remove('dark')
             localStorage.theme = 'light'
-            dispatch(setIsDarkMode(false))
+            document.querySelector('meta[name="theme-color"]')!.setAttribute('content', 'rgb(255, 255, 255)');
+            document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')!.setAttribute('content', 'rgb(255, 255, 255)');
+            document.querySelector('meta[name="msapplication-navbutton-color"]')!.setAttribute('content', 'rgb(255, 255, 255)');
         }
-    }, []);
+    }, [isDarkMode]);
 
     return (
         <>
             <Helmet>
                 <meta name='apple-mobile-web-app-capable' content='yes' />
-                {
-                    isDarkMode
-                        ?
-                        <>
-                            <meta name='theme-color' content='#1c1c1c' />
-                            <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
-                            <meta name='msapplication-navbutton-color' content='#1c1c1c' />
-                        </>
-                        :
-                        <>
-                            <meta name='theme-color' content='rgb(245, 245, 245)' />
-                            <meta name='apple-mobile-web-app-status-bar-style' content='rgb(245, 245, 245)' />
-                            <meta name='msapplication-navbutton-color' content='rgb(245, 245, 245)' />
-                        </>
-                }
+                <meta name='theme-color' content='#1c1c1c' />
+                <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
+                <meta name='msapplication-navbutton-color' content='#1c1c1c' />
             </Helmet>
 
             {
