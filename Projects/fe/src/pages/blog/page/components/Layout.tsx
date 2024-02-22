@@ -25,6 +25,7 @@ const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
     const dispatch = useDispatch();
+    const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -44,14 +45,21 @@ const Layout = (props: LayoutProps) => {
         <>
             <Helmet>
                 <meta name='apple-mobile-web-app-capable' content='yes' />
-
-                <meta name='theme-color' content='#1c1c1c' />
-                <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
-                <meta name='msapplication-navbutton-color' content='#1c1c1c' />
-
-                <meta name='theme-color' content='rgb(245, 245, 245)' />
-                <meta name='apple-mobile-web-app-status-bar-style' content='rgb(245, 245, 245)' />
-                <meta name='msapplication-navbutton-color' content='rgb(245, 245, 245)' />
+                {
+                    isDarkMode
+                        ?
+                        <>
+                            <meta name='theme-color' content='#1c1c1c' />
+                            <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
+                            <meta name='msapplication-navbutton-color' content='#1c1c1c' />
+                        </>
+                        :
+                        <>
+                            <meta name='theme-color' content='rgb(245, 245, 245)' />
+                            <meta name='apple-mobile-web-app-status-bar-style' content='rgb(245, 245, 245)' />
+                            <meta name='msapplication-navbutton-color' content='rgb(245, 245, 245)' />
+                        </>
+                }
             </Helmet>
 
             {
