@@ -9,10 +9,10 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ children }) => {
             rounded-xl p-5
             '>
                 {/* bg-slate-300 bg-opacity-30 */}
-                <div className='border-4 rounded-full p-3 border-t-slate-300 animate-spin w-[40px] h-[40px]
-                border-slate-600' />
+                <div className='border-4 rounded-full p-3 border-t-default-8 animate-spin w-[40px] h-[40px]
+                border-default-18-dark' />
 
-                <span className='text-center text-md text-slate-600 font-semibold italic'>{children}</span>
+                <span className='text-center text-md font-semibold italic'>{children}</span>
             </div>
         </div>
     )

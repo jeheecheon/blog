@@ -90,14 +90,14 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(({
                             if (handleCancelClicked !== undefined)
                                 handleCancelClicked();
                         }}
-                            className='text-slate-700'
+                            className=''
                         >
                             Cancel
                         </Button>
                     }
                     <Button
                         onClick={handleUpload}
-                        className='text-blue-400'
+                        className='text-blue-400 dark:text-red-400'
                     >
                         Upload
                     </Button>

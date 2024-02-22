@@ -105,19 +105,9 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                 </div>
 
                 <div className='flex flex-row flex-wrap gap-3'>
-                    <button type='button' className='border-[1px] border-blue-200 rounded text-sm py-[3px] px-2 w-fit
-                    flex flex-row items-center justify-center gap-1'
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setIsReplying(!isReplying);
-                        }}
-                    >
-                        <svg className='fill-blue-500' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z" /></svg>
-                        <span>Reply</span>
-                    </button>
-
                     <button onClick={handleLikeCliked} className='flex flex-row rounded justify-between items-center w-fit cursor-pointer
-                    border-[1px] py-[3px] px-2 text-sm border-blue-200 gap-1'>
+                    border-2 py-[3px] px-2 text-sm border-blue-200 gap-1
+                    bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark'>
                         {
                             hasLiked ? (
                                 <svg className='fill-red-500' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" /></svg>
@@ -128,6 +118,18 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                         <span>
                             {likes}
                         </span>
+                    </button>
+
+                    <button type='button' className='border-2 rounded text-sm py-[3px] px-2 w-fit
+                    flex flex-row items-center justify-center gap-1
+                    bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark'
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setIsReplying(!isReplying);
+                        }}
+                    >
+                        <svg className='fill-blue-500' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z" /></svg>
+                        <span>Reply</span>
                     </button>
                 </div>
 
