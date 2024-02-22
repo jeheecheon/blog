@@ -82,7 +82,7 @@ export default {
       'fade-out-spinner': 'fade-out 2s ease-out forwards',
 
       'hide-sidebar-overlay': 'hide-sidebar-overlay 1s ease-in-out forwards',
-      'show-sidebar-overlay': 'show-sidebar-overlay 2s ease-in-out forwards',
+      'show-sidebar-overlay': 'show-sidebar-overlay 1s ease-in-out forwards',
       'hide-sidebar-content1': 'hide-sidebar-content 0.7s ease-in-out forwards',
       'show-sidebar-content1': 'show-sidebar-content 0.7s ease-in-out forwards',
       'hide-sidebar-content2': 'hide-sidebar-content 1s ease-in-out forwards',
