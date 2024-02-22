@@ -1,5 +1,5 @@
 import Button from "@/common/components/Button";
-import { url } from "@/common/utils/siteInfo";
+import { image, url } from "@/common/utils/siteInfo";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
@@ -21,10 +21,20 @@ const Blog = () => {
       <link rel="canonical" href={`${url}/blog/`} />
       <meta name="description" content='blog' />
       <meta name="keywords" content='jeheecheon, blog, tech' />
+      <meta name="author" content="jeheecheon" />
 
+      <meta property="og:title" content="jeheecheon" />
+      <meta property="og:description" content="Jehee's Tech blog" />
+      <meta property="og:image" content={image} />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="jeheecheon" />
+      <meta property="og:locale" content="ko_KR" />
       <meta property="og:url" content={`${url}/blog`} />
 
       <meta name="twitter:title" content="blog | jeheecheon" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:description" content="Jehee's Tech blog" />
+      <meta name="twitter:image" content={image} />
     </Helmet>
   </>
   );

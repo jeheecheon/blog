@@ -32,7 +32,7 @@ const PostsWrapper = () => {
                 <h1 className="inline-block max-w-[800px] w-full text-xl md:text-3xl font-medium  
                 mt-[60px] mb-[20px] text-left text-sky-700">
                     {category
-                        ? `Posts under "${category}"` 
+                        ? `Posts under "${category}"`
                         : "Recently published"}
                 </h1>
                 <ErrorBoundary fallback={<ErrorMessageWrapper>Error occured while fetching posts...</ErrorMessageWrapper>}>
@@ -48,14 +48,20 @@ const PostsWrapper = () => {
                 <link rel="canonical" href={`${url}/blog/${category ? 'categories/' + category : 'recent-posts'}/pages/${page}`} />
                 <meta name="description" content={`${category ? category + ' posts' : 'Recent posts'}`} />
                 <meta name="keywords" content={`jeheecheon, tech, blog, posts, ${category}`} />
+                <meta name="author" content="jeheecheon" />
 
                 <meta property="og:title" content={`${category ? category + ' posts' : 'Recent posts'} | ${name}`} />
                 <meta property="og:description" content={`${category ? category + ' posts' : 'Recent posts'} | ${name}`} />
                 <meta property="og:image" content={image} />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="jeheecheon" />
+                <meta property="og:locale" content="ko_KR" />
                 <meta property="og:url" content={`${url}/blog/${category ? 'categories/' + category : 'recent-posts'}/pages/${page}`} />
 
                 <meta name="twitter:title" content={category ? category : 'Recent posts' + ` | ${name}`} />
+                <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content={`${category ? category + ' posts' : 'Recent posts'}`} />
+                <meta name="twitter:image" content={image}/>
             </Helmet>
         </>
     )

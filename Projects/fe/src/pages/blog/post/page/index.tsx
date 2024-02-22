@@ -42,14 +42,20 @@ const Post = () => {
                 <link rel="canonical" href={`${url}/blog/post/${post.Id}`} />
                 <meta name="description" content={post.Title} />
                 <meta name="keywords" content={`jeheecheon, tech, blog, ${categories}`} />
+                <meta name="author" content="jeheecheon" />/
 
                 <meta property="og:title" content={`${post.Title} | ${name}`} />
                 <meta property="og:description" content={post.Title} />
                 <meta property="og:image" content={post.Cover ? post.Cover : image} />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="jeheecheon" />
+                <meta property="og:locale" content="ko_KR" />
                 <meta property="og:url" content={`${url}/blog/post/${post.Id}`} />
 
                 <meta name="twitter:title" content={`${post.Title} | ${name}`} />
+                <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content={post.Title} />
+                <meta name="twitter:image" content={image} />
             </Helmet>
         </>
     )

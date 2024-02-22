@@ -30,26 +30,27 @@ const Layout = (props: LayoutProps) => {
         ) {
             document.documentElement.classList.add('dark')
             localStorage.theme = 'dark'
-            document.querySelector('meta[name="theme-color"]')!.setAttribute('content', '#1c1c1c');
-            document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')!.setAttribute('content', '#1c1c1c');
-            document.querySelector('meta[name="msapplication-navbutton-color"]')!.setAttribute('content', '#1c1c1c');
         } else {
             document.documentElement.classList.remove('dark')
             localStorage.theme = 'light'
-            document.querySelector('meta[name="theme-color"]')!.setAttribute('content', 'rgb(255, 255, 255)');
-            document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')!.setAttribute('content', 'rgb(255, 255, 255)');
-            document.querySelector('meta[name="msapplication-navbutton-color"]')!.setAttribute('content', 'rgb(255, 255, 255)');
         }
     }, [isDarkMode]);
 
     return (
         <>
-            <Helmet>
-                <meta name='apple-mobile-web-app-capable' content='yes' />
-                <meta name='theme-color' content='#1c1c1c' />
-                <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
-                <meta name='msapplication-navbutton-color' content='#1c1c1c' />
-            </Helmet>
+            {
+                isDarkMode
+                    ? <Helmet>
+                            <meta name='theme-color' content='#1c1c1c' />
+                            <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
+                            <meta name='msapplication-navbutton-color' content='#1c1c1c' />
+                    </Helmet>
+                    : <Helmet>
+                        <meta name='theme-color' content='rgb(255, 255, 255)' />
+                        <meta name='apple-mobile-web-app-status-bar-style' content='rgb(255, 255, 255)' />
+                        <meta name='msapplication-navbutton-color' content='rgb(255, 255, 255)' />
+                    </Helmet>
+            }
 
             {
                 process.env.NODE_ENV === 'production' &&
