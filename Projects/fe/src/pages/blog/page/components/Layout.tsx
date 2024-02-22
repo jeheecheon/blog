@@ -14,6 +14,7 @@ import { setIsDarkMode } from '@/common/redux/themeSlice';
 import '@/pages/blog/page/css/font.css';
 import '@/pages/blog/page/css/scrollbar.css';
 import '@/pages/blog/page/css/blog.css';
+import { Helmet } from 'react-helmet';
 
 interface LayoutProps {
     children?: ReactElement | ReactElement[],
@@ -41,6 +42,18 @@ const Layout = (props: LayoutProps) => {
 
     return (
         <>
+            <Helmet>
+                <meta name='apple-mobile-web-app-capable' content='yes' />
+
+                <meta name='theme-color' content='#1c1c1c' />
+                <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
+                <meta name='msapplication-navbutton-color' content='#1c1c1c' />
+
+                <meta name='theme-color' content='rgb(245, 245, 245)' />
+                <meta name='apple-mobile-web-app-status-bar-style' content='rgb(245, 245, 245)' />
+                <meta name='msapplication-navbutton-color' content='rgb(245, 245, 245)' />
+            </Helmet>
+
             {
                 process.env.NODE_ENV === 'production' &&
                 <MusicPlayer
@@ -49,7 +62,7 @@ const Layout = (props: LayoutProps) => {
             }
             <ScrollRestoration />
             <SignInModal />
-            
+
             <div className='fixed w-screen h-screen bg-default-3 dark:bg-default-3-dark -z-10' />
 
             <main className={`min-h-screen font-['Noto_Sans_KR']
@@ -80,7 +93,7 @@ const Layout = (props: LayoutProps) => {
 
                 <Footer />
             </main>
-            
+
             <div className='fixed w-screen h-screen bg-default-3 dark:bg-default-3-dark -z-10' />
         </>
     )
