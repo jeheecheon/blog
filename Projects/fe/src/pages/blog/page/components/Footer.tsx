@@ -2,14 +2,18 @@ import { RootState } from "@/common/redux/store";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+interface FooterProps {
+  className?: string;
+}
+
+const Footer: React.FC<FooterProps> = ({ className }) => {
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   console.log(isDarkMode)
-  
+
   return (
-    <section>
-      <div className='flex flex-col items-center  py-[40px] shadow-xl shadow-slate-700
-      bg-default-1 dark:bg-default-3-dark'>
+    <section className={`${className} border-t-[1px] border-t-default-8-dark`}>
+      <div className='flex flex-col items-center py-[40px]
+      bg-default-1 dark:bg-body-dark'>
         <span className='text-2xl font-medium dark:font-bold italic text-default-8-dark dark:text-default-3'>
           <span className='uppercase text-lg'>Blog</span>
           <span className='text-blue-500 mx-[2px] font-extrabold'>:</span>
@@ -19,7 +23,7 @@ const Footer = () => {
         <span className='mt-2 italic'>
           백엔드 개발을 주로 다루는 블로그입니다.
         </span>
-        
+
         <span className='mt-10 text-sm'>
           All designed and developed by&#160;
           <span className='text-blue-600 font-bold'>

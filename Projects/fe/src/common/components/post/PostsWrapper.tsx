@@ -28,9 +28,9 @@ const PostsWrapper = () => {
 
     return (
         <>
-            <div className="m-auto max-w-[800px] px-3 min-h-[35vh] mb-[70px]">
+            <div className="m-auto max-w-[800px] min-h-[35vh] mb-[70px]">
                 <h1 className="inline-block max-w-[800px] w-full text-xl md:text-3xl font-medium  
-                mt-[60px] mb-[20px] text-left text-sky-700">
+                mt-[60px] text-left text-sky-700">
                     {category
                         ? `Posts under "${category}"`
                         : "Recently published"}
@@ -43,6 +43,8 @@ const PostsWrapper = () => {
                 </ErrorBoundary>
             </div>
 
+
+            {/* Business logic */}
             <Helmet>
                 <title>{category ? category : 'Recent posts'} | {name}</title>
                 <link rel="canonical" href={`${url}/blog/${category ? 'categories/' + category : 'recent-posts'}/pages/${page}`} />
@@ -61,7 +63,7 @@ const PostsWrapper = () => {
                 <meta name="twitter:title" content={category ? category : 'Recent posts' + ` | ${name}`} />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content={`${category ? category + ' posts' : 'Recent posts'}`} />
-                <meta name="twitter:image" content={image}/>
+                <meta name="twitter:image" content={image} />
             </Helmet>
         </>
     )

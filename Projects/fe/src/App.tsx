@@ -15,11 +15,12 @@ import { fetchLeafCategoriesAsync } from './common/utils/category';
 const Root = lazy(() => import('@/pages/root/page/index'));
 const Blog = lazy(() => import('@/pages/blog/page/index'));
 const BlogLayout = lazy(() => import('@/pages/blog/page/components/Layout'));
+const PostLayout = lazy(() => import('@/pages/blog/post/page/components/Layout'));
 const ErrorArea = lazy(() => import('@/common/components/error/ErrorArea'));
-const BlogErrorArea = lazy(() => import('@/pages/blog/page/BlogErrorArea'));
 const Post = lazy(() => import('@/pages/blog/post/page/index'));
 const PostEdit = lazy(() => import('@/pages/blog/post/edit/page'));
 const PostsWrapper = lazy(() => import('@/common/components/post/PostsWrapper'));
+const BlogLoad = lazy(() => import('@/common/components/BlogLoad'));
 
 import '@/main.css'
 
@@ -39,15 +40,10 @@ const App = () => {
                         </Suspense>
                     }
                 />
-
-                {/* Blog */}
                 <Route
                     element={
-                        <Suspense fallback={<PageLoadingSpinner />}>
-                            <BlogLayout />
-                        </Suspense>
+                        <BlogLoad />
                     }
-                    errorElement={<BlogErrorArea />}
                     loader={async () => {
                         AuthenticateUserAsync(dispatch);
                         fetchLeafCategoriesAsync(dispatch);
@@ -55,76 +51,84 @@ const App = () => {
                     }}
                 >
                     <Route
-                        path='blog'
                         element={
                             <Suspense fallback={<PageLoadingSpinner />}>
-                                <Blog />
+                                <BlogLayout />
                             </Suspense>
                         }
-                    />
-                    <Route
-                        path='blog/recent-posts/pages/:page'
-                        element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <PostsWrapper />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path='blog/categories/:category/pages/:page'
-                        element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <PostsWrapper />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path='blog/post/:id/:slug?'
-                        element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <Post />
-                            </Suspense>
-                        }
-                        loader={PostLoader}
-                    />
-                    <Route
-                        path='blog/about-me'
-                        element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <Post />
-                            </Suspense>
-                        }
-                        loader={AboutMeLoader}
-                    />
-                    <Route
-                        path='blog/privacy-policy'
-                        element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <Post />
-                            </Suspense>
-                        }
-                        loader={PrivacyPolicyLoader}
-                    />
-                    <Route
-                        path='blog/post/edit'
-                        element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <PostEdit />
-                            </Suspense>
-                        }
-                        loader={PostEditLoader}
-                    />
-                </Route>
 
-                {/* Diary */}
-                <Route
-                    path='diary' >
+                    >
+                        <Route
+                            path='blog'
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <Blog />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path='blog/recent-posts/pages/:page'
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <PostsWrapper />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path='blog/categories/:category/pages/:page'
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <PostsWrapper />
+                                </Suspense>
+                            }
+                        />
+
+                        <Route
+                            path='blog/post/edit'
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <PostEdit />
+                                </Suspense>
+                            }
+                            loader={PostEditLoader}
+                        />
+                    </Route>
+
                     <Route
-                        path='entry/upload'
-                    />
-                    <Route
-                        path='entry/edit'
-                    />
+                        element={
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <PostLayout />
+                            </Suspense>
+                        }
+                    >
+                        <Route
+                            path='blog/post/:id/:slug?'
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <Post />
+                                </Suspense>
+                            }
+                            loader={PostLoader}
+                        />
+                        <Route
+                            path='blog/about-me'
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <Post />
+                                </Suspense>
+                            }
+                            loader={AboutMeLoader}
+                        />
+                        <Route
+                            path='blog/privacy-policy'
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <Post />
+                                </Suspense>
+                            }
+                            loader={PrivacyPolicyLoader}
+                        />
+                    </Route>
                 </Route>
             </Route>
         )

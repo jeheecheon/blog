@@ -1,18 +1,13 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { RootState } from '@/common/redux/store';
 import Header from '@/pages/blog/page/components/Header'
 import Footer from '@/pages/blog/page/components/Footer'
-import Sidebar from '@/pages/blog/page/components/Sidebar'
-import SignInModal from '@/common/components/SignInModal';
 
-import MusicPlayer from './MusicPlayer';
+import MusicPlayer from '@/pages/blog/page/components/MusicPlayer';
 
-import '@/pages/blog/page/css/font.css';
-import '@/pages/blog/page/css/scrollbar.css';
-import '@/pages/blog/page/css/blog.css';
 import { Helmet } from 'react-helmet';
 
 interface LayoutProps {
@@ -22,28 +17,45 @@ interface LayoutProps {
 
 const Layout = (props: LayoutProps) => {
     const [showSidebar, setShowSidebar] = useState<string>('');
-    const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-
-    useEffect(() => {
-        if (isDarkMode === true
-        ) {
-            document.documentElement.classList.add('dark')
-            localStorage.theme = 'dark'
-        } else {
-            document.documentElement.classList.remove('dark')
-            localStorage.theme = 'light'
-        }
-    }, [isDarkMode]);
 
     return (
         <>
+            {/* Upper bg color */}
+            <div className='fixed w-screen h-screen bg-default-3 dark:bg-body-dark -z-10' />
+
+            <main className={`font-['Noto_Sans_KR'] dark:bg-[#101010] dark:text-default-7 text-default-1-dark ${props.className}`}>
+
+                <Header show={showSidebar} setShowSidebar={setShowSidebar} />
+
+                {/* Content body */}
+                <div className='sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px] min-h-[100vh]
+                px-3 md:px-10
+                bg-default-2 dark:bg-body-dark pt-[100px]'>
+                    {/* <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} /> */}
+
+                    <section className='min-h-[60vh]'>
+                        {props.children ? props.children : <Outlet />}
+                    </section>
+
+                    <Footer className='' />
+                </div>
+
+            </main>
+
+
+            {/* Bottom bg color */}
+            <div className='fixed w-screen h-screen bg-default-3 dark:bg-body-dark -z-10' />
+
+
+            {/* Business logic */}
+            <ScrollRestoration />
             {
                 isDarkMode
                     ? <Helmet>
-                            <meta name='theme-color' content='#1c1c1c' />
-                            <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
-                            <meta name='msapplication-navbutton-color' content='#1c1c1c' />
+                        <meta name='theme-color' content='#1c1c1c' />
+                        <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
+                        <meta name='msapplication-navbutton-color' content='#1c1c1c' />
                     </Helmet>
                     : <Helmet>
                         <meta name='theme-color' content='rgb(255, 255, 255)' />
@@ -58,29 +70,6 @@ const Layout = (props: LayoutProps) => {
                     className='fixed left-[100vw]'
                 />
             }
-            <ScrollRestoration />
-            <SignInModal />
-
-            <div className='fixed w-screen h-screen bg-default-3 dark:bg-default-3-dark -z-10' />
-
-            <main className={`min-h-screen font-['Noto_Sans_KR'] mx-[5%] px-[5%]
-            flex flex-col dark:text-default-13 text-default-1-dark ${props.className}`}>
-
-                {/* <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} /> */}
-                <Header show={showSidebar} setShowSidebar={setShowSidebar} />
-
-                {/* Content body */}
-                <section className='bg-default-2 dark:bg-default-2-dark'>
-                    {/* Page Header Image */}
-                    
-
-                    {props.children ? props.children : <Outlet />}
-                </section>
-
-                <Footer />
-            </main>
-
-            <div className='fixed w-screen h-screen bg-default-3 dark:bg-default-3-dark -z-10' />
         </>
     )
 };

@@ -7,6 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        'body-dark': 'rgb(24, 24, 27)',
+
         'default-1': 'rgb(255, 255, 255)',
         'default-2': 'rgb(250, 250, 250)',
         'default-3': 'rgb(245, 245, 245)',

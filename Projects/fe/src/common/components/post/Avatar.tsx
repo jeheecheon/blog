@@ -10,7 +10,8 @@ const Avatar: React.FC<AvatarProps> = ({
     width = 40
 }) => {
     return (
-        <img src={avatar} className={`w-[${width}px] h-[${width}px] rounded-full
+        <img src={avatar} className={`w-[${width}px] h-[${width}px] 
+        rounded-full 
         ${className}`} 
         />
     )
