@@ -9,6 +9,7 @@ import { RootState } from '@/common/redux/store';
 import parse from 'html-react-parser';
 import DOMPurify from 'isomorphic-dompurify';
 import { makeVisible } from '@/common/redux/signInModalSlice';
+import Avatar from './Avatar';
 
 interface CommentProps {
     postId: string;
@@ -84,23 +85,24 @@ export const Comment: React.FC<CommentProps> = React.memo(({
             <div className={`flex flex-col py-4 w-full gap-3`}>
                 <div className='flex flex-row flex-wrap'>
                     {/* 댓글 작성자 정보 */}
-                    <img src={comment.Avatar ? comment.Avatar : defaultAvatar} className='w-[40px] h-[40px] rounded-full' />
-
+                    <Avatar
+                        avatar={comment.Avatar ? comment.Avatar : defaultAvatar}
+                        width={45}
+                    />
                     <div className='flex flex-col ml-2 justify-center h-full text-sm md:text-base'>
-                        <p className=''>{comment.Email}</p>
-                        {/* 작성 시간 */}
                         <div className='flex flex-row flex-wrap items-center'>
                             <span className={`w-fit border rounded-2xl mr-1 px-[7px] py-[1px] text-xs 
-                                ${comment.Email !== "jeheecheon@gmail.com" && "hidden"} border-green-500 text-green-500`}>
+                                ${comment.Email !== "jeheecheon@gmail.com" && "hidden"} border-orange-400 text-orange-400`}>
                                 Site Owner
                             </span>
-                            <span className='text-slate-700 text-sm'>{getTimeAgo(comment.UploadedAt as Date)}</span>
+                            <span className='text-default-18-dark text-sm'>{getTimeAgo(comment.UploadedAt as Date)}</span>
                         </div>
+                        <p className=''>{comment.Email}</p>
                     </div>
                 </div>
 
-                <div className='text-pretty min-h-[50px] p-2 w-full rounded-lg
-                bg-default-4 dark:bg-default-4-dark '>
+                <div className='text-pretty min-h-[50px] py-2 px-3 rounded-lg
+                bg-default-4 dark:bg-body-dark dark:text-default-14 w-full'>
                     {content.current}
                 </div>
 

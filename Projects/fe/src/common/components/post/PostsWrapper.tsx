@@ -30,7 +30,7 @@ const PostsWrapper = () => {
         <>
             <div className="m-auto max-w-[800px] min-h-[35vh] mb-[70px]">
                 <h1 className="inline-block max-w-[800px] w-full text-xl md:text-3xl font-medium  
-                mt-[60px] text-left text-sky-700">
+                mt-[60px] text-left text-orange-400 dark:text-orange-400 mb-[50px]">
                     {category
                         ? `Posts under "${category}"`
                         : "Recently published"}

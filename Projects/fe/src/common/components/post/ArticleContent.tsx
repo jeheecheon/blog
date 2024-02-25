@@ -102,7 +102,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
                 </span>
             </div>
 
-            {/* blog content goes here */}
+            {/* blog content body */}
             <div className='sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[900px]
                     text-pretty h-fit min-h-[40vh] rounded-2xl shadow-md dark:shadow-lg dark:drop-shadow-lg
                     overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center justify-between
@@ -117,7 +117,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
                             // `Published: ${post.UploadedAt.toLocaleDateString()}`
                         }
                     </span>
-                    <div className='text-left w-full blog-post-content  px-3 md:px-10 pb-5 md:pb-10'>
+                    <div className='text-left w-full blog-post-content  px-3 md:px-10 pb-5 md:pb-10 dark:text-default-11'>
                         {content}
                     </div>
                 </div>

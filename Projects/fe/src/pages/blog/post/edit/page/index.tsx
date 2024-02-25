@@ -243,9 +243,9 @@ const PostEdit = () => {
 
       <div className={`flex flex-col items-center
       ${showPreview && "hidden"}`}>
-        <div className='max-w-[780px] flex flex-col items-center w-full gap-5 my-10 p-3'>
+        <div className='max-w-[780px] flex flex-col items-center w-full gap-5 my-10 p-3 text-default-13'>
 
-          <p className='text-2xl text-slate-600 font-medium'>글 쓰기</p>
+          <p className='text-2xl font-medium'>글 쓰기</p>
 
           {/* selection for posts to edit */}
           <label className='flex overflow-x-hidden'>
@@ -270,7 +270,6 @@ const PostEdit = () => {
           {/* Create Empty post button */}
           <Button
             onClick={handleUploadEmptyPostClicked}
-            className='text-slate-700'
           >
             Make an empty post
           </Button>
@@ -298,7 +297,7 @@ const PostEdit = () => {
                   className='w-[70vw] md:w-[50vw]'
                 />
                 <Button>
-                  <label className='flex items-center gap-3 text-slate-700'>
+                  <label className='flex items-center gap-3'>
                     Upload Cover
                     <input type='file' className='border-2' onInput={handleCoverChosen} style={{ display: 'none' }} />
                   </label>
@@ -307,7 +306,7 @@ const PostEdit = () => {
 
               {/* Category selection */}
               <label className='flex justify-end'>
-                <span className='text-slate-700 text-lg'>Category:&#160;</span>
+                <span className='text-lg'>Category:&#160;</span>
                 <select
                   className='border-[1px]'
                   value={postEditing.CategoryId ? postEditing.CategoryId : ""}
@@ -344,7 +343,7 @@ const PostEdit = () => {
                 />
               </div>
 
-              <label className='text-slate-700'>
+              <label>
                 Public:&#160;
                 <input type='checkbox' checked={postEditing.IsPublic} onChange={
                   () => setPostEditing({
@@ -353,7 +352,7 @@ const PostEdit = () => {
                 />
               </label>
 
-              <label className='text-slate-700'>
+              <label>
                 Reset uploaded date:&#160;
                 <input type='checkbox' checked={updateUploadedDate} onChange={
                   () => {
@@ -366,7 +365,7 @@ const PostEdit = () => {
                 />
               </label>
 
-              <label className='text-slate-700'>
+              <label>
                 Update edited date:&#160;
                 <input type='checkbox' checked={updateEditedDate} onChange={
                   () => {
@@ -380,7 +379,7 @@ const PostEdit = () => {
                 />
               </label>
 
-              <label className='text-slate-700'>
+              <label>
                 Set edited date as null:&#160;
                 <input type='checkbox' checked={updateEditedDateAsNull} onChange={
                   () => {
@@ -400,16 +399,16 @@ const PostEdit = () => {
 
       {
         selectedPostIdToEdit &&
-        <div className='flex flex-row flex-wrap justify-center gap-3 mb-3'>
+        <div className='flex flex-row flex-wrap justify-center gap-3 pb-10'>
           <Button
             onClick={handleDeleteClicked}
-            className='text-red-500'
+            className='text-red-500 dark:text-red-500'
           >
             Delete
           </Button>
           <Button
             onClick={handleUpdateClicked}
-            className='text-blue-500'
+            className='text-blue-500 dark:text-blue-500'
           >
             Update
           </Button>

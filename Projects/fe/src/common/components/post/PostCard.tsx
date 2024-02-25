@@ -14,16 +14,16 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
 
     return (
         <article className={`max-w-[800px] h-fit w-full
-        group hover:cursor-pointer pb-3 border-b-2 
+        group hover:cursor-pointer mb-3 pb-2 border-b-2 
         dark:border-default-12-dark border-default-6
         ${className}`}>
-            <div className='flex justify-between text-slate-500 text-sm'>
+            <div className='flex justify-between text-slate-400 text-sm'>
                 <span className='text-right text-xs'>Published: {post.UploadedAt.toLocaleDateString()}</span>
                 {/* <span className='self-end'>23 views</span> */}
             </div>
 
             <div className='font-semibold text-xl md:text-2xl text-pretty 
-            group-hover:text-sky-700 dark:group-hover:text-default-7'>
+            text-slate-600 dark:text-default-13 group-hover:text-sky-600 dark:group-hover:text-sky-600'>
                 {post.Title}
             </div>
 
@@ -31,7 +31,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                 {/* Likes */}
                 <div className='flex flex-row items-center mr-2'>
                     {/* hasLiked ? ( */}
-                    <svg className='fill-red-500' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" /></svg>
+                    <svg className='fill-orange-600' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" /></svg>
                     {/* ) : ( */}
                     {/* <svg className='fill-red-500' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg> */}
                     {/* ) */}
@@ -51,7 +51,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                 </div>
 
                 {/* Categories */}
-                <div className='ml-auto text-sky-700 dark:text-sky-800 font-medium text-pretty text-sm md:text-lg'>
+                <div className='ml-auto text-orange-400 dark:text-orange-400 font-medium text-pretty text-sm md:text-lg'>
                     {
                         leafCategories && flattenOutCategoriesV1(leafCategories.find(category => category.Id === post.CategoryId))
                     }

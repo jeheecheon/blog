@@ -82,16 +82,6 @@ const App = () => {
                                 </Suspense>
                             }
                         />
-
-                        <Route
-                            path='blog/post/edit'
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostEdit />
-                                </Suspense>
-                            }
-                            loader={PostEditLoader}
-                        />
                     </Route>
 
                     <Route
@@ -127,6 +117,16 @@ const App = () => {
                                 </Suspense>
                             }
                             loader={PrivacyPolicyLoader}
+                        />
+
+                        <Route
+                            path='blog/post/edit'
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <PostEdit />
+                                </Suspense>
+                            }
+                            loader={PostEditLoader}
                         />
                     </Route>
                 </Route>

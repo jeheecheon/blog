@@ -23,6 +23,19 @@ const Comments: React.FC<CommentsProps> = React.memo(({ className, postId, comme
   return (
     <div className={`max-w-[1024px] w-full flex flex-col
     ${className}`}>
+      <p
+        className='text-base md:text-xl text-orange-400 mb-2 border-b-2 pb-1
+        border-b-default-13 dark:border-b-default-18-dark'
+      >
+        {sortedComments.length} Comments
+      </p>
+
+      <CommentWriteArea
+        postId={postId}
+        refreshComments={refreshComments}
+        className='mt-2 mb-[60px]'
+      />
+
       {
         sortedComments.map(
           (comment) =>
@@ -35,11 +48,7 @@ const Comments: React.FC<CommentsProps> = React.memo(({ className, postId, comme
         )
       }
 
-      <CommentWriteArea
-        postId={postId}
-        refreshComments={refreshComments}
-        className='mt-2'
-      />
+
     </div>
   )
 });

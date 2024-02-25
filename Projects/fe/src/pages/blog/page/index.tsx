@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Blog = () => {
   return (<>
     <section className="w-full flex flex-col items-center">
-      <span className="text-4xl italic my-5 font-bold">
+      <span className="text-4xl my-5">
         홈 페이지 공사 중...
       </span>
       <Button className="">

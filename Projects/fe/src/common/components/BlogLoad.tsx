@@ -7,6 +7,7 @@ import { RootState } from '../redux/store';
 import '@/pages/blog/page/css/font.css';
 import '@/pages/blog/page/css/scrollbar.css';
 import '@/pages/blog/page/css/blog.css';
+import MusicPlayer from '@/pages/blog/page/components/MusicPlayer';
 
 const BlogLoad = () => {
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
@@ -24,6 +25,13 @@ const BlogLoad = () => {
 
     return (
         <>
+            {
+                process.env.NODE_ENV === 'production' &&
+                <MusicPlayer
+                    className='fixed left-[100vw]'
+                />
+            }
+
             <SignInModal />
             <Outlet />
         </>

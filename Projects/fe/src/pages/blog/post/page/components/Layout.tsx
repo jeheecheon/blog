@@ -1,7 +1,7 @@
 import { RootState } from "@/common/redux/store"
 import Footer from "@/pages/blog/page/components/Footer"
 import Header from "@/pages/blog/page/components/Header"
-import { ReactNode, useState } from "react"
+import { ReactNode } from "react"
 import { useSelector } from "react-redux"
 import { Outlet, ScrollRestoration } from "react-router-dom"
 
@@ -10,8 +10,6 @@ interface LayoutProps {
     className?: string
 }
 const Layout = (props: LayoutProps) => {
-    const [showSidebar, setShowSidebar] = useState<string>('');
-
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
 
     return (
@@ -21,10 +19,10 @@ const Layout = (props: LayoutProps) => {
             <div className='fixed w-screen h-screen bg-default-3 dark:bg-body-dark -z-10' />
 
             <main className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark ${props.className}`}>
+                <Header />
                 {/* Content body */}
                 <section className='bg-default-2 dark:bg-[#101010]'>
 
-                    <Header show={showSidebar} setShowSidebar={setShowSidebar} />
 
                     {/* Page Header Image */}
                     <div className='bg-fixed h-[75vh] bg-center' style={{
@@ -33,7 +31,7 @@ const Layout = (props: LayoutProps) => {
 
                         <span className={`absolute bottom-[77%] right-[50%] translate-y-[77%] translate-x-[50%]
                         text-slate-200 w-full text-3xl text-pretty text-center 
-                        bg-default-18 dark:bg-default-18-dark bg-opacity-90 dark:bg-opacity-80 ${titleOnCover && "py-3"}`}>
+                        bg-default-18 dark:bg-default-18-dark bg-opacity-80 dark:bg-opacity-60 ${titleOnCover && "py-3"}`}>
                             {titleOnCover}
                         </span>
 
@@ -48,7 +46,7 @@ const Layout = (props: LayoutProps) => {
                 </section>
 
                 <Footer />
-                
+
             </main>
 
             <div className='fixed w-screen h-screen bg-default-3 dark:bg-default-3-dark -z-10' />
