@@ -23,12 +23,11 @@ const Comments: React.FC<CommentsProps> = React.memo(({ className, postId, comme
   return (
     <div className={`max-w-[1024px] w-full flex flex-col
     ${className}`}>
-      <p
-        className='text-base md:text-xl text-orange-400 mb-2 border-b-2 pb-1
-        border-b-default-13 dark:border-b-default-18-dark'
+      <div
+        className='mb-2 border-b-2 pb-1 border-b-default-13 dark:border-b-default-18-dark'
       >
-        {sortedComments.length} Comments
-      </p>
+        <p className='pl-2 text-base md:text-xl text-orange-400 font-ligh'>{sortedComments.length} Comments</p>
+      </div>
 
       <CommentWriteArea
         postId={postId}

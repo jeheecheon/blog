@@ -1,11 +1,19 @@
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/common/redux/store"
 import Avatar from "@/common/components/post/Avatar"
 import me from "@/common/assets/images/default/me.jpg"
-import { Link } from "react-router-dom"
 import { setIsDarkMode } from "@/common/redux/themeSlice"
+import { NavLink, useLocation } from "react-router-dom"
+import { makeVisible } from "@/common/redux/signInModalSlice"
+import { SignOut } from "@/common/utils/user"
+
+type NavLinkRenderProps = {
+    isActive: boolean;
+    isPending: boolean;
+    isTransitioning: boolean;
+};
 
 interface HeaderProps {
 
@@ -17,9 +25,17 @@ const Header: React.FC<HeaderProps> = () => {
     const [prevScrollY, setPrevScrollY] = useState<number>(0);
     const [headerTop, setHeaderTop] = useState<number>(0);
     const headerRef = useRef<HTMLElement | null>(null);
-    const changeTheme = () => {
-        dispatch(setIsDarkMode(!isDarkMode));
-    }
+    const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
+    const user = useSelector((state: RootState) => state.user)
+    const isAuthenticated = useMemo(() => user.email !== '', [user.email]);
+
+    const location = useLocation();
+    const categoriesClass = useMemo(
+        () => location.pathname.startsWith("/blog/categories/") || location.pathname.startsWith("/blog/recent-posts/pages/1")
+            ? "text-orange-400 font-medium"
+            : "text-orange-50 font-medium"
+        , [location.pathname]
+    );
 
     useEffect(() => {
         document.addEventListener("scroll", handleScroll);
@@ -27,9 +43,18 @@ const Header: React.FC<HeaderProps> = () => {
         return () => {
             document.removeEventListener('scroll', handleScroll);
         }
-    })
+    }, [])
+
+    useEffect(() => {
+        setIsCategoryOpen(false);
+    }, [location.pathname]);
+
+    const changeTheme = () => {
+        dispatch(setIsDarkMode(!isDarkMode));
+    }
 
     const handleScroll = () => {
+        setIsCategoryOpen(false);
         setPrevScrollY(window.scrollY);
 
         if (window.scrollY > prevScrollY) { // down
@@ -49,6 +74,14 @@ const Header: React.FC<HeaderProps> = () => {
         }
     }
 
+    const handleNavColor = (props: NavLinkRenderProps) => {
+        const { isActive } = props;
+
+        return isActive
+            ? "text-orange-400 drop-shadow-2xl font-medium"
+            : "dark:text-orange-50 text-default-10-dark font-medium"
+    }
+
     return (
         <aside ref={headerRef} className="fixed mt-[30px] w-full z-30">
             <div className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px] px-3 md:px-10
@@ -61,11 +94,92 @@ const Header: React.FC<HeaderProps> = () => {
 
                 <nav className="dark:bg-default-5-dark bg-default-2 
                 drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
-                flex flex-row items-center
-                rounded-full px-2 h-fit py-2 text-sm">
-                    <Link to="/blog" className="px-3 text-orange-400">Home</Link>
-                    <Link to="/blog/about-me" className="px-3">About</Link>
-                    <Link to="/blog/recent-posts/pages/1" className="px-3">Articles</Link>
+                flex flex-row items-center gap-5 px-4
+                rounded-full h-fit py-2 text-sm">
+                    <NavLink to="/blog" className={handleNavColor}
+                        end
+                    >
+                        Home
+                    </NavLink>
+
+                    <NavLink to="/blog/about-me" className={handleNavColor}
+                    >
+                        About
+                    </NavLink>
+
+                    {
+                        isAuthenticated
+                            ? <button
+                            className="dark:text-orange-50 text-default-10-dark font-medium"
+                                onClick={() => SignOut(dispatch)}
+                            >
+                                Sign-out
+                            </button>
+                            : <button
+                                className="text-orange-400 drop-shadow-2xl font-medium"
+                                onClick={() => dispatch(makeVisible())}
+                            >
+                                Sign-in
+                            </button>
+                    }
+
+                    <div className={`${categoriesClass}`}>
+                        <button className="flex flex-row"
+                            onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                        >
+                            Categories &#160;
+                            <p className="text-[9px]">
+                                {
+                                    isCategoryOpen ? '▲' : '▼'
+                                }
+
+                            </p>
+                        </button>
+                        {
+                            isCategoryOpen
+                            && <div className="fixed flex-col mt-2 
+                                border-[1px] border-orange-300 bg-default-2 dark:bg-default-5-dark
+                                rounded-xl p-4 dark:text-orange-50 text-default-10-dark text-base"
+                            >
+                                <div className="mb-1">
+                                    │&#160;
+                                    <NavLink to="/blog/categories/Algorithm/pages/1" className={handleNavColor}>Algorithm</NavLink>
+                                </div>
+
+                                <span className="mb-1">└ Backend</span>
+
+                                <div className="ml-3 flex flex-col mb-2">
+                                    <div>
+                                        └&#160;
+                                        <NavLink to="/blog/categories/ASP.NET/pages/1" className={handleNavColor}>ASP.NET</NavLink>
+                                    </div>
+                                    <div>
+                                        └&#160;
+                                        <NavLink to="/blog/categories/Spring/pages/1" className={handleNavColor}>Spring</NavLink>
+                                    </div>
+                                </div>
+
+                                <span>└ Frontend</span>
+
+                                <div className="ml-3 flex flex-col mb-2">
+                                    <div>
+                                        └&#160;
+                                        <NavLink to="/blog/categories/React/pages/1" className={handleNavColor}>React</NavLink>
+                                    </div>
+                                </div>
+
+                                <div
+                                    className="mb-4"
+                                >
+                                    └&#160;
+                                    <NavLink to="/blog/categories/Uncategorized/pages/1" className={handleNavColor}>Uncategorized</NavLink>
+                                </div>
+
+                                <NavLink to="/blog/recent-posts/pages/1" className={handleNavColor}>Recent Posts</NavLink>
+
+                            </div>
+                        }
+                    </div>
                 </nav>
 
                 <button

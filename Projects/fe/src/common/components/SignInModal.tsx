@@ -40,11 +40,14 @@ const SignInModal = () => {
         <Rodal visible={visible} onClose={() => { dispatch(makeInvisible()) }}
             width={modalWidth}
             className=''
+            customStyles={{
+                backgroundColor: "rgb(24, 24, 27)"
+            }}
         >
-            <div className='w-full h-full flex flex-col items-center justify-between'>
-                <span className='text-lg text-slate-800 font-bold'>Please Sign in...</span>
+            <div className='w-full h-full flex flex-col items-center bg-body-dark'>
+                <h1 className='text-2xl font-bold mb-[70px] text-orange-400'>Please sign in!</h1>
 
-                <div className='flex flex-col gap-6 items-center'>
+                <div className='flex flex-col gap-6 items-center justify-center'>
                     <ContinueWithGoogleButton
                         onClick={() => { window.location.replace("/api/oauth/sign-in?provider=google"); }}
                         className=''

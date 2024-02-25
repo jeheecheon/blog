@@ -1,4 +1,4 @@
-import '@/common/assets/css/ContinueWithGoogleButton.css'
+import '@/common/assets/css/WhiteContinueWithGoogleButton.css'
 
 interface ContinueWithGoogleButtonProps {
     onClick: () => void;

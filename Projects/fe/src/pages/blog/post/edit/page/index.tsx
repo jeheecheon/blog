@@ -339,7 +339,7 @@ const PostEdit = () => {
                     })
                   }}
                   content={postEditing.Content}
-                  className='bg-white'
+                  className='bg-white text-default-1-dark'
                 />
               </div>
 

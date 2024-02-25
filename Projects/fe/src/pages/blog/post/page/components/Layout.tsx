@@ -2,6 +2,7 @@ import { RootState } from "@/common/redux/store"
 import Footer from "@/pages/blog/page/components/Footer"
 import Header from "@/pages/blog/page/components/Header"
 import { ReactNode } from "react"
+import { Helmet } from "react-helmet"
 import { useSelector } from "react-redux"
 import { Outlet, ScrollRestoration } from "react-router-dom"
 
@@ -11,12 +12,14 @@ interface LayoutProps {
 }
 const Layout = (props: LayoutProps) => {
     const { coverImageUrl, titleOnCover } = useSelector((state: RootState) => state.banner);
+    const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
     return (
         <>
             <ScrollRestoration />
 
-            <div className='fixed w-screen h-screen bg-default-3 dark:bg-body-dark -z-10' />
+            {/* Upper bg color */}
+            <div className='fixed w-screen h-screen bg-default-2 dark:bg-body-dark -z-10' />
 
             <main className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark ${props.className}`}>
                 <Header />
@@ -43,12 +46,30 @@ const Layout = (props: LayoutProps) => {
                         <Outlet />
                     </section>
 
-                    <Footer className="bg-default-2 dark:bg-body-dark"/>
+                    <Footer className=""/>
                 </div>
 
             </main>
 
-            <div className='fixed w-screen h-screen bg-default-3 dark:bg-default-3-dark -z-10' />
+            {/* Bottom bg color */}
+            <div className='fixed w-screen h-screen bg-default-2 dark:bg-default-3-dark -z-10' />
+
+            
+            {/* Business logic */}
+            <ScrollRestoration />
+            {
+                isDarkMode
+                    ? <Helmet>
+                        <meta name='theme-color' content='#1c1c1c' />
+                        <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
+                        <meta name='msapplication-navbutton-color' content='#1c1c1c' />
+                    </Helmet>
+                    : <Helmet>
+                        <meta name='theme-color' content='rgb(255, 255, 255)' />
+                        <meta name='apple-mobile-web-app-status-bar-style' content='rgb(255, 255, 255)' />
+                        <meta name='msapplication-navbutton-color' content='rgb(255, 255, 255)' />
+                    </Helmet>
+            }
         </>
     )
 }

@@ -117,7 +117,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
                             // `Published: ${post.UploadedAt.toLocaleDateString()}`
                         }
                     </span>
-                    <div className='text-left w-full blog-post-content  px-3 md:px-10 pb-5 md:pb-10 dark:text-default-11'>
+                    <div className='text-left w-full blog-post-content  px-3 md:px-10 pb-5 md:pb-10 dark:text-default-8'>
                         {content}
                     </div>
                 </div>
