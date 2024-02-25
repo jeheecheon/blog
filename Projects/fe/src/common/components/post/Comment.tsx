@@ -97,7 +97,7 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                             </span>
                             <span className='text-default-18-dark text-sm'>{getTimeAgo(comment.UploadedAt as Date)}</span>
                         </div>
-                        <p className=''>{comment.Email}</p>
+                        <p className='dark:text-default-14'>{comment.Email}</p>
                     </div>
                 </div>
 

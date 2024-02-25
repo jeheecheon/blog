@@ -21,31 +21,30 @@ const Layout = (props: LayoutProps) => {
             <main className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark ${props.className}`}>
                 <Header />
                 {/* Content body */}
-                <section className='bg-default-2 dark:bg-[#101010]'>
+                <div className='bg-fixed h-[75vh] bg-center' style={{
+                    backgroundImage: `url(${coverImageUrl})`
+                }}>
 
-
-                    {/* Page Header Image */}
-                    <div className='bg-fixed h-[75vh] bg-center' style={{
-                        backgroundImage: `url(${coverImageUrl})`
-                    }}>
-
-                        <span className={`absolute bottom-[77%] right-[50%] translate-y-[77%] translate-x-[50%]
+                    <span className={`absolute bottom-[77%] right-[50%] translate-y-[77%] translate-x-[50%]
                         text-slate-200 w-full text-3xl text-pretty text-center 
                         bg-default-18 dark:bg-default-18-dark bg-opacity-80 dark:bg-opacity-60 ${titleOnCover && "py-3"}`}>
-                            {titleOnCover}
-                        </span>
+                        {titleOnCover}
+                    </span>
 
-                        <span className='absolute right-[0px] text-white text-lg 
+                    <span className='absolute right-[0px] text-white text-lg 
                             bg-opacity-30 bg-yellow-400'
-                        >
-                            😁 항상 &#160;<span className=''>화이팅</span>
-                        </span>
+                    >
+                        😁 항상 &#160;<span className=''>화이팅</span>
+                    </span>
+                </div>
 
-                    </div>
-                    {props.children ? props.children : <Outlet />}
-                </section>
+                <div className="bg-default-2 dark:bg-[#101010]">
+                    <section>
+                        <Outlet />
+                    </section>
 
-                <Footer />
+                    <Footer className="bg-default-2 dark:bg-body-dark"/>
+                </div>
 
             </main>
 

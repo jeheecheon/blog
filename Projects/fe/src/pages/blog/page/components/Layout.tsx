@@ -34,7 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ className }) => {
                         <Outlet />
                     </section>
 
-                    <Footer className='' />
+                    <Footer />
                 </div>
 
             </main>

@@ -11,7 +11,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
   console.log(isDarkMode)
 
   return (
-    <section className={`${className} border-t-[1px] border-t-default-8 dark:border-t-default-8-dark`}>
+    <section className={`border-t-[1px] border-t-default-8 dark:border-t-default-8-dark ${className} `}>
       <div className='flex flex-col items-center py-[40px]'>
         <span className='text-2xl font-medium dark:font-bold italic text-default-8-dark dark:text-default-3'>
           <span className='uppercase text-lg'>Blog</span>
