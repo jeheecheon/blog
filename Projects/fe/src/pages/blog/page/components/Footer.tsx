@@ -1,5 +1,3 @@
-import { RootState } from "@/common/redux/store";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 interface FooterProps {
@@ -7,9 +5,6 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ className }) => {
-  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-  console.log(isDarkMode)
-
   return (
     <section className={`border-t-[1px] border-t-default-8 dark:border-t-default-8-dark ${className} `}>
       <div className='flex flex-col items-center py-[40px]'>

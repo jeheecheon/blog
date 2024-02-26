@@ -14,8 +14,8 @@ const ErrorArea = ({ className }: ErrorAreaProps) => {
   return (
     <div className={`flex flex-col items-center min-h-[50vh] h-screen justify-center ${className}`}>
       <span className="flex flex-col items-center gap-5 rounded-2xl bg-slate-50 bg-opacity-50 p-5">
-        <h1 className="text-5xl italic text-slate-700">😒Oops...</h1>
-        <p className="text-lg ">Sorry, an unexpected error has occurred.</p>
+        <h1 className="text-5xl italic dark:text-default-5-dark">😒Oops...</h1>
+        <p className="text-lg dark:text-default-5-dark">Sorry, an unexpected error has occurred.</p>
         <p>
           <i className="text-red-700 text-lg">{isRouteErrorResponse(error) &&
             (

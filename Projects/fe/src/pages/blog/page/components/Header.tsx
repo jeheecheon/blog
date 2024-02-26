@@ -8,6 +8,7 @@ import { setIsDarkMode } from "@/common/redux/themeSlice"
 import { NavLink, useLocation } from "react-router-dom"
 import { makeVisible } from "@/common/redux/signInModalSlice"
 import { SignOut } from "@/common/utils/user"
+import MenuModal from "@/common/components/MenuModal"
 
 type NavLinkRenderProps = {
     isActive: boolean;
@@ -22,28 +23,34 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = () => {
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
     const dispatch = useDispatch();
-    const [prevScrollY, setPrevScrollY] = useState<number>(0);
+    const prevScrollY = useRef<number>(0);
     const [headerTop, setHeaderTop] = useState<number>(0);
-    const headerRef = useRef<HTMLElement | null>(null);
     const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
     const user = useSelector((state: RootState) => state.user)
     const isAuthenticated = useMemo(() => user.email !== '', [user.email]);
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const location = useLocation();
     const categoriesClass = useMemo(
         () => location.pathname.startsWith("/blog/categories/") || location.pathname.startsWith("/blog/recent-posts/pages/1")
-            ? "text-orange-400 font-medium"
-            : "text-orange-50 font-medium"
+            ? "text-orange-400"
+            : "text-default-10-dark dark:text-default-7"
         , [location.pathname]
     );
 
     useEffect(() => {
         document.addEventListener("scroll", handleScroll);
+        document.addEventListener("click", (e) => {
+            const targetElement = e.target as HTMLElement;
+            if (targetElement && targetElement.id !== 'categories-button') {
+                setIsCategoryOpen(false);
+            }
+        });
 
         return () => {
             document.removeEventListener('scroll', handleScroll);
         }
-    }, [])
+    })
 
     useEffect(() => {
         setIsCategoryOpen(false);
@@ -55,35 +62,39 @@ const Header: React.FC<HeaderProps> = () => {
 
     const handleScroll = () => {
         setIsCategoryOpen(false);
-        setPrevScrollY(window.scrollY);
 
-        if (window.scrollY > prevScrollY) { // down
-            const topDiff = window.scrollY - prevScrollY;
-            let tempHeaderTop = headerTop - topDiff;
-            tempHeaderTop = tempHeaderTop <= -120 ? -120 : tempHeaderTop;
-            setHeaderTop(tempHeaderTop);
-            headerRef.current!.style.top = `${tempHeaderTop}px`;
-
+        let tempHeaderTop: number;
+        if (window.scrollY > prevScrollY.current) { // down
+            const topDiff = window.scrollY - prevScrollY.current;
+            tempHeaderTop = headerTop - topDiff;
+            if (tempHeaderTop < -120)
+                tempHeaderTop = -120;
         }
         else {
-            const topDiff = prevScrollY - window.scrollY;
-            let tempHeaderTop = headerTop + topDiff;
-            tempHeaderTop = tempHeaderTop > 0 ? 0 : tempHeaderTop;
-            setHeaderTop(tempHeaderTop);
-            headerRef.current!.style.top = `${tempHeaderTop}px`;
+            const topDiff = prevScrollY.current - window.scrollY;
+            tempHeaderTop = headerTop + topDiff;
+            if (tempHeaderTop > 0)
+                tempHeaderTop = 0;
         }
+
+        setHeaderTop(tempHeaderTop);
+        prevScrollY.current = window.scrollY;
     }
 
     const handleNavColor = (props: NavLinkRenderProps) => {
         const { isActive } = props;
 
         return isActive
-            ? "text-orange-400 drop-shadow-2xl font-medium"
-            : "dark:text-orange-50 text-default-10-dark font-medium"
+            ? "text-orange-400 font-medium"
+            : "dark:text-default-7 text-default-10-dark font-medium"
     }
 
     return (
-        <aside ref={headerRef} className="fixed mt-[30px] w-full z-30">
+        <aside
+            className="fixed mt-[30px] w-full z-30"
+            style={{
+                top: `${headerTop}px`
+            }}>
             <div className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px] px-3 md:px-10
             flex flex-row items-center justify-between">
 
@@ -92,9 +103,23 @@ const Header: React.FC<HeaderProps> = () => {
                     width={55}
                     className="ring-[2.5px] ring-orange-300 border-[0.5px] border-slate-300 shadow-2xl" />
 
-                <nav className="dark:bg-default-5-dark bg-default-2 
+                {/* Menu Button */}
+                <button
+                    className="dark:bg-default-5-dark bg-default-2
+                        group ml-auto mr-5 flex flex-row items-center md:hidden
+                        drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
+                        rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                    Menu &#160;
+                    <svg className="ml-3 w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" viewBox="0 0 8 6" aria-hidden="true"><path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                </button>
+                <MenuModal isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+
+                {/* Navigation bar */}
+                <nav className="dark:bg-default-5-dark bg-default-2 hidden md:flex
                 drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
-                flex flex-row items-center gap-5 px-4
+                flex-row items-center gap-5 px-4
                 rounded-full h-fit py-2 text-sm">
                     <NavLink to="/blog" className={handleNavColor}
                         end
@@ -107,24 +132,10 @@ const Header: React.FC<HeaderProps> = () => {
                         About
                     </NavLink>
 
-                    {
-                        isAuthenticated
-                            ? <button
-                            className="dark:text-orange-50 text-default-10-dark font-medium"
-                                onClick={() => SignOut(dispatch)}
-                            >
-                                Sign-out
-                            </button>
-                            : <button
-                                className="text-orange-400 drop-shadow-2xl font-medium"
-                                onClick={() => dispatch(makeVisible())}
-                            >
-                                Sign-in
-                            </button>
-                    }
-
-                    <div className={`${categoriesClass}`}>
-                        <button className="flex flex-row"
+                    <div>
+                        <button
+                            id="categories-button"
+                            className={`flex flex-row font-medium ${categoriesClass}`}
                             onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                         >
                             Categories &#160;
@@ -148,9 +159,9 @@ const Header: React.FC<HeaderProps> = () => {
 
                                 <span className="mb-1">└ Backend</span>
 
-                                <div className="ml-3 flex flex-col mb-2">
+                                <div className="pl-3 flex flex-col mb-2">
                                     <div>
-                                        └&#160;
+                                        │&#160;
                                         <NavLink to="/blog/categories/ASP.NET/pages/1" className={handleNavColor}>ASP.NET</NavLink>
                                     </div>
                                     <div>
@@ -161,7 +172,7 @@ const Header: React.FC<HeaderProps> = () => {
 
                                 <span>└ Frontend</span>
 
-                                <div className="ml-3 flex flex-col mb-2">
+                                <div className="pl-3 flex flex-col mb-2">
                                     <div>
                                         └&#160;
                                         <NavLink to="/blog/categories/React/pages/1" className={handleNavColor}>React</NavLink>
@@ -180,6 +191,27 @@ const Header: React.FC<HeaderProps> = () => {
                             </div>
                         }
                     </div>
+
+                    {
+                        isAuthenticated
+                            ? <button
+                                className="dark:text-orange-50 text-default-10-dark font-medium"
+                                onClick={() => {
+                                    SignOut(dispatch);
+                                }}
+                            >
+                                Sign-out
+                            </button>
+                            : <button
+                                className="text-orange-400 drop-shadow-2xl font-medium"
+                                onClick={() => {
+                                    dispatch(makeVisible())
+                                }}
+                            >
+                                Sign-in
+                            </button>
+                    }
+
                 </nav>
 
                 <button

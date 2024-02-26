@@ -30,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ className }) => {
                 <div className='sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px]
                 bg-default-2 dark:bg-body-dark pt-[100px]'>
 
-                    <section className='px-3 md:px-10 min-h-[70vh]'>
+                    <section className='mx-6 md:mx-10 min-h-[70vh]'>
                         <Outlet />
                     </section>
 

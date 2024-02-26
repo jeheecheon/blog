@@ -42,7 +42,9 @@ const App = () => {
                 />
                 <Route
                     element={
-                        <BlogLoad />
+                        <>
+                            <BlogLoad />
+                        </>
                     }
                     loader={async () => {
                         AuthenticateUserAsync(dispatch);

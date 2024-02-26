@@ -27,6 +27,7 @@ const SignInModal = () => {
     const [modalWidth, setModalWidth] = useState(calculateModalWidth());
     const dispatch = useDispatch();
     const isMount = useIsMounted();
+    const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
     useEffect(() => {
         const handleResize = () => setModalWidth(calculateModalWidth());
@@ -41,18 +42,20 @@ const SignInModal = () => {
             width={modalWidth}
             className=''
             customStyles={{
-                backgroundColor: "rgb(24, 24, 27)"
+                backgroundColor: `${isDarkMode ? 'rgb(24, 24, 27)' : 'rgb(250, 250, 250)'}`,
+                borderRadius: '22px',
+                padding: '25px 30px 25px 30px'
             }}
         >
-            <div className='w-full h-full flex flex-col items-center bg-body-dark'>
-                <h1 className='text-2xl font-bold mb-[70px] text-orange-400'>Please sign in!</h1>
+            <div className='w-full h-full flex flex-col items-center'>
+                <h1 className='text-2xl md:text-3xl font-bold mb-[70px] text-orange-400'>Please Sign in!</h1>
 
                 <div className='flex flex-col gap-6 items-center justify-center'>
                     <ContinueWithGoogleButton
                         onClick={() => { window.location.replace("/api/oauth/sign-in?provider=google"); }}
                         className=''
                     />
-                    <span>네이버 로그인 준비 중...</span>
+                    {/* <span>네이버 로그인 준비 중...</span> */}
                 </div>
             </div>
         </Rodal>

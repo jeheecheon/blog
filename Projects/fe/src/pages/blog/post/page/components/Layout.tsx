@@ -23,13 +23,14 @@ const Layout = (props: LayoutProps) => {
 
             <main className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark ${props.className}`}>
                 <Header />
+                
                 {/* Content body */}
                 <div className='bg-fixed h-[75vh] bg-center' style={{
                     backgroundImage: `url(${coverImageUrl})`
                 }}>
 
                     <span className={`absolute bottom-[77%] right-[50%] translate-y-[77%] translate-x-[50%]
-                        text-slate-200 w-full text-3xl text-pretty text-center 
+                        text-slate-200 w-full text-xl md:text-3xl text-pretty text-center 
                         bg-default-18 dark:bg-default-18-dark bg-opacity-80 dark:bg-opacity-60 ${titleOnCover && "py-3"}`}>
                         {titleOnCover}
                     </span>
@@ -46,7 +47,7 @@ const Layout = (props: LayoutProps) => {
                         <Outlet />
                     </section>
 
-                    <Footer className=""/>
+                    <Footer/>
                 </div>
 
             </main>

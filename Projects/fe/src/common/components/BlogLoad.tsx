@@ -7,6 +7,7 @@ import { RootState } from '../redux/store';
 import '@/pages/blog/page/css/font.css';
 import '@/pages/blog/page/css/scrollbar.css';
 import '@/pages/blog/page/css/blog.css';
+
 import MusicPlayer from '@/pages/blog/page/components/MusicPlayer';
 
 const BlogLoad = () => {
