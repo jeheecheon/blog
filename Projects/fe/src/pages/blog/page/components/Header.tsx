@@ -94,8 +94,8 @@ const Header: React.FC<HeaderProps> = () => {
         const { isActive } = props;
 
         return isActive
-            ? "text-orange-400 font-medium"
-            : "dark:text-default-7 text-default-10-dark font-medium"
+            ? "text-orange-400"
+            : "dark:text-default-7 text-default-10-dark"
     }
 
     return (
@@ -130,7 +130,7 @@ const Header: React.FC<HeaderProps> = () => {
                 {/* Navigation bar */}
                 <nav className="dark:bg-default-5-dark bg-default-2 hidden md:flex
                 drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
-                flex-row items-center gap-5 px-4
+                flex-row items-center gap-5 px-4 font-medium
                 rounded-full h-fit py-2 text-sm">
                     <NavLink to="/blog" className={handleNavColor}
                         end
@@ -178,7 +178,7 @@ const Header: React.FC<HeaderProps> = () => {
                                     </div>
                                 </div>
 
-                                <span>└ Frontend</span>
+                                <span className="">└ Frontend</span>
 
                                 <div className="pl-3 flex flex-col mb-2">
                                     <div>
