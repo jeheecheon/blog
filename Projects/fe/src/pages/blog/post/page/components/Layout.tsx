@@ -33,11 +33,11 @@ const Layout = (props: LayoutProps) => {
                         {titleOnCover}
                     </span>
 
-                    <span className='absolute right-[0px] text-white text-lg 
+                    {/* <span className='absolute right-[0px] text-white text-lg 
                             bg-opacity-50 bg-yellow-400'
                     >
                         😁 항상 &#160;<span className=''>화이팅</span>
-                    </span>
+                    </span> */}
                 </div>
 
                 <div className="bg-default-2 dark:bg-[#101010]">
