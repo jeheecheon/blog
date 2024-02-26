@@ -7,7 +7,7 @@ export interface ThemeState {
 
 const initialState: ThemeState = {
   isDarkMode: localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    || localStorage.theme === undefined || localStorage.theme === null
+    // || localStorage.theme === undefined || localStorage.theme === null
 }
 
 export const themeSlice = createSlice({
