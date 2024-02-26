@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = () => {
     })
 
     useEffect(() => {
-        setIsCategoryOpen(false);
+        setIsCategoryOpen(true);
     }, [location.pathname]);
 
     const changeTheme = () => {
@@ -156,7 +156,7 @@ const Header: React.FC<HeaderProps> = () => {
                         {
                             isCategoryOpen
                             && <div className="fixed flex-col mt-2 
-                                border-[1px] border-orange-300 bg-default-2 dark:bg-default-5-dark
+                                drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300 bg-default-2 dark:bg-default-5-dark
                                 rounded-xl p-4 dark:text-orange-50 text-default-10-dark text-base"
                             >
                                 <div className="mb-1">
