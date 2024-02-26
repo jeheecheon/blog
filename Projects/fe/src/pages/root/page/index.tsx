@@ -35,7 +35,7 @@ const Root = () => {
         <div>
           포트폴리오 요약 페이지
         </div>
-        <Button className="dark:text-default-3-dark">
+        <Button className="">
           <Link to="/blog">
             블로그로 가기
           </Link>

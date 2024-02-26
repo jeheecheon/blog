@@ -28,7 +28,7 @@ const Layout = (props: LayoutProps) => {
                 }}>
 
                     <span className={`absolute bottom-[77%] right-[50%] translate-y-[77%] translate-x-[50%]
-                        text-slate-200 w-full text-xl md:text-3xl text-pretty text-center 
+                        text-slate-100 w-full text-xl md:text-3xl text-pretty text-center 
                         bg-default-18 dark:bg-default-18-dark bg-opacity-80 dark:bg-opacity-60 ${titleOnCover && "py-3"}`}>
                         {titleOnCover}
                     </span>

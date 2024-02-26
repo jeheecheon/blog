@@ -130,7 +130,7 @@ const Header: React.FC<HeaderProps> = () => {
                 {/* Navigation bar */}
                 <nav className="dark:bg-default-5-dark bg-default-2 hidden md:flex
                 drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
-                flex-row items-center gap-5 px-4 font-medium
+                flex-row items-center gap-5 px-4 font-medium  dark:font-medium
                 rounded-full h-fit py-2 text-sm">
                     <NavLink to="/blog" className={handleNavColor}
                         end
@@ -165,7 +165,7 @@ const Header: React.FC<HeaderProps> = () => {
                                     <NavLink to="/blog/categories/Algorithm/pages/1" className={handleNavColor}>Algorithm</NavLink>
                                 </div>
 
-                                <span className="mb-1">└ Backend</span>
+                                <span className="mb-1 dark:text-default-7 text-default-10-dark">└ Backend</span>
 
                                 <div className="pl-3 flex flex-col mb-2">
                                     <div>
@@ -178,7 +178,7 @@ const Header: React.FC<HeaderProps> = () => {
                                     </div>
                                 </div>
 
-                                <span className="">└ Frontend</span>
+                                <span className="dark:text-default-7 text-default-10-dark">└ Frontend</span>
 
                                 <div className="pl-3 flex flex-col mb-2">
                                     <div>

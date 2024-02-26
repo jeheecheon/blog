@@ -55,7 +55,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     };
 
     return (
-        process.env.NODE_ENV === 'production' &&
+        // process.env.NODE_ENV === 'production' &&
         <audio ref={audioRef} controls onEnded={handleEnded}
             className={`${className}`}
         >

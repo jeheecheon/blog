@@ -97,7 +97,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(({
         <div className={`flex flex-col items-center w-full ${className}`}>
             <div className='text-slate-50 max-w-[900px] w-full text-left pl-2 text-xl h-fit'>
                 <span className='bg-default-18 dark:bg-default-14-dark bg-opacity-90 dark:bg-opacity-80 px-3 rounded-md 
-                text-slate-200 font-medium pb-3'>
+                text-slate-100 font-medium pb-3'>
                     {leafCategories && flattenOutCategoriesV1(leafCategories.find(category => category.Id === post.CategoryId))}
                 </span>
             </div>
