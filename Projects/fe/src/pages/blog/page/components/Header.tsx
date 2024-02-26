@@ -68,7 +68,6 @@ const Header: React.FC<HeaderProps> = () => {
     const handleScroll = () => {
         setIsCategoryOpen(false);
 
-        console.log(window.scrollY)
         let tempHeaderTop: number = 0;
         if (window.scrollY > 300) {
             if (window.scrollY > prevScrollY.current) { // down
