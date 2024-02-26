@@ -9,6 +9,7 @@ import { NavLink, useLocation } from "react-router-dom"
 import { makeVisible } from "@/common/redux/signInModalSlice"
 import { SignOut } from "@/common/utils/user"
 import MenuModal from "@/common/components/MenuModal"
+import { Link } from "react-router-dom"
 
 type NavLinkRenderProps = {
     isActive: boolean;
@@ -107,10 +108,12 @@ const Header: React.FC<HeaderProps> = () => {
             <div className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px] px-3 md:px-10
             flex flex-row items-center justify-between">
 
-                <Avatar
-                    avatar={me}
-                    width={55}
-                    className="ring-[2.5px] ring-orange-300 border-[0.5px] border-slate-300 shadow-2xl" />
+                <Link to="/blog">
+                    <Avatar
+                        avatar={me}
+                        width={55}
+                        className="ring-[2.5px] ring-orange-300 border-[0.5px] border-slate-300 shadow-2xl" />
+                </Link>
 
                 {/* Menu Button */}
                 <button
