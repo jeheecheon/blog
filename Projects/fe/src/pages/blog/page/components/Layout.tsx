@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ className }) => {
             <div className='fixed w-screen h-screen bg-default-2 dark:bg-body-dark -z-10' />
 
             <main className={`dark:bg-[#101010] bg-default-5 dark:text-default-7 text-default-1-dark 
-            font-['Noto_Sans_KR'] ${className}`}>
+                font-['Noto_Sans_KR'] ${className}`}>
 
                 <Header />
 

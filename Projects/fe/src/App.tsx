@@ -42,9 +42,9 @@ const App = () => {
                 />
                 <Route
                     element={
-                        <>
+                        <Suspense fallback={<PageLoadingSpinner />}>
                             <BlogLoad />
-                        </>
+                        </Suspense>
                     }
                     loader={async () => {
                         AuthenticateUserAsync(dispatch);

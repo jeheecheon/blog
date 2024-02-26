@@ -16,8 +16,6 @@ const Layout = (props: LayoutProps) => {
 
     return (
         <>
-            <ScrollRestoration />
-
             {/* Upper bg color */}
             <div className='fixed w-screen h-screen bg-default-2 dark:bg-body-dark -z-10' />
 
@@ -53,7 +51,7 @@ const Layout = (props: LayoutProps) => {
             </main>
 
             {/* Bottom bg color */}
-            <div className='fixed w-screen h-screen bg-default-2 dark:bg-default-3-dark -z-10' />
+            <div className='fixed w-screen h-screen bg-default-2 dark:bg-[#101010] -z-10' />
 
             
             {/* Business logic */}
