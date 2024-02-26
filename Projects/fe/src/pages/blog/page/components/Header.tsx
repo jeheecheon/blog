@@ -58,7 +58,8 @@ const Header: React.FC<HeaderProps> = () => {
     })
 
     useEffect(() => {
-        setIsCategoryOpen(true);
+        setIsCategoryOpen(false);
+        setIsMenuOpen(false);
     }, [location.pathname]);
 
     const changeTheme = () => {
