@@ -26,12 +26,9 @@ const BlogLoad = () => {
 
     return (
         <>
-            {
-                process.env.NODE_ENV === 'production' &&
-                <MusicPlayer
-                    className='fixed left-[100vw]'
-                />
-            }
+            <MusicPlayer
+                className='fixed left-[100vw]'
+            />
 
             <SignInModal />
             <Outlet />

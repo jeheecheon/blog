@@ -1,22 +1,22 @@
 import { Throw500Response } from '@/common/utils/responses';
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface MusicPlayerProps {
     className: string;
 }
 
-const MusicPlayer:React.FC<MusicPlayerProps> = ({className}) => {
+const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const audioRef = useRef<HTMLAudioElement>(null);
     const [musicList, setMusicList] = useState<string[]>([]);
     const curIdx = useRef<number>(0);
 
-    const playMusic = () => {
+    const playMusic = useCallback(() => {
         if (!isPlaying) {
             audioRef.current!.play();
             setIsPlaying(!isPlaying);
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetch("/api/blog/music/list")
@@ -36,12 +36,10 @@ const MusicPlayer:React.FC<MusicPlayerProps> = ({className}) => {
             })
             .catch((err) => console.error(err))
 
-        const interval = setInterval(
-            () => document.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', playMusic);
-            }), 1000
-        );
-        return () => clearInterval(interval);
+        window.addEventListener("click", playMusic)
+        return () => {
+            window.removeEventListener("click", playMusic)
+        };
     }, []);
 
     const playNextTrack = () => {
@@ -57,6 +55,7 @@ const MusicPlayer:React.FC<MusicPlayerProps> = ({className}) => {
     };
 
     return (
+        process.env.NODE_ENV === 'production' &&
         <audio ref={audioRef} controls onEnded={handleEnded}
             className={`${className}`}
         >

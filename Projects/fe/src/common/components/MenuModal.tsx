@@ -6,24 +6,11 @@ import { makeVisible } from "@/common/redux/signInModalSlice"
 import { RootState } from '@/common/redux/store'
 import { Link } from 'react-router-dom';
 import { SignOut } from '../utils/user';
+import { calculateModalWidth } from '@/common/utils/modal'
 
 interface MenuModalProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const calculateModalWidth = () => {
-    let result;
-
-    if (document.body.clientWidth <= 880) {
-        if (document.body.clientWidth >= 830)
-            result = document.body.clientWidth - 880 - document.body.clientWidth;
-        else
-            result = document.body.clientWidth - 50;
-    }
-    else
-        result = 830;
-    return result;
 }
 
 const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
