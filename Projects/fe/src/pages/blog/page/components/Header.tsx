@@ -68,18 +68,22 @@ const Header: React.FC<HeaderProps> = () => {
     const handleScroll = () => {
         setIsCategoryOpen(false);
 
-        let tempHeaderTop: number;
-        if (window.scrollY > prevScrollY.current) { // down
-            const topDiff = window.scrollY - prevScrollY.current;
-            tempHeaderTop = headerTop - topDiff;
-            if (tempHeaderTop < -120)
-                tempHeaderTop = -120;
-        }
-        else {
-            const topDiff = prevScrollY.current - window.scrollY;
-            tempHeaderTop = headerTop + topDiff;
-            if (tempHeaderTop > 0)
-                tempHeaderTop = 0;
+        console.log(window.scrollY)
+        let tempHeaderTop: number = 0;
+        if (window.scrollY > 300) {
+            if (window.scrollY > prevScrollY.current) { // down
+                const topDiff = window.scrollY - prevScrollY.current;
+                tempHeaderTop = headerTop - topDiff;
+                if (tempHeaderTop < -120)
+                    tempHeaderTop = -120;
+            }
+            else {
+                const topDiff = prevScrollY.current - window.scrollY;
+                tempHeaderTop = headerTop + topDiff;
+                if (tempHeaderTop > 0)
+                    tempHeaderTop = 0;
+            }
+
         }
 
         setHeaderTop(tempHeaderTop);
