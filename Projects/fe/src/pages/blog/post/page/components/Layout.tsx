@@ -34,7 +34,7 @@ const Layout = (props: LayoutProps) => {
                     </span>
 
                     <span className='absolute right-[0px] text-white text-lg 
-                            bg-opacity-30 bg-yellow-400'
+                            bg-opacity-50 bg-yellow-400'
                     >
                         😁 항상 &#160;<span className=''>화이팅</span>
                     </span>

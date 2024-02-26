@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = () => {
         setIsCategoryOpen(false);
 
         let tempHeaderTop: number = 0;
-        if (window.scrollY > 300) {
+        if (window.scrollY > 200) {
             if (window.scrollY > prevScrollY.current) { // down
                 const topDiff = window.scrollY - prevScrollY.current;
                 tempHeaderTop = headerTop - topDiff;
