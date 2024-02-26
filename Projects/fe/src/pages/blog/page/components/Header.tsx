@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = () => {
 
     return (
         <aside
-            className="fixed mt-[30px] w-full z-30"
+            className="fixed mt-[1%] w-full z-30"
             style={{
                 top: `${headerTop}px`
             }}>
