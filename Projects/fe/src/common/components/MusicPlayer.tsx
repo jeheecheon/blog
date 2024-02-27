@@ -19,12 +19,14 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     const audioRef = useRef<HTMLAudioElement>(null);
 
     const autoPlayMusic = useCallback((targetElement: HTMLElement) => {
+        console.log(targetElement.id)
         if (targetElement && targetElement.id !== 'music-toggle-switch'
             && targetElement && targetElement.id !== 'music-play-button'
             && targetElement && targetElement.id !== 'music-pause-button') {
             if (!hasInteraction)
                 setHasInteraction(true);
             if (!isPlaying && forceMusicPlay)
+                // if (!isPlaying)
                 audioRef.current!.play();
         }
     }, []);
@@ -68,18 +70,30 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
                 })
                 .catch((err) => console.error(err))
         }
-
-        window.addEventListener("click", autoPlayMusicOnClicked)
-        window.addEventListener("keydown", autoPlayMusicOnKeydown)
-        window.addEventListener("touchstart", autoPlayMusicOnTouchstart)
+        // window.addEventListener("click", autoPlayMusicOnClicked)
+        // window.addEventListener("keydown", autoPlayMusicOnKeydown)
+        // window.addEventListener("touchstart", autoPlayMusicOnTouchstart)
         audioRef.current?.addEventListener('timeupdate', updateCurrentPlayTime)
         return () => {
+            audioRef.current?.removeEventListener("timeupdate", updateCurrentPlayTime)
             window.removeEventListener("click", autoPlayMusicOnClicked)
             window.removeEventListener("keydown", autoPlayMusicOnKeydown)
             window.removeEventListener("touchstart", autoPlayMusicOnTouchstart)
-            audioRef.current?.removeEventListener("timeupdate", updateCurrentPlayTime)
         };
     }, [musicList.length]);
+
+    useEffect(() => {
+        if (forceMusicPlay === true) {
+            window.addEventListener("click", autoPlayMusicOnClicked)
+            window.addEventListener("keydown", autoPlayMusicOnKeydown)
+            window.addEventListener("touchstart", autoPlayMusicOnTouchstart)
+        }
+        else {
+            window.removeEventListener("click", autoPlayMusicOnClicked)
+            window.removeEventListener("keydown", autoPlayMusicOnKeydown)
+            window.removeEventListener("touchstart", autoPlayMusicOnTouchstart)
+        }
+    }, [forceMusicPlay, musicList.length]);
 
     return (
         // process.env.NODE_ENV === 'production' &&
