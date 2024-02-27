@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import MusicController from "./MusicController";
 
 interface FooterProps {
   className?: string;
 }
 
 const Footer: React.FC<FooterProps> = ({ className }) => {
+
+
   return (
     <section className={`border-t-[1px] border-t-default-8 dark:border-t-default-8-dark ${className} `}>
       <div className='flex flex-col items-center py-[40px]'>
@@ -18,7 +21,9 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           백엔드 개발을 주로 다루는 블로그입니다.
         </span>
 
-        <span className='mt-10 text-sm'>
+        <MusicController className="mt-[40px] mb-[20px]" />
+
+        <span className=' text-sm'> 
           All designed and developed by&#160;
           <span className='text-orange-400 font-bold'>
             <Link to="/blog/post/edit" className="cursor-text">

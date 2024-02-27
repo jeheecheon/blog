@@ -3,12 +3,12 @@ import SignInModal from './SignInModal'
 import { Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import MusicPlayer from '@/common/components/MusicPlayer';
 
 import '@/pages/blog/page/css/font.css';
 import '@/pages/blog/page/css/scrollbar.css';
 import '@/pages/blog/page/css/blog.css';
 
-import MusicPlayer from '@/pages/blog/page/components/MusicPlayer';
 
 const BlogLoad = () => {
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
@@ -26,10 +26,7 @@ const BlogLoad = () => {
 
     return (
         <>
-            <MusicPlayer
-                className='fixed left-[100vw]'
-            />
-
+            <MusicPlayer className='fixed left-[100vw]'/>
             <SignInModal />
             <Outlet />
         </>

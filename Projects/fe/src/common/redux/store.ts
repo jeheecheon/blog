@@ -4,6 +4,7 @@ import userReducer from '@/common/redux/userSlice'
 import coverReducer from '@/common/redux/bannerSlice'
 import categoryReducer from '@/common/redux/categorySlice'
 import themeReducer from '@/common/redux/themeSlice'
+import musicReducer from '@/common/redux/musicSlice'
 
 export const store = configureStore({
     reducer: {
@@ -11,8 +12,12 @@ export const store = configureStore({
         user: userReducer,
         banner: coverReducer,
         category: categoryReducer,
-        theme: themeReducer
-    }
+        theme: themeReducer,
+        music: musicReducer
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
+    }),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -21,7 +21,7 @@ const Layout = (props: LayoutProps) => {
 
             <main className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark ${props.className}`}>
                 <Header />
-                
+
                 {/* Content body */}
                 <div className='bg-fixed h-[75vh] bg-center' style={{
                     backgroundImage: `url(${coverImageUrl})`
@@ -45,7 +45,7 @@ const Layout = (props: LayoutProps) => {
                         <Outlet />
                     </section>
 
-                    <Footer/>
+                    <Footer />
                 </div>
 
             </main>
@@ -53,7 +53,7 @@ const Layout = (props: LayoutProps) => {
             {/* Bottom bg color */}
             <div className='fixed w-screen h-screen bg-default-2 dark:bg-[#101010] -z-10' />
 
-            
+
             {/* Business logic */}
             <ScrollRestoration />
             {
