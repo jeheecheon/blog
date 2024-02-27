@@ -20,26 +20,14 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
 
     const autoPlayMusic = useCallback((e: MouseEvent) => {
         const targetElement = e.target as HTMLElement;
-        if (targetElement && targetElement.id !== 'music-toggle-switch') {
+        if (targetElement && targetElement.id !== 'music-toggle-switch'
+            && targetElement && targetElement.id !== 'music-play-button') {
             if (!hasInteraction)
                 setHasInteraction(true);
-            if (!isPlaying && forceMusicPlay) {
+            if (!isPlaying && forceMusicPlay)
                 audioRef.current!.play();
-                dispatch(setIsPlaying(true));
-            }
         }
     }, []);
-
-    useEffect(() => {
-        if (musicList.length > 0) {
-            const st = musicList[curIdx].indexOf("music/") + "music/".length;
-            const en = musicList[curIdx].indexOf(".mp3");
-            if (st !== -1 && en !== -1) {
-                const title = musicList[curIdx].substring(st, en);
-                dispatch(setMusicTitle(title));
-            }
-        }
-    }, [musicList.length, curIdx])
 
     useEffect(() => {
         if (musicList.length === 0) {
@@ -69,29 +57,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
         return () => {
             window.removeEventListener("click", autoPlayMusic)
         };
-    }, [musicList]);
-
-    useEffect(() => {
-        if (isPlaying === true) {
-            const targetElement = audioRef.current as HTMLAudioElement;
-            dispatch(setDuration(targetElement.duration));
-        }
-    }, [isPlaying, curIdx]);
-
-    const playNextTrack = () => {
-        const nxtIdx = ((curIdx + 1) % musicList.length)
-        dispatch(setCurrentIndex(nxtIdx));
-        audioRef.current!.setAttribute("src", musicList[nxtIdx]);
-        dispatch(setIsPlaying(false));
-        audioRef.current!.pause();
-        audioRef.current!.load();
-        dispatch(setIsPlaying(true))
-        audioRef.current!.play();
-    };
-
-    const handleEnded = () => {
-        playNextTrack();
-    };
+    }, [musicList.length]);
 
     return (
         // process.env.NODE_ENV === 'production' &&
@@ -99,11 +65,29 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
             id='music-player'
             ref={audioRef}
             controls
-            onEnded={handleEnded}
+            onLoadedData={(e) => {
+                dispatch(setDuration(e.currentTarget.duration))
+                const st = musicList[curIdx].indexOf("music/") + "music/".length;
+                const en = musicList[curIdx].indexOf(".mp3");
+                if (st !== -1 && en !== -1) {
+                    const title = musicList[curIdx].substring(st, en);
+                    dispatch(setMusicTitle(title));
+                }
+            }}
+            onPause={() => dispatch(setIsPlaying(false))}
+            onPlay={() => dispatch(setIsPlaying(true))}
+            onEnded={() => {
+                const nxtIdx = ((curIdx + 1) % musicList.length)
+                dispatch(setCurrentIndex(nxtIdx));
+                audioRef.current!.setAttribute("src", musicList[nxtIdx]);
+                audioRef.current!.pause();
+                audioRef.current!.load();
+                audioRef.current!.play();
+            }}
             className={`${className}`}
         >
             <source src={musicList[curIdx]} type="audio/mp3" />
-        </audio>
+        </audio >
     )
 }
 

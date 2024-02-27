@@ -8,7 +8,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ isOn, onClick, id }) => {
     return (
         <button
             id={id}
-            className="dark:bg-default-10-dark bg-default-4 border-stone-400 border-[1px]
+            className="dark:bg-default-10-dark bg-default-3 border-stone-400 border-[1px]
             w-[44px] flex rounded-full px-[2px] h-fit"
             onClick={onClick}
         >
