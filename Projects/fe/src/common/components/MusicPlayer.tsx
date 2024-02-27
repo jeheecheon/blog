@@ -18,15 +18,35 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     const [hasInteraction, setHasInteraction] = useState<boolean>(false);
     const audioRef = useRef<HTMLAudioElement>(null);
 
-    const autoPlayMusic = useCallback((e: MouseEvent) => {
-        const targetElement = e.target as HTMLElement;
+    const autoPlayMusic = useCallback((targetElement: HTMLElement) => {
         if (targetElement && targetElement.id !== 'music-toggle-switch'
-            && targetElement && targetElement.id !== 'music-play-button') {
+            && targetElement && targetElement.id !== 'music-play-button'
+            && targetElement && targetElement.id !== 'music-pause-button') {
             if (!hasInteraction)
                 setHasInteraction(true);
             if (!isPlaying && forceMusicPlay)
                 audioRef.current!.play();
         }
+    }, []);
+
+    const autoPlayMusicOnClicked = useCallback((e: MouseEvent) => {
+        const targetElement = e.target as HTMLElement;
+        autoPlayMusic(targetElement)
+    }, []);
+
+    const autoPlayMusicOnTouchstart = useCallback((e: TouchEvent) => {
+        const targetElement = e.target as HTMLElement;
+        autoPlayMusic(targetElement)
+    }, []);
+
+    const autoPlayMusicOnKeydown = useCallback((e: KeyboardEvent) => {
+        const targetElement = e.target as HTMLElement;
+        autoPlayMusic(targetElement)
+    }, []);
+
+    const updateCurrentPlayTime = useCallback((e: Event) => {
+        const targetElement = e.target as HTMLAudioElement;
+        dispatch(setCurrentTime(targetElement.currentTime))
     }, []);
 
     useEffect(() => {
@@ -49,13 +69,15 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
                 .catch((err) => console.error(err))
         }
 
-        window.addEventListener("click", autoPlayMusic)
-        audioRef.current?.addEventListener('timeupdate', (e: Event) => {
-            const targetElement = e.target as HTMLAudioElement;
-            dispatch(setCurrentTime(targetElement.currentTime))
-        })
+        window.addEventListener("click", autoPlayMusicOnClicked)
+        window.addEventListener("keydown", autoPlayMusicOnKeydown)
+        window.addEventListener("touchstart", autoPlayMusicOnTouchstart)
+        audioRef.current?.addEventListener('timeupdate', updateCurrentPlayTime)
         return () => {
-            window.removeEventListener("click", autoPlayMusic)
+            window.removeEventListener("click", autoPlayMusicOnClicked)
+            window.removeEventListener("keydown", autoPlayMusicOnKeydown)
+            window.removeEventListener("touchstart", autoPlayMusicOnTouchstart)
+            audioRef.current?.removeEventListener("timeupdate", updateCurrentPlayTime)
         };
     }, [musicList.length]);
 
