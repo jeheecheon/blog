@@ -12,7 +12,7 @@ export interface MusicState {
 }
 
 const initialState: MusicState = {
-    forceMusicPlay: localStorage.forceMusicPlay === 'true' ? localStorage.forceMusicPlay : false,
+    forceMusicPlay: localStorage.forceMusicPlay === 'false' ? false : true,
     isPlaying: false,
     musicList: [],
     musicTitle: '',
