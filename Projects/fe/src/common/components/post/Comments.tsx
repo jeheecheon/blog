@@ -46,8 +46,6 @@ const Comments: React.FC<CommentsProps> = React.memo(({ className, postId, comme
             />
         )
       }
-
-
     </div>
   )
 });
