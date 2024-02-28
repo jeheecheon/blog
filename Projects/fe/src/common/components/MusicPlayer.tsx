@@ -19,8 +19,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     const audioRef = useRef<HTMLAudioElement>(null);
 
     const autoPlayMusic = useCallback((targetElement: HTMLElement) => {
-        console.log(targetElement.id)
         if (targetElement && targetElement.id !== 'music-toggle-switch'
+            && targetElement && targetElement.id !== 'music-toggle-switch-button'
             && targetElement && targetElement.id !== 'music-play-button'
             && targetElement && targetElement.id !== 'music-pause-button') {
             if (!hasInteraction)

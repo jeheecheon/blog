@@ -1,20 +1,21 @@
 interface ToggleSwitchProps {
     isOn: boolean;
-    id?: string;
-    onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
+    switchId?: string;
+    buttonId?: string;
+    onClick: React.MouseEventHandler<HTMLDivElement> | undefined
 }
 
-const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ isOn, onClick, id }) => {
+const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ isOn, onClick, switchId, buttonId }) => {
     return (
-        <button
-            id={id}
+        <div
+            id={switchId}
             className="dark:bg-default-10-dark bg-default-3 border-stone-400 border-[1px]
             w-[44px] flex rounded-full px-[2px] h-fit"
             onClick={onClick}
         >
-            <span className={`inline-block rounded-full my-[2px] h-[15px] w-[15px] relative transition-transform
-            bg-stone-500 dark:bg-default-9 ${isOn && 'translate-x-[23px]'}`}></span>
-        </button>
+            <button id={buttonId} className={`inline-block rounded-full my-[2px] h-[15px] w-[15px] relative transition-transform
+            bg-stone-500 dark:bg-default-9 ${isOn && 'translate-x-[23px]'}`}></button>
+        </div>
     )
 }
 

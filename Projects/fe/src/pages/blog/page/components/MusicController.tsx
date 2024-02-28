@@ -138,7 +138,8 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
                     </p>
                 </div>
                 <ToggleSwitch
-                    id="music-toggle-switch"
+                    switchId="music-toggle-switch"
+                    buttonId="music-toggle-switch-button"
                     isOn={forceMusicPlay}
                     onClick={() => dispatch(setForceMusicPlay(!forceMusicPlay))}
                 />
