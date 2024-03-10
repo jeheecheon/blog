@@ -50,12 +50,12 @@ const Layout: React.FC<LayoutProps> = ({ className }) => {
                 isDarkMode
                     ? <Helmet>
                         <meta name='theme-color' content='#1c1c1c' />
-                        <meta name='apple-mobile-web-app-status-bar-style' content='#1c1c1c' />
+                        <meta name='apple-mobile-web-app-status-bar-style' content='black' />
                         <meta name='msapplication-navbutton-color' content='#1c1c1c' />
                     </Helmet>
                     : <Helmet>
                         <meta name='theme-color' content='rgb(255, 255, 255)' />
-                        <meta name='apple-mobile-web-app-status-bar-style' content='rgb(255, 255, 255)' />
+                        <meta name='apple-mobile-web-app-status-bar-style' content='default' />
                         <meta name='msapplication-navbutton-color' content='rgb(255, 255, 255)' />
                     </Helmet>
             }
