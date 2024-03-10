@@ -54,9 +54,9 @@ const Layout: React.FC<LayoutProps> = ({ className }) => {
                         <meta name='msapplication-navbutton-color' content='#1c1c1c' />
                     </Helmet>
                     : <Helmet>
-                        <meta name='theme-color' content='rgb(255, 255, 255)' />
+                        <meta name='theme-color' content='rgb(250, 250, 250)' />
                         <meta name='apple-mobile-web-app-status-bar-style' content='default' />
-                        <meta name='msapplication-navbutton-color' content='rgb(255, 255, 255)' />
+                        <meta name='msapplication-navbutton-color' content='rgb(250, 250, 250)' />
                     </Helmet>
             }
         </>
