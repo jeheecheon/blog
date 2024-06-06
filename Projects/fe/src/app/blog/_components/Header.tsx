@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
 import Avatar from "@/blog/_components/Avatar";
-import me from "@/_assets/images/me.jpg";
+import me from "@/_assets/images/me.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import { SignOut } from "@/blog/_utils/user";
