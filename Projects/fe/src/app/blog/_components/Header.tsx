@@ -103,8 +103,8 @@ const Header: React.FC<HeaderProps> = () => {
                 <Link to="/blog">
                     <Avatar
                         avatar={me}
-                        width={55}
-                        className="ring-[2.5px] ring-orange-300 border-[0.5px] border-slate-300 shadow-2xl"
+                        width={50}
+                        className="ring-[2.5px] ring-orange-200 border-[1px] border-transparent shadow-2xl"
                     />
                 </Link>
 
