@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Infrastructur.Models;
 using Infrastructur.Repositories.Account;
-using Infrastructure.Repositories.Blog;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -37,5 +37,11 @@ public class AccountService : IAccountService
 
         AccountRole? admin_account = _accountRepository.GetAccountRole(admin.Id, account_id);
         return admin_account is null ? false : true;
+    }
+
+    public async Task<bool> Authenticate()
+    {
+        var result = await _httpContextAccessor.HttpContext.AuthenticateAsync();
+        return result.Succeeded;
     }
 }

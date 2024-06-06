@@ -299,7 +299,6 @@ public class BlogService : IBlogService
                 ListObjectsV2Response response = await _s3Client.ListObjectsV2Async(listRequest);
                 foreach (S3Object entry in response.S3Objects)
                 {
-                    Console.WriteLine($"https://jeheecheon.s3.{location}.amazonaws.com/{entry.Key}");
                     musicList.Add($"https://jeheecheon.s3.{location}.amazonaws.com/{entry.Key}");
                 }
 
@@ -313,7 +312,6 @@ public class BlogService : IBlogService
         }
 
         musicList.RemoveAt(0);
-        musicList.Sort();
         return musicList;
     }
 }

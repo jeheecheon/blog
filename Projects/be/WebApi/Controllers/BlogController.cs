@@ -3,12 +3,9 @@ using Application.Services.Account;
 using Application.Services.Blog;
 using Core.DTOs;
 using Infrastructur.Models;
-using Infrastructure.DbContexts;
 using Infrastructure.Models;
-using Infrastructure.Repositories.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers;
 
@@ -201,7 +198,7 @@ public class BlogController : ControllerBase
             return BadRequest();
     }
 
-    [HttpGet("music/list")]
+    [HttpGet("music")]
     public async Task<IActionResult> GetMusicListAsync()
     {
         return Ok(JsonSerializer.Serialize(await _blogService.GetMusicListFromS3Async()));

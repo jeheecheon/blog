@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react';
-import { useDispatch } from 'react-redux';
+import { Suspense, lazy } from "react";
+import { useDispatch } from "react-redux";
 import {
     Route,
     RouterProvider,
@@ -7,43 +7,51 @@ import {
     createRoutesFromElements,
 } from "react-router-dom";
 
-import { PostLoader, PostEditLoader, AboutMeLoader, PrivacyPolicyLoader } from '@/common/utils/loaders';
-import { AuthenticateUserAsync } from '@/common/utils/user';
-import PageLoadingSpinner from './common/components/PageLoadingSpinner';
-import { fetchLeafCategoriesAsync } from './common/utils/category';
+import {
+    PostLoader,
+    PostEditLoader,
+    AboutMeLoader,
+    PrivacyPolicyLoader,
+} from "@/_utils/loaders";
+import { AuthenticateUserAsync } from "@/blog/_utils/user";
+import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
+import { fetchLeafCategoriesAsync } from "@/blog/_utils/category";
 
-const Root = lazy(() => import('@/pages/root/page/index'));
-const Blog = lazy(() => import('@/pages/blog/page/index'));
-const BlogLayout = lazy(() => import('@/pages/blog/page/components/Layout'));
-const PostLayout = lazy(() => import('@/pages/blog/post/page/components/Layout'));
-const ErrorArea = lazy(() => import('@/common/components/error/ErrorArea'));
-const Post = lazy(() => import('@/pages/blog/post/page/index'));
-const PostEdit = lazy(() => import('@/pages/blog/post/edit/page'));
-const PostsWrapper = lazy(() => import('@/common/components/post/PostsWrapper'));
-const BlogLoad = lazy(() => import('@/common/components/BlogLoad'));
-
-import '@/main.css'
+const Root = lazy(() => import("@/page"));
+const ErrorArea = lazy(() => import("@/_components/ErrorArea"));
+const Blog = lazy(() => import("@/blog/page"));
+const BlogLayout = lazy(() => import("@/blog/_components/Layout"));
+const Post = lazy(() => import("@/blog/post/page"));
+const PostLayout = lazy(() => import("@/blog/post/_components/Layout"));
+const PostEdit = lazy(() => import("@/blog/post/edit/page"));
+const PostsWrapper = lazy(
+    () => import("@/blog/posts/_components/PostsWrapper")
+);
+const BlogInitialLoad = lazy(
+    () => import("@/blog/_components/BlogInitialLoad")
+);
 
 const App = () => {
     const dispatch = useDispatch();
 
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <Route
-                errorElement={<ErrorArea />}
-            >
+            <Route errorElement={<ErrorArea />}>
+                {/* Root */}
                 <Route
-                    path='/'
+                    path="/"
                     element={
                         <Suspense fallback={<PageLoadingSpinner />}>
                             <Root />
                         </Suspense>
                     }
                 />
+
+                {/* Blog */}
                 <Route
                     element={
                         <Suspense fallback={<PageLoadingSpinner />}>
-                            <BlogLoad />
+                            <BlogInitialLoad />
                         </Suspense>
                     }
                     loader={async () => {
@@ -58,10 +66,9 @@ const App = () => {
                                 <BlogLayout />
                             </Suspense>
                         }
-
                     >
                         <Route
-                            path='blog'
+                            path="/blog"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <Blog />
@@ -69,7 +76,7 @@ const App = () => {
                             }
                         />
                         <Route
-                            path='blog/recent-posts/pages/:page'
+                            path="/blog/recent-posts/pages/:page"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostsWrapper />
@@ -77,7 +84,7 @@ const App = () => {
                             }
                         />
                         <Route
-                            path='blog/categories/:category/pages/:page'
+                            path="/blog/categories/:category/pages/:page"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostsWrapper />
@@ -94,7 +101,7 @@ const App = () => {
                         }
                     >
                         <Route
-                            path='blog/post/:id/:slug?'
+                            path="/blog/post/:id/:slug?"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <Post />
@@ -102,8 +109,9 @@ const App = () => {
                             }
                             loader={PostLoader}
                         />
+
                         <Route
-                            path='blog/about-me'
+                            path="/blog/about-me"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <Post />
@@ -111,8 +119,9 @@ const App = () => {
                             }
                             loader={AboutMeLoader}
                         />
+
                         <Route
-                            path='blog/privacy-policy'
+                            path="/blog/privacy-policy"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <Post />
@@ -122,7 +131,7 @@ const App = () => {
                         />
 
                         <Route
-                            path='blog/post/edit'
+                            path="/blog/post/edit"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostEdit />
@@ -134,9 +143,9 @@ const App = () => {
                 </Route>
             </Route>
         )
-    )
+    );
 
-    return <RouterProvider router={router} />
-}
+    return <RouterProvider router={router} />;
+};
 
 export default App;
