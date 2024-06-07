@@ -78,7 +78,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                             return (
                                 <div
                                     key={idx}
-                                    className="w-0 border-r-[1.8px] mr-[0.6rem] border-default-11 dark:border-default-10-dark"
+                                    className="w-0 border-r-[1.8px] mr-[0.6rem] md:mr-4 lg:mr-6 border-default-8 dark:border-default-10-dark"
                                 />
                             );
                         })}
@@ -145,9 +145,6 @@ export const Comment: React.FC<CommentProps> = React.memo(
                                 }`}
                             />
                             <span
-                                className={`transition-colors duration-500 ${
-                                    isReplying ? "text-orange-500" : ""
-                                }`}
                             >
                                 Reply
                             </span>

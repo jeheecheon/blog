@@ -140,12 +140,12 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                     <div className="flex flex-row justify-center gap-2 items-center text-md fill-sky-700 pb-5">
                         <button
                             onClick={handleLikeCliked}
-                            className="flex flex-row gap-1 justify-between items-center cursor-pointer
+                            className="flex flex-row gap-2 justify-between items-center cursor-pointer
                             border-2 py-[6px] px-3 fill-red-500
                             bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
                         >
                             {hasLiked ? <LikeFilled /> : <Like />}
-                            <span>{likes}</span>
+                            <span className="text-sm">{likes}</span>
                         </button>
                         <button
                             className="flex flex-row justify-center gap-1 cursor-pointer border-2 py-[6px] px-3 
@@ -153,7 +153,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                             onClick={() => alert("미구현 기능...")}
                         >
                             <Share />
-                            <span>공유</span>
+                            <span className="text-sm">공유</span>
                         </button>
                     </div>
                 </div>

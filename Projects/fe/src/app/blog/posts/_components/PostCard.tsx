@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
 import { flattenOutCategoriesV1 } from "@/blog/_utils/category";
 import React from "react";
-import Like from "@/blog/post/_assets/images/like.svg?react";
+import LikeFilled from "@/blog/post/_assets/images/like-filled.svg?react";
 import CommentSvg from "@/blog/post/_assets/images/comment.svg?react";
 
 interface PostCardProps {
@@ -37,16 +37,16 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                 {post.Title}
             </div>
 
-            <div className="flex flex-row justify-start items-end fill-sky-700 dark:fill-sky-800 mt-2">
+            <div className="flex flex-row justify-start items-end mt-2">
                 {/* Likes */}
-                <div className="flex flex-row items-center mr-2 gap-1 fill-orange-600">
-                    <Like />
+                <div className="flex flex-row items-center mr-4 gap-1">
+                    <LikeFilled className="fill-red-500" />
                     <span className="text-base">{post.LikeCnt}</span>
                 </div>
 
                 {/* Comments */}
                 <div className="flex flex-row items-center gap-1">
-                    <CommentSvg />
+                    <CommentSvg className="fill-sky-700 dark:fill-sky-800" />
                     <span className="text-base">{post.CommentCnt}</span>
                 </div>
 
