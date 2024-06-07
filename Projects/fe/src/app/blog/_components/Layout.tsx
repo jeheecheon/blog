@@ -23,8 +23,7 @@ const BlogLayout: React.FC<LayoutProps> = ({ className }) => {
 
                 {/* Content body */}
                 <div
-                    className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px]
-                    bg-body pt-[100px]"
+                    className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px] bg-body"
                 >
                     <section className="mx-6 md:mx-10 min-h-[70vh]">
                         <Outlet />

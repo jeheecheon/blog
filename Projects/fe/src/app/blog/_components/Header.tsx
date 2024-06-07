@@ -95,10 +95,13 @@ const Header: React.FC<HeaderProps> = () => {
     };
 
     return (
-        <aside ref={headerRef} className="fixed mt-[13px] w-full z-30">
+        <aside
+            ref={headerRef}
+            className="fixed mt-[13px] w-full z-30"
+        >
             <div
-                className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px] px-3 md:px-10
-                flex flex-row items-center justify-between"
+                className="max-w-[1160px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10
+                flex items-center justify-between"
             >
                 <Link to="/blog">
                     <Avatar
@@ -280,7 +283,7 @@ const Header: React.FC<HeaderProps> = () => {
 
                 <DarkmodeToggleSwitch />
             </div>
-        </aside>
+        </aside> 6
     );
 };
 
