@@ -12,6 +12,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ToggleSwitch from "@/blog/_components/ToggleSwitch";
 import { useEffect, useState } from "react";
+import PrevButton from "@/blog/_assets/images/prev.svg?react";
+import PlayButton from "@/blog/_assets/images/play.svg?react";
+import PauseButton from "@/blog/_assets/images/pause.svg?react";
+import NextButton from "@/blog/_assets/images/next.svg?react";
 
 interface MusicControllerProps {
     className?: string;
@@ -138,59 +142,23 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
             <div className="fill-stone-500 gap-3 dark:fill-default-13 flex justify-between">
                 {/* Prev */}
                 <button onClick={handlePrevlicked}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24"
-                        viewBox="0 -960 960 960"
-                        width="24"
-                    >
-                        <path d="M220-240v-480h80v480h-80Zm520 0L380-480l360-240v480Zm-80-240Zm0 90v-180l-136 90 136 90Z" />
-                    </svg>
+                    <PrevButton />
                 </button>
 
                 {/* Play & Pause */}
                 {isPlaying ? (
-                    <svg
-                        className="cursor-pointer block w-full h-full"
-                        onClick={handlePauseClicked}
-                        id="music-pause-button"
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24"
-                        viewBox="0 -960 960 960"
-                        width="24"
-                    >
-                        <path
-                            className="pointer-events-none"
-                            d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"
-                        />
-                    </svg>
+                    <button onClick={handlePauseClicked}>
+                        <PauseButton className="pointer-events-none" />
+                    </button>
                 ) : (
-                    <svg
-                        className="cursor-pointer block w-full h-full"
-                        onClick={handlePlayClicked}
-                        id="music-play-button"
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24"
-                        viewBox="0 -960 960 960"
-                        width="24"
-                    >
-                        <path
-                            className="pointer-events-none"
-                            d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"
-                        />
-                    </svg>
+                    <button onClick={handlePlayClicked}>
+                        <PlayButton className="pointer-events-none" />
+                    </button>
                 )}
 
                 {/* Next */}
                 <button onClick={handleNextClicked}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24"
-                        viewBox="0 -960 960 960"
-                        width="24"
-                    >
-                        <path d="M660-240v-480h80v480h-80Zm-440 0v-480l360 240-360 240Zm80-240Zm0 90 136-90-136-90v180Z" />
-                    </svg>
+                    <NextButton />
                 </button>
             </div>
 

@@ -10,6 +10,9 @@ import { makeVisible } from "@/_redux/signInModalSlice";
 import { flattenOutCategoriesV1 } from "@/blog/_utils/category";
 import { setCoverImageUrl, setTitleOnCover } from "@/_redux/coverSlice";
 import { image } from "@/_utils/siteInfo";
+import LikeFilled from "@/blog/post/_assets/images/like-filled.svg?react";
+import Like from "@/blog/post/_assets/images/like.svg?react";
+import Share from "@/blog/post/_assets/images/share.svg?react";
 
 import "@/blog/post/_assets/css/Article.scss";
 import hljs from "@/blog/_utils/highlightSettings";
@@ -135,51 +138,23 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                     </div>
 
                     <div className="flex flex-row justify-center gap-2 items-center text-md fill-sky-700 pb-5">
-                        <div
+                        <button
                             onClick={handleLikeCliked}
                             className="flex flex-row gap-1 justify-between items-center cursor-pointer
-                            border-2 py-[6px] px-3 
+                            border-2 py-[6px] px-3 fill-red-500
                             bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
                         >
-                            {hasLiked ? (
-                                <svg
-                                    className="fill-red-500"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="24"
-                                    viewBox="0 -960 960 960"
-                                    width="24"
-                                >
-                                    <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
-                                </svg>
-                            ) : (
-                                <svg
-                                    className="fill-red-500"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="24"
-                                    viewBox="0 -960 960 960"
-                                    width="24"
-                                >
-                                    <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
-                                </svg>
-                            )}
+                            {hasLiked ? <LikeFilled /> : <Like />}
                             <span>{likes}</span>
-                        </div>
-                        <div
+                        </button>
+                        <button
                             className="flex flex-row justify-center gap-1 cursor-pointer border-2 py-[6px] px-3 
-                bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
+                            bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
                             onClick={() => alert("미구현 기능...")}
                         >
-                            <svg
-                                className=""
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="24"
-                                viewBox="0 -960 960 960"
-                                width="24"
-                            >
-                                <path d="M240-40q-33 0-56.5-23.5T160-120v-440q0-33 23.5-56.5T240-640h120v80H240v440h480v-440H600v-80h120q33 0 56.5 23.5T800-560v440q0 33-23.5 56.5T720-40H240Zm200-280v-447l-64 64-56-57 160-160 160 160-56 57-64-64v447h-80Z" />
-                            </svg>
+                            <Share />
                             <span>공유</span>
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>

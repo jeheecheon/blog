@@ -42,7 +42,7 @@ const Layout = (props: LayoutProps) => {
                     </span>
                 </div>
 
-                <div className="h-[60vh]" />
+                <div className="h-[70vh]" />
 
                 <div className="bg-default-2 dark:bg-[#101010]">
                     <section>

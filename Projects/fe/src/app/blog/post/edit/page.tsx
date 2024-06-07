@@ -247,7 +247,7 @@ const PostEdit = () => {
             )}
 
             <div
-                className={`flex flex-col items-center
+                className={`flex flex-col items-center mt-[10vh]
                 ${showPreview && "hidden"}`}
             >
                 <div className="max-w-[780px] flex flex-col items-center w-full gap-5 my-10 p-3 text-default-13">

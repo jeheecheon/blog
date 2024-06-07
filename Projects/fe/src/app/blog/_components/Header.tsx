@@ -9,6 +9,7 @@ import { SignOut } from "@/blog/_utils/user";
 import MenuModal from "@/blog/_components/MenuModal";
 import { Link } from "react-router-dom";
 import DarkmodeToggleSwitch from "./DarkmodeToggleSwitch";
+import ArrowDown from "@/blog/_assets/images/arrow-down.svg?react";
 
 type NavLinkRenderProps = {
     isActive: boolean;
@@ -95,10 +96,7 @@ const Header: React.FC<HeaderProps> = () => {
     };
 
     return (
-        <aside
-            ref={headerRef}
-            className="fixed mt-[13px] w-full z-30"
-        >
+        <aside ref={headerRef} className="fixed mt-[13px] w-full z-30">
             <div
                 className="max-w-[1160px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10
                 flex items-center justify-between"
@@ -120,22 +118,11 @@ const Header: React.FC<HeaderProps> = () => {
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
                     Menu &#160;
-                    <svg
+                    <ArrowDown
                         className={`stroke-default-10-dark dark:stroke-default-13-dark relative top-[2px] w-[13px] ${
                             isMenuOpen && "rotate-180"
                         } transition-transform`}
-                        viewBox="0 0 8 6"
-                        aria-hidden="true"
-                    >
-                        <path
-                            d="M1.75 1.75 4 4.25l2.25-2.5"
-                            fill="none"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        ></path>
-                    </svg>
-                    {/* <svg className="ml-3 w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" viewBox="0 0 8 6" aria-hidden="true"><path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg> */}
+                    />
                 </button>
                 <MenuModal isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
 
@@ -162,7 +149,7 @@ const Header: React.FC<HeaderProps> = () => {
                         >
                             Categories &#160;
                             <p className="text-[9px]">
-                                <svg
+                                <ArrowDown
                                     className={`${
                                         isOnCategory
                                             ? "stroke-orange-400"
@@ -170,17 +157,7 @@ const Header: React.FC<HeaderProps> = () => {
                                     } relative top-[2.5px] w-[13px] ${
                                         isCategoryOpen && "rotate-180"
                                     } transition-transform`}
-                                    viewBox="0 0 8 6"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        d="M1.75 1.75 4 4.25l2.25-2.5"
-                                        fill="none"
-                                        strokeWidth="1.5"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    ></path>
-                                </svg>
+                                />
                             </p>
                         </button>
                         {isCategoryOpen && (
@@ -283,7 +260,7 @@ const Header: React.FC<HeaderProps> = () => {
 
                 <DarkmodeToggleSwitch />
             </div>
-        </aside> 6
+        </aside>
     );
 };
 
