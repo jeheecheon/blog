@@ -1,10 +1,17 @@
 import Button from "@/blog/_components/Button";
 import { image, url } from "@/_utils/siteInfo";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
 
 const Root = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        navigate("/blog/recent-posts/pages/1");
+    }, []);
+
     return (
         <>
             <Helmet>
@@ -26,7 +33,10 @@ const Root = () => {
                 <meta name="twitter:image" content={image} />
             </Helmet>
 
-            <div className="w-full h-screen flex flex-col justify-center items-center gap-7">
+            <div
+                className="w-full h-[100dvh] flex flex-col justify-center items-center gap-7
+            text-default-1-dark"
+            >
                 <div>페이지 공사중...</div>
                 <div>포트폴리오 요약 페이지</div>
                 <Button className="">

@@ -12,9 +12,6 @@ interface LayoutProps {
 const BlogLayout: React.FC<LayoutProps> = ({ className }) => {
     return (
         <>
-            {/* Upper bg color */}
-            <div className="fixed w-screen h-screen bg-body -z-10" />
-
             <main
                 className={`dark:bg-[#101010] bg-default-5 dark:text-default-7 text-default-1-dark 
                 font-['Noto_Sans_KR'] ${className}`}
@@ -23,7 +20,8 @@ const BlogLayout: React.FC<LayoutProps> = ({ className }) => {
 
                 {/* Content body */}
                 <div
-                    className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px] bg-body"
+                    className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1160px] bg-body pt-[95px]
+                    border-x-[1px] dark:border-x-default-5-dark border-x-default-7"
                 >
                     <section className="mx-6 md:mx-10 min-h-[70vh]">
                         <Outlet />
@@ -32,9 +30,6 @@ const BlogLayout: React.FC<LayoutProps> = ({ className }) => {
                     <Footer />
                 </div>
             </main>
-
-            {/* Bottom bg color */}
-            <div className="fixed w-screen h-screen bg-body -z-10" />
 
             {/* Business logic */}
             <ScrollRestoration />

@@ -17,7 +17,7 @@ const CustomTextArea: React.FC<CustomTextAreaProps> = ({
     onSelect,
     onClick,
     disabled,
-    placeholder = "Type your comment...",
+    placeholder = "Write a comment...",
 }) => {
     const hiddenTextArea = useRef<HTMLTextAreaElement>(null);
     const textArea = useRef<HTMLTextAreaElement>(null);
@@ -29,8 +29,8 @@ const CustomTextArea: React.FC<CustomTextAreaProps> = ({
     }, [content]);
 
     return (
-        <>
-            <textarea ref={hiddenTextArea} className='invisible w-full' rows={1} />
+        <div className='flex flex-col w-full'>
+            <textarea ref={hiddenTextArea} className='invisible w-full overflow-y-hidden' rows={1} />
             <textarea
                 ref={textArea}
                 value={content}
@@ -38,12 +38,12 @@ const CustomTextArea: React.FC<CustomTextAreaProps> = ({
                 maxLength={700}
                 rows={1}
                 onClick={onClick}
-                className={`${className} w-full`}
+                className={`${className} w-full relative bottom-4 overflow-y-hidden`}
                 onSelect={onSelect}
                 disabled={disabled}
                 placeholder={placeholder}
             />
-        </>
+        </div>
     )
 }
 

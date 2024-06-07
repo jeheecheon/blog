@@ -96,75 +96,87 @@ const Header: React.FC<HeaderProps> = () => {
     };
 
     return (
-        <aside ref={headerRef} className="fixed mt-[13px] w-full z-30">
-            <div
-                className="max-w-[1160px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10
-                flex items-center justify-between"
+        <>
+            <aside
+                ref={headerRef}
+                className="fixed top-0 mt-[13px] w-[100vw] z-30"
             >
-                <Link to="/blog">
-                    <Avatar
-                        avatar={me}
-                        width={50}
-                        className="ring-[2.5px] ring-orange-200 border-[1px] border-transparent shadow-2xl"
-                    />
-                </Link>
+                <div
+                    className="max-w-[1160px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10
+                flex items-center justify-between"
+                >
+                    <Link to="/blog">
+                        <Avatar
+                            avatar={me}
+                            size={50}
+                            className="ring-[2.5px] ring-orange-200 border-[1px] border-transparent shadow-2xl"
+                        />
+                    </Link>
 
-                {/* Menu Button */}
-                <button
-                    className="dark:bg-default-5-dark bg-default-2
+                    {/* Menu Button */}
+                    <button
+                        className="dark:bg-default-5-dark bg-default-2
                         group ml-auto mr-5 flex flex-row items-center md:hidden
                         drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
                         rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                    Menu &#160;
-                    <ArrowDown
-                        className={`stroke-default-10-dark dark:stroke-default-13-dark relative top-[2px] w-[13px] ${
-                            isMenuOpen && "rotate-180"
-                        } transition-transform`}
-                    />
-                </button>
-                <MenuModal isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        Menu &#160;
+                        <ArrowDown
+                            className={`stroke-default-10-dark dark:stroke-default-13-dark relative top-[2px] w-[13px] ${
+                                isMenuOpen && "rotate-180"
+                            } transition-transform`}
+                        />
+                    </button>
+                    <MenuModal isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
 
-                {/* Navigation bar */}
-                <nav
-                    className="dark:bg-default-5-dark bg-default-2 hidden md:flex
-                    drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
-                    flex-row items-center gap-5 px-4 font-medium  dark:font-medium
-                    rounded-full h-fit py-2 text-[0.8125rem]"
-                >
-                    <NavLink to="/blog" className={handleNavColor} end>
-                        Home
-                    </NavLink>
+                    {/* Navigation bar */}
+                    <nav
+                        className="dark:bg-default-5-dark bg-default-2 hidden md:flex
+                        drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
+                        flex-row items-center gap-5 px-4 font-medium  dark:font-medium
+                        rounded-full h-fit py-2 text-[0.8125rem]"
+                    >
+                        <NavLink to="/blog" className={handleNavColor} end>
+                            Home
+                        </NavLink>
 
-                    <NavLink to="/blog/about-me" className={handleNavColor}>
-                        About
-                    </NavLink>
+                        <NavLink to="/blog/about-me" className={handleNavColor}>
+                            About
+                        </NavLink>
 
-                    <div>
-                        <button
-                            id="categories-button"
-                            className={`flex flex-row items-center font-medium ${categoriesClass}`}
-                            onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                        >
-                            Categories &#160;
-                            <p className="text-[9px]">
-                                <ArrowDown
-                                    className={`${
-                                        isOnCategory
-                                            ? "stroke-orange-400"
-                                            : "stroke-default-10-dark dark:stroke-default-7"
-                                    } relative top-[2.5px] w-[13px] ${
-                                        isCategoryOpen && "rotate-180"
-                                    } transition-transform`}
-                                />
-                            </p>
-                        </button>
-                        {isCategoryOpen && (
+                        <div>
+                            <button
+                                id="categories-button"
+                                className={`flex flex-row items-center w-fit h-fit font-medium ${categoriesClass}`}
+                                onClick={() =>
+                                    setIsCategoryOpen(!isCategoryOpen)
+                                }
+                            >
+                                Categories &#160;
+                                <p className="text-[9px]">
+                                    <ArrowDown
+                                        className={`${
+                                            isOnCategory
+                                                ? "stroke-orange-400"
+                                                : "stroke-default-10-dark dark:stroke-default-7"
+                                        } relative top-[2.5px] w-[13px] ${
+                                            isCategoryOpen && "rotate-180"
+                                        } transition-transform`}
+                                    />
+                                </p>
+                            </button>
+
+                            {/* Category */}
                             <div
-                                className="fixed flex-col mt-2 
-                                drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300 bg-default-2 dark:bg-default-5-dark
-                                rounded-xl p-4 dark:text-orange-50 text-default-10-dark text-base"
+                                className={`fixed flex-col mt-2 
+                                drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300 bg-default-2 transition-colors duration-500 dark:bg-default-5-dark
+                                rounded-xl p-4 dark:text-orange-50 text-default-10-dark text-base
+                                ${
+                                    isCategoryOpen
+                                        ? "opacity-100"
+                                        : "opacity-0 pointer-events-none"
+                                }`}
                             >
                                 <div className="mb-1">
                                     │&#160;
@@ -234,33 +246,33 @@ const Header: React.FC<HeaderProps> = () => {
                                     Recent Posts
                                 </NavLink>
                             </div>
+                        </div>
+
+                        {isAuthenticated ? (
+                            <button
+                                className="dark:text-orange-50 text-default-10-dark font-medium"
+                                onClick={() => {
+                                    SignOut(dispatch);
+                                }}
+                            >
+                                Sign-out
+                            </button>
+                        ) : (
+                            <button
+                                className="drop-shadow-2xl font-medium"
+                                onClick={() => {
+                                    dispatch(makeVisible());
+                                }}
+                            >
+                                Sign-in
+                            </button>
                         )}
-                    </div>
+                    </nav>
 
-                    {isAuthenticated ? (
-                        <button
-                            className="dark:text-orange-50 text-default-10-dark font-medium"
-                            onClick={() => {
-                                SignOut(dispatch);
-                            }}
-                        >
-                            Sign-out
-                        </button>
-                    ) : (
-                        <button
-                            className="text-orange-400 drop-shadow-2xl font-medium"
-                            onClick={() => {
-                                dispatch(makeVisible());
-                            }}
-                        >
-                            Sign-in
-                        </button>
-                    )}
-                </nav>
-
-                <DarkmodeToggleSwitch />
-            </div>
-        </aside>
+                    <DarkmodeToggleSwitch />
+                </div>
+            </aside>
+        </>
     );
 };
 

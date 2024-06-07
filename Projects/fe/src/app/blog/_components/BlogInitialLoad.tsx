@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import MusicPlayer from "./MusicPlayer";
 import SignInModal from "./SignInModal";
 
@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 function BlogInitialLoad() {
     const isDarkMode = useSelector(selectIsDarkMode);
+    const location = useLocation();
 
     useEffect(() => {
         if (isDarkMode === true) {
@@ -21,37 +22,19 @@ function BlogInitialLoad() {
         }
     }, [isDarkMode]);
 
+    useEffect(() => {
+        setThemeColor(isDarkMode, location.pathname);
+
+        return () => {
+            setThemeColor(isDarkMode, location.pathname);
+        };
+    }, [location.pathname, isDarkMode]);
+
     return (
         <>
             <MusicPlayer className="absolute invisible" />
             <SignInModal />
             <Outlet />
-
-            {/* {isDarkMode ? (
-                <Helmet>
-                    <meta name="theme-color" content="rgb(24, 24, 27)" />
-                    <meta
-                        name="apple-mobile-web-app-status-bar-style"
-                        content="black"
-                    />
-                    <meta
-                        name="msapplication-navbutton-color"
-                        content="rgb(24, 24, 27)"
-                    />
-                </Helmet>
-            ) : (
-                <Helmet>
-                    <meta name="theme-color" content="rgb(250, 250, 250)" />
-                    <meta
-                        name="apple-mobile-web-app-status-bar-style"
-                        content="default"
-                    />
-                    <meta
-                        name="msapplication-navbutton-color"
-                        content="rgb(250, 250, 250)"
-                    />
-                </Helmet>
-            )} */}
         </>
     );
 }

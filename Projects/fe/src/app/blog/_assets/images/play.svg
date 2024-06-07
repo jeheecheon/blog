@@ -1,6 +1,5 @@
 <svg
     className="cursor-pointer block w-full h-full"
-    onClick={handlePlayClicked}
     id="music-play-button"
     xmlns="http://www.w3.org/2000/svg"
     height="24"

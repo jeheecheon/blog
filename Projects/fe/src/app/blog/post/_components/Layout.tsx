@@ -14,9 +14,6 @@ const Layout = (props: LayoutProps) => {
 
     return (
         <>
-            {/* Upper bg color */}
-            <div className="fixed w-screen h-screen bg-body -z-10" />
-
             <main
                 className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark ${props.className}`}
             >
@@ -52,9 +49,6 @@ const Layout = (props: LayoutProps) => {
                     <Footer />
                 </div>
             </main>
-
-            {/* Bottom bg color */}
-            <div className="fixed w-screen h-screen bg-body -z-10" />
 
             {/* Business logic */}
             <ScrollRestoration />

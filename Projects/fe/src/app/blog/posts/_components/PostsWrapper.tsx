@@ -32,7 +32,7 @@ const PostsWrapper = () => {
             <div className="mx-auto max-w-[800px] min-h-[35vh] mb-[70px]">
                 <h1
                     className="w-full text-xl md:text-3xl text-left font-medium  
-                    mt-[30px] text-orange-400 dark:text-orange-400 mb-[30px] md:mb-[50px]"
+                    text-orange-400 dark:text-orange-400 mb-[30px] md:mb-[50px]"
                 >
                     {category
                         ? `Posts under "${category}"`

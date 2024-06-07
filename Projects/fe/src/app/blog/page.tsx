@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 const Blog = () => {
     return (
         <>
-            <section className="w-full flex flex-col items-center">
-                <span className="text-4xl my-5">홈 페이지 공사 중...</span>
+            <section className="w-full flex flex-col items-center gap-5">
+                <span className="text-4xl">홈 페이지 공사 중...</span>
                 <Button className="">
                     <Link
                         to="/blog/recent-posts/pages/1"

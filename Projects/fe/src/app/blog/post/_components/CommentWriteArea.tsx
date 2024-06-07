@@ -70,45 +70,47 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
 
         return (
             <div
-                className={`rounded-lg flex flex-row justify-between items-start
+                className={`rounded-lg flex flex-col w-full
                 px-4 py-3 bg-default-4 dark:bg-body  ${className}`}
             >
-                <Avatar
-                    avatar={
-                        isAuthenticated && user.avatar ? user.avatar : undefined
-                    }
-                    width={45}
-                >
-                    <AvatarDefault />
-                </Avatar>
-
-                <div className="w-full flex flex-col items-end gap-3 -mt-5 ml-3">
+                <div className="flex w-full gap-3">
+                    <Avatar
+                        avatar={
+                            isAuthenticated && user.avatar
+                                ? user.avatar
+                                : undefined
+                        }
+                        size={45}
+                    >
+                        <AvatarDefault />
+                    </Avatar>
                     <CustomTextArea
                         content={content}
                         handleType={handleType}
-                        className="w-full focus:outline-none overflow-y-hidden resize-none
-                        border-b-[1px] border-slate-500
+                        className="focus:outline-none resize-none
+                        border-b-[1px] border-slate-500 rounded-none
                         bg-transparent"
                     />
-                    <div className="flex items-center justify-end w-full gap-3">
-                        {replyingTo && (
-                            <Button
-                                onClick={() => {
-                                    setContent("");
-                                    if (handleCancelClicked !== undefined)
-                                        handleCancelClicked();
-                                }}
-                            >
-                                Cancel
-                            </Button>
-                        )}
+                </div>
+
+                <div className="flex items-center justify-end w-full gap-3 text-sm flex-wrap">
+                    <Button
+                        onClick={handleUpload}
+                        className="text-orange-400 dark:text-orange-400 font-bold dark:font-normal text-sm"
+                    >
+                        Upload
+                    </Button>
+                    {replyingTo && (
                         <Button
-                            onClick={handleUpload}
-                            className="text-orange-400 dark:text-orange-400 font-bold dark:font-bold"
+                            onClick={() => {
+                                setContent("");
+                                if (handleCancelClicked !== undefined)
+                                    handleCancelClicked();
+                            }}
                         >
-                            Upload
+                            Cancel
                         </Button>
-                    </div>
+                    )}
                 </div>
             </div>
         );

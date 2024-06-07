@@ -13,6 +13,7 @@ import parse from "html-react-parser";
 import DOMPurify from "isomorphic-dompurify";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import Avatar from "@/blog/_components/Avatar";
+import ButtonInCommentBox from "./ButtonInCommentBox";
 
 interface CommentProps {
     postId: string;
@@ -77,26 +78,26 @@ export const Comment: React.FC<CommentProps> = React.memo(
                             return (
                                 <div
                                     key={idx}
-                                    className="w-[5px] border-r-[1px] ml-2 mr-5 border-default-18"
+                                    className="w-0 border-r-[1.8px] mr-[0.6rem] border-default-11 dark:border-default-10-dark"
                                 />
                             );
                         })}
                     </div>
                 )}
 
-                <div className={`flex flex-col py-4 w-full gap-3`}>
-                    <div className="flex flex-row flex-wrap">
+                <div className={`py-4 w-full space-y-3`}>
+                    <div className="w-full flex flex-row flex-nowrap">
                         {/* 댓글 작성자 정보 */}
                         <Avatar
                             avatar={
                                 comment.Avatar ? comment.Avatar : defaultAvatar
                             }
-                            width={45}
+                            size={38}
                         />
                         <div className="flex flex-col ml-2 justify-center text-sm md:text-base">
                             <div className="flex flex-row flex-wrap items-center">
                                 <span
-                                    className={`w-fit border rounded-2xl mr-1 px-[7px] py-[1px] text-xs 
+                                    className={`w-fit border rounded-2xl mr-1 px-[7px] py-[1px] text-[0.7rem] break-all
                                 ${
                                     comment.Email !== "jeheecheon@gmail.com" &&
                                     "hidden"
@@ -104,58 +105,66 @@ export const Comment: React.FC<CommentProps> = React.memo(
                                 >
                                     Site Owner
                                 </span>
-                                <span className="text-default-18-dark text-sm">
+                                <span className="text-default-18-dark text-xs break-all">
                                     {getTimeAgo(comment.UploadedAt as Date)}
                                 </span>
                             </div>
-                            <p className="dark:text-default-14">
+                            <p className="dark:text-default-14 text-[0.8rem] text-wrap break-all">
                                 {comment.Email}
                             </p>
                         </div>
                     </div>
 
                     <div
-                        className="text-pretty min-h-[50px] py-2 px-3 rounded-lg text-sm md:text-base
+                        className="min-h-[50px] py-2 px-3 rounded-lg text-sm md:text-base break-all
                         bg-default-4 dark:bg-body dark:text-default-14 w-full"
                     >
                         {content.current}
                     </div>
 
                     <div className="flex flex-row flex-wrap gap-3">
-                        <button
-                            onClick={handleLikeCliked}
-                            className="flex flex-row rounded justify-between items-center w-fit cursor-pointer
-                            border-2 py-[3px] px-2 text-sm border-blue-200 gap-1 fill-red-500
-                            bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
-                        >
-                            {hasLiked ? <LikeFilled /> : <Like />}
+                        <ButtonInCommentBox onClick={handleLikeCliked}>
+                            {hasLiked ? (
+                                <LikeFilled className="fill-orange-600" />
+                            ) : (
+                                <Like className="fill-gray-500 dark:fill-gray-500" />
+                            )}
                             <span>{likes}</span>
-                        </button>
+                        </ButtonInCommentBox>
 
-                        <button
-                            type="button"
-                            className="border-2 rounded text-sm py-[3px] px-2 w-fit
-                            flex flex-row items-center justify-center gap-1
-                            bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
-                            onClick={(e) => {
-                                e.preventDefault();
+                        <ButtonInCommentBox
+                            onClick={() => {
                                 setIsReplying(!isReplying);
                             }}
                         >
-                            <CommentSvg />
-                            <span>Reply</span>
-                        </button>
-                    </div>
+                            <CommentSvg
+                                className={`transition-colors duration-500 ${
+                                    isReplying
+                                        ? "fill-orange-500"
+                                        : "fill-gray-500 dark:fill-gray-500"
+                                }`}
+                            />
+                            <span
+                                className={`transition-colors duration-500 ${
+                                    isReplying ? "text-orange-500" : ""
+                                }`}
+                            >
+                                Reply
+                            </span>
+                        </ButtonInCommentBox>
 
-                    {isReplying && (
                         <CommentWriteArea
                             postId={postId}
                             replyingTo={comment.Id}
                             handleCancelClicked={() => setIsReplying(false)}
                             refreshComments={refreshComments}
-                            className="mt-2"
+                            className={`mt-2 ${
+                                isReplying
+                                    ? "opacity-100 block"
+                                    : "opacity-0 absolute left-0 w-fit invisible"
+                            } transition-opacity duration-1000`}
                         />
-                    )}
+                    </div>
                 </div>
             </div>
         );
