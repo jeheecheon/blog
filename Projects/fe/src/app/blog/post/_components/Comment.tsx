@@ -63,7 +63,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                     throwResponse(res);
                 })
                 .then((has_liked) => {
-                    if (!hasLiked) {
+                    if (hasLiked === null || hasLiked === undefined) {
                         throwError("has_liked is null or undefined");
                     }
                     setHasLiked(has_liked);

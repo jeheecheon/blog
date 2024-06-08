@@ -107,7 +107,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                     throwResponse(res);
                 })
                 .then((has_liked) => {
-                    if (!has_liked) {
+                    if (has_liked === null || has_liked === undefined) {
                         throwError("Failed to like the post");
                     }
                     setHasLiked(has_liked);
