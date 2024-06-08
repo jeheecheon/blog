@@ -12,7 +12,7 @@ const PageLoadingSpinner: React.FC = () => {
                     border-default-18-dark"
                 />
 
-                <span className="text-md font-semibold italic animate-blur-in-out">
+                <span className="text-md text-default-15-dark dark:text-default-8 font-semibold italic animate-blur-in-out">
                     Page Loading...!
                 </span>
             </div>

@@ -99,11 +99,11 @@ const Header: React.FC<HeaderProps> = () => {
         <>
             <aside
                 ref={headerRef}
-                className="fixed top-0 mt-[13px] w-[100vw] z-30"
+                className="fixed top-0 mt-[13px] w-[100%] z-30"
             >
                 <div
-                    className="max-w-[1160px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10
-                flex items-center justify-between"
+                    className="max-w-[1050px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10
+                    flex items-center justify-between"
                 >
                     <Link to="/blog">
                         <Avatar
@@ -259,7 +259,7 @@ const Header: React.FC<HeaderProps> = () => {
                             </button>
                         ) : (
                             <button
-                                className="drop-shadow-2xl font-medium"
+                                className="dark:text-orange-50 text-default-10-dark"
                                 onClick={() => {
                                     dispatch(makeVisible());
                                 }}

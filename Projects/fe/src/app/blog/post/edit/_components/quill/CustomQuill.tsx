@@ -15,7 +15,7 @@ const CustomQuill: React.FC<CustomQullProps> = ({
 }) => {
     return (
         <div className={`${className}`}>
-            <CustomQuillToolbar className="w-full sticky" />
+            <CustomQuillToolbar className="w-full sticky top-0 bg-white opacity-100 z-[50]" />
             <ReactQuill
                 theme="snow"
                 className="w-full"

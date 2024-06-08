@@ -154,6 +154,7 @@ export const formats = [
     "bullet",
     "indent",
     "link",
+    "video",
     "image",
     "color",
     "code-block",

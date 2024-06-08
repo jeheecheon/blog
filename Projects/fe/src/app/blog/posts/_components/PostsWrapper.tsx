@@ -23,20 +23,21 @@ const PostsWrapper = () => {
     const [postsAwaiter, setPostsAwaiter] = useState(
         CreateDummyPromiseAwaiter()
     );
+
     useEffect(() => {
         setPostsAwaiter(wrapPromise(fetch(fetchUrl)));
     }, [fetchUrl]);
 
     return (
         <>
-            <div className="mx-auto max-w-[800px] min-h-[35vh] mb-[70px]">
-                <h1
-                    className="w-full text-xl md:text-3xl text-left font-medium  
-                    text-orange-400 dark:text-orange-400 mb-[30px] md:mb-[50px]"
-                >
-                    {category
-                        ? `Posts under "${category}"`
-                        : "Recently published"}
+            <div className="mx-auto max-w-[800px] min-h-[35vh]">
+                <h1 className="w-full text-left font-medium text-balance pt-[0px]">
+                    <p className="text-orange-400 text-xs md:text-sm">
+                        {category ? "CATEGORY" : "POSTS"}
+                    </p>
+                    <p className="text-orange-400 dark:text-default-7 text-xl md:text-3xl uppercase">
+                        {category ? category : "recently published"}
+                    </p>
                 </h1>
                 <ErrorBoundary
                     fallback={

@@ -17,6 +17,12 @@ import Share from "@/blog/post/_assets/images/share.svg?react";
 import "@/blog/post/_assets/css/Article.scss";
 import hljs from "@/blog/_utils/highlightSettings";
 
+DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
+    if (node.tagName === "IFRAME") {
+        node.setAttribute("sandbox", "allow-same-origin allow-scripts");
+    }
+});
+
 interface ArticleContentProps {
     className?: string;
     post: PostInfo;
@@ -35,7 +41,13 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
         );
 
         const content = useMemo<string | JSX.Element | JSX.Element[]>(
-            () => parse(DOMPurify.sanitize(post.Content)),
+            () =>
+                parse(
+                    DOMPurify.sanitize(post.Content, {
+                        ADD_TAGS: ["iframe"],
+                        ADD_ATTR: ["allow", "allowfullscreen", "frameborder"],
+                    })
+                ),
             [post.Content]
         );
         const [hasLiked, setHasLiked] = useState(post.HasLiked);
@@ -122,7 +134,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                 >
                     <div className="w-full flex flex-col items-center">
                         <div className="bg-default-18 dark:bg-default-11-dark h-[10px] w-[170px] rounded-2xl relative bottom-1" />
-                        <span className="block text-center text-default-18 font-medium text-sm mb-3">
+                        <span className="block text-center text-default-18 font-medium text-[0.64rem] mb-3">
                             {
                                 post.EditedAt !== undefined &&
                                 post.EditedAt !== null

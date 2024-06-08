@@ -23,15 +23,18 @@ const Posts: React.FC<PostsProps> = React.memo(({ postsAwaiter }) => {
     }, [posts]);
 
     return (
-        <nav className="flex flex-col items-center mb-5 gap-[40px] w-full">
+        <nav className="flex flex-col items-center mt-[30px] md:mt-[50px] w-full">
             {sortedPosts.map((p) => (
                 <Link
                     to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}
                     key={p.Id}
-                    className="max-w-[800px] w-full"
+                    className="w-full border-b-[1px] dark:border-default-12-dark border-default-10 
+                    first:border-t-0 last:border-b-0"
                     preventScrollReset={false}
                 >
-                    <PostCard post={p} />
+                    <PostCard
+                        post={p}
+                    />
                 </Link>
             ))}
         </nav>
