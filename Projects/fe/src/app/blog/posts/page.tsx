@@ -9,7 +9,6 @@ import {
 } from "@/blog/_utils/post";
 import { PromiseAwaiter } from "@/_utils/promiseWrapper";
 import React, { useMemo } from "react";
-import { throwError } from "@/_utils/responses";
 
 interface PostsProps {
     postsAwaiter: PromiseAwaiter;
@@ -17,9 +16,6 @@ interface PostsProps {
 
 const Posts: React.FC<PostsProps> = React.memo(({ postsAwaiter }) => {
     const posts = postsAwaiter.Await() as PostInfo[];
-    if (posts.length === 0) {
-        throwError("Posts are empty");
-    }
 
     const sortedPosts = useMemo(() => {
         return sortPostsByUploadedAt(
