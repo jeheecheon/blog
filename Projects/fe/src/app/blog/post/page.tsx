@@ -8,7 +8,7 @@ import {
     wrapPromise,
 } from "@/_utils/promiseWrapper";
 import { Helmet } from "react-helmet";
-import { image, name, url } from "@/_utils/siteInfo";
+import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 import { RootState } from "@/_redux/store";
 import { useSelector } from "react-redux";
 import { flattenOutCategoriesV2 } from "@/blog/_utils/category";
@@ -66,7 +66,7 @@ const Post = () => {
                 <meta property="og:description" content={post.Title} />
                 <meta
                     property="og:image"
-                    content={post.Cover ? post.Cover : image}
+                    content={post.Cover ? post.Cover : defaultCoverImage}
                 />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="jeheecheon" />
@@ -81,7 +81,7 @@ const Post = () => {
                 />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content={post.Title} />
-                <meta name="twitter:image" content={image} />
+                <meta name="twitter:image" content={defaultCoverImage} />
             </Helmet>
         </>
     );

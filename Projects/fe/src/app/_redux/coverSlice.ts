@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { image } from "../_utils/siteInfo";
 import { RootState } from "./store";
 
 export interface CoverState {
@@ -9,7 +8,7 @@ export interface CoverState {
 }
 
 const initialState: CoverState = {
-    coverImageUrl: image,
+    coverImageUrl: "",
     titleOnCover: "",
 };
 

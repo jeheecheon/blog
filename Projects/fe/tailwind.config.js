@@ -68,7 +68,7 @@ export default {
         animation: {
             spin: "spin 0.7s ease-in-out infinite",
             "fade-out-spinner": "fade-out 2s ease-out forwards",
-            "blur-in-out": "blur-int-out 1s linear infinite",
+            "blur-in-out": "blur-int-out 2.7s ease-in-out infinite",
             "infinite-x-scroll": "infinite-scroll 4s linear infinite",
         },
     },

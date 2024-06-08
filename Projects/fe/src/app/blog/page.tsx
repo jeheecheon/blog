@@ -1,12 +1,19 @@
 import Button from "@/blog/_components/Button";
-import { image, url } from "@/_utils/siteInfo";
+import { defaultCoverImage, url } from "@/_utils/siteInfo";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Blog = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        navigate("/blog/recent-posts/pages/1");
+    }, []);
+
     return (
         <>
-            <section className="w-full flex flex-col items-center gap-5">
+            <section className="w-full flex flex-col items-center gap-5 min-h-[40dvh]">
                 <span className="text-4xl">홈 페이지 공사 중...</span>
                 <Button className="">
                     <Link
@@ -21,7 +28,7 @@ const Blog = () => {
             {/* Business logic */}
             <Helmet>
                 <title>blog | jeheecheon</title>
-                
+
                 <link rel="canonical" href={`${url}/blog/`} />
 
                 <meta name="description" content="blog" />
@@ -30,7 +37,7 @@ const Blog = () => {
 
                 <meta property="og:title" content="jeheecheon" />
                 <meta property="og:description" content="Jehee's Tech blog" />
-                <meta property="og:image" content={image} />
+                <meta property="og:image" content={defaultCoverImage} />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="jeheecheon" />
                 <meta property="og:locale" content="ko_KR" />
@@ -39,7 +46,7 @@ const Blog = () => {
                 <meta name="twitter:title" content="blog | jeheecheon" />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content="Jehee's Tech blog" />
-                <meta name="twitter:image" content={image} />
+                <meta name="twitter:image" content={defaultCoverImage} />
             </Helmet>
         </>
     );

@@ -9,7 +9,7 @@ import {
     setMusicList,
     setMusicTitle,
 } from "@/_redux/musicSlice";
-import { Throw500Response } from "@/_utils/responses";
+import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -62,13 +62,14 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
         if (musicList.length === 0) {
             fetch("/api/blog/music")
                 .then((res) => {
-                    if (res.ok) return res.json();
-                    else return null;
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    throwResponse(res);
                 })
                 .then((data: string[]) => {
                     if (!data) {
-                        Throw500Response();
-                        return;
+                        throwError("Music list is null or undefined");
                     }
                     if (data.length > 0) {
                         data.sort(() => Math.random() - 0.5);
@@ -77,7 +78,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
                         audioRef.current!.load();
                     }
                 })
-                .catch((err) => console.error(err));
+                .catch(handleError);
         }
 
         audioRef.current?.addEventListener("timeupdate", updateCurrentPlayTime);

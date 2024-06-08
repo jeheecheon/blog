@@ -35,31 +35,38 @@ const SignInModal = () => {
                 dispatch(makeInvisible());
             }}
             width={modalWidth}
+            height={195}
             className=""
             customStyles={{
-                backgroundColor: `${
-                    isDarkMode ? "rgb(24, 24, 27)" : "rgb(250, 250, 250)"
-                }`,
+                backgroundColor: isDarkMode
+                    ? "rgb(24, 24, 27)"
+                    : "rgb(250, 250, 250)",
+                borderColor: isDarkMode
+                    ? "rgb(29, 29, 32)"
+                    : "rgb(230, 230, 240)",
+                borderWidth: "2px",
                 borderRadius: "22px",
-                padding: "25px 30px 25px 30px",
+                padding: "30px 20px 20px 20px",
             }}
         >
-            <div className="flex flex-col items-center">
-                <h1 className="text-2xl md:text-3xl font-bold mb-[70px] text-orange-400">
-                    로그인을 해주세요!
-                </h1>
-
-                <div className="flex flex-col gap-6 items-center justify-center">
-                    <GoogleLoginButton
-                        onClick={() => {
-                            window.location.replace(
-                                "/api/oauth/sign-in?provider=google"
-                            );
-                        }}
-                        className=""
-                    />
-                    {/* <span>네이버 로그인 준비 중...</span> */}
+            <div className="flex flex-col h-full items-center">
+                <div className="font-semibold text-default-14-dark dark:text-default-12 flex flex-col items-start">
+                    <p className="text-2xl">Login! 🐶</p>
+                    <p>leave your comment!</p>
                 </div>
+
+                <p className="mt-auto text-gray-500 text-xs">
+                    I do not collect user info for personal use...
+                </p>
+
+                <GoogleLoginButton
+                    className="mt-2"
+                    onClick={() => {
+                        window.location.replace(
+                            "/api/oauth/sign-in?provider=google"
+                        );
+                    }}
+                />
             </div>
         </Rodal>
     );

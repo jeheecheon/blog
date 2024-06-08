@@ -12,9 +12,9 @@ import {
     convertStringIntoDate,
     sortPostsByUploadedAt,
 } from "@/blog/_utils/post";
-import { image, url } from "@/_utils/siteInfo";
-import { PropagateResponse } from "@/_utils/responses";
+import { defaultCoverImage, url } from "@/_utils/siteInfo";
 import { Helmet } from "react-helmet";
+import { handleError, throwError, throwResponse } from "@/_utils/responses";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const PostEdit = () => {
 
     const [coverPriviewUrl, setCoverPreviewUrl] = useState<
         string | ArrayBuffer | null
-    >(image);
+    >(defaultCoverImage);
     const [postsList, setPostsList] = useState<PostSummary[]>();
     const [selectedPostIdToEdit, setSelectedPostIdToEdit] = useState("");
     const [postEditing, setPostEditing] = useState<PostInfo>();
@@ -39,7 +39,7 @@ const PostEdit = () => {
         fetchPostsList();
 
         return () => {
-            dispatch(setCoverImageUrl(image));
+            dispatch(setCoverImageUrl(defaultCoverImage));
         };
     }, []);
 
@@ -48,21 +48,22 @@ const PostEdit = () => {
             credentials: "same-origin",
         })
             .then((res) => {
-                if (res.ok) return res.json();
-                else PropagateResponse(res);
-            })
-            .then((res: PostSummary[]) => {
-                if (res !== null && res !== undefined) {
-                    convertStringIntoDate(res);
-                    sortPostsByUploadedAt(res);
-                    setPostsList(res);
-                } else {
-                    PropagateResponse(res);
+                if (res.ok) {
+                    return res.json();
                 }
+                throwResponse(res);
+            })
+            .then((PostSummary: PostSummary[]) => {
+                if (PostSummary) {
+                    convertStringIntoDate(PostSummary);
+                    sortPostsByUploadedAt(PostSummary);
+                    setPostsList(PostSummary);
+                }
+                throwError("PostSummary is null or undefined");
             })
             .catch((error) => {
+                handleError(error);
                 alert("Error occured while fecthing a list of posts..");
-                console.error(error);
             });
 
     const handlePostIdSelected: React.ChangeEventHandler<HTMLSelectElement> = (
@@ -77,31 +78,33 @@ const PostEdit = () => {
                 credentials: "same-origin",
             })
                 .then((res) => {
-                    if (res.ok) return res.json();
-                    else PropagateResponse(res);
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    throwResponse(res);
                 })
-                .then((res) => {
-                    if (res === null) PropagateResponse(res);
-                    else {
-                        const post = res as PostInfo;
+                .then((post: PostInfo) => {
+                    if (!post) {
+                        throwError("Post is null or undefined");
+                    } else {
                         convertStringIntoDate(post);
                         setPostEditing(post);
                         if (post.Cover !== undefined && post.Cover !== null) {
                             setCoverPreviewUrl(post.Cover);
                             dispatch(setCoverImageUrl(post.Cover));
                         } else {
-                            setCoverPreviewUrl(image);
-                            dispatch(setCoverImageUrl(image));
+                            setCoverPreviewUrl(defaultCoverImage);
+                            dispatch(setCoverImageUrl(defaultCoverImage));
                         }
                     }
                 })
                 .catch((error) => {
+                    handleError(error);
                     alert("Failed to fetch the post info...");
-                    console.error(error);
                 });
         else {
-            setCoverPreviewUrl(image);
-            dispatch(setCoverImageUrl(image));
+            setCoverPreviewUrl(defaultCoverImage);
+            dispatch(setCoverImageUrl(defaultCoverImage));
         }
     };
 
@@ -126,11 +129,12 @@ const PostEdit = () => {
                         setUpdateEditedDate(false);
                         setUpdateEditedDateAsNull(false);
                         setUpdateUploadedDate(false);
-                    } else PropagateResponse(res);
+                    }
+                    throwResponse(res);
                 })
-                .catch((e) => {
+                .catch((err) => {
                     alert("Failed to update the current post");
-                    console.error(e);
+                    handleError(err);
                 });
     };
 
@@ -147,11 +151,12 @@ const PostEdit = () => {
                         setSelectedPostIdToEdit("");
                         fetchPostsList();
                         setPostEditing({} as PostInfo);
-                    } else PropagateResponse(res);
+                    }
+                    throwResponse(res);
                 })
-                .catch((e) => {
+                .catch((err) => {
                     alert("Failed to delete the selected post");
-                    console.error(e);
+                    handleError(err);
                 });
     };
 
@@ -165,11 +170,11 @@ const PostEdit = () => {
         })
             .then((res) => {
                 if (res.ok) fetchPostsList();
-                else PropagateResponse(res);
+                throwResponse(res);
             })
             .catch((e) => {
                 alert("Failed to create an empty post");
-                console.error(e);
+                handleError(e);
             });
     };
 
@@ -189,28 +194,27 @@ const PostEdit = () => {
                     body: formData,
                 })
                     .then((res) => {
-                        if (res.ok) return res.json();
-                        else return PropagateResponse(res);
+                        if (res.ok) {
+                            return res.json();
+                        }
+                        throwResponse(res);
                     })
-                    .then((res) => {
-                        if (
-                            res !== null &&
-                            res !== undefined &&
-                            postEditing !== null &&
-                            postEditing !== undefined
-                        ) {
-                            console.log(res.imageUrl);
-                            dispatch(setCoverImageUrl(res.imageUrl));
+                    .then((imageUrl) => {
+                        if (imageUrl && postEditing) {
+                            console.log(imageUrl);
+                            dispatch(setCoverImageUrl(imageUrl));
                             setPostEditing({
                                 ...postEditing,
-                                Cover: res.imageUrl,
+                                Cover: imageUrl,
                             });
-                            setCoverPreviewUrl(res.imageUrl);
-                        } else PropagateResponse(res);
+                            setCoverPreviewUrl(imageUrl);
+                        } else {
+                            throwError("Image URL is null or undefined");
+                        }
                     })
                     .catch((error) => {
                         alert("Failed to upload the selected image to s3");
-                        console.error(error);
+                        handleError(error);
                     });
             }
         }
@@ -226,7 +230,7 @@ const PostEdit = () => {
                 <meta name="author" content="jeheecheon" />/
                 <meta property="og:title" content="Edit | jeheecheon" />
                 <meta property="og:description" content="Blog post edit page" />
-                <meta property="og:image" content={image} />
+                <meta property="og:image" content={defaultCoverImage} />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="jeheecheon" />
                 <meta property="og:locale" content="ko_KR" />
@@ -237,7 +241,7 @@ const PostEdit = () => {
                     name="twitter:description"
                     content="Blog post edit page"
                 />
-                <meta name="twitter:image" content={image} />
+                <meta name="twitter:image" content={defaultCoverImage} />
             </Helmet>
 
             {showPreview && postEditing && (

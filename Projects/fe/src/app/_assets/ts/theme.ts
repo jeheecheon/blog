@@ -32,8 +32,9 @@ function setThemeColor(isDarkMode: boolean, pathname: string) {
     let themeColor = "";
     if (isDarkMode) {
         themeColor = isPostUrl ? "rgb(16, 16, 16)" : "rgb(24, 24, 27)";
+        // themeColor = "rgb(16, 16, 16)";
     } else {
-        themeColor = "rgb(255, 255, 255)";
+        themeColor = "rgb(250, 250, 250)";
     }
 
     document.body.style.backgroundColor = themeColor;

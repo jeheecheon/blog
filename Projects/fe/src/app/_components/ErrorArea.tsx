@@ -13,32 +13,35 @@ const ErrorArea = ({ className }: ErrorAreaProps) => {
 
     return (
         <div
-            className={`flex flex-col items-center min-h-[50vh] h-screen justify-center ${className}`}
+            className={`flex flex-col items-center h-[100dvh] justify-center ${className} bg-body`}
         >
-            <div className="flex flex-col items-center gap-5 rounded-2xl bg-slate-50 bg-opacity-50 p-5">
-                <h1 className="text-5xl italic dark:text-default-5-dark">
-                    😒Oops...
+            <div
+                className="flex flex-col items-center gap-5 rounded-2xl shadow-xl dark:shadow-black/40 p-5 max-w-[300px] w-full
+                bg-default-3 dark:bg-slate-200/50 border-2 dark:border-[1px] border-default-5 dark:border-slate-200/30"
+            >
+                <h1 className="text-5xl italic dark:text-default-5-dark text-default-17 font-semibold">
+                    😭Oops...
                 </h1>
-                <p className="text-lg dark:text-default-5-dark">
-                    Sorry, an unexpected error has occurred.
-                </p>
-                <p>
-                    <i className="text-red-700 text-lg">
-                        {isRouteErrorResponse(error) && (
-                            <span className="flex flex-col items-center">
-                                <span>{error.status}</span>
-                                <span>{error.statusText}</span>
-                            </span>
-                        )}
+
+                <div className="text-sm md:text-base dark:text-default-2-dark text-default-18-dark">
+                    <p className="text-center">요청하신 페이지가 없거나,</p>
+                    <p className="text-center">서버에 문제가 발생했습니다.</p>
+                </div>
+
+                {isRouteErrorResponse(error) && (
+                    <i className="text-red-700 text-xs flex flex-col items-center">
+                        <span>{error.status}</span>
+                        <span>{error.statusText}</span>
                     </i>
-                </p>
+                )}
+
                 <Button
                     onClick={(e) => {
                         e.preventDefault();
                         navigate(-1);
                     }}
                 >
-                    Previous page
+                    뒤로가기
                 </Button>
             </div>
         </div>

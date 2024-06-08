@@ -12,24 +12,23 @@ interface LayoutProps {
 const BlogLayout: React.FC<LayoutProps> = ({ className }) => {
     return (
         <>
-            <main
-                className={`dark:bg-[#101010] bg-default-5 dark:text-default-7 text-default-1-dark 
+            <div
+                className={`dark:bg-[#101010] bg-default-5 dark:text-default-7 text-default-1-dark
                 font-['Noto_Sans_KR'] ${className}`}
             >
                 <Header />
 
-                {/* Content body */}
-                <div
+                <main
                     className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1220px] bg-body pt-[95px]
-                    border-x-[1px] dark:border-x-default-5-dark border-x-default-7"
+                    border-x-[1px] dark:border-x-default-5-dark border-x-default-7 min-h-[70vh]"
                 >
-                    <section className="mx-6 md:mx-10 min-h-[10dvh]">
+                    <div className="mx-6 md:mx-10">
                         <Outlet />
-                    </section>
+                    </div>
+                </main>
 
-                    <Footer />
-                </div>
-            </main>
+                <Footer className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[1220px] bg-body" />
+            </div>
 
             {/* Business logic */}
             <ScrollRestoration />

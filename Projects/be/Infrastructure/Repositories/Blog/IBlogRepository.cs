@@ -29,5 +29,7 @@ namespace Infrastructure.Repositories.Blog
         public Task<bool> UpdateEditedAtAsync(PostWithMetadata post);
         public Task<bool> SetEditedAtAsNullAsync(PostWithMetadata post);
         public Task<bool> UpdateUploadedAtAsync(PostWithMetadata post);
+        public int GetPostCnt();
+        public int GetPostCntByCategory(string category);
     }
 }

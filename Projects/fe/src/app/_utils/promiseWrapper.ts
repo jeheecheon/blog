@@ -1,4 +1,4 @@
-import { HandleError } from "@/_utils/responses";
+import { throwResponse } from "@/_utils/responses";
 
 export type PromiseAwaiter = {
     Await: () => unknown;
@@ -8,7 +8,7 @@ export const CreateDummyPromiseAwaiter = () => {
     const dummy: PromiseAwaiter = {
         Await: () => {
             throw new Promise((res) => {
-                setTimeout(() => res(null), 9999999);
+                setTimeout(() => res(null), 99999);
             });
         },
     };
@@ -24,16 +24,18 @@ export const wrapPromise = (promise: Promise<Response>) => {
         .then(
             (res) => {
                 response = res;
-                if (res.ok) return res.json();
-                else HandleError(res);
+                if (res.ok) {
+                    return res.json();
+                }
+                throwResponse(res);
             },
             (err) => {
                 response = err;
                 status = "error";
             }
         )
-        .then((res) => {
-            data = res;
+        .then((jsonData) => {
+            data = jsonData;
             status = "success";
         })
         .catch((err) => {
@@ -82,8 +84,10 @@ export class PromiseWrapper {
             .then(
                 (res) => {
                     this.response = res;
-                    if (res.ok) return res.json();
-                    else HandleError(res);
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    throwResponse(res);
                 },
                 (err) => {
                     this.response = err;

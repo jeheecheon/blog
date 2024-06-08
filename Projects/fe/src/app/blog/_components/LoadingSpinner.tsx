@@ -1,18 +1,32 @@
 interface LoadingSpinnerProps {
-    children: string;
+    children: React.ReactNode;
+    textSize?: string;
+    className?: string;
 }
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ children }) => {
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
+    children,
+    className,
+    textSize = "text-base",
+}) => {
     return (
-        <div className="w-[250px] h-[200px] flex flex-col justify-center items-center rounded-xl p-5 gap-3 mx-auto">
+        <div
+            className={`mx-auto w-[230px] h-[230px] pointer-events-none flex flex-col justify-center items-center gap-3 
+                rounded-xl p-5 z-50 ${className}`}
+        >
             {/* spinner */}
             <div
-                className="border-4 rounded-full p-3 border-t-default-8 animate-spin w-[40px] h-[40px]
-                border-default-18-dark"
+                className="border-4 rounded-full p-3 animate-spin w-[40px] h-[40px]
+                    border-default-8 border-t-default-18
+                    dark:border-default-18-dark dark:border-t-default-10"
             />
-            <span className="text-center text-md font-semibold italic">
+
+            <p
+                className={`text-center text-default-18-dark dark:text-default-16 font-[500] italic animate-blur-in-out
+                ${textSize}`}
+            >
                 {children}
-            </span>
+            </p>
         </div>
     );
 };

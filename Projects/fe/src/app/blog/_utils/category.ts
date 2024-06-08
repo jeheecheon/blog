@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import CategoryInfo from "@/blog/_types/Category";
-import { HandleError, PropagateResponse } from "@/_utils/responses";
 import { setLeafCategories } from "@/_redux/categorySlice";
+import { handleError, throwResponse } from "@/_utils/responses";
 
 export function flattenOutCategoriesV1(
     category: CategoryInfo | undefined
@@ -42,12 +42,14 @@ export async function fetchLeafCategoriesAsync(
         credentials: "same-origin",
     })
         .then((res) => {
-            if (res.ok) return res.json();
-            else HandleError(res);
+            if (res.ok) {
+                return res.json();
+            }
+            throwResponse(res);
         })
         .then((res) => {
             if (Array.isArray(res) && res !== undefined && res !== null)
                 dispatch(setLeafCategories(res));
         })
-        .catch(PropagateResponse);
+        .catch(handleError);
 }

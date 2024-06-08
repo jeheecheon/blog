@@ -26,4 +26,5 @@ public interface IBlogService
     public Task<bool> DeletePostAsync(Guid post_id);
     public StaticLikePostLikesHasLiked? GetStaticLikePost(Guid post_id);
     public Task<List<string>?> GetMusicListFromS3Async();
+    public int GetPageNum(string? category);
 }

@@ -14,6 +14,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import Avatar from "@/blog/_components/Avatar";
 import ButtonInCommentBox from "./ButtonInCommentBox";
+import { handleError, throwError, throwResponse } from "@/_utils/responses";
 
 interface CommentProps {
     postId: string;
@@ -56,15 +57,19 @@ export const Comment: React.FC<CommentProps> = React.memo(
                 body: JSON.stringify(!hasLiked),
             })
                 .then((res) => {
-                    if (res.ok) return res.json();
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    throwResponse(res);
                 })
-                .then((res) => {
-                    setHasLiked(res.has_liked);
-                    setLikes(likes + (res.has_liked ? 1 : -1));
+                .then((has_liked) => {
+                    if (!hasLiked) {
+                        throwError("has_liked is null or undefined");
+                    }
+                    setHasLiked(has_liked);
+                    setLikes(likes + (has_liked ? 1 : -1));
                 })
-                .catch((err) => {
-                    console.error(err);
-                })
+                .catch(handleError)
                 .finally(() => {
                     isLoadingLikes.current = false;
                 });
@@ -131,7 +136,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                         <div className="flex flex-row flex-wrap gap-3">
                             <ButtonInCommentBox onClick={handleLikeCliked}>
                                 {hasLiked ? (
-                                    <LikeFilled className="fill-orange-600" />
+                                    <LikeFilled className="fill-orange-500" />
                                 ) : (
                                     <Like className="fill-gray-500 dark:fill-gray-500" />
                                 )}

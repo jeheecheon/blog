@@ -1,12 +1,42 @@
 import { useEffect, useMemo, useState } from "react";
 import Rodal from "rodal";
-import { useIsMounted } from "../../_hooks/useIsMounted";
+import { useIsMounted } from "@/_hooks/useIsMounted";
 import { useDispatch, useSelector } from "react-redux";
-import { makeVisible } from "@/_redux/signInModalSlice";
 import { RootState } from "@/_redux/store";
 import { Link } from "react-router-dom";
-import { SignOut } from "../_utils/user";
 import { calculateModalWidth } from "@/blog/_utils/modal";
+import { signOut } from "../_utils/user";
+import { makeVisible } from "@/_redux/signInModalSlice";
+
+const navLinks = [
+    {
+        name: "Blog",
+        to: "/blog",
+    },
+    {
+        name: "Portfolio",
+        to: "/",
+    },
+];
+
+const categoryLinks = [
+    {
+        name: "Recent Posts",
+        to: "/blog/recent-posts/pages/1",
+    },
+    {
+        name: "Algorithm",
+        to: "/blog/categories/Algorithm/pages/1",
+    },
+    {
+        name: "Web Development",
+        to: "/blog/categories/Web-Development/pages/1",
+    },
+    {
+        name: "Uncategorized",
+        to: "/blog/categories/Uncategorized/pages/1",
+    },
+];
 
 interface MenuModalProps {
     isOpen: boolean;
@@ -31,6 +61,29 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, [modalWidth]);
 
+    function convertLinksToJsx(
+        links: { name: string; to: string }[],
+        title: string
+    ) {
+        return (
+            <>
+                <p className="text-orange-400 text-lg">{title}</p>
+                <nav className="flex flex-col text-default-18-dark text-sm dark:text-default-10 mt-1">
+                    {links.map((link, index) => (
+                        <Link
+                            key={index}
+                            to={link.to}
+                            className="w-full py-2 border-b-[1.6px] dark:border-y-default-7-dark border-y-default-5"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
+                </nav>
+            </>
+        );
+    }
+
     return (
         <Rodal
             visible={isOpen}
@@ -41,88 +94,37 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
                 }`,
                 padding: "25px 30px 25px 30px",
             }}
-            className="rounded-full"
             width={modalWidth}
-            height={575}
+            height={400}
             onClose={() => setIsOpen(!isOpen)}
         >
-            <div>
-                <p className="text-orange-400 text-lg mb-5">Settings</p>
-                <nav className="flex flex-col text-default-10-dark dark:text-default-10 font-medium items-start">
-                    <div className="w-full border-b-[2px] pb-3 border-b-default-5 dark:border-b-default-7-dark">
-                        {isAuthenticated ? (
-                            <button
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    SignOut(dispatch);
-                                }}
-                            >
-                                Sign-out
-                            </button>
-                        ) : (
-                            <button
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    dispatch(makeVisible());
-                                }}
-                            >
-                                Sign-in
-                            </button>
-                        )}
-                    </div>
+            <div className="h-full flex flex-col justify-between">
+                <div>
+                    {convertLinksToJsx(navLinks, "Navigation")}
+                    <button
+                        className="text-default-18-dark text-sm dark:text-default-10 w-full text-left py-2 
+                        border-b-[1.6px] border-y-default-5 dark:border-y-default-7-dark"
+                        onClick={() => {
+                            setIsOpen(false);
+                            if (isAuthenticated) {
+                                signOut(dispatch);
+                            } else {
+                                dispatch(makeVisible());
+                            }
+                        }}
+                    >
+                        {isAuthenticated ? "Sign-out" : "Sign-in"}
+                    </button>
+                </div>
 
-                    <p className="text-orange-400 text-lg mt-5 mb-5">
-                        Navigation
-                    </p>
-                    <Link
-                        className="w-full border-b-[2px] pb-3 border-b-default-5 dark:border-b-default-7-dark"
-                        to="/blog"
-                    >
-                        Home
-                    </Link>
-                    <Link
-                        className="w-full border-b-[2px] py-3 border-b-default-5 dark:border-b-default-7-dark"
-                        to="/blog/about-me"
-                    >
-                        About
-                    </Link>
-                    <Link
-                        className="w-full border-b-[2px] py-3 border-b-default-5 dark:border-b-default-7-dark"
-                        to="/blog/recent-posts/pages/1"
-                    >
-                        Recent Posts
-                    </Link>
-                    <Link
-                        className="w-full border-b-[2px] py-3 border-b-default-5 dark:border-b-default-7-dark"
-                        to="/blog/categories/Uncategorized/pages/1"
-                    >
-                        Uncategorized
-                    </Link>
-                    <Link
-                        className="w-full border-b-[2px] py-3 border-b-default-5 dark:border-b-default-7-dark"
-                        to="/blog/categories/Algorithm/pages/1"
-                    >
-                        Algorithm
-                    </Link>
-                    <Link
-                        className="w-full border-b-[2px] py-3 border-b-default-5 dark:border-b-default-7-dark"
-                        to="/blog/categories/ASP.NET/pages/1"
-                    >
-                        ASP.NET
-                    </Link>
-                    <Link
-                        className="w-full border-b-[2px] py-3 border-b-default-5 dark:border-b-default-7-dark"
-                        to="/blog/categories/Spring/pages/1"
-                    >
-                        Spring
-                    </Link>
-                    <Link
-                        className="w-full pt-2"
-                        to="/blog/categories/React/pages/1"
-                    >
-                        React
-                    </Link>
-                </nav>
+                <div className="mt-5">
+                    {convertLinksToJsx(categoryLinks, "Category")}
+                </div>
+
+                {/* <div className="mt-5">
+                    <p className="text-orange-400 text-lg mb-2">Settings</p>
+                    
+                </div> */}
             </div>
         </Rodal>
     );

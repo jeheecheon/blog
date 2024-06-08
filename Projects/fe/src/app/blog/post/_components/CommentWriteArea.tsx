@@ -4,9 +4,9 @@ import Button from "@/blog/_components/Button";
 import CustomTextArea from "@/blog/post/_components/CustomTextArea";
 import Avatar from "@/blog/_components/Avatar";
 import { makeVisible } from "../../../_redux/signInModalSlice";
-import { HandleError } from "@/_utils/responses";
 import AvatarDefault from "@/blog/post/_assets/images/AvatarDefault";
 import { selectUser } from "@/_redux/userSlice";
+import { handleError, throwResponse } from "@/_utils/responses";
 
 interface CommentWriteAreaProps {
     postId: string;
@@ -59,10 +59,11 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                     if (res.ok) {
                         refreshComments();
                         setContent("");
-                    } else HandleError(res);
+                    }
+                    throwResponse(res);
                 })
                 .catch((err) => {
-                    console.error(err);
+                    handleError(err);
                     alert("Failed to upload the comment..");
                 })
                 .finally(() => handleCancelClicked && handleCancelClicked());

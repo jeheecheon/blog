@@ -2,7 +2,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import MusicPlayer from "./MusicPlayer";
 import SignInModal from "./SignInModal";
 
-import "@/blog/_assets/css/font.css";
 import "@/blog/_assets/css/scrollbar.css";
 import { useSelector } from "react-redux";
 import { selectIsDarkMode } from "@/_redux/themeSlice";

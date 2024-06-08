@@ -30,9 +30,9 @@ const Layout = (props: LayoutProps) => {
                 >
                     <span
                         className={`w-full
-                        text-slate-100 text-xl md:text-3xl text-pretty text-center 
+                        text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-[500]
                         bg-gray-600/55 dark:bg-gray-800/65 ${
-                            titleOnCover && "py-3"
+                            titleOnCover && "py-3 px-5"
                         }`}
                     >
                         {titleOnCover}
@@ -50,7 +50,6 @@ const Layout = (props: LayoutProps) => {
                 </div>
             </main>
 
-            {/* Business logic */}
             <ScrollRestoration />
         </>
     );

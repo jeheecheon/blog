@@ -8,15 +8,16 @@ import {
 } from "react-router-dom";
 
 import {
-    PostLoader,
-    PostEditLoader,
-    AboutMeLoader,
-    PrivacyPolicyLoader,
+    postLoader,
+    postEditLoader,
+    aboutMeLoader,
+    privacyPolicyLoader,
+    postPageCntLoader,
 } from "@/_utils/loaders";
-import { AuthenticateUserAsync } from "@/blog/_utils/user";
-import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
+import { authenticateUserAsync } from "@/blog/_utils/user";
 import { fetchLeafCategoriesAsync } from "@/blog/_utils/category";
 
+import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
 const Root = lazy(() => import("@/page"));
 const ErrorArea = lazy(() => import("@/_components/ErrorArea"));
 const Blog = lazy(() => import("@/blog/page"));
@@ -41,7 +42,9 @@ const App = () => {
                 <Route
                     path="/"
                     element={
-                        <Suspense fallback={<PageLoadingSpinner />}>
+                        <Suspense
+                            fallback={<PageLoadingSpinner boxColor="bg-transparent" />}
+                        >
                             <Root />
                         </Suspense>
                     }
@@ -50,19 +53,25 @@ const App = () => {
                 {/* Blog */}
                 <Route
                     element={
-                        <Suspense fallback={<PageLoadingSpinner />}>
+                        <Suspense
+                            fallback={<PageLoadingSpinner boxColor="bg-transparent" />}
+                        >
                             <BlogInitialLoad />
                         </Suspense>
                     }
                     loader={async () => {
-                        AuthenticateUserAsync(dispatch);
+                        authenticateUserAsync(dispatch);
                         fetchLeafCategoriesAsync(dispatch);
                         return null;
                     }}
                 >
                     <Route
                         element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
+                            <Suspense
+                                fallback={
+                                    <PageLoadingSpinner boxColor="bg-transparent" />
+                                }
+                            >
                                 <BlogLayout />
                             </Suspense>
                         }
@@ -82,6 +91,7 @@ const App = () => {
                                     <PostsWrapper />
                                 </Suspense>
                             }
+                            loader={postPageCntLoader}
                         />
                         <Route
                             path="/blog/categories/:category/pages/:page"
@@ -90,12 +100,17 @@ const App = () => {
                                     <PostsWrapper />
                                 </Suspense>
                             }
+                            loader={postPageCntLoader}
                         />
                     </Route>
 
                     <Route
                         element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
+                            <Suspense
+                                fallback={
+                                    <PageLoadingSpinner boxColor="bg-transparent" />
+                                }
+                            >
                                 <PostLayout />
                             </Suspense>
                         }
@@ -107,7 +122,7 @@ const App = () => {
                                     <Post />
                                 </Suspense>
                             }
-                            loader={PostLoader}
+                            loader={postLoader}
                         />
 
                         <Route
@@ -117,7 +132,7 @@ const App = () => {
                                     <Post />
                                 </Suspense>
                             }
-                            loader={AboutMeLoader}
+                            loader={aboutMeLoader}
                         />
 
                         <Route
@@ -127,7 +142,7 @@ const App = () => {
                                     <Post />
                                 </Suspense>
                             }
-                            loader={PrivacyPolicyLoader}
+                            loader={privacyPolicyLoader}
                         />
 
                         <Route
@@ -137,7 +152,7 @@ const App = () => {
                                     <PostEdit />
                                 </Suspense>
                             }
-                            loader={PostEditLoader}
+                            loader={postEditLoader}
                         />
                     </Route>
                 </Route>
@@ -148,7 +163,6 @@ const App = () => {
     return (
         <>
             <RouterProvider router={router} />
-            
         </>
     );
 };

@@ -1,15 +1,15 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { UserState, setUser } from "@/_redux/userSlice";
-import { HandleError, PropagateResponse } from "@/_utils/responses";
+import { handleError, throwResponse } from "@/_utils/responses";
 
-export const AuthenticateUserAsync = async (dispatch: Dispatch) => {
+export const authenticateUserAsync = async (dispatch: Dispatch) => {
     return fetch("/api/auth", {
         credentials: "same-origin",
     })
         .then((res) => {
             if (res.ok) return res.json();
             else if (res.status === 401) return null;
-            HandleError(res);
+            throwResponse(res);
         })
         .then((json) => {
             dispatch(
@@ -22,16 +22,13 @@ export const AuthenticateUserAsync = async (dispatch: Dispatch) => {
 
             return null;
         })
-        .catch((res) => {
-            if (res instanceof Response) PropagateResponse(res);
-            return null;
-        });
+        .catch(handleError);
 };
 
-export const SignOut = async (dispatch: Dispatch) => {
+export const signOut = async (dispatch: Dispatch) => {
     await fetch("/api/auth/sign-out", {
         credentials: "same-origin",
-    }).catch((res) => console.error(res));
+    }).catch(handleError);
 
     dispatch(
         setUser({

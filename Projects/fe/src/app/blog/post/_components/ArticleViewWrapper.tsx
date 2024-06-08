@@ -25,14 +25,14 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(
                     <ErrorBoundary
                         fallback={
                             <ErrorMessageWrapper>
-                                Something went wrong...!
+                                Failed to load comments for this post...
                             </ErrorMessageWrapper>
                         }
                     >
                         <Suspense
                             fallback={
-                                <LoadingSpinner>
-                                    Comments Loading..!
+                                <LoadingSpinner textSize="text-sm">
+                                    Loading Comments... 🐶
                                 </LoadingSpinner>
                             }
                         >

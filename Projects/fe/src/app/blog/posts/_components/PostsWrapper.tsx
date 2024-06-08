@@ -8,11 +8,12 @@ import ErrorBoundary from "../../../_components/ErrorBoundary";
 import Posts from "@/blog/posts/page";
 import ErrorMessageWrapper from "@/blog/_components/ErrorMessageWrapper";
 import { Helmet } from "react-helmet";
-import { image, name, url } from "@/_utils/siteInfo";
+import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 import LoadingSpinner from "@/blog/_components/LoadingSpinner";
 
 const PostsWrapper = () => {
     const { category, page } = useParams();
+    // const loaderData = useLoaderData();
 
     const fetchUrl = useMemo(() => {
         if (category === undefined)
@@ -31,18 +32,18 @@ const PostsWrapper = () => {
     return (
         <>
             <div className="mx-auto max-w-[800px] min-h-[35vh]">
-                <h1 className="w-full text-left font-medium text-balance pt-[0px]">
-                    <p className="text-orange-400 text-xs md:text-sm">
+                <h1 className="w-full text-left text-balance pt-[0px]">
+                    <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-[600]">
                         {category ? "CATEGORY" : "POSTS"}
                     </p>
-                    <p className="text-orange-400 dark:text-default-7 text-xl md:text-3xl uppercase">
+                    <p className="text-orange-400 text-xl sm:text-2xl md:text-3xl uppercase font-[600]">
                         {category ? category : "recently published"}
                     </p>
                 </h1>
                 <ErrorBoundary
                     fallback={
                         <ErrorMessageWrapper>
-                            Error occured while fetching posts...
+                            404 Not Found Page
                         </ErrorMessageWrapper>
                     }
                 >
@@ -54,6 +55,9 @@ const PostsWrapper = () => {
                         <Posts postsAwaiter={postsAwaiter} />
                     </Suspense>
                 </ErrorBoundary>
+
+                {/* Pagination is not implemented yet. It will be implemented in the future. */}
+                <div className="h-[50px]"></div>
             </div>
 
             {/* Business logic */}
@@ -91,7 +95,7 @@ const PostsWrapper = () => {
                         category ? category + " posts" : "Recent posts"
                     } | ${name}`}
                 />
-                <meta property="og:image" content={image} />
+                <meta property="og:image" content={defaultCoverImage} />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="jeheecheon" />
                 <meta property="og:locale" content="ko_KR" />
@@ -115,7 +119,7 @@ const PostsWrapper = () => {
                         category ? category + " posts" : "Recent posts"
                     }`}
                 />
-                <meta name="twitter:image" content={image} />
+                <meta name="twitter:image" content={defaultCoverImage} />
             </Helmet>
         </>
     );

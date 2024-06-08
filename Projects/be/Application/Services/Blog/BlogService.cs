@@ -3,7 +3,6 @@ using Infrastructur.Models;
 using Infrastructure.Repositories.Blog;
 using Microsoft.Extensions.Logging;
 using Ganss.Xss;
-using Infrastructur.Repositories.Account;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Infrastructure.Models;
@@ -11,7 +10,6 @@ using Application.Services.Account;
 using Amazon.S3.Transfer;
 using Amazon.S3;
 using Amazon.S3.Model;
-using System.Collections;
 
 namespace Application.Services.Blog;
 
@@ -313,5 +311,16 @@ public class BlogService : IBlogService
 
         musicList.RemoveAt(0);
         return musicList;
+    }
+
+    public int GetPageNum(string? category)
+    {
+        int postCnt;
+        if (string.IsNullOrWhiteSpace(category))
+            postCnt = _blogRepository.GetPostCnt();
+        else
+            postCnt = _blogRepository.GetPostCntByCategory(category);
+
+        return (int)Math.Ceiling((double)postCnt / _PostsPerPage);
     }
 }

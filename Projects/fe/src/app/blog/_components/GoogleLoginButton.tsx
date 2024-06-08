@@ -1,4 +1,4 @@
-import "@/blog/_assets/css/GoogleLoginButton.css";
+import "@/blog/_assets/css/GoogleLoginButton.scss";
 
 interface ContinueWithGoogleButtonProps {
     onClick: () => void;
