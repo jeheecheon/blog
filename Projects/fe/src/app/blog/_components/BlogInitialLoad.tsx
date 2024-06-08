@@ -6,6 +6,7 @@ import "@/blog/_assets/css/scrollbar.css";
 import { useSelector } from "react-redux";
 import { selectIsDarkMode } from "@/_redux/themeSlice";
 import { useEffect } from "react";
+import { setThemeColor } from "@/_assets/ts/theme";
 
 function BlogInitialLoad() {
     const isDarkMode = useSelector(selectIsDarkMode);

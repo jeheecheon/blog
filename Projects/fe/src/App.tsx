@@ -12,7 +12,7 @@ import {
     postEditLoader,
     aboutMeLoader,
     privacyPolicyLoader,
-    postPageCntLoader,
+    // postPageCntLoader,
 } from "@/_utils/loaders";
 import { authenticateUserAsync } from "@/blog/_utils/user";
 import { fetchLeafCategoriesAsync } from "@/blog/_utils/category";
@@ -43,7 +43,9 @@ const App = () => {
                     path="/"
                     element={
                         <Suspense
-                            fallback={<PageLoadingSpinner boxColor="bg-transparent" />}
+                            fallback={
+                                <PageLoadingSpinner boxColor="bg-transparent" />
+                            }
                         >
                             <Root />
                         </Suspense>
@@ -54,15 +56,18 @@ const App = () => {
                 <Route
                     element={
                         <Suspense
-                            fallback={<PageLoadingSpinner boxColor="bg-transparent" />}
+                            fallback={
+                                <PageLoadingSpinner boxColor="bg-transparent" />
+                            }
                         >
                             <BlogInitialLoad />
                         </Suspense>
                     }
                     loader={async () => {
-                        authenticateUserAsync(dispatch);
-                        fetchLeafCategoriesAsync(dispatch);
-                        return null;
+                        const p1 = authenticateUserAsync(dispatch);
+                        const p2 = fetchLeafCategoriesAsync(dispatch);
+
+                        return Promise.all([p1, p2]);
                     }}
                 >
                     <Route
@@ -91,7 +96,7 @@ const App = () => {
                                     <PostsWrapper />
                                 </Suspense>
                             }
-                            loader={postPageCntLoader}
+                            // loader={postPageCntLoader}
                         />
                         <Route
                             path="/blog/categories/:category/pages/:page"
@@ -100,7 +105,7 @@ const App = () => {
                                     <PostsWrapper />
                                 </Suspense>
                             }
-                            loader={postPageCntLoader}
+                            // loader={postPageCntLoader}
                         />
                     </Route>
 

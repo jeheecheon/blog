@@ -97,7 +97,6 @@ export const postPageCntLoader: LoaderFunction = async ({
             if (!pageCnt) {
                 throwError("Page count is null or undefined");
             }
-            console.log(pageCnt);
             return pageCnt;
         })
         .catch(handleError);

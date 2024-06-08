@@ -38,7 +38,7 @@ export function flattenOutCategoriesV2(
 export async function fetchLeafCategoriesAsync(
     dispatch: Dispatch
 ): Promise<void> {
-    fetch("/api/blog/categories/leaf", {
+    return fetch("/api/blog/categories/leaf", {
         credentials: "same-origin",
     })
         .then((res) => {
@@ -48,7 +48,7 @@ export async function fetchLeafCategoriesAsync(
             throwResponse(res);
         })
         .then((res) => {
-            if (Array.isArray(res) && res !== undefined && res !== null)
+            if (res && Array.isArray(res))
                 dispatch(setLeafCategories(res));
         })
         .catch(handleError);

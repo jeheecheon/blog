@@ -60,7 +60,6 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
         const [likes, setLikes] = useState(post.LikeCnt);
 
         useEffect(() => {
-            console.log("Post Cover: ", post.Cover);
             if (post.Cover) {
                 dispatch(setCoverImageUrl(post.Cover));
             } else {

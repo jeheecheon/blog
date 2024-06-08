@@ -14,7 +14,7 @@ if (isDarkMode === true) {
 const pathname = window.location.pathname;
 setThemeColor(isDarkMode, pathname);
 
-function setThemeColor(isDarkMode: boolean, pathname: string) {
+export function setThemeColor(isDarkMode: boolean, pathname: string) {
     const postUrls = [
         "/blog/post",
         "/blog/about-me",
