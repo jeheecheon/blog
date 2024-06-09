@@ -58,8 +58,9 @@ const PostEdit = () => {
                     convertStringIntoDate(PostSummary);
                     sortPostsByUploadedAt(PostSummary);
                     setPostsList(PostSummary);
+                } else {
+                    throwError("PostSummary is null or undefined");
                 }
-                throwError("PostSummary is null or undefined");
             })
             .catch((error) => {
                 handleError(error);
