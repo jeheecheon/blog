@@ -132,14 +132,14 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
             <div className="flex flex-row w-full items-center gap-3">
                 <div className="mask-image overflow-x-hidden w-full">
                     <p
-                        className="dark:text-default-11 text-default-18 text-sm
+                        className="dark:text-default-18 text-default-18 text-sm
                     italic text-nowrap inline-block w-full -translate-x-[150 animate-infinite-x-scroll"
                     >
                         {musicTitle}
                     </p>
                 </div>
             </div>
-            <div className="fill-stone-400/65 gap-3 dark:fill-default-13 flex justify-between mt-1">
+            <div className="fill-stone-400/65 gap-3 dark:fill-default-18 flex justify-between mt-1">
                 {/* Prev */}
                 <button onClick={handlePrevlicked}>
                     <PrevButton />
