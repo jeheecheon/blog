@@ -3,6 +3,9 @@ export default {
     content: ["./index.html", "./src/app/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
+            screens: {
+                navbar: "500px"
+            },
             colors: {
                 body: "var(--main-bg-color)",
 

@@ -10,9 +10,7 @@ import {
 import {
     postLoader,
     postEditLoader,
-    aboutMeLoader,
     privacyPolicyLoader,
-    // postPageCntLoader,
 } from "@/_utils/loaders";
 import { authenticateUserAsync } from "@/blog/_utils/user";
 import { fetchLeafCategoriesAsync } from "@/blog/_utils/category";
@@ -64,10 +62,9 @@ const App = () => {
                         </Suspense>
                     }
                     loader={async () => {
-                        const p1 = authenticateUserAsync(dispatch);
-                        const p2 = fetchLeafCategoriesAsync(dispatch);
-
-                        return Promise.all([p1, p2]);
+                        authenticateUserAsync(dispatch);
+                        fetchLeafCategoriesAsync(dispatch);
+                        return null;
                     }}
                 >
                     <Route
@@ -130,7 +127,7 @@ const App = () => {
                             loader={postLoader}
                         />
 
-                        <Route
+                        {/* <Route
                             path="/blog/about-me"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
@@ -138,7 +135,7 @@ const App = () => {
                                 </Suspense>
                             }
                             loader={aboutMeLoader}
-                        />
+                        /> */}
 
                         <Route
                             path="/blog/privacy-policy"

@@ -88,7 +88,7 @@ const Header: React.FC<HeaderProps> = () => {
 
                     {/* MenuModal Open Button For Mobile view */}
                     <button
-                        className="md:hidden pointer-events-auto overflow-visible dark:shadow-black/35
+                        className="navbar:hidden pointer-events-auto overflow-visible dark:shadow-black/35
                         group ml-auto mr-5 flex flex-row items-center dark:bg-default-5-dark bg-default-2
                         shadow-lg border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
                         rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10"
@@ -106,7 +106,7 @@ const Header: React.FC<HeaderProps> = () => {
                     <NavigationBar
                         isCategoryOpen={isCategoryMenuOpen}
                         setIsCategoryOpen={setIsCategoryMenuOpen}
-                        className="hidden md:flex"
+                        className="navbar:flex hidden"
                     />
 
                     <DarkmodeToggleSwitch />

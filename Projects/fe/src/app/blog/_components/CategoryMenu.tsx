@@ -10,21 +10,25 @@ interface LinkButtonInfo {
 
 const links: LinkButtonInfo[] = [
     {
-        name: "Algorithm",
+        name: "😎 Portfolio",
+        to: "/",
+    },
+    {
+        name: "✏️ Recent Posts",
+        to: "/blog/recent-posts/pages/1",
+        class: "mt-4",
+    },
+    {
+        name: "🔢 Algorithm",
         to: "/blog/categories/Algorithm/pages/1",
     },
     {
-        name: "Web Development",
+        name: "🕸️ Web Development",
         to: "/blog/categories/Web-Development/pages/1",
     },
     {
-        name: "Uncategorized",
+        name: "❓ Uncategorized",
         to: "/blog/categories/Uncategorized/pages/1",
-    },
-    {
-        name: "Recent Posts",
-        to: "/blog/recent-posts/pages/1",
-        class: "mt-4",
     },
 ];
 
@@ -38,7 +42,10 @@ const handleNavColor = (props?: NavLinkRenderProps) => {
 
 function convertLinksToJsx(links: LinkButtonInfo[]) {
     return links.map((link, index) => (
-        <div key={index} className={`flex flex-col text-nowrap ${link.class}`}>
+        <div
+            key={index}
+            className={`flex flex-col text-nowrap border-b-[1px] last:border-b-0 pb-2 px-1 text-sm ${link.class}`}
+        >
             {link.to ? (
                 <NavLink to={link.to} className={handleNavColor}>
                     {link.name}

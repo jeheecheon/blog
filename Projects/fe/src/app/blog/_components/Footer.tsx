@@ -9,16 +9,13 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
     return (
         <footer
             className={`border-t-[1px] border-t-default-8 dark:border-t-default-8-dark
-            flex flex-col items-center pt-[30px] pb-[30px] 
+            flex flex-col items-center pt-[30px] pb-[20px] 
             ${className}`}
         >
-            <MusicController className="mb-[20px]" />
-
-            <p className="mt-7 italic text-xs md:text-sm text-default-18-dark dark:text-default-6">
-                개발개발개발🐶
-            </p>
-            <Link to="/blog" className="flex items-end">
-                <span className="text-xs md:text-base font-semibold dark:font-bold text-gray-500 dark:text-default-6 italic">
+            <MusicController />
+            
+            <Link to="/blog" className="flex items-end mt-8">
+                <span className="text-xs md:text-base font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
                     BLOG
                 </span>
                 <span className="text:xs md:text-lg text-orange-400 mx-[2px] font-extrabold italic">
@@ -29,17 +26,17 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </span>
             </Link>
 
-            <div className="flex mt-4 text-xs md:text-sm">
-                <p className="text-default-18-dark dark:text-default-6">All designed and developed by&#160;</p>
+            <div className="flex mt-3 text-xs md:text-sm">
+                <p className="text-gray-500/85 dark:text-default-6">All designed and developed by&#160;</p>
                 <Link
                     to="/blog/post/edit"
-                    className="cursor-text animate-blur-in-out text-orange-400 font-bold"
+                    className="cursor-text text-orange-400 font-bold"
                 >
-                    "나, 천제희"
+                    "jeheecheon"
                 </Link>
             </div>
 
-            <p className="text-default-18 dark:text-default-16-dark text-xs md:text-sm">
+            <p className="text-gray-500/45 dark:text-default-16-dark text-xs md:text-sm">
                 © 2024-present Jehee Cheon. All Rights Reserved.
             </p>
         </footer>

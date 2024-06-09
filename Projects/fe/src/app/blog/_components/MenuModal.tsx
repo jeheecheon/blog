@@ -11,7 +11,7 @@ import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 
 const navLinks = [
     {
-        name: "Blog",
+        name: "Home",
         to: "/blog",
     },
     {

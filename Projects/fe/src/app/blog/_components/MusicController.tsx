@@ -132,14 +132,14 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
             <div className="flex flex-row w-full items-center gap-3">
                 <div className="mask-image overflow-x-hidden w-full">
                     <p
-                        className="dark:text-default-11 text-stone-500
+                        className="dark:text-default-11 text-default-18 text-sm
                     italic text-nowrap inline-block w-full -translate-x-[150 animate-infinite-x-scroll"
                     >
                         {musicTitle}
                     </p>
                 </div>
             </div>
-            <div className="fill-stone-500 gap-3 dark:fill-default-13 flex justify-between">
+            <div className="fill-stone-400/65 gap-3 dark:fill-default-13 flex justify-between mt-1">
                 {/* Prev */}
                 <button onClick={handlePrevlicked}>
                     <PrevButton />
@@ -148,11 +148,11 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
                 {/* Play & Pause */}
                 {isPlaying ? (
                     <button onClick={handlePauseClicked}>
-                        <PauseButton className="pointer-events-none" />
+                        <PauseButton />
                     </button>
                 ) : (
                     <button onClick={handlePlayClicked}>
-                        <PlayButton className="pointer-events-none" />
+                        <PlayButton />
                     </button>
                 )}
 
@@ -162,12 +162,12 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
                 </button>
             </div>
 
-            <div className="flex flex-row items-center justify-center gap-2 mt-[10px]">
-                <div className="flex flex-col items-center text-stone-500 dark:text-default-13">
-                    <p className="text-[11px]">Auto Play</p>
-                    <p className="text-[12px]">
-                        {forceMusicPlay ? '"ON"' : '"OFF"'}
+            <div className="flex flex-row items-center justify-center gap-2 mt-[10px] hidden">
+                <div className="flex flex-col items-center">
+                    <p className="text-[12.5px] text-stone-500 dark:text-default-13 font-semibold">
+                        {forceMusicPlay ? 'On' : 'Off'}
                     </p>
+                    <p className="text-[10px] text-stone-500 dark:text-default-13 font-medium">Auto Play</p>
                 </div>
                 <ToggleSwitch
                     switchId="music-toggle-switch"

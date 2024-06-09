@@ -54,8 +54,8 @@ function NavigationBar({
                 Home
             </NavLink>
 
-            <NavLink to="/blog/about-me" className={handleNavColor}>
-                About
+            <NavLink to="/" className={handleNavColor}>
+                Portfolio
             </NavLink>
 
             <div>
