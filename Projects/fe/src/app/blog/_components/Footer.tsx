@@ -15,13 +15,13 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             <MusicController />
             
             <Link to="/blog" className="flex items-end mt-10">
-                <span className="text-xs md:text-base font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
+                <span className="text-xs md:text-sm font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
                     BLOG
                 </span>
                 <span className="text:xs md:text-lg text-orange-400 mx-[2px] font-extrabold italic">
                     :
                 </span>
-                <span className="text-xl md:text-2xl text-orange-400 font-medium dark:font-bold italic underline md:underline-offset-2">
+                <span className="text-xl md:text-2xl text-orange-400 font-bold dark:font-bold italic underline md:underline-offset-2">
                     jeheecheon
                 </span>
             </Link>

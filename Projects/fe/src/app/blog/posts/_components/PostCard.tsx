@@ -28,7 +28,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
 
             <div
                 className="font-semibold text-base sm:text-lg md:text-xl break-all transition-all duration-700 
-                text-gray-500/85 dark:text-default-13"
+                text-gray-500/85 dark:text-default-13 group-hover:text-default-16-dark dark:group-hover:text-default-5"
             >
                 {post.Title}
             </div>

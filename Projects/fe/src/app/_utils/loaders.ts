@@ -16,8 +16,9 @@ export const postLoader: LoaderFunction = async ({ params }) => {
             if (post) {
                 convertStringIntoDate(post);
                 return post;
+            } else {
+                throwError("Post is null or undefined");
             }
-            throwError("Post is null or undefined");
         })
         .catch(handleError);
 };
@@ -36,8 +37,9 @@ export const aboutMeLoader: LoaderFunction = async () => {
             if (post) {
                 convertStringIntoDate(post);
                 return post;
+            } else {
+                throwError("Post is null or undefined");
             }
-            throwError("Post is null or undefined");
         })
         .catch(handleError);
 };
@@ -56,8 +58,9 @@ export const privacyPolicyLoader: LoaderFunction = async () => {
             if (post) {
                 convertStringIntoDate(post);
                 return post;
+            } else {
+                throwError("Post is null or undefined");
             }
-            throwError("Post is null or undefined");
         })
         .catch(handleError);
 };

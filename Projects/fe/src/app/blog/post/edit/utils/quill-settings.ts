@@ -6,6 +6,7 @@ import hljs from "@/blog/_utils/highlightSettings";
 // Add formular format
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import { handleError, throwError, throwResponse } from "@/_utils/responses";
 window.katex = katex;
 
 // Add sizes to whitelist and register them
@@ -93,12 +94,21 @@ export async function insertImage(this: any) {
         body: formData,
     })
         .then((res) => {
-            if (res.ok) return res.json();
+            if (res.ok) {
+                return res.json();
+            } else {
+                throwResponse(res);
+            }
         })
-        .then((res) => {
-            console.log(res.imageUrl);
-            imageUrl = res.imageUrl;
-        });
+        .then((newImageUrl: string) => {
+            if (newImageUrl && newImageUrl !== "") {
+                console.log(newImageUrl);
+                imageUrl = newImageUrl;
+            } else {
+                throwError("Failed to upload the image");
+            }
+        })
+        .catch(handleError);
 
     // Insert an image tag with the returned image url when the fetch call was successful
     if (imageUrl !== "") {

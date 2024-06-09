@@ -12,13 +12,15 @@ export const authenticateUserAsync = async (dispatch: Dispatch) => {
             throwResponse(res);
         })
         .then((json) => {
-            dispatch(
-                setUser({
-                    email: json.email,
-                    name: json.name.match(/^[^@]+/)[0],
-                    avatar: json.avatar,
-                } as UserState)
-            );
+            if (json) {
+                dispatch(
+                    setUser({
+                        email: json.email,
+                        name: json.name.match(/^[^@]+/)[0],
+                        avatar: json.avatar,
+                    } as UserState)
+                );
+            }
 
             return null;
         })
@@ -30,10 +32,11 @@ export const signOut = () => {
         credentials: "same-origin",
     })
         .then((res) => {
-            if (!res.ok) {
+            if (res.ok) {
+                window.location.reload();
+            } else {
                 throwResponse(res);
             }
-            window.location.reload();
         })
         .catch(handleError);
 };

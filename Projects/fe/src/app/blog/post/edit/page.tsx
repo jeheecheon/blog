@@ -130,8 +130,9 @@ const PostEdit = () => {
                         setUpdateEditedDate(false);
                         setUpdateEditedDateAsNull(false);
                         setUpdateUploadedDate(false);
+                    } else {
+                        throwResponse(res);
                     }
-                    throwResponse(res);
                 })
                 .catch((err) => {
                     alert("Failed to update the current post");
@@ -152,8 +153,9 @@ const PostEdit = () => {
                         setSelectedPostIdToEdit("");
                         fetchPostsList();
                         setPostEditing({} as PostInfo);
+                    } else {
+                        throwResponse(res);
                     }
-                    throwResponse(res);
                 })
                 .catch((err) => {
                     alert("Failed to delete the selected post");
@@ -170,8 +172,11 @@ const PostEdit = () => {
             },
         })
             .then((res) => {
-                if (res.ok) fetchPostsList();
-                throwResponse(res);
+                if (res.ok) {
+                    fetchPostsList();
+                } else {
+                    throwResponse(res);
+                }
             })
             .catch((e) => {
                 alert("Failed to create an empty post");
@@ -197,8 +202,9 @@ const PostEdit = () => {
                     .then((res) => {
                         if (res.ok) {
                             return res.json();
+                        } else {
+                            throwResponse(res);
                         }
-                        throwResponse(res);
                     })
                     .then((imageUrl) => {
                         if (imageUrl && postEditing) {

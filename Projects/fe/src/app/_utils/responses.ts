@@ -4,13 +4,15 @@ export const throwError = (msg: string) => {
 
 export const handleError = (error?: Response | Error) => {
     if (error instanceof Response) {
-        console.debug(
+        console.error(
             "Response status code: %d, Response status text: %s",
             error.status,
             error.statusText
         );
     } else if (error instanceof Error) {
-        console.debug("Error message: %s", error.message);
+        console.error("Error message: %s", error.message);
+    } else {
+        console.error("Unknown error");
     }
 };
 

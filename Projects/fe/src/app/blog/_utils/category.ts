@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import CategoryInfo from "@/blog/_types/Category";
 import { setLeafCategories } from "@/_redux/categorySlice";
-import { handleError, throwResponse } from "@/_utils/responses";
+import { handleError, throwError, throwResponse } from "@/_utils/responses";
 
 export function flattenOutCategoriesV1(
     category: CategoryInfo | undefined
@@ -44,12 +44,16 @@ export async function fetchLeafCategoriesAsync(
         .then((res) => {
             if (res.ok) {
                 return res.json();
+            } else {
+                throwResponse(res);
             }
-            throwResponse(res);
         })
         .then((res) => {
-            if (res && Array.isArray(res))
+            if (res && Array.isArray(res)) {
                 dispatch(setLeafCategories(res));
+            } else {
+                throwError("Leaf categories are null or undefined");
+            }
         })
         .catch(handleError);
 }
