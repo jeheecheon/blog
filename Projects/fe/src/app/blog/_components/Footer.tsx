@@ -17,7 +17,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             <p className="mt-7 italic text-xs md:text-sm text-default-18-dark dark:text-default-6">
                 개발개발개발🐶
             </p>
-            <div className="flex items-end">
+            <Link to="/blog" className="flex items-end">
                 <span className="text-xs md:text-base font-semibold dark:font-bold text-gray-500 dark:text-default-6 italic">
                     BLOG
                 </span>
@@ -27,7 +27,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 <span className="text-xl md:text-2xl text-orange-400 font-medium dark:font-bold italic underline md:underline-offset-2">
                     jeheecheon
                 </span>
-            </div>
+            </Link>
 
             <div className="flex mt-4 text-xs md:text-sm">
                 <p className="text-default-18-dark dark:text-default-6">All designed and developed by&#160;</p>

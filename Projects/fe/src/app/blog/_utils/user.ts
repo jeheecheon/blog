@@ -25,16 +25,15 @@ export const authenticateUserAsync = async (dispatch: Dispatch) => {
         .catch(handleError);
 };
 
-export const signOut = async (dispatch: Dispatch) => {
-    await fetch("/api/auth/sign-out", {
+export const signOut = () => {
+    fetch("/api/auth/sign-out", {
         credentials: "same-origin",
-    }).catch(handleError);
-
-    dispatch(
-        setUser({
-            email: "",
-            name: "",
-            avatar: "",
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throwResponse(res);
+            }
+            window.location.reload();
         })
-    );
+        .catch(handleError);
 };

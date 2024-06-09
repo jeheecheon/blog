@@ -3,8 +3,7 @@ import CommentInfo from "@/blog/_types/Comment";
 import React, { useRef, useState } from "react";
 import CommentWriteArea from "./CommentWriteArea";
 import { getTimeAgo } from "@/blog/_utils/comment";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/_redux/store";
+import { useDispatch } from "react-redux";
 import LikeFilled from "@/blog/post/_assets/images/like-filled.svg?react";
 import Like from "@/blog/post/_assets/images/like.svg?react";
 import CommentSvg from "@/blog/post/_assets/images/comment.svg?react";
@@ -15,6 +14,7 @@ import { makeVisible } from "@/_redux/signInModalSlice";
 import Avatar from "@/blog/_components/Avatar";
 import ButtonInCommentBox from "./ButtonInCommentBox";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
+import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 
 interface CommentProps {
     postId: string;
@@ -25,11 +25,7 @@ interface CommentProps {
 export const Comment: React.FC<CommentProps> = React.memo(
     ({ postId, comment, refreshComments }) => {
         const dispatch = useDispatch();
-        const user = useSelector((state: RootState) => state.user);
-        const isAuthenticated = useRef(
-            user.email !== undefined && user.email !== null && user.email !== ""
-        );
-
+        const isAuthenticated = useIsAuthenticated();
         const content = useRef<string | JSX.Element | JSX.Element[]>(
             parse(DOMPurify.sanitize(comment.Content))
         );
@@ -41,7 +37,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
         const handleLikeCliked = () => {
             if (isLoadingLikes.current === true) return;
-            if (isAuthenticated.current === false) {
+            if (isAuthenticated === false) {
                 dispatch(makeVisible());
                 return;
             }
@@ -145,6 +141,10 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
                             <ButtonInCommentBox
                                 onClick={() => {
+                                    if (isAuthenticated === false) {
+                                        dispatch(makeVisible());
+                                        return;
+                                    }
                                     setIsReplying(!isReplying);
                                 }}
                             >

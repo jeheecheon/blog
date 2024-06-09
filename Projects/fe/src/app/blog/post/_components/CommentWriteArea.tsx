@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@/blog/_components/Button";
 import CustomTextArea from "@/blog/post/_components/CustomTextArea";
@@ -7,6 +7,7 @@ import { makeVisible } from "../../../_redux/signInModalSlice";
 import AvatarDefault from "@/blog/post/_assets/images/AvatarDefault";
 import { selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
+import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 
 interface CommentWriteAreaProps {
     postId: string;
@@ -25,13 +26,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
         className,
     }) => {
         const user = useSelector(selectUser);
-        const isAuthenticated = useMemo(
-            () =>
-                user.email !== undefined &&
-                user.email !== null &&
-                user.email !== "",
-            [user.email]
-        );
+        const isAuthenticated = useIsAuthenticated();
         const dispatch = useDispatch();
         const [content, setContent] = useState("");
 
@@ -45,6 +40,11 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
         };
 
         const handleUpload = () => {
+            if (isAuthenticated === false) {
+                dispatch(makeVisible());
+                return;
+            }
+            
             fetch(`/api/blog/post/${postId}/comment`, {
                 method: "POST",
                 headers: {

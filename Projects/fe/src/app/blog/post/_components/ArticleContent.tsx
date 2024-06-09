@@ -8,10 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import { flattenOutCategoriesV1 } from "@/blog/_utils/category";
-import {
-    setCoverImageUrl,
-    setTitleOnCover,
-} from "@/_redux/coverSlice";
+import { setCoverImageUrl, setTitleOnCover } from "@/_redux/coverSlice";
 import { defaultCoverImage } from "@/_utils/siteInfo";
 import LikeFilled from "@/blog/post/_assets/images/like-filled.svg?react";
 import Like from "@/blog/post/_assets/images/like.svg?react";
@@ -20,6 +17,7 @@ import Share from "@/blog/post/_assets/images/share.svg?react";
 import "@/blog/post/_assets/css/Article.scss";
 import hljs from "@/blog/_utils/highlightSettings";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
+import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 
 DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
     if (node.tagName === "IFRAME") {
@@ -35,11 +33,7 @@ interface ArticleContentProps {
 const ArticleContent: React.FC<ArticleContentProps> = React.memo(
     ({ className, post }) => {
         const dispatch = useDispatch();
-        const user = useSelector((state: RootState) => state.user);
-        const isAuthenticated = useRef(
-            user.email !== undefined && user.email !== null && user.email !== ""
-        );
-
+        const isAuthenticated = useIsAuthenticated();
         const leafCategories = useSelector(
             (state: RootState) => state.category.leafCategories
         );
@@ -85,7 +79,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
         const handleLikeCliked = () => {
             if (isLoadingLikes.current === true) return;
-            if (isAuthenticated.current === false) {
+            if (isAuthenticated === false) {
                 dispatch(makeVisible());
                 return;
             }

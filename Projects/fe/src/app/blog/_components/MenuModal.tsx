@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Rodal from "rodal";
 import { useIsMounted } from "@/_hooks/useIsMounted";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { calculateModalWidth } from "@/blog/_utils/modal";
 import { signOut } from "../_utils/user";
 import { makeVisible } from "@/_redux/signInModalSlice";
+import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 
 const navLinks = [
     {
@@ -49,8 +50,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
     const isDarkMode = useSelector(
         (state: RootState) => state.theme.isDarkMode
     );
-    const user = useSelector((state: RootState) => state.user);
-    const isAuthenticated = useMemo(() => user.email !== "", [user.email]);
+    const isAuthenticated = useIsAuthenticated();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -107,7 +107,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
                         onClick={() => {
                             setIsOpen(false);
                             if (isAuthenticated) {
-                                signOut(dispatch);
+                                signOut();
                             } else {
                                 dispatch(makeVisible());
                             }

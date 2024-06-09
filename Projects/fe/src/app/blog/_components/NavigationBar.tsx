@@ -4,9 +4,9 @@ import ArrowDown from "@/blog/_assets/images/arrow-down.svg?react";
 import CategoryMenu from "./CategoryMenu";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import { signOut } from "@/blog/_utils/user";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "@/_redux/userSlice";
+import { useDispatch } from "react-redux";
 import { NavLinkRenderProps } from "@/blog/_types/Navigation";
+import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 
 const handleNavColor = (props: NavLinkRenderProps) => {
     const { isActive } = props;
@@ -25,11 +25,10 @@ interface NavigationBarProps {
 function NavigationBar({
     isCategoryOpen,
     setIsCategoryOpen,
-    className
+    className,
 }: NavigationBarProps) {
     const dispatch = useDispatch();
-    const user = useSelector(selectUser);
-    const isAuthenticated = useMemo(() => user.email !== "", [user.email]);
+    const isAuthenticated = useIsAuthenticated();
     const isOnCategory = useMemo(
         () =>
             location.pathname.startsWith("/blog/categories/") ||
@@ -88,7 +87,7 @@ function NavigationBar({
                 }`}
                 onClick={() => {
                     if (isAuthenticated) {
-                        signOut(dispatch);
+                        signOut();
                     } else {
                         dispatch(makeVisible());
                     }
