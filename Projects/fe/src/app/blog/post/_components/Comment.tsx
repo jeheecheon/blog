@@ -103,12 +103,12 @@ export const Comment: React.FC<CommentProps> = React.memo(
                             <div className="flex flex-col ml-2 justify-center text-sm md:text-base">
                                 <div className="flex flex-row flex-wrap items-center">
                                     <span
-                                        className={`w-fit border rounded-2xl mr-1 px-[7px] text-[0.7rem] pretty-balance
-                                            text-center
-                                ${
-                                    comment.Email !== "jeheecheon@gmail.com" &&
-                                    "hidden"
-                                } border-orange-400 text-orange-400`}
+                                        className={`w-fit border rounded-2xl mr-1 px-[7px] text-[0.7rem] break-all
+                                    text-center
+                                    ${
+                                        comment.Email !== "jeheecheon@gmail.com" &&
+                                        "hidden"
+                                    } border-orange-400 text-orange-400`}
                                     >
                                         Site Owner
                                     </span>
