@@ -18,10 +18,10 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 <span className="text-xs md:text-sm font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
                     BLOG
                 </span>
-                <span className="text:xs md:text-lg text-orange-400 mx-[2px] font-extrabold italic">
+                <span className="text:xs md:text-lg text-orange-400/70 dark:text-orange-400 mx-[2px] font-extrabold italic">
                     :
                 </span>
-                <span className="text-xl md:text-2xl text-orange-400 font-bold dark:font-bold italic underline md:underline-offset-2">
+                <span className="text-xl md:text-2xl text-orange-400/70 dark:text-orange-400 font-bold dark:font-bold italic md:underline-offset-2">
                     jeheecheon
                 </span>
             </Link>
@@ -30,7 +30,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 <p className="text-gray-500/85 dark:text-default-6">All designed and developed by&#160;</p>
                 <Link
                     to="/blog/post/edit"
-                    className="cursor-text text-orange-400 font-bold"
+                    className="cursor-text text-orange-400/70 dark:text-orange-400 font-bold"
                 >
                     "jeheecheon"
                 </Link>

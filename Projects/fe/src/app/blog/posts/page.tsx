@@ -30,7 +30,7 @@ const Posts: React.FC<PostsProps> = React.memo(({ postsAwaiter }) => {
                     to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}
                     key={p.Id}
                     className="w-full border-b-[1px] dark:border-default-12-dark border-default-10 
-                    first:border-t-0 group"
+                    group"
                     preventScrollReset={false}
                 >
                     <PostCard

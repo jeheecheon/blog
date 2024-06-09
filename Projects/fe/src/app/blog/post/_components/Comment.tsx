@@ -132,7 +132,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                         <div className="flex flex-row flex-wrap gap-3">
                             <ButtonInCommentBox onClick={handleLikeCliked}>
                                 {hasLiked ? (
-                                    <LikeFilled className="fill-orange-500" />
+                                    <LikeFilled className="fill-red-500" />
                                 ) : (
                                     <Like className="fill-gray-500 dark:fill-gray-500" />
                                 )}

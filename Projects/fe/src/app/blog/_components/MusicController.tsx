@@ -139,7 +139,7 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
                     </p>
                 </div>
             </div>
-            <div className="fill-stone-400/65 gap-3 dark:fill-default-18 flex justify-between mt-1">
+            <div className="fill-orange-400/65 dark:fill-orange-400/95  flex justify-between gap-3 mt-1">
                 {/* Prev */}
                 <button onClick={handlePrevlicked}>
                     <PrevButton />
@@ -162,7 +162,7 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
                 </button>
             </div>
 
-            <div className="flex flex-row items-center justify-center gap-2 mt-[10px] hidden">
+            <div className="flex-row items-center justify-center gap-2 mt-[10px] hidden">
                 <div className="flex flex-col items-center">
                     <p className="text-[12.5px] text-stone-500 dark:text-default-13 font-semibold">
                         {forceMusicPlay ? 'On' : 'Off'}

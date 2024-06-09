@@ -35,7 +35,7 @@ const PostsWrapper = () => {
                     <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-[600]">
                         {category ? "CATEGORY" : "POSTS"}
                     </p>
-                    <p className="text-orange-400 text-xl sm:text-2xl md:text-3xl uppercase font-[600]">
+                    <p className="text-orange-400/70 dark:text-orange-400/90 text-xl sm:text-2xl md:text-3xl uppercase font-[600]">
                         {category ? category : "recently published"}
                     </p>
                 </h1>
