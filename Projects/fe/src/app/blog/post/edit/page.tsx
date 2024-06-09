@@ -15,6 +15,7 @@ import {
 import { defaultCoverImage, url } from "@/_utils/siteInfo";
 import { Helmet } from "react-helmet";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
+import CustomQuillToolbar from "./_components/quill/CustomQuillToolbar";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
@@ -22,9 +23,6 @@ const PostEdit = () => {
         (state: RootState) => state.category.leafCategories
     );
 
-    const [coverPriviewUrl, setCoverPreviewUrl] = useState<
-        string | ArrayBuffer | null
-    >(defaultCoverImage);
     const [postsList, setPostsList] = useState<PostSummary[]>();
     const [selectedPostIdToEdit, setSelectedPostIdToEdit] = useState("");
     const [postEditing, setPostEditing] = useState<PostInfo>();
@@ -37,9 +35,10 @@ const PostEdit = () => {
 
     useEffect(() => {
         fetchPostsList();
+        dispatch(setCoverImageUrl(defaultCoverImage));
 
         return () => {
-            dispatch(setCoverImageUrl(defaultCoverImage));
+            dispatch(setCoverImageUrl(""));
         };
     }, []);
 
@@ -54,12 +53,11 @@ const PostEdit = () => {
                 throwResponse(res);
             })
             .then((PostSummary: PostSummary[]) => {
-                if (PostSummary) {
+                if (PostSummary && PostSummary.length > 0) {
                     convertStringIntoDate(PostSummary);
                     sortPostsByUploadedAt(PostSummary);
                     setPostsList(PostSummary);
-                } else {
-                    throwError("PostSummary is null or undefined");
+                    // handlePostIdSelected(PostSummary[0].Id);
                 }
             })
             .catch((error) => {
@@ -67,10 +65,7 @@ const PostEdit = () => {
                 alert("Error occured while fecthing a list of posts..");
             });
 
-    const handlePostIdSelected: React.ChangeEventHandler<HTMLSelectElement> = (
-        e
-    ) => {
-        const selectedPostId = e.currentTarget.value;
+    const handlePostIdSelected = (selectedPostId: string) => {
         setSelectedPostIdToEdit(selectedPostId);
         setPostEditing({} as PostInfo);
 
@@ -91,10 +86,8 @@ const PostEdit = () => {
                         convertStringIntoDate(post);
                         setPostEditing(post);
                         if (post.Cover !== undefined && post.Cover !== null) {
-                            setCoverPreviewUrl(post.Cover);
                             dispatch(setCoverImageUrl(post.Cover));
                         } else {
-                            setCoverPreviewUrl(defaultCoverImage);
                             dispatch(setCoverImageUrl(defaultCoverImage));
                         }
                     }
@@ -104,7 +97,6 @@ const PostEdit = () => {
                     alert("Failed to fetch the post info...");
                 });
         else {
-            setCoverPreviewUrl(defaultCoverImage);
             dispatch(setCoverImageUrl(defaultCoverImage));
         }
     };
@@ -214,7 +206,6 @@ const PostEdit = () => {
                                 ...postEditing,
                                 Cover: imageUrl,
                             });
-                            setCoverPreviewUrl(imageUrl);
                         } else {
                             throwError("Image URL is null or undefined");
                         }
@@ -258,86 +249,89 @@ const PostEdit = () => {
             )}
 
             <div
-                className={`flex flex-col items-center mt-[10vh]
+                className={`flex flex-col items-center mt-[10vh] text-default-15-dark dark:text-default-15 max-w-[900px] mx-auto
                 ${showPreview && "hidden"}`}
             >
-                <div className="max-w-[780px] flex flex-col items-center w-full gap-5 my-10 p-3 text-default-13">
-                    <p className="text-2xl font-medium">글 쓰기</p>
+                <p className="text-2xl font-medium mt-2">글 작성</p>
 
-                    {/* selection for posts to edit */}
-                    <label className="flex overflow-x-hidden">
-                        Post:&#160;
-                        <select
-                            id="post-id-select"
-                            value={selectedPostIdToEdit}
-                            onChange={handlePostIdSelected}
-                            className="max-w-[50vw] text-default-18-dark dark:text-default-18
-                            bg-default-3 dark:bg-default-3-dark border-[1px] border-slate-200 dark:border-slate-500"
-                        >
-                            {postsList &&
-                                postsList.map((p) => (
-                                    <option key={p.Id} value={p.Id}>
-                                        {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`} */}
-                                        {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()} | ID: ${p.Id}`} */}
-                                        {`ID: ${p.Id} | Title: ${
-                                            p.Title
-                                        } | Date: ${p.UploadedAt.toLocaleString()}`}
-                                    </option>
-                                ))}
-                            <option value={""}>Select a post</option>
-                        </select>
-                    </label>
+                {/* selection for posts to edit */}
+                <select
+                    id="post-id-select"
+                    value={selectedPostIdToEdit}
+                    onChange={(e) =>
+                        handlePostIdSelected(e.currentTarget.value)
+                    }
+                    className="mt-2 text-default-18-dark dark:text-default-18 outline-none focus:outline-none w-full
+                            bg-default-3 dark:bg-default-3-dark border-[1px] border-default-10 dark:border-default-6-dark"
+                >
+                    <option value={""}>Select a post</option>
+                    {postsList &&
+                        postsList.map((p) => (
+                            <option key={p.Id} value={p.Id}>
+                                {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()}`} */}
+                                {/* {`Title: ${p.Title} | Date: ${p.UploadedAt.toLocaleString()} | ID: ${p.Id}`} */}
+                                {`ID: ${p.Id} | Title: ${
+                                    p.Title
+                                } | Date: ${p.UploadedAt.toLocaleString()}`}
+                            </option>
+                        ))}
+                </select>
 
-                    {/* Create Empty post button */}
-                    <Button
-                        onClick={handleUploadEmptyPostClicked}
-                        className="text-default-16-dark dark:text-default-16"
-                    >
-                        Make an empty post
-                    </Button>
-
+                <div className="flex my-2 gap-2 justify-end w-full">
                     {postEditing?.Id && (
-                        <div className="flex flex-col gap-3">
-                            {/* Separator */}
-                            <div className="block h-1 mb-5 w-full border-b-2 border-dashed border-b-slate-500" />
-
-                            {/* input for inserting images */}
+                        <div>
+                            {/* input tag for inserting images */}
                             <input
                                 id="IdOfPostEditing"
                                 type="text"
-                                value={postEditing.Id}
+                                value={postEditing?.Id}
                                 onChange={() => {}}
-                                className="hidden"
+                                className="invisible absolute"
                             />
 
-                            {/* Cover Image Upload */}
-                            <div className="flex flex-col gap-2 items-center mb-3">
-                                <img
-                                    src={
-                                        typeof coverPriviewUrl === "string"
-                                            ? coverPriviewUrl
-                                            : undefined
-                                    }
-                                    className="w-[70vw] md:w-[50vw]"
-                                />
-                                <Button>
-                                    <label className="flex items-center gap-3 text-default-16-dark dark:text-default-16">
-                                        Upload Cover
-                                        <input
-                                            type="file"
-                                            className="border-2 hidden"
-                                            onInput={handleCoverChosen}
-                                        />
-                                    </label>
-                                </Button>
-                            </div>
+                            {/* Cover Image Upload button */}
+                            <Button>
+                                <label className="flex items-center gap-3 text-default-16-dark dark:text-default-16 text-nowrap">
+                                    Change Cover
+                                    <input
+                                        type="file"
+                                        className="border-2 hidden"
+                                        onInput={handleCoverChosen}
+                                    />
+                                </label>
+                            </Button>
+                        </div>
+                    )}
 
-                            {/* Category selection */}
-                            <label className="flex justify-end">
-                                <span className="text-lg">Category:&#160;</span>
+                    {/* Create post button */}
+                    <Button
+                        onClick={handleUploadEmptyPostClicked}
+                        className="text-default-16-dark dark:text-default-16 text-nowrap"
+                    >
+                        Create Post
+                    </Button>
+                </div>
+                {postEditing?.Id && (
+                    <>
+                        <div className="sticky top-0 z-[50] mt-2">
+                            <div className="flex">
+                                {/* Title input */}
+                                <input
+                                    value={postEditing.Title}
+                                    onChange={(e) =>
+                                        setPostEditing({
+                                            ...postEditing,
+                                            Title: e.currentTarget.value,
+                                        })
+                                    }
+                                    className="w-full pl-2 text-default-10-dark py-2 focus:outline-none outline-none
+                                        bg-white border-[1px] border-default-10"
+                                />
+
+                                {/* Category selection */}
                                 <select
-                                    className="text-default-18-dark dark:text-default-18
-                                    bg-default-3 dark:bg-default-3-dark border-[1px] border-slate-200 dark:border-slate-500"
+                                    className="text-default-10-dark focus:outline-none outline-none
+                                        bg-white border-[1px] border-default-10"
                                     value={
                                         postEditing.CategoryId
                                             ? postEditing.CategoryId
@@ -360,123 +354,112 @@ const PostEdit = () => {
                                             </option>
                                         );
                                     })}
-                                    <option value={""}>
-                                        Select a category
-                                    </option>
                                 </select>
-                            </label>
-
-                            {/* Title input */}
-                            <input
-                                value={postEditing.Title}
-                                onChange={(e) =>
-                                    setPostEditing({
-                                        ...postEditing,
-                                        Title: e.currentTarget.value,
-                                    })
-                                }
-                                className="w-full pl-2 text-default-18-dark dark:text-default-18
-                                bg-default-3 dark:bg-default-3-dark border-[1px] border-slate-200 dark:border-slate-500"
-                            />
-
-                            <div className="max-w-[780px]">
-                                <CustomQuill
-                                    setContent={(value) => {
-                                        setPostEditing({
-                                            ...postEditing,
-                                            Content: value,
-                                        });
-                                    }}
-                                    content={postEditing.Content}
-                                    className="bg-white text-default-1-dark"
-                                />
                             </div>
 
-                            <label>
-                                Public:&#160;
-                                <input
-                                    type="checkbox"
-                                    checked={postEditing.IsPublic}
-                                    onChange={() =>
-                                        setPostEditing({
-                                            ...postEditing,
-                                            IsPublic: !postEditing.IsPublic,
-                                        })
-                                    }
-                                />
-                            </label>
-
-                            <label>
-                                Reset uploaded date:&#160;
-                                <input
-                                    type="checkbox"
-                                    checked={updateUploadedDate}
-                                    onChange={() => {
-                                        if (!updateUploadedDate)
-                                            setUpdateEditedDateAsNull(true);
-                                        setUpdateUploadedDate(
-                                            !updateUploadedDate
-                                        );
-                                        setUpdateEditedDate(false);
-                                    }}
-                                />
-                            </label>
-
-                            <label>
-                                Update edited date:&#160;
-                                <input
-                                    type="checkbox"
-                                    checked={updateEditedDate}
-                                    onChange={() => {
-                                        if (updateUploadedDate) return;
-                                        if (!updateEditedDate)
-                                            setUpdateEditedDateAsNull(false);
-                                        setUpdateEditedDate(!updateEditedDate);
-                                    }}
-                                />
-                            </label>
-
-                            <label>
-                                Set edited date as null:&#160;
-                                <input
-                                    type="checkbox"
-                                    checked={updateEditedDateAsNull}
-                                    onChange={() => {
-                                        if (updateUploadedDate) return;
-                                        if (!updateEditedDateAsNull)
-                                            setUpdateEditedDate(false);
-                                        setUpdateEditedDateAsNull(
-                                            !updateEditedDateAsNull
-                                        );
-                                    }}
-                                />
-                            </label>
+                            <CustomQuillToolbar className="w-full bg-white opacity-100" />
                         </div>
-                    )}
-                </div>
+                        <CustomQuill
+                            setContent={(value) => {
+                                setPostEditing({
+                                    ...postEditing,
+                                    Content: value,
+                                });
+                            }}
+                            content={postEditing.Content}
+                            className="bg-white text-default-1-dark w-full"
+                        />
+                    </>
+                )}
             </div>
+            {postEditing?.Id && (
+                <div
+                    className={`flex flex-col w-full gap-3 pb-10 mx-auto px-1 mt-2
+                    text-default-18-dark dark:text-default-18
+                    ${showPreview ? "max-w-[900px]" : "max-w-[900px]"}`}
+                >
+                    <label>
+                        Public:&#160;
+                        <input
+                            type="checkbox"
+                            checked={postEditing!.IsPublic}
+                            onChange={() =>
+                                setPostEditing({
+                                    ...postEditing!,
+                                    IsPublic: !postEditing!.IsPublic,
+                                })
+                            }
+                        />
+                    </label>
 
-            {selectedPostIdToEdit && (
-                <div className="flex flex-row flex-wrap justify-center gap-3 pb-10">
-                    <Button
-                        onClick={handleDeleteClicked}
-                        className="text-red-500 dark:text-red-500"
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        onClick={handleUpdateClicked}
-                        className="text-blue-500 dark:text-blue-500"
-                    >
-                        Update
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            setShowPreview(!showPreview);
-                        }}
-                    >
-                        {showPreview ? "Edit" : "Preview"}
-                    </Button>
+                    <label>
+                        Reset uploaded date:&#160;
+                        <input
+                            type="checkbox"
+                            checked={updateUploadedDate}
+                            onChange={() => {
+                                if (!updateUploadedDate)
+                                    setUpdateEditedDateAsNull(true);
+                                setUpdateUploadedDate(!updateUploadedDate);
+                                setUpdateEditedDate(false);
+                            }}
+                        />
+                    </label>
+
+                    <label>
+                        Update edited date:&#160;
+                        <input
+                            type="checkbox"
+                            checked={updateEditedDate}
+                            onChange={() => {
+                                if (updateUploadedDate) return;
+                                if (!updateEditedDate)
+                                    setUpdateEditedDateAsNull(false);
+                                setUpdateEditedDate(!updateEditedDate);
+                            }}
+                        />
+                    </label>
+
+                    <label>
+                        Set edited date as null:&#160;
+                        <input
+                            type="checkbox"
+                            checked={updateEditedDateAsNull}
+                            onChange={() => {
+                                if (updateUploadedDate) return;
+                                if (!updateEditedDateAsNull)
+                                    setUpdateEditedDate(false);
+                                setUpdateEditedDateAsNull(
+                                    !updateEditedDateAsNull
+                                );
+                            }}
+                        />
+                    </label>
+
+                    <div className="flex justify-center gap-3 flex-wrap mt-2">
+                        <Button
+                            onClick={handleUpdateClicked}
+                            className="text-sky-500 dark:text-sky-600 font-medium"
+                        >
+                            Update
+                        </Button>
+
+                        <Button
+                            onClick={handleDeleteClicked}
+                            className="text-red-500 dark:text-red-500 font-medium"
+                        >
+                            Delete
+                        </Button>
+
+                        <Button
+                            onClick={() => {
+                                setShowPreview(!showPreview);
+                            }}
+                            className="font-medium"
+                        >
+                            {showPreview ? "Edit" : "Preview"}
+                        </Button>
+                    </div>
                 </div>
             )}
         </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Avatar from "@/blog/_components/Avatar";
 import me from "@/_assets/images/me.png";
 import { useLocation } from "react-router-dom";
@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import DarkmodeToggleSwitch from "./DarkmodeToggleSwitch";
 import ArrowDown from "@/blog/_assets/images/arrow-down.svg?react";
 import NavigationBar from "./NavigationBar";
+
+const excepts = ["/blog/post/edit"];
 
 interface HeaderProps {}
 
@@ -19,6 +21,10 @@ const Header: React.FC<HeaderProps> = () => {
     const [isMenuModalOpen, setIsMenuModalOpen] = useState<boolean>(false);
     const headerRef = useRef<HTMLDivElement>(null);
     const location = useLocation();
+    const shouldShowHeader = useMemo(
+        () => !excepts.includes(location.pathname),
+        [location.pathname]
+    );
 
     useEffect(() => {
         document.addEventListener("scroll", handleScroll);
@@ -72,13 +78,17 @@ const Header: React.FC<HeaderProps> = () => {
 
             <header
                 ref={headerRef}
-                className="fixed top-0 left-0 mt-[13px] w-[100%] z-30 pointer-events-none"
+                className={`fixed top-0 left-0 mt-[13px] w-[100%] z-30 pointer-events-none
+                    ${!shouldShowHeader && "hidden"}`}
             >
                 <div
                     className="max-w-[1050px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10
                     flex items-center justify-between"
                 >
-                    <Link to="/blog" className="pointer-events-auto rounded-full shadow-lg dark:shadow-black/50 shadow-gray-400/80">
+                    <Link
+                        to="/blog"
+                        className="pointer-events-auto rounded-full shadow-lg dark:shadow-black/50 shadow-gray-400/80"
+                    >
                         <Avatar
                             avatar={me}
                             size={50}

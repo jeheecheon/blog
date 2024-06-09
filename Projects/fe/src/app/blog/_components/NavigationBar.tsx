@@ -82,7 +82,7 @@ function NavigationBar({
             </div>
 
             <button
-                className={`dark:text-orange-50 text-default-10-dark ${
+                className={`dark:text-default-7 text-default-10-dark ${
                     isAuthenticated && "font-medium"
                 }`}
                 onClick={() => {

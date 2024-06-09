@@ -18,6 +18,7 @@ import "@/blog/post/_assets/css/Article.scss";
 import hljs from "@/blog/_utils/highlightSettings";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
+import { useLocation } from "react-router-dom";
 
 DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
     if (node.tagName === "IFRAME") {
@@ -34,6 +35,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
     ({ className, post }) => {
         const dispatch = useDispatch();
         const isAuthenticated = useIsAuthenticated();
+        const location = useLocation();
         const leafCategories = useSelector(
             (state: RootState) => state.category.leafCategories
         );
@@ -72,7 +74,11 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
             setLikes(post.LikeCnt);
 
             return () => {
-                dispatch(setCoverImageUrl(""));
+                if (location.pathname === "/blog/post/edit") {
+                    dispatch(setCoverImageUrl(defaultCoverImage));
+                } else {
+                    dispatch(setCoverImageUrl(""))    
+                }
                 dispatch(setTitleOnCover(""));
             };
         }, [post.Title, post.Cover, post.LikeCnt]);
