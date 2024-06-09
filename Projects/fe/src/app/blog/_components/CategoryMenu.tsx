@@ -12,6 +12,7 @@ const links: LinkButtonInfo[] = [
     {
         name: "😎 Portfolio",
         to: "/",
+        class: "border-b-0"
     },
     {
         name: "✏️ Recent Posts",
@@ -44,7 +45,8 @@ function convertLinksToJsx(links: LinkButtonInfo[]) {
     return links.map((link, index) => (
         <div
             key={index}
-            className={`flex flex-col text-nowrap border-b-[1px] last:border-b-0 pb-2 px-1 text-sm ${link.class}`}
+            className={`flex flex-col text-nowrap border-b-[1px] last:border-b-0 pb-2 px-1 text-sm 
+                border-b-gray-400/60 dark:border-b-default-18 ${link.class}`}
         >
             {link.to ? (
                 <NavLink to={link.to} className={handleNavColor}>

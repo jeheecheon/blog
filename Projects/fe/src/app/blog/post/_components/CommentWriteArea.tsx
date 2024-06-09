@@ -44,7 +44,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                 dispatch(makeVisible());
                 return;
             }
-            
+
             fetch(`/api/blog/post/${postId}/comment`, {
                 method: "POST",
                 headers: {
@@ -59,8 +59,9 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                     if (res.ok) {
                         refreshComments();
                         setContent("");
+                    } else {
+                        throwResponse(res);
                     }
-                    throwResponse(res);
                 })
                 .catch((err) => {
                     handleError(err);
