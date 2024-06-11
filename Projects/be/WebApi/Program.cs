@@ -21,8 +21,9 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(CorsPolicyBuilder =>
     {
         CorsPolicyBuilder.WithOrigins(builder.Configuration["ClientUrls:root"]!)
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+                .AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
     });
 });
 
