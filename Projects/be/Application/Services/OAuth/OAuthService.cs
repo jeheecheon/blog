@@ -50,7 +50,7 @@ public class OAuthService : IOAuthService
             case "google":
                 return _GOOGLE_AUTH_URL +
                     $"?client_id={_configuration["OAuth:Google:ClientId"]}" +
-                    $"&redirect_uri={_configuration["ClientUrls:root"]}{_GOOGLE_CB_URL}" +
+                    $"&redirect_uri={_configuration["ServerUrl"]}{_GOOGLE_CB_URL}" +
                     $"&response_type=code" +
                     $"&scope=email" +
                     $"&state={prevUrlInBase64}";
