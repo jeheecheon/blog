@@ -7,12 +7,16 @@ on:
   push:
     branches:
       - publish-be
+    paths: ['.github/workflows/**', 'Projects/**']
+
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-
+    defaults:
+      run:
+        working-directory: ./Projects/be
     steps:
       - uses: actions/checkout@v4
 
