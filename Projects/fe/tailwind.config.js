@@ -1,76 +1,80 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        'body-dark': 'rgb(24, 24, 27)',
+    content: ["./index.html", "./src/app/**/*.{js,ts,jsx,tsx}"],
+    theme: {
+        extend: {
+            screens: {
+                navbar: "500px"
+            },
+            colors: {
+                body: "var(--main-bg-color)",
 
-        'default-1': 'rgb(255, 255, 255)',
-        'default-2': 'rgb(250, 250, 250)',
-        'default-3': 'rgb(245, 245, 245)',
-        'default-4': 'rgb(240, 240, 240)',
-        'default-5': 'rgb(235, 235, 235)',
-        'default-6': 'rgb(230, 230, 230)',
-        'default-7': 'rgb(225, 225, 225)',
-        'default-8': 'rgb(220, 220, 220)',
-        'default-9': 'rgb(215, 215, 215)',
-        'default-10': 'rgb(210, 210, 210)',
-        'default-11': 'rgb(205, 205, 205)',
-        'default-12': 'rgb(200, 200, 200)',
-        'default-13': 'rgb(195, 195, 195)',
-        'default-14': 'rgb(190, 190, 190)',
-        'default-15': 'rgb(185, 185, 185)',
-        'default-16': 'rgb(180, 180, 180)',
-        'default-17': 'rgb(175, 175, 175)',
-        'default-18': 'rgb(170, 170, 170)',
+                "default-1": "var(--default-1)",
+                "default-2": "var(--default-2)",
+                "default-3": "var(--default-3)",
+                "default-4": "var(--default-4)",
+                "default-5": "var(--default-5)",
+                "default-6": "var(--default-6)",
+                "default-7": "var(--default-7)",
+                "default-8": "var(--default-8)",
+                "default-9": "var(--default-9)",
+                "default-10": "var(--default-10)",
+                "default-11": "var(--default-11)",
+                "default-12": "var(--default-12)",
+                "default-13": "var(--default-13)",
+                "default-14": "var(--default-14)",
+                "default-15": "var(--default-15)",
+                "default-16": "var(--default-16)",
+                "default-17": "var(--default-17)",
+                "default-18": "var(--default-18)",
 
-
-        'default-1-dark': '#121212',
-        'default-2-dark': '#171717',
-        'default-3-dark': '#1c1c1c',
-        'default-4-dark': '#212121',
-        'default-5-dark': '#262626',
-        'default-6-dark': '#2b2b2b',
-        'default-7-dark': '#303030',
-        'default-8-dark': '#353535',
-        'default-9-dark': '#3a3a3a',
-        'default-10-dark': '#3f3f3f',
-        'default-11-dark': '#444444',
-        'default-12-dark': '#494949',
-        'default-13-dark': '#4e4e4e',
-        'default-14-dark': '#535353',
-        'default-15-dark': '#585858',
-        'default-16-dark': '#5d5d5d',
-        'default-17-dark': '#626262',
-        'default-18-dark': '#676767',
-
-      },
-      keyframes: {
-        'spin': {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' }
+                "default-1-dark": "var(--default-1-dark)",
+                "default-2-dark": "var(--default-2-dark)",
+                "default-3-dark": "var(--default-3-dark)",
+                "default-4-dark": "var(--default-4-dark)",
+                "default-5-dark": "var(--default-5-dark)",
+                "default-6-dark": "var(--default-6-dark)",
+                "default-7-dark": "var(--default-7-dark)",
+                "default-8-dark": "var(--default-8-dark)",
+                "default-9-dark": "var(--default-9-dark)",
+                "default-10-dark": "var(--default-10-dark)",
+                "default-11-dark": "var(--default-11-dark)",
+                "default-12-dark": "var(--default-12-dark)",
+                "default-13-dark": "var(--default-13-dark)",
+                "default-14-dark": "var(--default-14-dark)",
+                "default-15-dark": "var(--default-15-dark)",
+                "default-16-dark": "var(--default-16-dark)",
+                "default-17-dark": "var(--default-17-dark)",
+                "default-18-dark": "var(--default-18-dark)",
+            },
+            keyframes: {
+                spin: {
+                    "0%": { transform: "rotate(0deg)" },
+                    "100%": { transform: "rotate(360deg)" },
+                },
+                "fade-out": {
+                    "0%": { opacity: "1" },
+                    "80%": { opacity: "1" },
+                    "100%": { opacity: "0" },
+                },
+                "infinite-scroll": {
+                    "0%": { transform: "translate(100%, 0)" },
+                    "100%": { transform: "translate(-170%, 0)" },
+                },
+                "blur-int-out": {
+                    "0%": { opacity: "1" },
+                    "50%": { opacity: "0.4" },
+                    "100%": { opacity: "1" },
+                },
+            },
         },
-        'fade-out': {
-          '0%': { opacity: '1' },
-          '80%': { opacity: '1' },
-          '100%': { opacity: '0' }
+        animation: {
+            spin: "spin 0.7s ease-in-out infinite",
+            "fade-out-spinner": "fade-out 2s ease-out forwards",
+            "blur-in-out": "blur-int-out 2.7s ease-in-out infinite",
+            "infinite-x-scroll": "infinite-scroll 4s linear infinite",
         },
-        'infinite-scroll': {
-          '0%': { transform: 'translate(100%, 0)' },
-          '100%': { transform: 'translate(-170%, 0)' }
-        },
-      },
     },
-    animation: {
-      'spin': 'spin 0.7s ease-in-out infinite',
-      'fade-out-spinner': 'fade-out 2s ease-out forwards',
-      'infinite-x-scroll': 'infinite-scroll 4s linear infinite'
-    }
-  },
-  plugins: [],
-  darkMode: 'selector'
-}
+    plugins: [],
+    darkMode: "selector",
+};

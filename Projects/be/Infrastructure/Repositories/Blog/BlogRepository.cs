@@ -5,77 +5,77 @@ using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.Repositories.Blog
+namespace Infrastructure.Repositories.Blog;
+
+public class BlogRepository : IBlogRepository
 {
-    public class BlogRepository : IBlogRepository
+    private readonly ILogger<BlogRepository> _logger;
+    private readonly MainContext _mainContext;
+
+    public BlogRepository(
+        ILogger<BlogRepository> logger,
+        MainContext mainContext
+    )
     {
-        private readonly ILogger<BlogRepository> _logger;
-        private readonly MainContext _mainContext;
+        _logger = logger;
+        _mainContext = mainContext;
+    }
 
-        public BlogRepository(
-            ILogger<BlogRepository> logger,
-            MainContext mainContext
-        )
+    public IEnumerable<Category>? GetAllCategories()
+    {
+        try
         {
-            _logger = logger;
-            _mainContext = mainContext;
-        }
-
-        public IEnumerable<Category>? GetAllCategories()
-        {
-            try
-            {
-                return _mainContext.Category.FromSqlInterpolated(@$"
+            return _mainContext.Category.FromSqlInterpolated(@$"
 SELECT * FROM category;
                 ")
-                    .ToList()
-                    .AsEnumerable();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList()
+                .AsEnumerable();
         }
-
-        public async Task<bool> CreatePostAsync(PostUploadRequestDto post)
+        catch (Exception e)
         {
-            try
-            {
-                int affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task<bool> CreatePostAsync(PostUploadRequestDto post)
+    {
+        try
+        {
+            int affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO post (title, content, category_id) VALUES
     ({post.title}, {post.content}, {post.category_id})            
                 ");
-                return affectedRowsCnt > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+            return affectedRowsCnt > 0;
         }
-
-        public async Task<bool> CreateEmptyPostAsync()
+        catch (Exception e)
         {
-            try
-            {
-                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> CreateEmptyPostAsync()
+    {
+        try
+        {
+            return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO post (title, content, category_id) VALUES
     ({"Example title"}, {"Example content"}, {"Uncategorized"})            
                 ") > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
         }
-
-        public IEnumerable<PostsLikesComments>? GetRecentPosts(int offset, int limit)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.PostsLikesComments.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public IEnumerable<PostsLikesComments>? GetRecentPosts(int offset, int limit)
+    {
+        try
+        {
+            return _mainContext.PostsLikesComments.FromSqlInterpolated(@$"
 WITH likes AS (
     SELECT post_id, COUNT(*) AS like_cnt
     FROM liked_post
@@ -104,21 +104,21 @@ FROM (
 LEFT JOIN comments c ON p.id = c.post_id
 LEFT JOIN likes l ON p.id = l.post_id;
                 ")
-                    .ToList()
-                    .AsEnumerable();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList()
+                .AsEnumerable();
         }
-
-        public IEnumerable<PostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int offset, int limit, string category)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.PostsLikesCommentsFilteredByCategory.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public IEnumerable<PostsLikesCommentsFilteredByCategory>? GetCategoryPosts(int offset, int limit, string category)
+    {
+        try
+        {
+            return _mainContext.PostsLikesCommentsFilteredByCategory.FromSqlInterpolated(@$"
 	WITH likes AS (
 		SELECT post_id, COUNT(*) AS like_cnt
 		FROM liked_post
@@ -147,21 +147,21 @@ LEFT JOIN likes l ON p.id = l.post_id;
 	LEFT JOIN comments c ON p.id = c.post_id
 	LEFT JOIN likes l ON p.id = l.post_id;
                 ")
-                    .ToList()
-                    .AsEnumerable();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList()
+                .AsEnumerable();
         }
-
-        public PostLikesHasLiked? GetPostWithHasLiked(Guid post_id, Guid account_id)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.PostLikesHasLiked.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public PostLikesHasLiked? GetPostWithHasLiked(Guid post_id, Guid account_id)
+    {
+        try
+        {
+            return _mainContext.PostLikesHasLiked.FromSqlInterpolated(@$"
 WITH likes_and_has_liked AS (
     SELECT 
         post_id, 
@@ -185,21 +185,21 @@ FROM (
 ) as p
 LEFT JOIN likes_and_has_liked AS l ON p.id = l.post_id;
                 ")
-                    .ToList()
-                    .FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList()
+                .FirstOrDefault();
         }
-
-        public PostLikes? GetPost(Guid post_id)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.PostLikes.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public PostLikes? GetPost(Guid post_id)
+    {
+        try
+        {
+            return _mainContext.PostLikes.FromSqlInterpolated(@$"
 WITH likes AS (
     SELECT 
         post_id, 
@@ -220,43 +220,43 @@ FROM (
 ) as p
 LEFT JOIN likes AS l ON p.id = l.post_id;
                 ")
-                    .ToList()
-                    .FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList()
+                .FirstOrDefault();
         }
-
-        public async Task<int> CreateCommentAsync(Guid account_id, Guid post_id, string content, Guid? parent_comment_id)
+        catch (Exception e)
         {
-            try
-            {
-                if (parent_comment_id is null)
-                    return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task<int> CreateCommentAsync(Guid account_id, Guid post_id, string content, Guid? parent_comment_id)
+    {
+        try
+        {
+            if (parent_comment_id is null)
+                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO comment (account_id, post_id, content) VALUES
     ({account_id}, {post_id}, {content})
                     ");
-                else
-                    return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            else
+                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO comment (account_id, post_id, content, parent_comment_id) VALUES
     ({account_id}, {post_id}, {content}, {parent_comment_id})
                     ");
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return 0;
-            }
         }
-
-        public IEnumerable<CommentsLikesHasLiked>? GetCommentsWithHasLiked(Guid post_id, Guid account_id)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.CommentsLikesHasLiked.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return 0;
+        }
+    }
+
+    public IEnumerable<CommentsLikesHasLiked>? GetCommentsWithHasLiked(Guid post_id, Guid account_id)
+    {
+        try
+        {
+            return _mainContext.CommentsLikesHasLiked.FromSqlInterpolated(@$"
 WITH likes_has_liked AS (
     SELECT 
         comment_id, 
@@ -284,20 +284,20 @@ FROM (
 LEFT JOIN likes_has_liked AS l ON l.comment_id = c.id
 JOIN account AS a ON a.id = c.account_id;
                 ")
-                    .ToList();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList();
         }
-
-        public IEnumerable<CommentsLikes>? GetComments(Guid post_id)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.CommentsLikes.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public IEnumerable<CommentsLikes>? GetComments(Guid post_id)
+    {
+        try
+        {
+            return _mainContext.CommentsLikes.FromSqlInterpolated(@$"
 WITH likes_has_liked AS (
     SELECT 
         comment_id, 
@@ -322,182 +322,182 @@ FROM (
 LEFT JOIN likes_has_liked AS l ON l.comment_id = c.id
 JOIN account AS a ON a.id = c.account_id;
                 ")
-                    .ToList();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList();
         }
-
-        public async Task<bool> DeleteLikedPostAsync(Guid post_id, Guid account_id)
+        catch (Exception e)
         {
-            try
-            {
-                var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task<bool> DeleteLikedPostAsync(Guid post_id, Guid account_id)
+    {
+        try
+        {
+            var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 DELETE FROM liked_post
 WHERE post_id = {post_id}
     AND account_id = {account_id}
                 ");
-                return affectedRowsCnt > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+            return affectedRowsCnt > 0;
         }
-
-
-        public async Task<bool> CreateLikedPostAsync(Guid post_id, Guid account_id)
+        catch (Exception e)
         {
-            try
-            {
-                var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+
+    public async Task<bool> CreateLikedPostAsync(Guid post_id, Guid account_id)
+    {
+        try
+        {
+            var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO liked_post (post_id, account_id) VALUES
     ({post_id}, {account_id})
                 ");
-                return affectedRowsCnt > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+            return affectedRowsCnt > 0;
         }
-
-        public async Task<bool> DeleteLikedCommentAsync(Guid comment_id, Guid account_id)
+        catch (Exception e)
         {
-            try
-            {
-                var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> DeleteLikedCommentAsync(Guid comment_id, Guid account_id)
+    {
+        try
+        {
+            var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 DELETE FROM liked_comment
 WHERE comment_id = {comment_id}
     AND account_id = {account_id}
                 ");
-                return affectedRowsCnt > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+            return affectedRowsCnt > 0;
         }
-
-        public async Task<bool> CreateLikedCommentAsync(Guid comment_id, Guid account_id)
+        catch (Exception e)
         {
-            try
-            {
-                var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> CreateLikedCommentAsync(Guid comment_id, Guid account_id)
+    {
+        try
+        {
+            var affectedRowsCnt = await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 INSERT INTO liked_comment (comment_id, account_id) VALUES
     ({comment_id}, {account_id})
                 ");
-                return affectedRowsCnt > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+            return affectedRowsCnt > 0;
         }
-
-        public IEnumerable<PostSummary>? GetPostLists()
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.PostSummary.FromSql(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public IEnumerable<PostSummary>? GetPostLists()
+    {
+        try
+        {
+            return _mainContext.PostSummary.FromSql(@$"
 SELECT id, title, uploaded_at, edited_at FROM post;
                 ")
-                    .ToList()
-                    .AsEnumerable();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList()
+                .AsEnumerable();
         }
-
-        public PostWithMetadata? GetPostWithMetadata(Guid post_id)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.PostWithMetadata.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public PostWithMetadata? GetPostWithMetadata(Guid post_id)
+    {
+        try
+        {
+            return _mainContext.PostWithMetadata.FromSqlInterpolated(@$"
 SELECT * FROM post WHERE id = {post_id};
                 ")
-                    .AsEnumerable()
-                    .FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .AsEnumerable()
+                .FirstOrDefault();
         }
-
-        public async Task<bool> UpdateEditedAtAsync(PostWithMetadata post)
+        catch (Exception e)
         {
-            try
-            {
-                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task<bool> UpdateEditedAtAsync(PostWithMetadata post)
+    {
+        try
+        {
+            return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 UPDATE post 
 SET 
     edited_at = CURRENT_TIMESTAMP
 WHERE id = {post.Id};
                 ")
-                    > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+                > 0;
         }
-
-        public async Task<bool> SetEditedAtAsNullAsync(PostWithMetadata post)
+        catch (Exception e)
         {
-            try
-            {
-                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> SetEditedAtAsNullAsync(PostWithMetadata post)
+    {
+        try
+        {
+            return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 UPDATE post 
 SET 
     edited_at = null
 WHERE id = {post.Id};
                 ")
-                    > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+                > 0;
         }
-
-        public async Task<bool> UpdateUploadedAtAsync(PostWithMetadata post)
+        catch (Exception e)
         {
-            try
-            {
-                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> UpdateUploadedAtAsync(PostWithMetadata post)
+    {
+        try
+        {
+            return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 UPDATE post 
 SET 
     uploaded_at = CURRENT_TIMESTAMP
 WHERE id = {post.Id};
                 ")
-                    > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+                > 0;
         }
-
-        public async Task<bool> UpdatePostAsync(PostWithMetadata post)
+        catch (Exception e)
         {
-            try
-            {
-                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> UpdatePostAsync(PostWithMetadata post)
+    {
+        try
+        {
+            return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 UPDATE post 
 SET 
     title = {post.Title},
@@ -507,37 +507,37 @@ SET
     is_public = {post.IsPublic}
 WHERE id = {post.Id};
                 ")
-                    > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+                > 0;
         }
-
-        public async Task<bool> DeletePostAsync(Guid post_id)
+        catch (Exception e)
         {
-            try
-            {
-                return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> DeletePostAsync(Guid post_id)
+    {
+        try
+        {
+            return await _mainContext.Database.ExecuteSqlInterpolatedAsync(@$"
 DELETE FROM post
 WHERE id = {post_id}
                 ")
-                    > 0;
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return false;
-            }
+                > 0;
         }
-
-        public StaticLikePostLikesHasLiked? GetStaticLikePostWithHasLiked(Guid post_id, Guid account_id)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.StaticLikePostLikesHasLiked.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return false;
+        }
+    }
+
+    public StaticLikePostLikesHasLiked? GetStaticLikePostWithHasLiked(Guid post_id, Guid account_id)
+    {
+        try
+        {
+            return _mainContext.StaticLikePostLikesHasLiked.FromSqlInterpolated(@$"
 WITH likes_and_has_liked AS (
     SELECT 
         post_id, 
@@ -561,21 +561,21 @@ FROM (
 ) as p
 LEFT JOIN likes_and_has_liked AS l ON p.id = l.post_id;
                 ")
-                    .ToList()
-                    .FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList()
+                .FirstOrDefault();
         }
-
-        public StaticLikePostLikes? GetStaticLikePost(Guid post_id)
+        catch (Exception e)
         {
-            try
-            {
-                return _mainContext.StaticLikePostLikes.FromSqlInterpolated(@$"
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public StaticLikePostLikes? GetStaticLikePost(Guid post_id)
+    {
+        try
+        {
+            return _mainContext.StaticLikePostLikes.FromSqlInterpolated(@$"
 WITH likes AS (
     SELECT 
         post_id, 
@@ -596,14 +596,41 @@ FROM (
 ) as p
 LEFT JOIN likes AS l ON p.id = l.post_id;
                 ")
-                    .ToList()
-                    .FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"{e.Source}: {e.Message}");
-                return null;
-            }
+                .ToList()
+                .FirstOrDefault();
+        }
+        catch (Exception e)
+        {
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return null;
+        }
+    }
+
+    public int GetPostCntByCategory(string category)
+    {
+        try
+        {
+            Console.WriteLine(category);
+            return _mainContext.Post.Where((post) => post.CategoryId == category && post.IsPublic!.Value).Count();
+        }
+        catch (Exception e)
+        {
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return 0;
+        }
+    }
+
+    public int GetPostCnt()
+    {
+        try
+        {
+            return _mainContext.Post.Where((post) => post.IsPublic!.Value).Count();
+        }
+        catch (Exception e)
+        {
+            _logger.LogInformation($"{e.Source}: {e.Message}");
+            return 0;
         }
     }
 }
+

@@ -3,12 +3,9 @@ using Application.Services.Account;
 using Application.Services.Blog;
 using Core.DTOs;
 using Infrastructur.Models;
-using Infrastructure.DbContexts;
 using Infrastructure.Models;
-using Infrastructure.Repositories.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers;
 
@@ -25,23 +22,12 @@ public class BlogController : ControllerBase
         ILogger<BlogController> logger,
         IBlogService blogService,
         IAccountService accountService
-    // , MainContext mainContext
     )
     {
         _logger = logger;
         _blogService = blogService;
         _accountService = accountService;
-        // _mainContext = mainContext;
     }
-
-    // [Authorize]
-    // [HttpPost("post/upload")]
-    // public async Task<IActionResult> PostUploadAsync([FromBody] PostUploadRequestDto post)
-    // {
-    //     if (_accountService.FilterAdmin() is false)
-    //         return Forbid();
-    //     return await _blogService.UploadPostAsync(post) ? Ok() : BadRequest();
-    // }
 
     [Authorize]
     [HttpPost("post/upload-empty")]
@@ -124,10 +110,7 @@ public class BlogController : ControllerBase
     {
         var result = await _blogService.SetPostHasLikedAsync(post_id, has_liked);
         if (result)
-            return Ok(JsonSerializer.Serialize(new
-            {
-                has_liked
-            }));
+            return Ok(JsonSerializer.Serialize(has_liked));
         else
             return BadRequest();
     }
@@ -139,10 +122,7 @@ public class BlogController : ControllerBase
         var result = await _blogService.SetCommentHasLikedAsync(comment_id, has_liked);
 
         if (result)
-            return Ok(JsonSerializer.Serialize(new
-            {
-                has_liked
-            }));
+            return Ok(JsonSerializer.Serialize(has_liked));
         else
             return BadRequest();
     }
@@ -158,10 +138,7 @@ public class BlogController : ControllerBase
         if (string.IsNullOrWhiteSpace(imageUrl))
             return BadRequest("File hasn't been provided properly");
 
-        return Ok(JsonSerializer.Serialize(new
-        {
-            imageUrl
-        }));
+        return Ok(JsonSerializer.Serialize(imageUrl));
     }
 
     [HttpGet("posts/list")]
@@ -201,9 +178,15 @@ public class BlogController : ControllerBase
             return BadRequest();
     }
 
-    [HttpGet("music/list")]
+    [HttpGet("music")]
     public async Task<IActionResult> GetMusicListAsync()
     {
         return Ok(JsonSerializer.Serialize(await _blogService.GetMusicListFromS3Async()));
+    }
+
+    [HttpGet("posts/page")]
+    public IActionResult GetPageNum([FromQuery] string? category)
+    {
+        return Ok(JsonSerializer.Serialize(_blogService.GetPageNum(category)));
     }
 }

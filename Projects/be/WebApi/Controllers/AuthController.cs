@@ -1,7 +1,6 @@
 using Application.Services.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
@@ -34,9 +33,9 @@ public class AuthController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> AuthenticationAsync()
     {
-        var result = await HttpContext.AuthenticateAsync();
+        var isAuthenticated = await _accountService.Authenticate();
 
-        if (result.Succeeded)
+        if (isAuthenticated)
         {
             return Ok(JsonSerializer.Serialize(new
             {
@@ -47,14 +46,19 @@ public class AuthController : ControllerBase
         }
         else
         {
-            return BadRequest();
+            return Unauthorized();
         }
     }
 
     [HttpGet("admin")]
     // [Authorize]
-    public IActionResult AuthenticateAdmin()
+    public async Task<IActionResult> AuthenticateAdmin()
     {
-        return _accountService.FilterAdmin() ? Ok() : BadRequest();
+        var isAuthenticated = await _accountService.Authenticate();
+        if (!isAuthenticated)
+        {
+            return Unauthorized();
+        }
+        return _accountService.FilterAdmin() ? Ok() : Forbid();
     }
 }
