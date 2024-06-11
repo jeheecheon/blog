@@ -1,4 +1,5 @@
 import {
+    initMusicState,
     selectCurrentIndex,
     selectForceMusicPlay,
     selectMusicList,
@@ -63,7 +64,6 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
         if (musicList.length === 0) {
             fetch(`${serverUrl}/api/blog/music`, {
                 method: "GET",
-                
             })
                 .then((res) => {
                     if (res.ok) {
@@ -92,6 +92,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
                 "timeupdate",
                 updateCurrentPlayTime
             );
+            dispatch(initMusicState());
         };
     }, []);
 
