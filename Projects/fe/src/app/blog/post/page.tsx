@@ -12,11 +12,12 @@ import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 import { RootState } from "@/_redux/store";
 import { useSelector } from "react-redux";
 import { flattenOutCategoriesV2 } from "@/blog/_utils/category";
+import { serverUrl } from "@/_utils/site";
 
 const Post = () => {
     const post = useLoaderData() as PostInfo;
     const fetchUrl = useMemo(
-        () => `/api/blog/post/${post.Id}/comments`,
+        () => `${serverUrl}/api/blog/post/${post.Id}/comments`,
         [post.Id]
     );
 

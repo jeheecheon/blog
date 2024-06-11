@@ -10,14 +10,16 @@ import ErrorMessageWrapper from "@/blog/_components/ErrorMessageWrapper";
 import { Helmet } from "react-helmet";
 import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 import LoadingSpinner from "@/blog/_components/LoadingSpinner";
+import { serverUrl } from "@/_utils/site";
 
 const PostsWrapper = () => {
     const { category, page } = useParams();
-    
+
     const fetchUrl = useMemo(() => {
         if (category === undefined)
-            return `/api/blog/recent-posts/pages/${page}`;
-        else return `/api/blog/categories/${category}/pages/${page}`;
+            return `${serverUrl}/api/blog/recent-posts/pages/${page}`;
+        else
+            return `${serverUrl}/api/blog/categories/${category}/pages/${page}`;
     }, [category, page]);
 
     const [postsAwaiter, setPostsAwaiter] = useState(

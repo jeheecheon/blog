@@ -19,6 +19,7 @@ import hljs from "@/blog/_utils/highlightSettings";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 import { useLocation } from "react-router-dom";
+import { serverUrl } from "@/_utils/site";
 
 DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
     if (node.tagName === "IFRAME") {
@@ -92,7 +93,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
             isLoadingLikes.current = true;
 
-            fetch(`/api/blog/post/${post.Id}/has-liked`, {
+            fetch(`${serverUrl}/api/blog/post/${post.Id}/has-liked`, {
                 method: "POST",
                 credentials: "same-origin",
                 headers: {

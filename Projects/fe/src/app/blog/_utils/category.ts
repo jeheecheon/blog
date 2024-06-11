@@ -2,6 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import CategoryInfo from "@/blog/_types/Category";
 import { setLeafCategories } from "@/_redux/categorySlice";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
+import { serverUrl } from "@/_utils/site";
 
 export function flattenOutCategoriesV1(
     category: CategoryInfo | undefined
@@ -38,7 +39,7 @@ export function flattenOutCategoriesV2(
 export async function fetchLeafCategoriesAsync(
     dispatch: Dispatch
 ): Promise<void> {
-    return fetch("/api/blog/categories/leaf", {
+    return fetch(`${serverUrl}/api/blog/categories/leaf`, {
         credentials: "same-origin",
     })
         .then((res) => {

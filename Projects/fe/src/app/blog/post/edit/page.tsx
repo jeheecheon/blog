@@ -16,6 +16,7 @@ import { defaultCoverImage, url } from "@/_utils/siteInfo";
 import { Helmet } from "react-helmet";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import CustomQuillToolbar from "./_components/quill/CustomQuillToolbar";
+import { serverUrl } from "@/_utils/site";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const PostEdit = () => {
     }, []);
 
     const fetchPostsList = () =>
-        fetch("/api/blog/posts/list", {
+        fetch(`${serverUrl}/api/blog/posts/list`, {
             credentials: "same-origin",
         })
             .then((res) => {
@@ -70,9 +71,12 @@ const PostEdit = () => {
         setPostEditing({} as PostInfo);
 
         if (selectedPostId !== "")
-            fetch(`/api/blog/post/${selectedPostId}/with-metadata`, {
-                credentials: "same-origin",
-            })
+            fetch(
+                `${serverUrl}/api/blog/post/${selectedPostId}/with-metadata`,
+                {
+                    credentials: "same-origin",
+                }
+            )
                 .then((res) => {
                     if (res.ok) {
                         return res.json();
@@ -106,7 +110,7 @@ const PostEdit = () => {
     > = () => {
         if (confirm("You want to update the post, right?"))
             fetch(
-                `/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
+                `${serverUrl}/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
                 {
                     credentials: "same-origin",
                     method: "POST",
@@ -136,7 +140,7 @@ const PostEdit = () => {
         HTMLButtonElement
     > = () => {
         if (confirm("Are you sure you wnat to delete this post?????!"))
-            fetch(`/api/blog/post/${postEditing?.Id}`, {
+            fetch(`${serverUrl}/api/blog/post/${postEditing?.Id}`, {
                 credentials: "same-origin",
                 method: "DELETE",
             })
@@ -156,7 +160,7 @@ const PostEdit = () => {
     };
 
     const handleUploadEmptyPostClicked = () => {
-        fetch("/api/blog/post/upload-empty", {
+        fetch(`${serverUrl}/api/blog/post/upload-empty`, {
             credentials: "same-origin",
             method: "POST",
             headers: {
@@ -186,7 +190,7 @@ const PostEdit = () => {
                 // Prepare for file transter
                 const formData = new FormData();
                 formData.append("image", cover);
-                fetch(`/api/blog/posts/${postEditing?.Id}/images/upload`, {
+                fetch(`${serverUrl}/api/blog/posts/${postEditing?.Id}/images/upload`, {
                     credentials: "same-origin",
                     method: "POST",
                     body: formData,

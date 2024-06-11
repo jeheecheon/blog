@@ -8,6 +8,7 @@ import AvatarDefault from "@/blog/post/_assets/images/AvatarDefault";
 import { selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
 import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
+import { serverUrl } from "@/_utils/site";
 
 interface CommentWriteAreaProps {
     postId: string;
@@ -45,7 +46,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                 return;
             }
 
-            fetch(`/api/blog/post/${postId}/comment`, {
+            fetch(`${serverUrl}/api/blog/post/${postId}/comment`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

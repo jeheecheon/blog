@@ -1,9 +1,10 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { UserState, setUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
+import { serverUrl } from "@/_utils/site";
 
 export const authenticateUserAsync = async (dispatch: Dispatch) => {
-    return fetch("/api/auth", {
+    return fetch(`${serverUrl}/api/auth`, {
         credentials: "same-origin",
     })
         .then((res) => {
@@ -28,7 +29,7 @@ export const authenticateUserAsync = async (dispatch: Dispatch) => {
 };
 
 export const signOut = () => {
-    fetch("/api/auth/sign-out", {
+    fetch(`${serverUrl}/api/auth/sign-out`, {
         credentials: "same-origin",
     })
         .then((res) => {

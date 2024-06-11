@@ -1,9 +1,10 @@
 import { LoaderFunction, redirect } from "react-router-dom";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import { convertStringIntoDate } from "@/blog/_utils/post";
+import { serverUrl } from "./site";
 
 export const postLoader: LoaderFunction = async ({ params }) => {
-    return fetch(`/api/blog/post/${params.id}`, {
+    return fetch(`${serverUrl}/api/blog/post/${params.id}`, {
         credentials: "same-origin",
     })
         .then((res) => {
@@ -25,7 +26,7 @@ export const postLoader: LoaderFunction = async ({ params }) => {
 
 export const aboutMeLoader: LoaderFunction = async () => {
     return fetch(
-        `/api/blog/post/f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a/static-like`
+        `${serverUrl}/api/blog/post/f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a/static-like`
     )
         .then((res) => {
             if (res.ok) {
@@ -46,7 +47,7 @@ export const aboutMeLoader: LoaderFunction = async () => {
 
 export const privacyPolicyLoader: LoaderFunction = async () => {
     return fetch(
-        `/api/blog/post/670e46d5-4970-4e9b-b969-4a7272209367/static-like`
+        `${serverUrl}/api/blog/post/670e46d5-4970-4e9b-b969-4a7272209367/static-like`
     )
         .then((res) => {
             if (res.ok) {
@@ -66,7 +67,7 @@ export const privacyPolicyLoader: LoaderFunction = async () => {
 };
 
 export const postEditLoader: LoaderFunction = async () => {
-    return fetch("/api/auth/admin", {
+    return fetch(`${serverUrl}/api/auth/admin`, {
         credentials: "same-origin",
     })
         .then((res) => {
@@ -84,7 +85,7 @@ export const postPageCntLoader: LoaderFunction = async ({
     params: { category },
 }) => {
     return fetch(
-        `/api/blog/posts/page?${category ? `category=${category}` : ""}`,
+        `${serverUrl}/api/blog/posts/page?${category ? `category=${category}` : ""}`,
         {
             method: "GET",
         }

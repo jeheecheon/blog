@@ -7,6 +7,7 @@ import hljs from "@/blog/_utils/highlightSettings";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
+import { serverUrl } from "@/_utils/site";
 window.katex = katex;
 
 // Add sizes to whitelist and register them
@@ -88,7 +89,7 @@ export async function insertImage(this: any) {
     let imageUrl = "";
     const formData = new FormData();
     formData.append("image", image);
-    await fetch(`/api/blog/posts/${post_id}/images/upload`, {
+    await fetch(`${serverUrl}/api/blog/posts/${post_id}/images/upload`, {
         credentials: "same-origin",
         method: "POST",
         body: formData,

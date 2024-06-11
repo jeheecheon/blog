@@ -15,6 +15,7 @@ import Avatar from "@/blog/_components/Avatar";
 import ButtonInCommentBox from "./ButtonInCommentBox";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
+import { serverUrl } from "@/_utils/site";
 
 interface CommentProps {
     postId: string;
@@ -44,7 +45,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
             isLoadingLikes.current = true;
 
-            fetch(`/api/blog/comment/${comment.Id}/has-liked`, {
+            fetch(`${serverUrl}/api/blog/comment/${comment.Id}/has-liked`, {
                 method: "POST",
                 credentials: "same-origin",
                 headers: {
