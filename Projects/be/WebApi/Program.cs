@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 // Set up cors policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy", CorsPolicyBuilder =>
+    options.AddDefaultPolicy(CorsPolicyBuilder =>
     {
         CorsPolicyBuilder.WithOrigins(builder.Configuration["ClientUrls:root"]!)
                .AllowAnyMethod()
@@ -84,7 +84,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("CorsPolicy");
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
