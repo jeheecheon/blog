@@ -53,7 +53,6 @@ export const musicSlice = createSlice({
         },
         initMusicState: (state) => {
             state.isPlaying = false;
-            state.musicList = [];
             state.musicTitle = "";
             state.duration = 0;
             state.currentTime = 0;
