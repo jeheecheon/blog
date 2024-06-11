@@ -47,7 +47,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
             fetch(`${serverUrl}/api/blog/comment/${comment.Id}/has-liked`, {
                 method: "POST",
-                credentials: "same-origin",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -107,8 +107,8 @@ export const Comment: React.FC<CommentProps> = React.memo(
                                         className={`w-fit border rounded-2xl mr-1 px-[7px] text-[0.7rem] break-all
                                     text-center
                                     ${
-                                        comment.Email !== "jeheecheon@gmail.com" &&
-                                        "hidden"
+                                        comment.Email !==
+                                            "jeheecheon@gmail.com" && "hidden"
                                     } border-orange-400 text-orange-400`}
                                     >
                                         Site Owner

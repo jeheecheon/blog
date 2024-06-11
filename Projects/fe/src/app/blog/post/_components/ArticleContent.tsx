@@ -78,7 +78,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                 if (location.pathname === "/blog/post/edit") {
                     dispatch(setCoverImageUrl(defaultCoverImage));
                 } else {
-                    dispatch(setCoverImageUrl(""))    
+                    dispatch(setCoverImageUrl(""));
                 }
                 dispatch(setTitleOnCover(""));
             };
@@ -95,7 +95,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
             fetch(`${serverUrl}/api/blog/post/${post.Id}/has-liked`, {
                 method: "POST",
-                credentials: "same-origin",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },

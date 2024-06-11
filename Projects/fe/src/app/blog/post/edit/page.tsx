@@ -45,7 +45,7 @@ const PostEdit = () => {
 
     const fetchPostsList = () =>
         fetch(`${serverUrl}/api/blog/posts/list`, {
-            credentials: "same-origin",
+            credentials: "include",
         })
             .then((res) => {
                 if (res.ok) {
@@ -74,7 +74,7 @@ const PostEdit = () => {
             fetch(
                 `${serverUrl}/api/blog/post/${selectedPostId}/with-metadata`,
                 {
-                    credentials: "same-origin",
+                    credentials: "include",
                 }
             )
                 .then((res) => {
@@ -112,7 +112,7 @@ const PostEdit = () => {
             fetch(
                 `${serverUrl}/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
                 {
-                    credentials: "same-origin",
+                    credentials: "include",
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -141,7 +141,7 @@ const PostEdit = () => {
     > = () => {
         if (confirm("Are you sure you wnat to delete this post?????!"))
             fetch(`${serverUrl}/api/blog/post/${postEditing?.Id}`, {
-                credentials: "same-origin",
+                credentials: "include",
                 method: "DELETE",
             })
                 .then((res) => {
@@ -161,7 +161,7 @@ const PostEdit = () => {
 
     const handleUploadEmptyPostClicked = () => {
         fetch(`${serverUrl}/api/blog/post/upload-empty`, {
-            credentials: "same-origin",
+            credentials: "include",
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -190,11 +190,14 @@ const PostEdit = () => {
                 // Prepare for file transter
                 const formData = new FormData();
                 formData.append("image", cover);
-                fetch(`${serverUrl}/api/blog/posts/${postEditing?.Id}/images/upload`, {
-                    credentials: "same-origin",
-                    method: "POST",
-                    body: formData,
-                })
+                fetch(
+                    `${serverUrl}/api/blog/posts/${postEditing?.Id}/images/upload`,
+                    {
+                        credentials: "include",
+                        method: "POST",
+                        body: formData,
+                    }
+                )
                     .then((res) => {
                         if (res.ok) {
                             return res.json();

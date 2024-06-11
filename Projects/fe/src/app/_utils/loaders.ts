@@ -5,7 +5,7 @@ import { serverUrl } from "@/_utils/site";
 
 export const postLoader: LoaderFunction = async ({ params }) => {
     return fetch(`${serverUrl}/api/blog/post/${params.id}`, {
-        credentials: "same-origin",
+        credentials: "include",
     })
         .then((res) => {
             if (res.ok) {
@@ -68,7 +68,7 @@ export const privacyPolicyLoader: LoaderFunction = async () => {
 
 export const postEditLoader: LoaderFunction = async () => {
     return fetch(`${serverUrl}/api/auth/admin`, {
-        credentials: "same-origin",
+        credentials: "include",
     })
         .then((res) => {
             if (res.ok) {
@@ -85,7 +85,9 @@ export const postPageCntLoader: LoaderFunction = async ({
     params: { category },
 }) => {
     return fetch(
-        `${serverUrl}/api/blog/posts/page?${category ? `category=${category}` : ""}`,
+        `${serverUrl}/api/blog/posts/page?${
+            category ? `category=${category}` : ""
+        }`,
         {
             method: "GET",
         }

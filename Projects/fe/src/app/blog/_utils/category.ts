@@ -40,7 +40,7 @@ export async function fetchLeafCategoriesAsync(
     dispatch: Dispatch
 ): Promise<void> {
     return fetch(`${serverUrl}/api/blog/categories/leaf`, {
-        credentials: "same-origin",
+        credentials: "include",
     })
         .then((res) => {
             if (res.ok) {

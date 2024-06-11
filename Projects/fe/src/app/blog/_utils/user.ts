@@ -30,7 +30,7 @@ export const authenticateUserAsync = async (dispatch: Dispatch) => {
 
 export const signOut = () => {
     fetch(`${serverUrl}/api/auth/sign-out`, {
-        credentials: "same-origin",
+        credentials: "include",
     })
         .then((res) => {
             if (res.ok) {
