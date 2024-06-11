@@ -1,5 +1,4 @@
 import Button from "@/blog/_components/Button";
-import { defaultCoverImage, url } from "@/_utils/siteInfo";
 import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -29,7 +28,7 @@ const Blog = () => {
             <Helmet>
                 <title>blog | jeheecheon</title>
 
-                <link rel="canonical" href={`${url}/blog/`} />
+                {/* <link rel="canonical" href={`${url}/blog/`} />
 
                 <meta name="description" content="blog" />
                 <meta name="keywords" content="jeheecheon, blog, tech" />
@@ -46,7 +45,7 @@ const Blog = () => {
                 <meta name="twitter:title" content="blog | jeheecheon" />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content="Jehee's Tech blog" />
-                <meta name="twitter:image" content={defaultCoverImage} />
+                <meta name="twitter:image" content={defaultCoverImage} /> */}
             </Helmet>
         </>
     );
