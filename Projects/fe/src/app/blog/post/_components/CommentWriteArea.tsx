@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "@/blog/_components/Button";
 import CustomTextArea from "@/blog/post/_components/CustomTextArea";
 import Avatar from "@/blog/_components/Avatar";
-import { makeVisible } from "../../../_redux/signInModalSlice";
+import { makeVisible } from "@/_redux/signInModalSlice";
 import AvatarDefault from "@/blog/post/_assets/images/AvatarDefault";
 import { selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";

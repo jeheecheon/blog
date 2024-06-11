@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import ArrowDown from "@/blog/_assets/images/arrow-down.svg?react";
-import CategoryMenu from "./CategoryMenu";
+import CategoryMenu from "@/blog/_components/CategoryMenu";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import { signOut } from "@/blog/_utils/user";
 import { useDispatch } from "react-redux";

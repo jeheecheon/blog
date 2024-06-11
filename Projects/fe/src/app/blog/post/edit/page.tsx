@@ -15,7 +15,7 @@ import {
 import { defaultCoverImage } from "@/_utils/siteInfo";
 import { Helmet } from "react-helmet";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import CustomQuillToolbar from "./_components/quill/CustomQuillToolbar";
+import CustomQuillToolbar from "@/blog/post/edit/_components/quill/CustomQuillToolbar";
 import { serverUrl } from "@/_utils/site";
 
 const PostEdit = () => {

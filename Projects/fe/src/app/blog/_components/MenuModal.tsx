@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
 import { Link } from "react-router-dom";
 import { calculateModalWidth } from "@/blog/_utils/modal";
-import { signOut } from "../_utils/user";
+import { signOut } from "@/blog/_utils/user";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 

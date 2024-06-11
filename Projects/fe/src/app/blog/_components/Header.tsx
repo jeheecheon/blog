@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 
 import MenuModal from "@/blog/_components/MenuModal";
 import { Link } from "react-router-dom";
-import DarkmodeToggleSwitch from "./DarkmodeToggleSwitch";
+import DarkmodeToggleSwitch from "@/blog/_components/DarkmodeToggleSwitch";
 import ArrowDown from "@/blog/_assets/images/arrow-down.svg?react";
-import NavigationBar from "./NavigationBar";
+import NavigationBar from "@/blog/_components/NavigationBar";
 
 const excepts = ["/blog/post/edit"];
 

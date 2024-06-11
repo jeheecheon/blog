@@ -4,7 +4,7 @@ import {
 } from "@/_utils/promiseWrapper";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import ErrorBoundary from "../../../_components/ErrorBoundary";
+import ErrorBoundary from "@/_components/ErrorBoundary";
 import Posts from "@/blog/posts/page";
 import ErrorMessageWrapper from "@/blog/_components/ErrorMessageWrapper";
 import { Helmet } from "react-helmet";

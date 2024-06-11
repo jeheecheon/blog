@@ -1,7 +1,7 @@
 import defaultAvatar from "@/blog/_assets/images/avatar.png";
 import CommentInfo from "@/blog/_types/Comment";
 import React, { useRef, useState } from "react";
-import CommentWriteArea from "./CommentWriteArea";
+import CommentWriteArea from "@/blog/post/_components/CommentWriteArea";
 import { getTimeAgo } from "@/blog/_utils/comment";
 import { useDispatch } from "react-redux";
 import LikeFilled from "@/blog/post/_assets/images/like-filled.svg?react";
@@ -12,7 +12,7 @@ import parse from "html-react-parser";
 import DOMPurify from "isomorphic-dompurify";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import Avatar from "@/blog/_components/Avatar";
-import ButtonInCommentBox from "./ButtonInCommentBox";
+import ButtonInCommentBox from "@/blog/post/_components/ButtonInCommentBox";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 import { serverUrl } from "@/_utils/site";

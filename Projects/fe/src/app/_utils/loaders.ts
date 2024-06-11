@@ -1,7 +1,7 @@
 import { LoaderFunction, redirect } from "react-router-dom";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import { convertStringIntoDate } from "@/blog/_utils/post";
-import { serverUrl } from "./site";
+import { serverUrl } from "@/_utils/site";
 
 export const postLoader: LoaderFunction = async ({ params }) => {
     return fetch(`${serverUrl}/api/blog/post/${params.id}`, {
