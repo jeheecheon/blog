@@ -60,7 +60,6 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     }, []);
 
     useEffect(() => {
-        console.log(serverUrl);
         if (musicList.length === 0) {
             fetch(`${serverUrl}/api/blog/music`, {
                 method: "GET",

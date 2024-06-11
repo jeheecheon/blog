@@ -41,7 +41,7 @@ public class OAuthService : IOAuthService
     public string MakeRedirectUrl(string provider)
     {
         string prevUrl = string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Headers["Referer"])
-            ? _configuration["ClientUrls:root"]!
+            ? _configuration["ServerUrl"]!
             : _httpContextAccessor.HttpContext.Request.Headers["Referer"]!;
         string prevUrlInBase64 = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(prevUrl!));
 
