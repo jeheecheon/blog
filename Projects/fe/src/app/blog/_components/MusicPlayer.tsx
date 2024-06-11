@@ -10,6 +10,7 @@ import {
     setMusicTitle,
 } from "@/_redux/musicSlice";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
+import { serverUrl } from "@/_utils/site";
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -59,8 +60,9 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     }, []);
 
     useEffect(() => {
+        console.log(serverUrl);
         if (musicList.length === 0) {
-            fetch("/api/blog/music")
+            fetch(`${serverUrl}/api/blog/music`)
                 .then((res) => {
                     if (res.ok) {
                         return res.json();
