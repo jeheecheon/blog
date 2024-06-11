@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - publish-be
-    paths: ['.github/workflows/**', 'Projects/**']
 
   workflow_dispatch:
 
