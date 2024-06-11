@@ -5,7 +5,7 @@ import { serverUrl } from "@/_utils/site";
 
 export const authenticateUserAsync = async (dispatch: Dispatch) => {
     return fetch(`${serverUrl}/api/auth`, {
-        credentials: "same-origin",
+        credentials: "include",
     })
         .then((res) => {
             if (res.ok) return res.json();
