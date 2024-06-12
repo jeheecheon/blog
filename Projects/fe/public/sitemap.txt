@@ -1,2 +1,12 @@
 https://jeheecheon.com/
 https://jeheecheon.com/?/blog
+https://jeheecheon.com/?/blog/recent-posts/pages/1
+https://jeheecheon.com/?/blog/categories/Algorithm/pages/1
+https://jeheecheon.com/?/blog/categories/Web-Development/pages/1
+https://jeheecheon.com/?/blog/categories/Uncategorized/pages/1
+https://jeheecheon.com/?/blog/privacy-policy
+https://jeheecheon.com/?/blog/post/c306399f-18d0-4fbf-8fe2-a933bbf79331
+https://jeheecheon.com/?/blog/post/e347611e-4e6e-408e-8376-48b4639aa332
+https://jeheecheon.com/?/blog/post/57998974-f98f-4afd-be3f-92e1166d74a1
+https://jeheecheon.com/?/blog/post/d6a30cf8-0033-41d2-801b-29942b344325
+https://jeheecheon.com/?/blog/post/1ca1a00a-6465-45c3-bd37-0d713aae2595
