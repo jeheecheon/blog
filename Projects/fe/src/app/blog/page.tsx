@@ -1,8 +1,8 @@
 import Button from "@/blog/_components/Button";
-import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { defaultCoverImage, url } from "@/_utils/siteInfo";
+import { Helmet } from "react-helmet-async";
 
 const Blog = () => {
     const navigate = useNavigate();

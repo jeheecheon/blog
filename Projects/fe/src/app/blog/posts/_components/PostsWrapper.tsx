@@ -7,10 +7,10 @@ import { useParams } from "react-router-dom";
 import ErrorBoundary from "@/_components/ErrorBoundary";
 import Posts from "@/blog/posts/page";
 import ErrorMessageWrapper from "@/blog/_components/ErrorMessageWrapper";
-import { Helmet } from "react-helmet";
 import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 import LoadingSpinner from "@/blog/_components/LoadingSpinner";
 import { serverUrl } from "@/_utils/site";
+import { Helmet } from "react-helmet-async";
 
 const PostsWrapper = () => {
     const { category, page } = useParams();

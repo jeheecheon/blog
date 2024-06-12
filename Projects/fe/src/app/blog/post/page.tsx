@@ -7,13 +7,13 @@ import {
     CreateDummyPromiseAwaiter,
     wrapPromise,
 } from "@/_utils/promiseWrapper";
-import { Helmet } from "react-helmet";
 import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 
 import { serverUrl } from "@/_utils/site";
 import { useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
 import { flattenOutCategoriesV2 } from "../_utils/category";
+import { Helmet } from "react-helmet-async";
 
 const Post = () => {
     const post = useLoaderData() as PostInfo;

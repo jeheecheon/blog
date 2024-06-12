@@ -13,10 +13,10 @@ import {
     sortPostsByUploadedAt,
 } from "@/blog/_utils/post";
 import { defaultCoverImage, url } from "@/_utils/siteInfo";
-import { Helmet } from "react-helmet";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import CustomQuillToolbar from "@/blog/post/edit/_components/quill/CustomQuillToolbar";
 import { serverUrl } from "@/_utils/site";
+import { Helmet } from "react-helmet-async";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
