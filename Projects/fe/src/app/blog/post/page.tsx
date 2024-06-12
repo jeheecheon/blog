@@ -8,9 +8,12 @@ import {
     wrapPromise,
 } from "@/_utils/promiseWrapper";
 import { Helmet } from "react-helmet";
-import { name } from "@/_utils/siteInfo";
+import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 
 import { serverUrl } from "@/_utils/site";
+import { useSelector } from "react-redux";
+import { RootState } from "@/_redux/store";
+import { flattenOutCategoriesV2 } from "../_utils/category";
 
 const Post = () => {
     const post = useLoaderData() as PostInfo;
@@ -28,6 +31,19 @@ const Post = () => {
             wrapPromise(fetch(fetchUrl, { credentials: "include" }))
         );
     }, [fetchUrl]);
+
+    const leafCategories = useSelector(
+        (state: RootState) => state.category.leafCategories
+    );
+    const categories = useMemo(
+        () =>
+            flattenOutCategoriesV2(
+                leafCategories.find(
+                    (category) => category.Id === post.CategoryId
+                )
+            ),
+        [leafCategories, post.CategoryId]
+    );
 
     return (
         <>
@@ -47,7 +63,7 @@ const Post = () => {
                 <title>
                     {post.Title} | {name}
                 </title>
-                {/* <link rel="canonical" href={`${url}/blog/post/${post.Id}`} />
+                <link rel="canonical" href={`${url}/blog/post/${post.Id}`} />
                 <meta name="description" content={post.Title} />
                 <meta
                     name="keywords"
@@ -73,7 +89,7 @@ const Post = () => {
                 />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content={post.Title} />
-                <meta name="twitter:image" content={defaultCoverImage} /> */}
+                <meta name="twitter:image" content={defaultCoverImage} />
             </Helmet>
         </>
     );

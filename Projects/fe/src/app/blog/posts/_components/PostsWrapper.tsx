@@ -8,7 +8,7 @@ import ErrorBoundary from "@/_components/ErrorBoundary";
 import Posts from "@/blog/posts/page";
 import ErrorMessageWrapper from "@/blog/_components/ErrorMessageWrapper";
 import { Helmet } from "react-helmet";
-import { name } from "@/_utils/siteInfo";
+import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 import LoadingSpinner from "@/blog/_components/LoadingSpinner";
 import { serverUrl } from "@/_utils/site";
 
@@ -68,7 +68,7 @@ const PostsWrapper = () => {
                 <title>
                     {category ? category : "Recent posts"} | {name}
                 </title>
-                {/* <link
+                <link
                     rel="canonical"
                     href={`${url}/blog/${
                         category ? "categories/" + category : "recent-posts"
@@ -122,7 +122,7 @@ const PostsWrapper = () => {
                         category ? category + " posts" : "Recent posts"
                     }`}
                 />
-                <meta name="twitter:image" content={defaultCoverImage} /> */}
+                <meta name="twitter:image" content={defaultCoverImage} />
             </Helmet>
         </>
     );

@@ -12,7 +12,7 @@ import {
     convertStringIntoDate,
     sortPostsByUploadedAt,
 } from "@/blog/_utils/post";
-import { defaultCoverImage } from "@/_utils/siteInfo";
+import { defaultCoverImage, url } from "@/_utils/siteInfo";
 import { Helmet } from "react-helmet";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import CustomQuillToolbar from "@/blog/post/edit/_components/quill/CustomQuillToolbar";
@@ -229,7 +229,7 @@ const PostEdit = () => {
         <>
             <Helmet>
                 <title>Edit | jeheecheon</title>
-                {/* <link rel="canonical" href={url} />
+                <link rel="canonical" href={url} />
                 <meta name="description" content="Blog post edit page" />
                 <meta name="keywords" content="tech, blog, jeheecheon" />
                 <meta name="author" content="jeheecheon" />/
@@ -246,7 +246,7 @@ const PostEdit = () => {
                     name="twitter:description"
                     content="Blog post edit page"
                 />
-                <meta name="twitter:image" content={defaultCoverImage} /> */}
+                <meta name="twitter:image" content={defaultCoverImage} />
             </Helmet>
 
             {showPreview && postEditing && (

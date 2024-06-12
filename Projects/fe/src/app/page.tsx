@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
+import { defaultCoverImage, url } from "@/_utils/siteInfo";
 
 const Root = () => {
     // const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Root = () => {
         <>
             <Helmet>
                 <title>jeheecheon</title>
-                {/* <link rel="canonical" href={url} />
+                <link rel="canonical" href={url} />
                 <meta name="description" content="Jehee's Tech blog" />
                 <meta name="keywords" content="tech, blog, jeheecheon" />
                 <meta name="author" content="jeheecheon" />/
@@ -29,7 +30,7 @@ const Root = () => {
                 <meta name="twitter:title" content="jeheecheon" />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content="Jehee's Tech blog" />
-                <meta name="twitter:image" content={defaultCoverImage} /> */}
+                <meta name="twitter:image" content={defaultCoverImage} />
             </Helmet>
 
             <div className="w-full h-[100dvh] flex justify-center items-center">
