@@ -27,7 +27,9 @@ const PostsWrapper = () => {
     );
 
     useEffect(() => {
-        setPostsAwaiter(wrapPromise(fetch(fetchUrl)));
+        setPostsAwaiter(
+            wrapPromise(fetch(fetchUrl, { credentials: "include" }))
+        );
     }, [fetchUrl]);
 
     return (

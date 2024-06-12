@@ -24,7 +24,9 @@ const Post = () => {
     );
 
     useEffect(() => {
-        setCommentsAwaiter(wrapPromise(fetch(fetchUrl)));
+        setCommentsAwaiter(
+            wrapPromise(fetch(fetchUrl, { credentials: "include" }))
+        );
     }, [fetchUrl]);
 
     return (
@@ -33,7 +35,11 @@ const Post = () => {
                 post={post}
                 commentsAwaiter={commentsAwaiter}
                 refreshComments={() =>
-                    setCommentsAwaiter(wrapPromise(fetch(fetchUrl))!)
+                    setCommentsAwaiter(
+                        wrapPromise(
+                            fetch(fetchUrl, { credentials: "include" })
+                        )!
+                    )
                 }
             />
 

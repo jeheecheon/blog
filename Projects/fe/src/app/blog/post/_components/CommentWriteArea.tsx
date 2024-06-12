@@ -48,6 +48,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
 
             fetch(`${serverUrl}/api/blog/post/${postId}/comment`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
