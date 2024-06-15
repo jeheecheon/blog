@@ -25,18 +25,24 @@
         font-size: 1.8rem; /* 원하는 크기로 조정 */
         font-weight: bold;
         margin-bottom: 1rem;
+        color: #252525;
+        word-break: keep-all;
     }
 
     h2 {
         font-size: 1.6rem;
         font-weight: bold;
         margin-bottom: 0.9rem;
+        color: #252525;
+        word-break: keep-all;
     }
 
     h3 {
         font-size: 1.5rem;
         font-weight: bold;
         margin-bottom: 0.8rem;
+        color: #252525;
+        word-break: keep-all;
     }
 
     /* h4 스타일 */
@@ -44,6 +50,8 @@
         font-size: 1.45rem;
         font-weight: bold;
         margin-bottom: 0.7rem;
+        color: #252525;
+        word-break: keep-all;
     }
 
     /* h5 스타일 */
@@ -51,6 +59,8 @@
         font-size: 1.4rem;
         font-weight: bold;
         margin-bottom: 0.6rem;
+        color: #252525;
+        word-break: keep-all;
     }
 
     /* h6 스타일 */
@@ -58,6 +68,8 @@
         font-size: 1.3rem;
         font-weight: bold;
         margin-bottom: 0.5rem;
+        color: #252525;
+        word-break: keep-all;
     }
 
     h1,
@@ -81,7 +93,6 @@
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         margin-left: 0.5rem;
-        
     }
 
     li {
@@ -337,6 +348,10 @@
         }
 
         strong {
+            color: #ffffff;
+        }
+
+        h1 {
             color: #ffffff;
         }
     }
