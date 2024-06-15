@@ -81,7 +81,7 @@ export async function insertImage(this: any) {
 
     // Error checking if the file was successfuly selected
     if (image === undefined || image === null) {
-        console.log("File not selected...");
+        console.error("File not selected...");
         return;
     }
 

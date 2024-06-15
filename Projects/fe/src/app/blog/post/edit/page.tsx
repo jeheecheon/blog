@@ -256,7 +256,7 @@ const PostEdit = () => {
             )}
 
             <div
-                className={`flex flex-col items-center mt-[10vh] text-default-15-dark dark:text-default-15 max-w-[900px] mx-auto
+                className={`flex flex-col items-center mt-[20vh] text-default-15-dark dark:text-default-15 max-w-[768px] mx-auto
                 ${showPreview && "hidden"}`}
             >
                 <p className="text-2xl font-medium mt-2">글 작성</p>
@@ -383,7 +383,7 @@ const PostEdit = () => {
                 <div
                     className={`flex flex-col w-full gap-3 pb-10 mx-auto px-1 mt-2
                     text-default-18-dark dark:text-default-18
-                    ${showPreview ? "max-w-[900px]" : "max-w-[900px]"}`}
+                    ${showPreview ? "max-w-[768px]" : "max-w-[768px]"}`}
                 >
                     <label>
                         Public:&#160;

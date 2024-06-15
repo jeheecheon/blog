@@ -21,7 +21,6 @@ const CustomQuill: React.FC<CustomQullProps> = ({
                 modules={modules}
                 formats={formats}
                 onChange={(value) => {
-                    console.log(value);
                     setContent(value);
                 }}
             />

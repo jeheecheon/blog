@@ -122,7 +122,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
         return (
             <div className={`flex flex-col items-center w-full ${className}`}>
-                <div className="text-slate-50 max-w-[900px] w-full text-left pl-2 text-xl h-fit">
+                <div className="text-slate-50 max-w-[768px] w-full text-left pl-2 text-xl h-fit">
                     <span
                         className="bg-gray-600/65 dark:bg-gray-800/65 px-3 rounded-md 
                         text-slate-100 font-medium pb-3 text-sm md:text-base"
@@ -139,10 +139,10 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
                 {/* blog content body */}
                 <div
-                    className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[900px]
-                    text-pretty h-fit min-h-[40vh] rounded-2xl shadow-md dark:shadow-lg dark:drop-shadow-lg
+                    className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[768px]
+                    text-pretty h-fit min-h-[40vh] rounded-2xl
                     overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center justify-between
-                    bg-body"
+                    dark:bg-[#101010] bg-default-2"
                 >
                     <div className="w-full flex flex-col items-center">
                         <div className="bg-default-18 dark:bg-default-11-dark h-[10px] w-[170px] rounded-2xl relative bottom-1" />
@@ -156,7 +156,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                                 // `Published: ${post.UploadedAt.toLocaleDateString()}`
                             }
                         </span>
-                        <div className="text-left w-full blog-post-content  px-3 md:px-10 pb-5 md:pb-10 dark:text-default-13">
+                        <div className="text-left w-full blog-post-content px-3 md:px-5 pb-5 md:pb-10 text-pretty">
                             {content}
                         </div>
                     </div>

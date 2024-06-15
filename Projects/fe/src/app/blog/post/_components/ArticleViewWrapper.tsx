@@ -21,7 +21,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(
             <ArticleLayout>
                 <ArticleContent post={post} />
                 {/* <PostsPagination /> */}
-                <div className="max-w-[1024px] w-full px-3">
+                <div className="max-w-[768px] w-full px-3 md:px-5">
                     <ErrorBoundary
                         fallback={
                             <ErrorMessageWrapper>

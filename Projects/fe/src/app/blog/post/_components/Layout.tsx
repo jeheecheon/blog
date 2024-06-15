@@ -21,7 +21,7 @@ const Layout = (props: LayoutProps) => {
 
                 {/* Content body */}
                 <div
-                    className="absolute w-full h-[80vh] flex items-center"
+                    className="absolute w-full h-[100vh] flex items-center"
                     style={{
                         backgroundImage: `url(${coverImageUrl})`,
                         backgroundSize: "cover",
@@ -39,7 +39,7 @@ const Layout = (props: LayoutProps) => {
                     </span>
                 </div>
 
-                <div className="h-[70vh]" />
+                <div className="h-[80vh]" />
 
                 <div className="bg-default-2 dark:bg-[#101010]">
                     <section>
