@@ -44,11 +44,11 @@ public class OAuthController : ControllerBase
                 await _oauthService.GenerateCookieAsync(user_id.Value, userInfo.email, userInfo.picture);
         }
         
-        // string prevUrl = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(state));
-        // if (string.IsNullOrWhiteSpace(prevUrl) == false
-        //     && prevUrl.StartsWith(_configuration["ClientUrls:root"]!))
-        //     return Redirect(prevUrl);
-        // else
+        string prevUrl = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(state));
+        if (string.IsNullOrWhiteSpace(prevUrl) == false
+            && prevUrl.StartsWith(_configuration["ClientUrls:root"]!))
+            return Redirect(prevUrl);
+        else
             return Redirect(_configuration["ClientUrls:root"]!);
     }
 }
