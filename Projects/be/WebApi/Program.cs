@@ -46,7 +46,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.Cookie.Name = "AuthToken";
         options.Cookie.SameSite = SameSiteMode.None;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.Domain = builder.Configuration["ClientUrls:domain"];
         options.Cookie.HttpOnly = true;
         options.SlidingExpiration = true;
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
