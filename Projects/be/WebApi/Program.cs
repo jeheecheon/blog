@@ -44,13 +44,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = "AuthToken";
-        options.Cookie.SameSite = SameSiteMode.None;
+        options.Cookie.SameSite = SameSiteMode.Lax;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.Domain = builder.Configuration["ClientUrls:domain"];
         options.Cookie.HttpOnly = true;
         options.SlidingExpiration = true;
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
         options.Cookie.MaxAge = TimeSpan.FromDays(1);
-        options.LoginPath = "/blog";
+        // options.LoginPath = "/blog";
     });
 
 // Register Authorization policy services
