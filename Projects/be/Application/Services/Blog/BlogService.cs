@@ -92,7 +92,7 @@ public class BlogService : IBlogService
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
-        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        string? guidString = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (string.IsNullOrWhiteSpace(guidString))
         {
             PostLikes? post = _blogRepository.GetPost(post_id);
@@ -114,7 +114,7 @@ public class BlogService : IBlogService
         if (string.IsNullOrWhiteSpace(commentToUpload.content))
             return false;
 
-        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        string? guidString = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (string.IsNullOrWhiteSpace(guidString))
             return false;
         Guid account_id = Guid.Parse(guidString);
@@ -130,7 +130,7 @@ public class BlogService : IBlogService
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
-        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        string? guidString = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid)?.Value;
         IEnumerable<CommentsLikesHasLiked>? comments;
 
         if (string.IsNullOrWhiteSpace(guidString))
@@ -161,7 +161,7 @@ public class BlogService : IBlogService
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return false;
-        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        string? guidString = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (string.IsNullOrWhiteSpace(guidString))
             return false;
         Guid account_id = Guid.Parse(guidString);
@@ -176,7 +176,7 @@ public class BlogService : IBlogService
     {
         if (string.IsNullOrWhiteSpace(comment_id.ToString()))
             return false;
-        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        string? guidString = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (string.IsNullOrWhiteSpace(guidString))
             return false;
         Guid account_id = Guid.Parse(guidString);
@@ -252,7 +252,7 @@ public class BlogService : IBlogService
     {
         if (string.IsNullOrWhiteSpace(post_id.ToString()))
             return null;
-        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        string? guidString = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid)?.Value;
 
         StaticLikePostLikesHasLiked post;
         if (string.IsNullOrWhiteSpace(guidString))

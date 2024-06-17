@@ -1,6 +1,7 @@
 using Application.Services.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
@@ -24,34 +25,21 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> AuthenticateAsync()
+    [Authorize]
+    public IActionResult Authenticate()
     {
-        var isAuthenticated = await _accountService.Authenticate();
-
-        if (isAuthenticated)
+        return Ok(JsonSerializer.Serialize(new
         {
-            return Ok(JsonSerializer.Serialize(new
-            {
-                email = HttpContext.User.Claims.FirstOrDefault((c) => c.Type == ClaimTypes.Email)?.Value,
-                name = HttpContext.User.Claims.FirstOrDefault((c) => c.Type == ClaimTypes.Email)?.Value,
-                avatar = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "avatar")?.Value
-            }));
-        }
-        else
-        {
-            return Unauthorized();
-        }
+            email = HttpContext.User.Claims.FirstOrDefault((c) => c.Type == ClaimTypes.Email)?.Value,
+            name = HttpContext.User.Claims.FirstOrDefault((c) => c.Type == ClaimTypes.Email)?.Value,
+            avatar = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "avatar")?.Value
+        }));
     }
 
     [HttpGet("admin")]
-    // [Authorize]
-    public async Task<IActionResult> AuthenticateAdmin()
+    [Authorize]
+    public IActionResult AuthenticateAdmin()
     {
-        var isAuthenticated = await _accountService.Authenticate();
-        if (!isAuthenticated)
-        {
-            return Unauthorized();
-        }
         return _accountService.FilterAdmin() ? Ok() : Forbid();
     }
 }

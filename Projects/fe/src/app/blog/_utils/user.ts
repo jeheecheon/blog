@@ -32,4 +32,5 @@ export const authenticateUserAsync = async (dispatch: Dispatch) => {
 
 export const signOut = () => {
     sessionStorage.removeItem("jwt");
+    location.reload();
 };

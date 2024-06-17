@@ -51,23 +51,25 @@ builder.Services.AddAuthentication(cfg =>
 })
     .AddJwtBearer(x =>
     {
-        if (!builder.Environment.IsDevelopment())
-        {
-            x.RequireHttpsMetadata = true;
-        }
-        else
+        if (builder.Environment.IsDevelopment())
         {
             x.RequireHttpsMetadata = false;
         }
-        x.SaveToken = true;
+        else
+        {
+            x.RequireHttpsMetadata = true;
+        }
+        x.SaveToken = false;
         x.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]!)),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            RequireExpirationTime = false,
-            ValidateLifetime = true
+            ValidateIssuer = builder.Environment.IsProduction(),
+            ValidateAudience = builder.Environment.IsProduction(),
+            RequireExpirationTime = true,
+            ValidateLifetime = true,
+            ValidIssuer = builder.Configuration["ServerUrl"],
+            ValidAudience = builder.Configuration["ClientUrls:root"],
         };
     });
 

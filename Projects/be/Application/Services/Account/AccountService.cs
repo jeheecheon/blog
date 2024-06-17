@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Text;
 using Infrastructur.Models;
 using Infrastructur.Repositories.Account;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -33,7 +32,7 @@ public class AccountService : IAccountService
 
     public bool FilterAdmin()
     {
-        string? guidString = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid)?.Value;
+        string? guidString = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (string.IsNullOrWhiteSpace(guidString))
             return false;
         Guid account_id = Guid.Parse(guidString);
@@ -44,12 +43,6 @@ public class AccountService : IAccountService
 
         AccountRole? admin_account = _accountRepository.GetAccountRole(admin.Id, account_id);
         return admin_account is null ? false : true;
-    }
-
-    public async Task<bool> Authenticate()
-    {
-        var result = await _httpContextAccessor.HttpContext!.AuthenticateAsync();
-        return result.Succeeded;
     }
 
     public string GenerateJWTToken(Guid user_id, string email, string? avatar)
@@ -64,6 +57,8 @@ public class AccountService : IAccountService
             claims.Add(new Claim("avatar", avatar));
 
         var jwtToken = new JwtSecurityToken(
+            issuer: _configuration["ServerUrl"],
+            audience: _configuration["ClientUrls:root"],
             claims: claims,
             expires: DateTime.UtcNow.AddDays(2),
             signingCredentials: new SigningCredentials(
