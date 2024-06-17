@@ -9,7 +9,6 @@ import Posts from "@/blog/posts/page";
 import ErrorMessageWrapper from "@/blog/_components/ErrorMessageWrapper";
 import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 import LoadingSpinner from "@/blog/_components/LoadingSpinner";
-import { serverUrl } from "@/_utils/site";
 import { Helmet } from "react-helmet-async";
 
 const PostsWrapper = () => {
@@ -17,9 +16,13 @@ const PostsWrapper = () => {
 
     const fetchUrl = useMemo(() => {
         if (category === undefined)
-            return `${serverUrl}/api/blog/recent-posts/pages/${page}`;
+            return `${
+                import.meta.env.VITE_SERVER_URL
+            }/api/blog/recent-posts/pages/${page}`;
         else
-            return `${serverUrl}/api/blog/categories/${category}/pages/${page}`;
+            return `${
+                import.meta.env.VITE_SERVER_URL
+            }/api/blog/categories/${category}/pages/${page}`;
     }, [category, page]);
 
     const [postsAwaiter, setPostsAwaiter] = useState(

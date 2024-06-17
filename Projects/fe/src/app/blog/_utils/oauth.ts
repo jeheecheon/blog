@@ -1,5 +1,3 @@
-import { clientUrl } from "@/_utils/site";
-
 const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 const GOOGLE_CB_URL = "/oauth/google/sign-in";
 
@@ -8,7 +6,7 @@ function convertToBase64Url(url: string = window.location.href) {
 }
 
 function getRedirectUri() {
-    return `${clientUrl}${GOOGLE_CB_URL}`;
+    return `${import.meta.env.VITE_CLIENT_URL}${GOOGLE_CB_URL}`;
 }
 
 export function getGoogleLoginUrl() {

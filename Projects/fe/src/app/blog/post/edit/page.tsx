@@ -15,7 +15,6 @@ import {
 import { defaultCoverImage, url } from "@/_utils/siteInfo";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import CustomQuillToolbar from "@/blog/post/edit/_components/quill/CustomQuillToolbar";
-import { serverUrl } from "@/_utils/site";
 import { Helmet } from "react-helmet-async";
 
 const PostEdit = () => {
@@ -44,7 +43,7 @@ const PostEdit = () => {
     }, []);
 
     const fetchPostsList = () =>
-        fetch(`${serverUrl}/api/blog/posts/list`, {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/blog/posts/list`, {
             headers: {
                 Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
             },
@@ -74,7 +73,9 @@ const PostEdit = () => {
 
         if (selectedPostId !== "")
             fetch(
-                `${serverUrl}/api/blog/post/${selectedPostId}/with-metadata`,
+                `${
+                    import.meta.env.VITE_SERVER_URL
+                }/api/blog/post/${selectedPostId}/with-metadata`,
                 {
                     headers: {
                         Authorization: `Bearer ${sessionStorage.getItem(
@@ -116,7 +117,9 @@ const PostEdit = () => {
     > = () => {
         if (confirm("You want to update the post, right?"))
             fetch(
-                `${serverUrl}/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
+                `${
+                    import.meta.env.VITE_SERVER_URL
+                }/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
                 {
                     method: "POST",
                     headers: {
@@ -148,12 +151,19 @@ const PostEdit = () => {
         HTMLButtonElement
     > = () => {
         if (confirm("Are you sure you wnat to delete this post?????!"))
-            fetch(`${serverUrl}/api/blog/post/${postEditing?.Id}`, {
-                headers: {
-                    Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
-                },
-                method: "DELETE",
-            })
+            fetch(
+                `${import.meta.env.VITE_SERVER_URL}/api/blog/post/${
+                    postEditing?.Id
+                }`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                    method: "DELETE",
+                }
+            )
                 .then((res) => {
                     if (res.ok) {
                         setSelectedPostIdToEdit("");
@@ -170,7 +180,7 @@ const PostEdit = () => {
     };
 
     const handleUploadEmptyPostClicked = () => {
-        fetch(`${serverUrl}/api/blog/post/upload-empty`, {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/blog/post/upload-empty`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -201,7 +211,9 @@ const PostEdit = () => {
                 const formData = new FormData();
                 formData.append("image", cover);
                 fetch(
-                    `${serverUrl}/api/blog/posts/${postEditing?.Id}/images/upload`,
+                    `${import.meta.env.VITE_SERVER_URL}/api/blog/posts/${
+                        postEditing?.Id
+                    }/images/upload`,
                     {
                         headers: {
                             Authorization: `Bearer ${sessionStorage.getItem(

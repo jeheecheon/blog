@@ -14,7 +14,6 @@ import { makeVisible } from "@/_redux/signInModalSlice";
 import Avatar from "@/blog/_components/Avatar";
 import ButtonInCommentBox from "@/blog/post/_components/ButtonInCommentBox";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import { serverUrl } from "@/_utils/site";
 import { selectIsSignedIn } from "@/_redux/userSlice";
 
 interface CommentProps {
@@ -45,14 +44,21 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
             isLoadingLikes.current = true;
 
-            fetch(`${serverUrl}/api/blog/comment/${comment.Id}/has-liked`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
-                },
-                body: JSON.stringify(!hasLiked),
-            })
+            fetch(
+                `${import.meta.env.VITE_SERVER_URL}/api/blog/comment/${
+                    comment.Id
+                }/has-liked`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                    body: JSON.stringify(!hasLiked),
+                }
+            )
                 .then((res) => {
                     if (res.ok) {
                         return res.json();

@@ -7,7 +7,6 @@ import { makeVisible } from "@/_redux/signInModalSlice";
 import AvatarDefault from "@/blog/post/_assets/images/AvatarDefault";
 import { selectIsSignedIn, selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
-import { serverUrl } from "@/_utils/site";
 
 interface CommentWriteAreaProps {
     postId: string;
@@ -45,17 +44,24 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                 return;
             }
 
-            fetch(`${serverUrl}/api/blog/post/${postId}/comment`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
-                },
-                body: JSON.stringify({
-                    content: content,
-                    parent_comment_id: replyingTo,
-                }),
-            })
+            fetch(
+                `${
+                    import.meta.env.VITE_SERVER_URL
+                }/api/blog/post/${postId}/comment`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                    body: JSON.stringify({
+                        content: content,
+                        parent_comment_id: replyingTo,
+                    }),
+                }
+            )
                 .then((res) => {
                     if (res.ok) {
                         refreshComments();
@@ -79,9 +85,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                 <div className="flex w-full gap-3">
                     <Avatar
                         avatar={
-                            isSignedIn && user.avatar
-                                ? user.avatar
-                                : undefined
+                            isSignedIn && user.avatar ? user.avatar : undefined
                         }
                         size={45}
                     >

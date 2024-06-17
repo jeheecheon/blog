@@ -2,7 +2,6 @@ import { Dispatch } from "@reduxjs/toolkit";
 import CategoryInfo from "@/blog/_types/Category";
 import { setLeafCategories } from "@/_redux/categorySlice";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import { serverUrl } from "@/_utils/site";
 
 export function flattenOutCategoriesV1(
     category: CategoryInfo | undefined
@@ -39,11 +38,14 @@ export function flattenOutCategoriesV2(
 export async function fetchLeafCategoriesAsync(
     dispatch: Dispatch
 ): Promise<void> {
-    return fetch(`${serverUrl}/api/blog/categories/leaf`, {
-        headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
-        },
-    })
+    return fetch(
+        `${import.meta.env.VITE_SERVER_URL}/api/blog/categories/leaf`,
+        {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+            },
+        }
+    )
         .then((res) => {
             if (res.ok) {
                 return res.json();

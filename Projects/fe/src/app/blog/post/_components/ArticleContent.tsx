@@ -18,7 +18,6 @@ import "@/blog/post/_assets/css/Article.scss";
 import hljs from "@/blog/_utils/highlightSettings";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import { useLocation } from "react-router-dom";
-import { serverUrl } from "@/_utils/site";
 import { selectIsSignedIn } from "@/_redux/userSlice";
 
 DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
@@ -93,14 +92,21 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
             isLoadingLikes.current = true;
 
-            fetch(`${serverUrl}/api/blog/post/${post.Id}/has-liked`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
-                },
-                body: JSON.stringify(!hasLiked),
-            })
+            fetch(
+                `${import.meta.env.VITE_SERVER_URL}/api/blog/post/${
+                    post.Id
+                }/has-liked`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                    body: JSON.stringify(!hasLiked),
+                }
+            )
                 .then((res) => {
                     if (res.ok) {
                         return res.json();

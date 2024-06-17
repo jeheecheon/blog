@@ -1,5 +1,4 @@
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import { serverUrl } from "@/_utils/site";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -11,9 +10,14 @@ function Page() {
         const state = searchParams.get("state");
         const scope = searchParams.get("scope");
 
-        fetch(`${serverUrl}/api/oauth/google/sign-in?code=${code}&state=${state}&scope=${scope}`, {
-            method: "POST",
-        })
+        fetch(
+            `${
+                import.meta.env.VITE_SERVER_URL
+            }/api/oauth/google/sign-in?code=${code}&state=${state}&scope=${scope}`,
+            {
+                method: "POST",
+            }
+        )
             .then((res) => {
                 if (res.ok) {
                     return res.json();
