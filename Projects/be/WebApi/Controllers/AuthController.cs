@@ -23,15 +23,8 @@ public class AuthController : ControllerBase
         _accountService = accountService;
     }
 
-    [HttpGet("sign-out")]
-    public async Task<IActionResult> SignOutAsync()
-    {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return Ok();
-    }
-
     [HttpGet]
-    public async Task<IActionResult> AuthenticationAsync()
+    public async Task<IActionResult> AuthenticateAsync()
     {
         var isAuthenticated = await _accountService.Authenticate();
 

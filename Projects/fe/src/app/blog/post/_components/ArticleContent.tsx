@@ -17,9 +17,9 @@ import Share from "@/blog/post/_assets/images/share.svg?react";
 import "@/blog/post/_assets/css/Article.scss";
 import hljs from "@/blog/_utils/highlightSettings";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 import { useLocation } from "react-router-dom";
 import { serverUrl } from "@/_utils/site";
+import { selectIsSignedIn } from "@/_redux/userSlice";
 
 DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
     if (node.tagName === "IFRAME") {
@@ -35,7 +35,7 @@ interface ArticleContentProps {
 const ArticleContent: React.FC<ArticleContentProps> = React.memo(
     ({ className, post }) => {
         const dispatch = useDispatch();
-        const isAuthenticated = useIsAuthenticated();
+        const isSignedIn = useSelector(selectIsSignedIn);
         const location = useLocation();
         const leafCategories = useSelector(
             (state: RootState) => state.category.leafCategories
@@ -86,7 +86,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
         const handleLikeCliked = () => {
             if (isLoadingLikes.current === true) return;
-            if (isAuthenticated === false) {
+            if (isSignedIn === false) {
                 dispatch(makeVisible());
                 return;
             }
@@ -95,9 +95,9 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
             fetch(`${serverUrl}/api/blog/post/${post.Id}/has-liked`, {
                 method: "POST",
-                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
                 },
                 body: JSON.stringify(!hasLiked),
             })

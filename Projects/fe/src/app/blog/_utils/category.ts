@@ -40,7 +40,9 @@ export async function fetchLeafCategoriesAsync(
     dispatch: Dispatch
 ): Promise<void> {
     return fetch(`${serverUrl}/api/blog/categories/leaf`, {
-        credentials: "include",
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+        },
     })
         .then((res) => {
             if (res.ok) {

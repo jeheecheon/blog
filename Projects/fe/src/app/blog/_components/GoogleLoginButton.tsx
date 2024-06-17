@@ -1,17 +1,18 @@
 import "@/blog/_assets/css/GoogleLoginButton.scss";
+import { getGoogleLoginUrl } from "@/blog/_utils/oauth";
 
 interface ContinueWithGoogleButtonProps {
-    onClick: () => void;
     className?: string;
 }
 const GoogleLoginButton: React.FC<ContinueWithGoogleButtonProps> = ({
-    onClick,
     className,
 }) => {
     return (
         <button
             className={`gsi-material-button ${className}`}
-            onClick={() => onClick()}
+            onClick={() => {
+                window.location.replace(getGoogleLoginUrl());
+            }}
         >
             <div className="gsi-material-button-state" />
             <div className="gsi-material-button-content-wrapper">

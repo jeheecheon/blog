@@ -29,6 +29,7 @@ const PostsWrapper = lazy(
 const BlogInitialLoad = lazy(
     () => import("@/blog/_components/BlogInitialLoad")
 );
+import OauthGoogleSignin from "@/oauth/google/sign-in/page";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -158,6 +159,11 @@ const App = () => {
                         />
                     </Route>
                 </Route>
+
+                <Route
+                    path="/oauth/google/sign-in"
+                    element={<OauthGoogleSignin />}
+                />
             </Route>
         )
     );

@@ -90,7 +90,9 @@ export async function insertImage(this: any) {
     const formData = new FormData();
     formData.append("image", image);
     await fetch(`${serverUrl}/api/blog/posts/${post_id}/images/upload`, {
-        credentials: "include",
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+        },
         method: "POST",
         body: formData,
     })

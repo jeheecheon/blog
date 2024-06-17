@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ArrowDown from "@/blog/_assets/images/arrow-down.svg?react";
 import CategoryMenu from "@/blog/_components/CategoryMenu";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import { signOut } from "@/blog/_utils/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLinkRenderProps } from "@/blog/_types/Navigation";
-import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
+import { selectIsSignedIn } from "@/_redux/userSlice";
 
 const handleNavColor = (props: NavLinkRenderProps) => {
     const { isActive } = props;
@@ -28,13 +28,16 @@ function NavigationBar({
     className,
 }: NavigationBarProps) {
     const dispatch = useDispatch();
-    const isAuthenticated = useIsAuthenticated();
+    const isSignedIn = useSelector(selectIsSignedIn);
+    const curLocation = useLocation();
+
     const isOnCategory = useMemo(
         () =>
-            location.pathname.startsWith("/blog/categories/") ||
-            location.pathname.startsWith("/blog/recent-posts/pages/1"),
-        [location.pathname]
+            curLocation.pathname.startsWith("/blog/categories/") ||
+            curLocation.pathname.startsWith("/blog/recent-posts/pages/1"),
+        [curLocation.pathname]
     );
+    
     const categoriesClass = useMemo(
         () =>
             isOnCategory
@@ -83,17 +86,17 @@ function NavigationBar({
 
             <button
                 className={`dark:text-default-7 text-default-10-dark ${
-                    isAuthenticated && "font-medium"
+                    isSignedIn && "font-medium"
                 }`}
                 onClick={() => {
-                    if (isAuthenticated) {
+                    if (isSignedIn) {
                         signOut();
                     } else {
                         dispatch(makeVisible());
                     }
                 }}
             >
-                {isAuthenticated ? "Sign-out" : "Sign-in"}
+                {isSignedIn ? "Sign-out" : "Sign-in"}
             </button>
         </nav>
     );

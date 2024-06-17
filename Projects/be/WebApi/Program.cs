@@ -1,3 +1,4 @@
+using System.Text;
 using Amazon.S3;
 using Application.Services.Account;
 using Application.Services.Blog;
@@ -6,6 +7,8 @@ using Infrastructur.Repositories.Account;
 using Infrastructure.DbContexts;
 using Infrastructure.Repositories.Blog;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,19 +43,32 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 
 // Register Auth services
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
+builder.Services.AddAuthentication(cfg =>
+{
+    cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(x =>
     {
-        options.Cookie.Name = "AuthToken";
-        options.Cookie.SameSite = SameSiteMode.Lax;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.Path = "/";
-        options.Cookie.Domain = builder.Configuration["ClientUrls:domain"];
-        options.Cookie.HttpOnly = true;
-        options.SlidingExpiration = true;
-        options.ExpireTimeSpan = TimeSpan.FromDays(1);
-        options.Cookie.MaxAge = TimeSpan.FromDays(1);
-        // options.LoginPath = "/blog";
+        if (!builder.Environment.IsDevelopment())
+        {
+            x.RequireHttpsMetadata = true;
+        }
+        else
+        {
+            x.RequireHttpsMetadata = false;
+        }
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]!)),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            RequireExpirationTime = false,
+            ValidateLifetime = true
+        };
     });
 
 // Register Authorization policy services

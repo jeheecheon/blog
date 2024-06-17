@@ -3,7 +3,7 @@ import CommentInfo from "@/blog/_types/Comment";
 import React, { useRef, useState } from "react";
 import CommentWriteArea from "@/blog/post/_components/CommentWriteArea";
 import { getTimeAgo } from "@/blog/_utils/comment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LikeFilled from "@/blog/post/_assets/images/like-filled.svg?react";
 import Like from "@/blog/post/_assets/images/like.svg?react";
 import CommentSvg from "@/blog/post/_assets/images/comment.svg?react";
@@ -14,8 +14,8 @@ import { makeVisible } from "@/_redux/signInModalSlice";
 import Avatar from "@/blog/_components/Avatar";
 import ButtonInCommentBox from "@/blog/post/_components/ButtonInCommentBox";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
 import { serverUrl } from "@/_utils/site";
+import { selectIsSignedIn } from "@/_redux/userSlice";
 
 interface CommentProps {
     postId: string;
@@ -26,7 +26,7 @@ interface CommentProps {
 export const Comment: React.FC<CommentProps> = React.memo(
     ({ postId, comment, refreshComments }) => {
         const dispatch = useDispatch();
-        const isAuthenticated = useIsAuthenticated();
+        const isSignedIn = useSelector(selectIsSignedIn);
         const content = useRef<string | JSX.Element | JSX.Element[]>(
             parse(DOMPurify.sanitize(comment.Content))
         );
@@ -38,7 +38,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
         const handleLikeCliked = () => {
             if (isLoadingLikes.current === true) return;
-            if (isAuthenticated === false) {
+            if (isSignedIn === false) {
                 dispatch(makeVisible());
                 return;
             }
@@ -47,9 +47,9 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
             fetch(`${serverUrl}/api/blog/comment/${comment.Id}/has-liked`, {
                 method: "POST",
-                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
                 },
                 body: JSON.stringify(!hasLiked),
             })
@@ -142,7 +142,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
                             <ButtonInCommentBox
                                 onClick={() => {
-                                    if (isAuthenticated === false) {
+                                    if (isSignedIn === false) {
                                         dispatch(makeVisible());
                                         return;
                                     }

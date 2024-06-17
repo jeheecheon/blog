@@ -28,7 +28,15 @@ const PostsWrapper = () => {
 
     useEffect(() => {
         setPostsAwaiter(
-            wrapPromise(fetch(fetchUrl, { credentials: "include" }))
+            wrapPromise(
+                fetch(fetchUrl, {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                })
+            )
         );
     }, [fetchUrl]);
 

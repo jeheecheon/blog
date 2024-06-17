@@ -5,7 +5,9 @@ import { serverUrl } from "@/_utils/site";
 
 export const postLoader: LoaderFunction = async ({ params }) => {
     return fetch(`${serverUrl}/api/blog/post/${params.id}`, {
-        credentials: "include",
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+        },
     })
         .then((res) => {
             if (res.ok) {
@@ -68,7 +70,9 @@ export const privacyPolicyLoader: LoaderFunction = async () => {
 
 export const postEditLoader: LoaderFunction = async () => {
     return fetch(`${serverUrl}/api/auth/admin`, {
-        credentials: "include",
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+        },
     })
         .then((res) => {
             if (res.ok) {

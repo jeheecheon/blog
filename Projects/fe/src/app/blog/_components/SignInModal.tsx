@@ -62,11 +62,6 @@ const SignInModal = () => {
 
                 <GoogleLoginButton
                     className="mt-2"
-                    onClick={() => {
-                        window.location.replace(
-                            `${serverUrl}/api/oauth/sign-in?provider=google`
-                        );
-                    }}
                 />
             </div>
         </Rodal>

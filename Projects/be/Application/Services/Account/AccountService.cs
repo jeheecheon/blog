@@ -1,9 +1,13 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using Infrastructur.Models;
 using Infrastructur.Repositories.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Services.Account;
 
@@ -12,16 +16,19 @@ public class AccountService : IAccountService
     private readonly ILogger<AccountService> _logger;
     private readonly IAccountRepository _accountRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IConfiguration _configuration;
 
     public AccountService(
         ILogger<AccountService> logger,
         IAccountRepository accountRepository,
-        IHttpContextAccessor httpContextAccessor
+        IHttpContextAccessor httpContextAccessor,
+        IConfiguration configuration
     )
     {
         _logger = logger;
         _accountRepository = accountRepository;
         _httpContextAccessor = httpContextAccessor;
+        _configuration = configuration;
     }
 
     public bool FilterAdmin()
@@ -41,7 +48,30 @@ public class AccountService : IAccountService
 
     public async Task<bool> Authenticate()
     {
-        var result = await _httpContextAccessor.HttpContext.AuthenticateAsync();
+        var result = await _httpContextAccessor.HttpContext!.AuthenticateAsync();
         return result.Succeeded;
+    }
+
+    public string GenerateJWTToken(Guid user_id, string email, string? avatar)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Sid, user_id.ToString()),
+            new Claim(ClaimTypes.Email, email),
+        };
+        if (avatar is not null
+        && !string.IsNullOrWhiteSpace(avatar))
+            claims.Add(new Claim("avatar", avatar));
+
+        var jwtToken = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.UtcNow.AddDays(2),
+            signingCredentials: new SigningCredentials(
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]!)),
+                SecurityAlgorithms.HmacSha256Signature
+            )
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(jwtToken);
     }
 }

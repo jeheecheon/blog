@@ -45,7 +45,9 @@ const PostEdit = () => {
 
     const fetchPostsList = () =>
         fetch(`${serverUrl}/api/blog/posts/list`, {
-            credentials: "include",
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+            },
         })
             .then((res) => {
                 if (res.ok) {
@@ -74,7 +76,11 @@ const PostEdit = () => {
             fetch(
                 `${serverUrl}/api/blog/post/${selectedPostId}/with-metadata`,
                 {
-                    credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
                 }
             )
                 .then((res) => {
@@ -112,10 +118,12 @@ const PostEdit = () => {
             fetch(
                 `${serverUrl}/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
                 {
-                    credentials: "include",
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
                     },
                     body: JSON.stringify(postEditing),
                 }
@@ -141,7 +149,9 @@ const PostEdit = () => {
     > = () => {
         if (confirm("Are you sure you wnat to delete this post?????!"))
             fetch(`${serverUrl}/api/blog/post/${postEditing?.Id}`, {
-                credentials: "include",
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+                },
                 method: "DELETE",
             })
                 .then((res) => {
@@ -161,10 +171,10 @@ const PostEdit = () => {
 
     const handleUploadEmptyPostClicked = () => {
         fetch(`${serverUrl}/api/blog/post/upload-empty`, {
-            credentials: "include",
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
             },
         })
             .then((res) => {
@@ -193,7 +203,11 @@ const PostEdit = () => {
                 fetch(
                     `${serverUrl}/api/blog/posts/${postEditing?.Id}/images/upload`,
                     {
-                        credentials: "include",
+                        headers: {
+                            Authorization: `Bearer ${sessionStorage.getItem(
+                                "jwt"
+                            )}`,
+                        },
                         method: "POST",
                         body: formData,
                     }
