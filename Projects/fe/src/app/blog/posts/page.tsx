@@ -12,34 +12,38 @@ import React, { useMemo } from "react";
 
 interface PostsProps {
     postsAwaiter: PromiseAwaiter;
+    className?: string;
 }
 
-const Posts: React.FC<PostsProps> = React.memo(({ postsAwaiter }) => {
-    const posts = postsAwaiter.Await() as PostInfo[];
+const Posts: React.FC<PostsProps> = React.memo(
+    ({ postsAwaiter, className }) => {
+        const posts = postsAwaiter.Await() as PostInfo[];
 
-    const sortedPosts = useMemo(() => {
-        return sortPostsByUploadedAt(
-            convertStringIntoDate([...posts]) as PostInfo[]
-        ) as PostInfo[];
-    }, [posts]);
+        const sortedPosts = useMemo(() => {
+            return sortPostsByUploadedAt(
+                convertStringIntoDate([...posts]) as PostInfo[]
+            ) as PostInfo[];
+        }, [posts]);
 
-    return (
-        <nav className="flex flex-col items-center mt-[30px] md:mt-[50px] w-full">
-            {sortedPosts.map((p) => (
-                <Link
-                    to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}
-                    key={p.Id}
-                    className="w-full border-b-[1px] dark:border-default-12-dark border-default-10 
+        return (
+            <nav
+                className={`flex flex-col items-center mt-[30px] md:mt-[50px] w-full
+                    transition-opacity duration-1000 animate-fade-in ${className}`}
+            >
+                {sortedPosts.map((p) => (
+                    <Link
+                        to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}
+                        key={p.Id}
+                        className="w-full border-b-[1px] dark:border-default-12-dark border-default-10 
                     group"
-                    preventScrollReset={false}
-                >
-                    <PostCard
-                        post={p}
-                    />
-                </Link>
-            ))}
-        </nav>
-    );
-});
+                        preventScrollReset={false}
+                    >
+                        <PostCard post={p} />
+                    </Link>
+                ))}
+            </nav>
+        );
+    }
+);
 
 export default Posts;

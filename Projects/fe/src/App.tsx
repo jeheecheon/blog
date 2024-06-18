@@ -43,7 +43,7 @@ const App = () => {
                     element={
                         <Suspense
                             fallback={
-                                <PageLoadingSpinner boxColor="bg-transparent" />
+                                <PageLoadingSpinner />
                             }
                         >
                             <Root />
@@ -56,7 +56,7 @@ const App = () => {
                     element={
                         <Suspense
                             fallback={
-                                <PageLoadingSpinner boxColor="bg-transparent" />
+                                <PageLoadingSpinner />
                             }
                         >
                             <BlogInitialLoad />
@@ -72,7 +72,7 @@ const App = () => {
                         element={
                             <Suspense
                                 fallback={
-                                    <PageLoadingSpinner boxColor="bg-transparent" />
+                                    <PageLoadingSpinner />
                                 }
                             >
                                 <BlogLayout />
@@ -111,7 +111,7 @@ const App = () => {
                         element={
                             <Suspense
                                 fallback={
-                                    <PageLoadingSpinner boxColor="bg-transparent" />
+                                    <PageLoadingSpinner />
                                 }
                             >
                                 <PostLayout />

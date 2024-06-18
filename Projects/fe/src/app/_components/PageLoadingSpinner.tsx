@@ -8,7 +8,8 @@ interface PageLoadingSpinnerProps {
 
 const PageLoadingSpinner: React.FC<PageLoadingSpinnerProps> = ({
     children = "Loading...🐶",
-    boxColor = "bg-slate-200",
+    boxColor = "bg-transparent",
+    // boxColor = "bg-slate-200",
 }) => {
     return (
         <div className="left-0 top-0 fixed h-[100dvh] w-full flex justify-center items-center">

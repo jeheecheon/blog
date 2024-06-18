@@ -15,16 +15,18 @@ interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
     const prevScrollY = useRef<number>(0);
-    const [headerTop, setHeaderTop] = useState<number>(0);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] =
         useState<boolean>(false);
     const [isMenuModalOpen, setIsMenuModalOpen] = useState<boolean>(false);
-    const headerRef = useRef<HTMLDivElement>(null);
     const location = useLocation();
     const shouldShowHeader = useMemo(
         () => !excepts.includes(location.pathname),
         [location.pathname]
     );
+
+    const headerRef = useRef<HTMLDivElement>(null);
+    const isScrollingDown = useRef<boolean>(false);
+    const turningPoint = useRef<number>(0);
 
     useEffect(() => {
         document.addEventListener("scroll", handleScroll);
@@ -48,25 +50,31 @@ const Header: React.FC<HeaderProps> = () => {
     const handleScroll = () => {
         setIsCategoryMenuOpen(false);
 
-        let tempHeaderTop: number = 0;
-        if (window.scrollY > 200) {
-            if (window.scrollY > prevScrollY.current) {
-                // down
-                const topDiff = window.scrollY - prevScrollY.current;
-                tempHeaderTop = headerTop - topDiff;
-                if (tempHeaderTop < -120) tempHeaderTop = -120;
-            } else {
-                const topDiff = prevScrollY.current - window.scrollY;
-                tempHeaderTop = headerTop + topDiff;
-                if (tempHeaderTop > 0) tempHeaderTop = 0;
+        if (prevScrollY.current < window.scrollY) {
+            // Scrolling Down
+            if (!isScrollingDown.current) {
+                turningPoint.current = window.scrollY;
             }
+            isScrollingDown.current = true;
+        } else {
+            // Scrolling Up
+            if (isScrollingDown.current) {
+                turningPoint.current = window.scrollY;
+            }
+            isScrollingDown.current = false;
         }
 
-        setHeaderTop(tempHeaderTop);
-        prevScrollY.current = window.scrollY;
-        if (headerRef.current) {
-            headerRef.current.style.top = `${tempHeaderTop}px`;
+        const yDiff = Math.abs(window.scrollY - turningPoint.current);
+        if (yDiff / window.scrollY > 0.3) {
+            if (isScrollingDown.current) {
+                headerRef.current!.classList.add("animate-header-hide-up");
+                headerRef.current!.classList.remove("animate-header-show-down");
+            } else {
+                headerRef.current!.classList.remove("animate-header-hide-up");
+                headerRef.current!.classList.add("animate-header-show-down");
+            }
         }
+        prevScrollY.current = window.scrollY;
     };
 
     return (
@@ -78,7 +86,7 @@ const Header: React.FC<HeaderProps> = () => {
 
             <header
                 ref={headerRef}
-                className={`fixed top-0 left-0 mt-[13px] w-[100%] z-30 pointer-events-none
+                className={`fixed top-0 left-0 mt-[13px] w-[100%] z-30 pointer-events-none animate-header-show-down
                     ${!shouldShowHeader && "hidden"}`}
             >
                 <div

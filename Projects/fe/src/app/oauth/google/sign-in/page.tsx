@@ -1,4 +1,5 @@
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
+import LoadingSpinner from "@/blog/_components/LoadingSpinner";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -42,7 +43,13 @@ function Page() {
             .catch(handleError);
     }, []);
 
-    return <div>Google Signing-in</div>;
+    return (
+        <div className="flex justify-center items-center h-[100dvh]">
+            <LoadingSpinner>
+                <p>Signing in...🙃</p>
+            </LoadingSpinner>
+        </div>
+    );
 }
 
 export default Page;

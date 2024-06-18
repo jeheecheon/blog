@@ -282,7 +282,7 @@ const PostEdit = () => {
             )}
 
             <div
-                className={`flex flex-col items-center mt-[20vh] text-default-15-dark dark:text-default-15 max-w-[768px] mx-auto
+                className={`flex flex-col items-center mt-[30vh] text-default-15-dark dark:text-default-15 max-w-[768px] mx-auto
                 ${showPreview && "hidden"}`}
             >
                 <p className="text-2xl font-medium mt-2">글 작성</p>

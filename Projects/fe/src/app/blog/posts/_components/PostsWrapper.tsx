@@ -46,7 +46,7 @@ const PostsWrapper = () => {
     return (
         <>
             <div className="mx-auto max-w-[800px] min-h-[35vh]">
-                <h1 className="w-full text-left text-balance pt-[0px]">
+                <h1 className="w-full text-left text-balance pt-[0px] animate-fade-in transition-opacity duration-1000">
                     <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-[600]">
                         {category ? "CATEGORY" : "POSTS"}
                     </p>
