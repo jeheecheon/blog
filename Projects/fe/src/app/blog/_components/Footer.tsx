@@ -14,7 +14,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
         >
             <MusicController />
             
-            <Link to="/blog" className="flex items-end mt-10">
+            <Link to="/" className="flex items-end mt-10">
                 <span className="text-xs md:text-sm font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
                     BLOG
                 </span>
@@ -29,7 +29,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             <div className="flex mt-3 text-xs md:text-sm">
                 <p className="text-gray-500/85 dark:text-default-6">All designed and developed by&#160;</p>
                 <Link
-                    to="/blog/post/edit"
+                    to="/post/edit"
                     className="cursor-text text-orange-400/70 dark:text-orange-400 font-bold"
                 >
                     "jeheecheon"

@@ -1,5 +1,5 @@
 import { Comment } from "@/blog/post/_components/Comment";
-import CommentWriteArea from "../../post/_components/CommentWriteArea";
+import CommentWriteArea from "@/blog/post/_components/CommentWriteArea";
 import CommentInfo from "@/blog/_types/Comment";
 import { PromiseAwaiter } from "@/_utils/promiseWrapper";
 import { convertStringDateIntoDate, sortComments } from "@/blog/_utils/comment";
@@ -24,7 +24,7 @@ const Comments: React.FC<CommentsProps> = React.memo(
 
         return (
             <div
-                className={`max-w-[1024px] w-full flex flex-col mb-4
+                className={`w-full flex flex-col mb-4
                 ${className}`}
             >
                 <div className="mb-2 border-b-2 pb-1 border-b-default-13 dark:border-b-default-18-dark">

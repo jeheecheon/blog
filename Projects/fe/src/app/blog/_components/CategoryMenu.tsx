@@ -3,7 +3,7 @@ import { NavLinkRenderProps } from "@/blog/_types/Navigation";
 
 interface LinkButtonInfo {
     name: string;
-    to?: string;
+    to: string;
     class?: string;
     subLinks?: LinkButtonInfo[];
 }
@@ -11,25 +11,25 @@ interface LinkButtonInfo {
 const links: LinkButtonInfo[] = [
     {
         name: "😎 Portfolio",
-        to: "/",
-        class: "border-b-0"
+        to: import.meta.env.VITE_PORTFOLIO_URL,
+        class: "border-b-0",
     },
     {
         name: "✏️ Recent Posts",
-        to: "/blog/recent-posts/pages/1",
+        to: "/recent-posts/pages/1",
         class: "mt-4",
     },
     {
         name: "🔢 Algorithm",
-        to: "/blog/categories/Algorithm/pages/1",
+        to: "/categories/Algorithm/pages/1",
     },
     {
         name: "🕸️ Web Development",
-        to: "/blog/categories/Web-Development/pages/1",
+        to: "/categories/Web-Development/pages/1",
     },
     {
         name: "❓ Uncategorized",
-        to: "/blog/categories/Uncategorized/pages/1",
+        to: "/categories/Uncategorized/pages/1",
     },
 ];
 
@@ -48,13 +48,23 @@ function convertLinksToJsx(links: LinkButtonInfo[]) {
             className={`flex flex-col text-nowrap border-b-[1px] last:border-b-0 pb-2 px-1 text-sm 
                 border-b-gray-400/60 dark:border-b-default-18 ${link.class}`}
         >
-            {link.to ? (
+            {link.to && link.to?.includes("Portfolio") ? (
+                <a
+                    href={link.to}
+                    className={handleNavColor({
+                        isActive: false,
+                        isPending: false,
+                        isTransitioning: false,
+                    })}
+                >
+                    {link.name}asd
+                </a>
+            ) : (
                 <NavLink to={link.to} className={handleNavColor}>
                     {link.name}
                 </NavLink>
-            ) : (
-                <div className={`${handleNavColor()}`}>{link.name}</div>
             )}
+
             {link.subLinks && (
                 <div className="ml-4">{convertLinksToJsx(link.subLinks)}</div>
             )}

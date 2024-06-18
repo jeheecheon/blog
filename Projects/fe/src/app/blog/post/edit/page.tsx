@@ -13,10 +13,9 @@ import {
     sortPostsByUploadedAt,
 } from "@/blog/_utils/post";
 import { defaultCoverImage, url } from "@/_utils/siteInfo";
-import { Helmet } from "react-helmet";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import CustomQuillToolbar from "./_components/quill/CustomQuillToolbar";
-import { serverUrl } from "@/_utils/site";
+import CustomQuillToolbar from "@/blog/post/edit/_components/quill/CustomQuillToolbar";
+import { Helmet } from "react-helmet-async";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
@@ -44,8 +43,10 @@ const PostEdit = () => {
     }, []);
 
     const fetchPostsList = () =>
-        fetch(`${serverUrl}/api/blog/posts/list`, {
-            credentials: "same-origin",
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/blog/posts/list`, {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+            },
         })
             .then((res) => {
                 if (res.ok) {
@@ -72,9 +73,15 @@ const PostEdit = () => {
 
         if (selectedPostId !== "")
             fetch(
-                `${serverUrl}/api/blog/post/${selectedPostId}/with-metadata`,
+                `${
+                    import.meta.env.VITE_SERVER_URL
+                }/api/blog/post/${selectedPostId}/with-metadata`,
                 {
-                    credentials: "same-origin",
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
                 }
             )
                 .then((res) => {
@@ -110,12 +117,16 @@ const PostEdit = () => {
     > = () => {
         if (confirm("You want to update the post, right?"))
             fetch(
-                `${serverUrl}/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
+                `${
+                    import.meta.env.VITE_SERVER_URL
+                }/api/blog/post/update?set_edited_date_as_null=${updateEditedDateAsNull}&set_edited_date=${updateEditedDate}&set_uploaded_date=${updateUploadedDate}`,
                 {
-                    credentials: "same-origin",
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
                     },
                     body: JSON.stringify(postEditing),
                 }
@@ -140,10 +151,19 @@ const PostEdit = () => {
         HTMLButtonElement
     > = () => {
         if (confirm("Are you sure you wnat to delete this post?????!"))
-            fetch(`${serverUrl}/api/blog/post/${postEditing?.Id}`, {
-                credentials: "same-origin",
-                method: "DELETE",
-            })
+            fetch(
+                `${import.meta.env.VITE_SERVER_URL}/api/blog/post/${
+                    postEditing?.Id
+                }`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                    method: "DELETE",
+                }
+            )
                 .then((res) => {
                     if (res.ok) {
                         setSelectedPostIdToEdit("");
@@ -160,11 +180,11 @@ const PostEdit = () => {
     };
 
     const handleUploadEmptyPostClicked = () => {
-        fetch(`${serverUrl}/api/blog/post/upload-empty`, {
-            credentials: "same-origin",
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/blog/post/upload-empty`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
             },
         })
             .then((res) => {
@@ -190,11 +210,20 @@ const PostEdit = () => {
                 // Prepare for file transter
                 const formData = new FormData();
                 formData.append("image", cover);
-                fetch(`${serverUrl}/api/blog/posts/${postEditing?.Id}/images/upload`, {
-                    credentials: "same-origin",
-                    method: "POST",
-                    body: formData,
-                })
+                fetch(
+                    `${import.meta.env.VITE_SERVER_URL}/api/blog/posts/${
+                        postEditing?.Id
+                    }/images/upload`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${sessionStorage.getItem(
+                                "jwt"
+                            )}`,
+                        },
+                        method: "POST",
+                        body: formData,
+                    }
+                )
                     .then((res) => {
                         if (res.ok) {
                             return res.json();
@@ -253,7 +282,7 @@ const PostEdit = () => {
             )}
 
             <div
-                className={`flex flex-col items-center mt-[10vh] text-default-15-dark dark:text-default-15 max-w-[900px] mx-auto
+                className={`flex flex-col items-center mt-[30vh] text-default-15-dark dark:text-default-15 max-w-[768px] mx-auto
                 ${showPreview && "hidden"}`}
             >
                 <p className="text-2xl font-medium mt-2">글 작성</p>
@@ -380,7 +409,7 @@ const PostEdit = () => {
                 <div
                     className={`flex flex-col w-full gap-3 pb-10 mx-auto px-1 mt-2
                     text-default-18-dark dark:text-default-18
-                    ${showPreview ? "max-w-[900px]" : "max-w-[900px]"}`}
+                    ${showPreview ? "max-w-[768px]" : "max-w-[768px]"}`}
                 >
                     <label>
                         Public:&#160;

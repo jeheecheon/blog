@@ -8,7 +8,6 @@ import GoogleLoginButton from "@/blog/_components/GoogleLoginButton";
 import { calculateModalWidth } from "@/blog/_utils/modal";
 
 import "rodal/lib/rodal.css";
-import { serverUrl } from "@/_utils/site";
 
 const SignInModal = () => {
     const visible = useSelector(
@@ -62,11 +61,6 @@ const SignInModal = () => {
 
                 <GoogleLoginButton
                     className="mt-2"
-                    onClick={() => {
-                        window.location.replace(
-                            `${serverUrl}/api/oauth/sign-in?provider=google`
-                        );
-                    }}
                 />
             </div>
         </Rodal>

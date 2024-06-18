@@ -1,14 +1,14 @@
 import Button from "@/blog/_components/Button";
-import { defaultCoverImage, url } from "@/_utils/siteInfo";
-import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { defaultCoverImage, url } from "@/_utils/siteInfo";
+import { Helmet } from "react-helmet-async";
 
 const Blog = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate("/blog/recent-posts/pages/1");
+        navigate("/recent-posts/pages/1");
     }, []);
 
     return (

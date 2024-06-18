@@ -610,7 +610,6 @@ LEFT JOIN likes AS l ON p.id = l.post_id;
     {
         try
         {
-            Console.WriteLine(category);
             return _mainContext.Post.Where((post) => post.CategoryId == category && post.IsPublic!.Value).Count();
         }
         catch (Exception e)

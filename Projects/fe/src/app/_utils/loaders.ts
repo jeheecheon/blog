@@ -1,12 +1,16 @@
 import { LoaderFunction, redirect } from "react-router-dom";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import { convertStringIntoDate } from "@/blog/_utils/post";
-import { serverUrl } from "./site";
 
 export const postLoader: LoaderFunction = async ({ params }) => {
-    return fetch(`${serverUrl}/api/blog/post/${params.id}`, {
-        credentials: "same-origin",
-    })
+    return fetch(
+        `${import.meta.env.VITE_SERVER_URL}/api/blog/post/${params.id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+            },
+        }
+    )
         .then((res) => {
             if (res.ok) {
                 return res.json();
@@ -26,7 +30,9 @@ export const postLoader: LoaderFunction = async ({ params }) => {
 
 export const aboutMeLoader: LoaderFunction = async () => {
     return fetch(
-        `${serverUrl}/api/blog/post/f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a/static-like`
+        `${
+            import.meta.env.VITE_SERVER_URL
+        }/api/blog/post/f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a/static-like`
     )
         .then((res) => {
             if (res.ok) {
@@ -47,7 +53,9 @@ export const aboutMeLoader: LoaderFunction = async () => {
 
 export const privacyPolicyLoader: LoaderFunction = async () => {
     return fetch(
-        `${serverUrl}/api/blog/post/670e46d5-4970-4e9b-b969-4a7272209367/static-like`
+        `${
+            import.meta.env.VITE_SERVER_URL
+        }/api/blog/post/670e46d5-4970-4e9b-b969-4a7272209367/static-like`
     )
         .then((res) => {
             if (res.ok) {
@@ -67,8 +75,10 @@ export const privacyPolicyLoader: LoaderFunction = async () => {
 };
 
 export const postEditLoader: LoaderFunction = async () => {
-    return fetch(`${serverUrl}/api/auth/admin`, {
-        credentials: "same-origin",
+    return fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/admin`, {
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+        },
     })
         .then((res) => {
             if (res.ok) {
@@ -85,7 +95,9 @@ export const postPageCntLoader: LoaderFunction = async ({
     params: { category },
 }) => {
     return fetch(
-        `${serverUrl}/api/blog/posts/page?${category ? `category=${category}` : ""}`,
+        `${import.meta.env.VITE_SERVER_URL}/api/blog/posts/page?${
+            category ? `category=${category}` : ""
+        }`,
         {
             method: "GET",
         }

@@ -1,9 +1,9 @@
 import defaultAvatar from "@/blog/_assets/images/avatar.png";
 import CommentInfo from "@/blog/_types/Comment";
 import React, { useRef, useState } from "react";
-import CommentWriteArea from "./CommentWriteArea";
+import CommentWriteArea from "@/blog/post/_components/CommentWriteArea";
 import { getTimeAgo } from "@/blog/_utils/comment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LikeFilled from "@/blog/post/_assets/images/like-filled.svg?react";
 import Like from "@/blog/post/_assets/images/like.svg?react";
 import CommentSvg from "@/blog/post/_assets/images/comment.svg?react";
@@ -12,10 +12,9 @@ import parse from "html-react-parser";
 import DOMPurify from "isomorphic-dompurify";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import Avatar from "@/blog/_components/Avatar";
-import ButtonInCommentBox from "./ButtonInCommentBox";
+import ButtonInCommentBox from "@/blog/post/_components/ButtonInCommentBox";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
-import { serverUrl } from "@/_utils/site";
+import { selectIsSignedIn } from "@/_redux/userSlice";
 
 interface CommentProps {
     postId: string;
@@ -26,7 +25,7 @@ interface CommentProps {
 export const Comment: React.FC<CommentProps> = React.memo(
     ({ postId, comment, refreshComments }) => {
         const dispatch = useDispatch();
-        const isAuthenticated = useIsAuthenticated();
+        const isSignedIn = useSelector(selectIsSignedIn);
         const content = useRef<string | JSX.Element | JSX.Element[]>(
             parse(DOMPurify.sanitize(comment.Content))
         );
@@ -38,21 +37,28 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
         const handleLikeCliked = () => {
             if (isLoadingLikes.current === true) return;
-            if (isAuthenticated === false) {
+            if (isSignedIn === false) {
                 dispatch(makeVisible());
                 return;
             }
 
             isLoadingLikes.current = true;
 
-            fetch(`${serverUrl}/api/blog/comment/${comment.Id}/has-liked`, {
-                method: "POST",
-                credentials: "same-origin",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(!hasLiked),
-            })
+            fetch(
+                `${import.meta.env.VITE_SERVER_URL}/api/blog/comment/${
+                    comment.Id
+                }/has-liked`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                    body: JSON.stringify(!hasLiked),
+                }
+            )
                 .then((res) => {
                     if (res.ok) {
                         return res.json();
@@ -107,8 +113,8 @@ export const Comment: React.FC<CommentProps> = React.memo(
                                         className={`w-fit border rounded-2xl mr-1 px-[7px] text-[0.7rem] break-all
                                     text-center
                                     ${
-                                        comment.Email !== "jeheecheon@gmail.com" &&
-                                        "hidden"
+                                        comment.Email !==
+                                            "jeheecheon@gmail.com" && "hidden"
                                     } border-orange-400 text-orange-400`}
                                     >
                                         Site Owner
@@ -142,7 +148,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
                             <ButtonInCommentBox
                                 onClick={() => {
-                                    if (isAuthenticated === false) {
+                                    if (isSignedIn === false) {
                                         dispatch(makeVisible());
                                         return;
                                     }

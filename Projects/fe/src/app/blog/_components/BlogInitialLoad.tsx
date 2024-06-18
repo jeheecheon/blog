@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
-import MusicPlayer from "./MusicPlayer";
-import SignInModal from "./SignInModal";
+import MusicPlayer from "@/blog/_components/MusicPlayer";
+import SignInModal from "@/blog/_components/SignInModal";
 
 import "@/blog/_assets/css/scrollbar.css";
 import { useSelector } from "react-redux";

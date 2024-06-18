@@ -12,7 +12,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     return (
         <div
             className={`mx-auto w-[230px] h-[230px] pointer-events-none flex flex-col justify-center items-center gap-3 
-                rounded-xl p-5 z-50 ${className}`}
+                rounded-xl p-5 z-[51] ${className}`}
         >
             {/* spinner */}
             <div

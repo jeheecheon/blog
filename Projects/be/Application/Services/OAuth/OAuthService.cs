@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Core.DTOs;
 using Infrastructur.Repositories.Account;
-using Infrastructur.Models;
 
 namespace Application.Services.OAuth;
 
@@ -38,28 +37,7 @@ public class OAuthService : IOAuthService
         _accountRepository = accountRepository;
     }
 
-    public string MakeRedirectUrl(string provider)
-    {
-        string prevUrl = string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Headers["Referer"])
-            ? _configuration["ClientUrls:root"]!
-            : _httpContextAccessor.HttpContext.Request.Headers["Referer"]!;
-        string prevUrlInBase64 = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(prevUrl!));
-
-        switch (provider)
-        {
-            case "google":
-                return _GOOGLE_AUTH_URL +
-                    $"?client_id={_configuration["OAuth:Google:ClientId"]}" +
-                    $"&redirect_uri={_configuration["ClientUrls:root"]}{_GOOGLE_CB_URL}" +
-                    $"&response_type=code" +
-                    $"&scope=email" +
-                    $"&state={prevUrlInBase64}";
-            default:
-                return string.Empty;
-        }
-    }
-
-    public async Task<GoogleUserInfoResponseDto?> AuthenticateUserAsync(string code, string scope)
+    public async Task<GoogleUserInfoResponseDto?> GoogleAuthenticateUserAsync(string code, string scope)
     {
         // Construct a redirect url to send to google to get tokens 
         var redirectUrl = _GOOGLE_TOKEN_URL +
@@ -67,7 +45,7 @@ public class OAuthService : IOAuthService
             $"&client_secret={_configuration["OAuth:Google:ClientSecret"]}" +
             $"&code={code}" +
             $"&grant_type=authorization_code" +
-            $"&redirect_uri={_configuration["ServerUrl"]}{_GOOGLE_CB_URL}";
+            $"&redirect_uri={_configuration["ClientUrls:blog"]}/oauth/google/sign-in";
 
         // Store http response from Google
         HttpResponseMessage httpResponseMessage = default!;
@@ -156,25 +134,5 @@ public class OAuthService : IOAuthService
             providerInfo.Id, userInfo.id, account.Id);
 
         return account.Id;
-    }
-
-    public async Task GenerateCookieAsync(Guid user_id, string email, string? avatar)
-    {
-        var claims = new List<Claim> {
-                new Claim(ClaimTypes.Sid, user_id.ToString()),
-                new Claim(ClaimTypes.Email, email)
-            };
-
-        if (avatar is not null
-        && !string.IsNullOrWhiteSpace(avatar))
-            claims.Add(new Claim("avatar", avatar));
-
-        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-        await _httpContextAccessor.HttpContext.Response.HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(claimsIdentity));
-
-        _logger.LogInformation("User {Email} logged in at {Time}.", email, DateTime.UtcNow);
     }
 }

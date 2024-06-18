@@ -16,7 +16,6 @@ import { authenticateUserAsync } from "@/blog/_utils/user";
 import { fetchLeafCategoriesAsync } from "@/blog/_utils/category";
 
 import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
-const Root = lazy(() => import("@/page"));
 const ErrorArea = lazy(() => import("@/_components/ErrorArea"));
 const Blog = lazy(() => import("@/blog/page"));
 const BlogLayout = lazy(() => import("@/blog/_components/Layout"));
@@ -29,6 +28,7 @@ const PostsWrapper = lazy(
 const BlogInitialLoad = lazy(
     () => import("@/blog/_components/BlogInitialLoad")
 );
+import OauthGoogleSignin from "@/oauth/google/sign-in/page";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -36,26 +36,11 @@ const App = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route errorElement={<ErrorArea />}>
-                {/* Root */}
-                <Route
-                    path="/"
-                    element={
-                        <Suspense
-                            fallback={
-                                <PageLoadingSpinner boxColor="bg-transparent" />
-                            }
-                        >
-                            <Root />
-                        </Suspense>
-                    }
-                />
-
-                {/* Blog */}
                 <Route
                     element={
                         <Suspense
                             fallback={
-                                <PageLoadingSpinner boxColor="bg-transparent" />
+                                <PageLoadingSpinner />
                             }
                         >
                             <BlogInitialLoad />
@@ -71,7 +56,7 @@ const App = () => {
                         element={
                             <Suspense
                                 fallback={
-                                    <PageLoadingSpinner boxColor="bg-transparent" />
+                                    <PageLoadingSpinner />
                                 }
                             >
                                 <BlogLayout />
@@ -79,7 +64,7 @@ const App = () => {
                         }
                     >
                         <Route
-                            path="/blog"
+                            path="/"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <Blog />
@@ -87,7 +72,7 @@ const App = () => {
                             }
                         />
                         <Route
-                            path="/blog/recent-posts/pages/:page"
+                            path="/recent-posts/pages/:page"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostsWrapper />
@@ -96,7 +81,7 @@ const App = () => {
                             // loader={postPageCntLoader}
                         />
                         <Route
-                            path="/blog/categories/:category/pages/:page"
+                            path="/categories/:category/pages/:page"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostsWrapper />
@@ -110,7 +95,7 @@ const App = () => {
                         element={
                             <Suspense
                                 fallback={
-                                    <PageLoadingSpinner boxColor="bg-transparent" />
+                                    <PageLoadingSpinner />
                                 }
                             >
                                 <PostLayout />
@@ -118,7 +103,7 @@ const App = () => {
                         }
                     >
                         <Route
-                            path="/blog/post/:id/:slug?"
+                            path="/post/:id/:slug?"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <Post />
@@ -128,7 +113,7 @@ const App = () => {
                         />
 
                         {/* <Route
-                            path="/blog/about-me"
+                            path="/about-me"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <Post />
@@ -138,7 +123,7 @@ const App = () => {
                         /> */}
 
                         <Route
-                            path="/blog/privacy-policy"
+                            path="/privacy-policy"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <Post />
@@ -148,7 +133,7 @@ const App = () => {
                         />
 
                         <Route
-                            path="/blog/post/edit"
+                            path="/post/edit"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostEdit />
@@ -158,6 +143,11 @@ const App = () => {
                         />
                     </Route>
                 </Route>
+
+                <Route
+                    path="/oauth/google/sign-in"
+                    element={<OauthGoogleSignin />}
+                />
             </Route>
         )
     );

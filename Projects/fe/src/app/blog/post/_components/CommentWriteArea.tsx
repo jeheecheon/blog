@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "@/blog/_components/Button";
 import CustomTextArea from "@/blog/post/_components/CustomTextArea";
 import Avatar from "@/blog/_components/Avatar";
-import { makeVisible } from "../../../_redux/signInModalSlice";
+import { makeVisible } from "@/_redux/signInModalSlice";
 import AvatarDefault from "@/blog/post/_assets/images/AvatarDefault";
-import { selectUser } from "@/_redux/userSlice";
+import { selectIsSignedIn, selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
-import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
-import { serverUrl } from "@/_utils/site";
 
 interface CommentWriteAreaProps {
     postId: string;
@@ -27,35 +25,43 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
         className,
     }) => {
         const user = useSelector(selectUser);
-        const isAuthenticated = useIsAuthenticated();
+        const isSignedIn = useSelector(selectIsSignedIn);
         const dispatch = useDispatch();
         const [content, setContent] = useState("");
 
         const handleType: React.ChangeEventHandler<HTMLTextAreaElement> = (
             e
         ) => {
-            if (isAuthenticated === false) dispatch(makeVisible());
+            if (isSignedIn === false) dispatch(makeVisible());
             else {
                 setContent(e.currentTarget.value);
             }
         };
 
         const handleUpload = () => {
-            if (isAuthenticated === false) {
+            if (isSignedIn === false) {
                 dispatch(makeVisible());
                 return;
             }
 
-            fetch(`${serverUrl}/api/blog/post/${postId}/comment`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    content: content,
-                    parent_comment_id: replyingTo,
-                }),
-            })
+            fetch(
+                `${
+                    import.meta.env.VITE_SERVER_URL
+                }/api/blog/post/${postId}/comment`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                    body: JSON.stringify({
+                        content: content,
+                        parent_comment_id: replyingTo,
+                    }),
+                }
+            )
                 .then((res) => {
                     if (res.ok) {
                         refreshComments();
@@ -79,9 +85,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                 <div className="flex w-full gap-3">
                     <Avatar
                         avatar={
-                            isAuthenticated && user.avatar
-                                ? user.avatar
-                                : undefined
+                            isSignedIn && user.avatar ? user.avatar : undefined
                         }
                         size={45}
                     >

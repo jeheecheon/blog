@@ -1,3 +1,4 @@
+using System.Text;
 using Amazon.S3;
 using Application.Services.Account;
 using Application.Services.Blog;
@@ -6,6 +7,8 @@ using Infrastructur.Repositories.Account;
 using Infrastructure.DbContexts;
 using Infrastructure.Repositories.Blog;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +23,12 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(CorsPolicyBuilder =>
     {
-        CorsPolicyBuilder.WithOrigins(builder.Configuration["ClientUrls:root"]!)
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+        CorsPolicyBuilder.WithOrigins(
+            builder.Configuration["ClientUrls:main"]!,
+            builder.Configuration["ClientUrls:blog"]!)
+                .AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
     });
 });
 
@@ -39,17 +45,34 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 
 // Register Auth services
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
+builder.Services.AddAuthentication(cfg =>
+{
+    cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(x =>
     {
-        options.Cookie.Name = "AuthToken";
-        options.Cookie.SameSite = SameSiteMode.Lax;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.HttpOnly = true;
-        options.SlidingExpiration = true;
-        options.ExpireTimeSpan = TimeSpan.FromDays(1);
-        options.Cookie.MaxAge = TimeSpan.FromDays(1);
-        options.LoginPath = "/blog";
+        if (builder.Environment.IsDevelopment())
+        {
+            x.RequireHttpsMetadata = false;
+        }
+        else
+        {
+            x.RequireHttpsMetadata = true;
+        }
+        x.SaveToken = false;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]!)),
+            ValidateIssuer = builder.Environment.IsProduction(),
+            ValidateAudience = builder.Environment.IsProduction(),
+            RequireExpirationTime = true,
+            ValidateLifetime = true,
+            ValidIssuer = builder.Configuration["ServerUrl"],
+            ValidAudience = builder.Configuration["ClientUrls:main"],
+        };
     });
 
 // Register Authorization policy services

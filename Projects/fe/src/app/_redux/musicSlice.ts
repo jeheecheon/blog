@@ -14,7 +14,7 @@ export interface MusicState {
 
 const initialState: MusicState = {
     forceMusicPlay:
-        (!localStorage.forceMusicPlay || localStorage.forceMusicPlay === "false")
+        !localStorage.forceMusicPlay || localStorage.forceMusicPlay === "false"
             ? false
             : true,
     isPlaying: false,
@@ -50,6 +50,13 @@ export const musicSlice = createSlice({
         },
         setCurrentIndex: (state, action: PayloadAction<number>) => {
             state.currentIndex = action.payload;
+        },
+        initMusicState: (state) => {
+            state.isPlaying = false;
+            state.musicTitle = "";
+            state.duration = 0;
+            state.currentTime = 0;
+            state.currentIndex = 0;
         },
     },
 });
@@ -91,6 +98,7 @@ export const {
     setDuration,
     setCurrentTime,
     setCurrentIndex,
+    initMusicState,
 } = musicSlice.actions;
 
 export default musicSlice.reducer;

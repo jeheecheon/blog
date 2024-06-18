@@ -7,17 +7,20 @@ import {
     CreateDummyPromiseAwaiter,
     wrapPromise,
 } from "@/_utils/promiseWrapper";
-import { Helmet } from "react-helmet";
 import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
-import { RootState } from "@/_redux/store";
+
 import { useSelector } from "react-redux";
-import { flattenOutCategoriesV2 } from "@/blog/_utils/category";
-import { serverUrl } from "@/_utils/site";
+import { RootState } from "@/_redux/store";
+import { flattenOutCategoriesV2 } from "../_utils/category";
+import { Helmet } from "react-helmet-async";
 
 const Post = () => {
     const post = useLoaderData() as PostInfo;
     const fetchUrl = useMemo(
-        () => `${serverUrl}/api/blog/post/${post.Id}/comments`,
+        () =>
+            `${import.meta.env.VITE_SERVER_URL}/api/blog/post/${
+                post.Id
+            }/comments`,
         [post.Id]
     );
 
@@ -26,7 +29,17 @@ const Post = () => {
     );
 
     useEffect(() => {
-        setCommentsAwaiter(wrapPromise(fetch(fetchUrl)));
+        setCommentsAwaiter(
+            wrapPromise(
+                fetch(fetchUrl, {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                })
+            )
+        );
     }, [fetchUrl]);
 
     const leafCategories = useSelector(
@@ -48,7 +61,17 @@ const Post = () => {
                 post={post}
                 commentsAwaiter={commentsAwaiter}
                 refreshComments={() =>
-                    setCommentsAwaiter(wrapPromise(fetch(fetchUrl))!)
+                    setCommentsAwaiter(
+                        wrapPromise(
+                            fetch(fetchUrl, {
+                                headers: {
+                                    Authorization: `Bearer ${sessionStorage.getItem(
+                                        "jwt"
+                                    )}`,
+                                },
+                            })
+                        )!
+                    )
                 }
             />
 

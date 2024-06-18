@@ -5,37 +5,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
 import { Link } from "react-router-dom";
 import { calculateModalWidth } from "@/blog/_utils/modal";
-import { signOut } from "../_utils/user";
+import { signOut } from "@/blog/_utils/user";
 import { makeVisible } from "@/_redux/signInModalSlice";
-import useIsAuthenticated from "@/_hooks/useIsAuthenticated";
+import { selectIsSignedIn } from "@/_redux/userSlice";
 
 const navLinks = [
     {
         name: "Home",
-        to: "/blog",
+        to: "/",
     },
     {
         name: "Portfolio",
-        to: "/",
+        to: import.meta.env.VITE_PORTFOLIO_URL,
     },
 ];
 
 const categoryLinks = [
     {
         name: "Recent Posts",
-        to: "/blog/recent-posts/pages/1",
+        to: "/recent-posts/pages/1",
     },
     {
         name: "Algorithm",
-        to: "/blog/categories/Algorithm/pages/1",
+        to: "/categories/Algorithm/pages/1",
     },
     {
         name: "Web Development",
-        to: "/blog/categories/Web-Development/pages/1",
+        to: "/categories/Web-Development/pages/1",
     },
     {
         name: "Uncategorized",
-        to: "/blog/categories/Uncategorized/pages/1",
+        to: "/categories/Uncategorized/pages/1",
     },
 ];
 
@@ -50,8 +50,8 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
     const isDarkMode = useSelector(
         (state: RootState) => state.theme.isDarkMode
     );
-    const isAuthenticated = useIsAuthenticated();
     const dispatch = useDispatch();
+    const isSignedIn = useSelector(selectIsSignedIn);
 
     useEffect(() => {
         const handleResize = () => setModalWidth(calculateModalWidth());
@@ -69,16 +69,25 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
             <>
                 <p className="text-orange-400 text-lg">{title}</p>
                 <nav className="flex flex-col text-default-18-dark text-sm dark:text-default-10 mt-1">
-                    {links.map((link, index) => (
-                        <Link
-                            key={index}
-                            to={link.to}
-                            className="w-full py-2 border-b-[1.6px] dark:border-y-default-7-dark border-y-default-5"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            {link.name}
-                        </Link>
-                    ))}
+                    {links.map((link, index) => {
+                        const className =
+                            "w-full py-2 border-b-[1.6px] dark:border-y-default-7-dark border-y-default-5";
+
+                        return (
+                            <span key={index} className={className}>
+                                {link.to?.includes("Portfolio") ? (
+                                    <a href={link.to}>{link.name}</a>
+                                ) : (
+                                    <Link
+                                        to={link.to}
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                )}
+                            </span>
+                        );
+                    })}
                 </nav>
             </>
         );
@@ -106,14 +115,14 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
                         border-b-[1.6px] border-y-default-5 dark:border-y-default-7-dark"
                         onClick={() => {
                             setIsOpen(false);
-                            if (isAuthenticated) {
+                            if (isSignedIn) {
                                 signOut();
                             } else {
                                 dispatch(makeVisible());
                             }
                         }}
                     >
-                        {isAuthenticated ? "Sign-out" : "Sign-in"}
+                        {isSignedIn ? "Sign-out" : "Sign-in"}
                     </button>
                 </div>
 

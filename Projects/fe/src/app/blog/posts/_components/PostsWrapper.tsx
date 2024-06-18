@@ -4,22 +4,25 @@ import {
 } from "@/_utils/promiseWrapper";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import ErrorBoundary from "../../../_components/ErrorBoundary";
+import ErrorBoundary from "@/_components/ErrorBoundary";
 import Posts from "@/blog/posts/page";
 import ErrorMessageWrapper from "@/blog/_components/ErrorMessageWrapper";
-import { Helmet } from "react-helmet";
 import { defaultCoverImage, name, url } from "@/_utils/siteInfo";
 import LoadingSpinner from "@/blog/_components/LoadingSpinner";
-import { serverUrl } from "@/_utils/site";
+import { Helmet } from "react-helmet-async";
 
 const PostsWrapper = () => {
     const { category, page } = useParams();
 
     const fetchUrl = useMemo(() => {
         if (category === undefined)
-            return `${serverUrl}/api/blog/recent-posts/pages/${page}`;
+            return `${
+                import.meta.env.VITE_SERVER_URL
+            }/api/blog/recent-posts/pages/${page}`;
         else
-            return `${serverUrl}/api/blog/categories/${category}/pages/${page}`;
+            return `${
+                import.meta.env.VITE_SERVER_URL
+            }/api/blog/categories/${category}/pages/${page}`;
     }, [category, page]);
 
     const [postsAwaiter, setPostsAwaiter] = useState(
@@ -27,13 +30,23 @@ const PostsWrapper = () => {
     );
 
     useEffect(() => {
-        setPostsAwaiter(wrapPromise(fetch(fetchUrl)));
+        setPostsAwaiter(
+            wrapPromise(
+                fetch(fetchUrl, {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                })
+            )
+        );
     }, [fetchUrl]);
 
     return (
         <>
             <div className="mx-auto max-w-[800px] min-h-[35vh]">
-                <h1 className="w-full text-left text-balance pt-[0px]">
+                <h1 className="w-full text-left text-balance pt-[0px] animate-fade-in transition-opacity duration-1000">
                     <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-[600]">
                         {category ? "CATEGORY" : "POSTS"}
                     </p>
