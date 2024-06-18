@@ -52,7 +52,6 @@ const Layout = (props: LayoutProps) => {
 
     function toggleBounceAnimation() {
         if ((window.scrollY / window.innerHeight) * 100 < 30) {
-            console.log("add bounce");
             articleRef.current!.classList.add("animate-bounce-sm");
         } else {
             articleRef.current!.classList.remove("animate-bounce-sm");
