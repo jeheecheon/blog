@@ -9,7 +9,8 @@
     }
 
     strong {
-        width: bolder;
+        font-weight: 700;
+        color: #fb9033;
     }
 
     img {
@@ -336,11 +337,15 @@
 .dark {
     .blog-post-content {
         li {
-            color: white;
+            color: rgb(230, 230, 230);
         }
 
         p {
             color: rgb(230, 230, 230);
+        }
+
+        strong {
+            font-weight: 900;
         }
 
         h1,
@@ -350,7 +355,6 @@
         h5,
         h6 {
             color: rgb(230, 230, 230);
-
             background-color: #191919;
         }
     }

@@ -20,6 +20,8 @@ const Layout = (props: LayoutProps) => {
     const location = useLocation();
 
     function handleScroll() {
+        if (window.scrollY < 0) return;
+
         let scrollPercent = parseFloat(
             ((window.scrollY / window.innerHeight) * 100).toFixed(2)
         );
@@ -30,13 +32,16 @@ const Layout = (props: LayoutProps) => {
         const blur = parseFloat((scrollPercent / 5).toFixed(2));
         const scale = scrollPercent > 30 ? 30 : scrollPercent;
 
-        if (coverRef.current && coverRef.current.style.filter !== `blur(${blur}px)`) {
+        if (
+            coverRef.current &&
+            coverRef.current.style.filter !== `blur(${blur}px)`
+        ) {
             coverRef.current.style.filter = `blur(${blur}px)`;
 
             if (
                 coverImageRef.current &&
                 coverImageRef.current.naturalWidth >
-                coverImageRef.current.naturalHeight
+                    coverImageRef.current.naturalHeight
             ) {
                 coverRef.current.style.backgroundSize = `auto ${100 + scale}%`;
             } else {
@@ -45,13 +50,9 @@ const Layout = (props: LayoutProps) => {
         }
     }
 
-    function attachBounceAnimation() {
-        if (location.pathname.startsWith("/blog/post/edit")) {
-            articleRef.current!.classList.remove("animate-bounce-sm");
-            return;
-        }
-
+    function toggleBounceAnimation() {
         if ((window.scrollY / window.innerHeight) * 100 < 30) {
+            console.log("add bounce");
             articleRef.current!.classList.add("animate-bounce-sm");
         } else {
             articleRef.current!.classList.remove("animate-bounce-sm");
@@ -59,12 +60,17 @@ const Layout = (props: LayoutProps) => {
     }
 
     useEffect(() => {
-        document.addEventListener("scroll", attachBounceAnimation);
+        if (location.pathname.startsWith("/blog/post/edit")) {
+            articleRef.current?.classList.remove("animate-bounce-sm");
+        } else {
+            toggleBounceAnimation();
+            document.addEventListener("scroll", toggleBounceAnimation);
+        }
         return () => {
             document.removeEventListener("scroll", handleScroll);
-            document.removeEventListener("scroll", attachBounceAnimation);
+            document.removeEventListener("scroll", toggleBounceAnimation);
         };
-    }, []);
+    }, [location.pathname]);
 
     return (
         <>
@@ -96,7 +102,9 @@ const Layout = (props: LayoutProps) => {
                 {/* Content body */}
                 <div
                     ref={coverRef}
-                    className={`absolute w-full h-[90vh] transition-opacity duration-1000 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+                    className={`absolute w-full h-[90vh] transition-opacity duration-1000 ${
+                        imageLoaded ? "opacity-100" : "opacity-0"
+                    }`}
                     style={{
                         backgroundImage: `url(${coverImageUrl})`,
                         backgroundPosition: "top center",
@@ -124,9 +132,9 @@ const Layout = (props: LayoutProps) => {
                 <div className="bg-default-2 dark:bg-[#101010]">
                     <section
                         ref={articleRef}
-                        className={`animate-bounce-sm ${
-                            !imageLoaded && "invisible"
-                        }`}
+                        style={{
+                            visibility: imageLoaded ? "visible" : "hidden",
+                        }}
                     >
                         <Outlet />
                     </section>
