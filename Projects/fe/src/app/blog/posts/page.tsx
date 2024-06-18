@@ -32,10 +32,9 @@ const Posts: React.FC<PostsProps> = React.memo(
             >
                 {sortedPosts.map((p) => (
                     <Link
-                        to={`/blog/post/${p.Id}/${createSlug(p.Title)}`}
+                        to={`/post/${p.Id}/${createSlug(p.Title)}`}
                         key={p.Id}
-                        className="w-full border-b-[1px] dark:border-default-12-dark border-default-10 
-                    group"
+                        className="w-full border-b-[1px] dark:border-default-12-dark border-default-10 group"
                         preventScrollReset={false}
                     >
                         <PostCard post={p} />

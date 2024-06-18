@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = () => {
         }
 
         const yDiff = Math.abs(window.scrollY - turningPoint.current);
-        if (yDiff / window.scrollY > 0.3) {
+        if (yDiff > 100) {
             if (isScrollingDown.current) {
                 headerRef.current!.classList.add("animate-header-hide-up");
                 headerRef.current!.classList.remove("animate-header-show-down");
@@ -94,7 +94,7 @@ const Header: React.FC<HeaderProps> = () => {
                     flex items-center justify-between"
                 >
                     <Link
-                        to="/blog"
+                        to="/"
                         className="pointer-events-auto rounded-full shadow-lg dark:shadow-black/50 shadow-gray-400/80"
                     >
                         <Avatar

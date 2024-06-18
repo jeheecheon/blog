@@ -18,7 +18,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
 
     return (
         <article
-            className={`h-fit w-full cursor-pointer py-6 px-2 ${className}`}
+            className={`h-fit w-full cursor-pointer py-5 md:py-6 px-2 ${className}`}
         >
             <div className="flex justify-between text-slate-400 dark:text-slate-500 text-[0.69rem]
             group-hover:scale-[104%] transition-all duration-1000">
@@ -27,8 +27,8 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
 
             <div
                 className="font-semibold text-lg sm:text-xl break-all transition-all duration-1000 
-                text-gray-500/95 dark:text-default-13 group-hover:scale-[104%] md:group-hover:scale-[106%] 
-                group-hover:text-gray-600/85 dark:group-hover:text-default-5"
+                text-gray-600/80 dark:text-default-13 group-hover:scale-[104%] md:group-hover:scale-[106%] 
+                group-hover:text-gray-600 dark:group-hover:text-default-5"
             >
                 {post.Title}
             </div>

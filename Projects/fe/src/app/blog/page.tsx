@@ -8,7 +8,7 @@ const Blog = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate("/blog/recent-posts/pages/1");
+        navigate("/recent-posts/pages/1");
     }, []);
 
     return (

@@ -37,7 +37,7 @@ function NavigationBar({
             curLocation.pathname.startsWith("/blog/recent-posts/pages/1"),
         [curLocation.pathname]
     );
-    
+
     const categoriesClass = useMemo(
         () =>
             isOnCategory
@@ -53,13 +53,20 @@ function NavigationBar({
                         flex-row items-center gap-5 px-4 font-medium  dark:font-medium
                         rounded-full h-fit py-2 text-[0.8125rem] ${className}`}
         >
-            <NavLink to="/blog" className={handleNavColor} end>
+            <NavLink to="/" className={handleNavColor} end>
                 Home
             </NavLink>
 
-            <NavLink to="/" className={handleNavColor}>
+            <a
+                href={import.meta.env.VITE_PORTFOLIO_URL}
+                className={`cursor-pointer ${handleNavColor({
+                    isActive: false,
+                    isPending: false,
+                    isTransitioning: false,
+                })}`}
+            >
                 Portfolio
-            </NavLink>
+            </a>
 
             <div>
                 <button

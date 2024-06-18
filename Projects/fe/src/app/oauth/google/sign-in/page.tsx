@@ -45,9 +45,7 @@ function Page() {
 
     return (
         <div className="flex justify-center items-center h-[100dvh]">
-            <LoadingSpinner>
-                <p>Signing in...🙃</p>
-            </LoadingSpinner>
+            <LoadingSpinner>Signing in...🙃</LoadingSpinner>
         </div>
     );
 }

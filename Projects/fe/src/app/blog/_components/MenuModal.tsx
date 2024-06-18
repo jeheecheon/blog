@@ -12,30 +12,30 @@ import { selectIsSignedIn } from "@/_redux/userSlice";
 const navLinks = [
     {
         name: "Home",
-        to: "/blog",
+        to: "/",
     },
     {
         name: "Portfolio",
-        to: "/",
+        to: import.meta.env.VITE_PORTFOLIO_URL,
     },
 ];
 
 const categoryLinks = [
     {
         name: "Recent Posts",
-        to: "/blog/recent-posts/pages/1",
+        to: "/recent-posts/pages/1",
     },
     {
         name: "Algorithm",
-        to: "/blog/categories/Algorithm/pages/1",
+        to: "/categories/Algorithm/pages/1",
     },
     {
         name: "Web Development",
-        to: "/blog/categories/Web-Development/pages/1",
+        to: "/categories/Web-Development/pages/1",
     },
     {
         name: "Uncategorized",
-        to: "/blog/categories/Uncategorized/pages/1",
+        to: "/categories/Uncategorized/pages/1",
     },
 ];
 
@@ -69,16 +69,28 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
             <>
                 <p className="text-orange-400 text-lg">{title}</p>
                 <nav className="flex flex-col text-default-18-dark text-sm dark:text-default-10 mt-1">
-                    {links.map((link, index) => (
-                        <Link
-                            key={index}
-                            to={link.to}
-                            className="w-full py-2 border-b-[1.6px] dark:border-y-default-7-dark border-y-default-5"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            {link.name}
-                        </Link>
-                    ))}
+                    {links.map((link, index) => {
+                        const className =
+                            "w-full py-2 border-b-[1.6px] dark:border-y-default-7-dark border-y-default-5";
+
+                        return (
+                            <div key={index}>
+                                {link.to?.includes("Portfolio") ? (
+                                    <a href={link.to} className={className}>
+                                        {link.name}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        to={link.to}
+                                        className={className}
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                )}
+                            </div>
+                        );
+                    })}
                 </nav>
             </>
         );
