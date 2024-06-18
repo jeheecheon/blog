@@ -27,19 +27,20 @@ const Layout = (props: LayoutProps) => {
             scrollPercent = 100;
         }
 
-        const blur = parseFloat((scrollPercent / 7).toFixed(2));
+        const blur = parseFloat((scrollPercent / 5).toFixed(2));
         const scale = scrollPercent > 30 ? 30 : scrollPercent;
 
-        if (coverRef.current!.style.filter !== `blur(${blur}px)`) {
-            coverRef.current!.style.filter = `blur(${blur}px)`;
+        if (coverRef.current && coverRef.current.style.filter !== `blur(${blur}px)`) {
+            coverRef.current.style.filter = `blur(${blur}px)`;
 
             if (
-                coverImageRef.current!.naturalWidth >
-                coverImageRef.current!.naturalHeight
+                coverImageRef.current &&
+                coverImageRef.current.naturalWidth >
+                coverImageRef.current.naturalHeight
             ) {
-                coverRef.current!.style.backgroundSize = `auto ${100 + scale}%`;
+                coverRef.current.style.backgroundSize = `auto ${100 + scale}%`;
             } else {
-                coverRef.current!.style.backgroundSize = `${100 + scale}% auto`;
+                coverRef.current.style.backgroundSize = `${100 + scale}% auto`;
             }
         }
     }
@@ -74,6 +75,7 @@ const Layout = (props: LayoutProps) => {
                 style={{ display: "none" }}
                 onLoad={() => {
                     setImageLoaded(true);
+                    handleScroll();
                     document.addEventListener("scroll", handleScroll);
                 }}
             />
@@ -94,16 +96,15 @@ const Layout = (props: LayoutProps) => {
                 {/* Content body */}
                 <div
                     ref={coverRef}
-                    className="absolute w-full h-[100vh]"
+                    className={`absolute w-full h-[90vh] transition-opacity duration-1000 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
                     style={{
                         backgroundImage: `url(${coverImageUrl})`,
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
+                        backgroundPosition: "top center",
                     }}
                 />
 
                 <div
-                    className={`absolute w-full h-[100vh] flex items-center transition-opacity duration-1000 ${
+                    className={`absolute w-full h-[70vh] flex items-center transition-opacity duration-1000 ${
                         imageLoaded ? "opacity-100" : "opacity-0"
                     }`}
                 >
@@ -118,13 +119,13 @@ const Layout = (props: LayoutProps) => {
                     </span>
                 </div>
 
-                <div className="h-[70vh]" />
+                <div className="h-[60vh]" />
 
                 <div className="bg-default-2 dark:bg-[#101010]">
                     <section
                         ref={articleRef}
-                        className={`animate-bounce-sm transition-opacity duration-1000 ${
-                            imageLoaded ? "opacity-100" : "opacity-0"
+                        className={`animate-bounce-sm ${
+                            !imageLoaded && "invisible"
                         }`}
                     >
                         <Outlet />
