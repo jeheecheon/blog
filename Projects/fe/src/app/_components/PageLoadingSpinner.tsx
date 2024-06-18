@@ -4,17 +4,19 @@ import React from "react";
 interface PageLoadingSpinnerProps {
     children?: React.ReactNode;
     boxColor?: string;
+    className?: string;
 }
 
 const PageLoadingSpinner: React.FC<PageLoadingSpinnerProps> = ({
     children = "Loading...🐶",
-    boxColor = "bg-transparent",
-    // boxColor = "bg-slate-200",
+    className,
+    // boxColor = "bg-none",
+    boxColor = "bg-slate-200",
 }) => {
     return (
-        <div className="left-0 top-0 fixed h-[100dvh] w-full flex justify-center items-center">
+        <div className="left-0 top-0 fixed h-[100dvh] w-full flex justify-center items-center pointer-events-none z-[50]">
             <LoadingSpinner
-                className={`backdrop-blur-3xl rounded-xl p-5 animate-fade-out-spinner bg-opacity-15 ${boxColor}`}
+                className={`backdrop-blur-lg bg-opacity-15 rounded-xl p-5 ${boxColor} ${className}`}
             >
                 {children}
             </LoadingSpinner>

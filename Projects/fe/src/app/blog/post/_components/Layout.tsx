@@ -1,7 +1,7 @@
+import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
 import { selectCover } from "@/_redux/coverSlice";
 import Footer from "@/blog/_components/Footer";
 import Header from "@/blog/_components/Header";
-import LoadingSpinner from "@/blog/_components/LoadingSpinner";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
@@ -19,50 +19,45 @@ const Layout = (props: LayoutProps) => {
     const coverImageRef = useRef<HTMLImageElement>(null);
     const location = useLocation();
 
-    useEffect(() => {
-        function handleScroll() {
-            let scrollPercent = parseFloat(
-                ((window.scrollY / window.innerHeight) * 100).toFixed(2)
-            );
-            if (scrollPercent > 100) {
-                scrollPercent = 100;
-            }
-
-            const blur = parseFloat((scrollPercent / 7).toFixed(2));
-            const scale = scrollPercent > 30 ? 30 : scrollPercent;
-
-            if (coverRef.current!.style.filter !== `blur(${blur}px)`) {
-                coverRef.current!.style.filter = `blur(${blur}px)`;
-
-                if (
-                    coverImageRef.current!.naturalWidth >
-                    coverImageRef.current!.naturalHeight
-                ) {
-                    coverRef.current!.style.backgroundSize = `auto ${
-                        100 + scale
-                    }%`;
-                } else {
-                    coverRef.current!.style.backgroundSize = `${
-                        100 + scale
-                    }% auto`;
-                }
-            }
+    function handleScroll() {
+        let scrollPercent = parseFloat(
+            ((window.scrollY / window.innerHeight) * 100).toFixed(2)
+        );
+        if (scrollPercent > 100) {
+            scrollPercent = 100;
         }
 
-        function attachBounceAnimation() {
-            if (location.pathname.startsWith("/blog/post/edit")) {
-                articleRef.current!.classList.remove("animate-bounce-sm");
-                return;
-            }
+        const blur = parseFloat((scrollPercent / 7).toFixed(2));
+        const scale = scrollPercent > 30 ? 30 : scrollPercent;
 
-            if ((window.scrollY / window.innerHeight) * 100 < 30) {
-                articleRef.current!.classList.add("animate-bounce-sm");
+        if (coverRef.current!.style.filter !== `blur(${blur}px)`) {
+            coverRef.current!.style.filter = `blur(${blur}px)`;
+
+            if (
+                coverImageRef.current!.naturalWidth >
+                coverImageRef.current!.naturalHeight
+            ) {
+                coverRef.current!.style.backgroundSize = `auto ${100 + scale}%`;
             } else {
-                articleRef.current!.classList.remove("animate-bounce-sm");
+                coverRef.current!.style.backgroundSize = `${100 + scale}% auto`;
             }
         }
+    }
 
-        document.addEventListener("scroll", handleScroll);
+    function attachBounceAnimation() {
+        if (location.pathname.startsWith("/blog/post/edit")) {
+            articleRef.current!.classList.remove("animate-bounce-sm");
+            return;
+        }
+
+        if ((window.scrollY / window.innerHeight) * 100 < 30) {
+            articleRef.current!.classList.add("animate-bounce-sm");
+        } else {
+            articleRef.current!.classList.remove("animate-bounce-sm");
+        }
+    }
+
+    useEffect(() => {
         document.addEventListener("scroll", attachBounceAnimation);
         return () => {
             document.removeEventListener("scroll", handleScroll);
@@ -77,8 +72,19 @@ const Layout = (props: LayoutProps) => {
                 src={coverImageUrl}
                 alt="Cover Image"
                 style={{ display: "none" }}
-                onLoad={() => setImageLoaded(true)}
+                onLoad={() => {
+                    setImageLoaded(true);
+                    document.addEventListener("scroll", handleScroll);
+                }}
             />
+
+            <PageLoadingSpinner
+                className={`transition-opacity duration-1000 ${
+                    imageLoaded ? "opacity-0" : "opacity-100"
+                }`}
+            >
+                Loading...
+            </PageLoadingSpinner>
 
             <main
                 className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark ${props.className}`}
@@ -88,21 +94,13 @@ const Layout = (props: LayoutProps) => {
                 {/* Content body */}
                 <div
                     ref={coverRef}
-                    className="absolute w-full h-[100vh] flex justify-center items-center"
+                    className="absolute w-full h-[100vh]"
                     style={{
                         backgroundImage: `url(${coverImageUrl})`,
                         backgroundPosition: "center",
                         backgroundSize: "cover",
                     }}
-                >
-                    <LoadingSpinner
-                        className={`transition-opacity duration-1000 ${
-                            imageLoaded ? "opacity-0" : "opacity-100"
-                        }`}
-                    >
-                        Loading...
-                    </LoadingSpinner>
-                </div>
+                />
 
                 <div
                     className={`absolute w-full h-[100vh] flex items-center transition-opacity duration-1000 ${
