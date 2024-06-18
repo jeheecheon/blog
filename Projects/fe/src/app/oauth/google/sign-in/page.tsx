@@ -1,10 +1,12 @@
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import LoadingSpinner from "@/blog/_components/LoadingSpinner";
+import { convertFromBase64Url } from "@/blog/_utils/oauth";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function Page() {
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const code = searchParams.get("code");
@@ -26,16 +28,16 @@ function Page() {
                     throwResponse(res);
                 }
             })
-            .then((data: { jwt: string; prevUrl: string }) => {
-                if (
-                    data &&
-                    data.jwt &&
-                    data.jwt !== "" &&
-                    data.prevUrl &&
-                    data.prevUrl !== ""
-                ) {
-                    sessionStorage.setItem("jwt", data.jwt);
-                    window.location.replace(data.prevUrl);
+            .then((jwt) => {
+                if (jwt && jwt !== "") {
+                    sessionStorage.setItem("jwt", jwt);
+
+                    const prevUrl = convertFromBase64Url(state || "");
+                    if (prevUrl && prevUrl !== "") {
+                        navigate(prevUrl);
+                    } else {
+                        navigate("/");
+                    }
                 } else {
                     throwError("Failed to sign-in with Google");
                 }

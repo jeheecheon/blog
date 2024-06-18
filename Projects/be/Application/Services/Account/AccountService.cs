@@ -58,7 +58,7 @@ public class AccountService : IAccountService
 
         var jwtToken = new JwtSecurityToken(
             issuer: _configuration["ServerUrl"],
-            audience: _configuration["ClientUrls:root"],
+            audience: _configuration["ClientUrls:main"],
             claims: claims,
             expires: DateTime.UtcNow.AddDays(2),
             signingCredentials: new SigningCredentials(

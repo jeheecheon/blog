@@ -74,21 +74,18 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
                             "w-full py-2 border-b-[1.6px] dark:border-y-default-7-dark border-y-default-5";
 
                         return (
-                            <div key={index}>
+                            <span key={index} className={className}>
                                 {link.to?.includes("Portfolio") ? (
-                                    <a href={link.to} className={className}>
-                                        {link.name}
-                                    </a>
+                                    <a href={link.to}>{link.name}</a>
                                 ) : (
                                     <Link
                                         to={link.to}
-                                        className={className}
                                         onClick={() => setIsOpen(false)}
                                     >
                                         {link.name}
                                     </Link>
                                 )}
-                            </div>
+                            </span>
                         );
                     })}
                 </nav>

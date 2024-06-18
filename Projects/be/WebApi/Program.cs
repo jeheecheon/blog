@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(CorsPolicyBuilder =>
     {
-        CorsPolicyBuilder.WithOrigins(builder.Configuration["ClientUrls:root"]!)
+        CorsPolicyBuilder.WithOrigins(builder.Configuration["ClientUrls:main"]!)
                 .AllowCredentials()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
@@ -69,7 +69,7 @@ builder.Services.AddAuthentication(cfg =>
             RequireExpirationTime = true,
             ValidateLifetime = true,
             ValidIssuer = builder.Configuration["ServerUrl"],
-            ValidAudience = builder.Configuration["ClientUrls:root"],
+            ValidAudience = builder.Configuration["ClientUrls:main"],
         };
     });
 

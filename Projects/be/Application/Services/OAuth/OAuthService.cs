@@ -45,7 +45,7 @@ public class OAuthService : IOAuthService
             $"&client_secret={_configuration["OAuth:Google:ClientSecret"]}" +
             $"&code={code}" +
             $"&grant_type=authorization_code" +
-            $"&redirect_uri={_configuration["ClientUrls:root"]}/oauth/google/sign-in";
+            $"&redirect_uri={_configuration["ClientUrls:blog"]}/oauth/google/sign-in";
 
         // Store http response from Google
         HttpResponseMessage httpResponseMessage = default!;

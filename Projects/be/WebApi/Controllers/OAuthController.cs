@@ -28,13 +28,9 @@ public class OAuthController : ControllerBase
     }
 
     [HttpPost("google/sign-in")]
-    public async Task<IActionResult> GoogleCallbackAsync([FromQuery] string code, [FromQuery] string scope, [FromQuery] string state)
+    public async Task<IActionResult> GoogleCallbackAsync([FromQuery] string code, [FromQuery] string scope)
     {
         var userInfo = await _oauthService.GoogleAuthenticateUserAsync(code, scope);
-
-        string prevUrl = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(state));
-        prevUrl = (string.IsNullOrWhiteSpace(prevUrl) == false
-            && prevUrl.StartsWith(_configuration["ClientUrls:root"]!)) ? prevUrl : _configuration["ClientUrls:root"]!;
 
         if (userInfo is not null)
         {
@@ -43,11 +39,7 @@ public class OAuthController : ControllerBase
             {
                 var jwt = _accountService.GenerateJWTToken(user_id.Value, userInfo.email, userInfo.picture);
 
-                return Ok(JsonSerializer.Serialize(new
-                {
-                    jwt,
-                    prevUrl
-                }));
+                return Ok(JsonSerializer.Serialize(jwt));
             }
         }
 
