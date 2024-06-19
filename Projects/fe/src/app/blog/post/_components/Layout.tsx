@@ -29,24 +29,17 @@ const Layout = (props: LayoutProps) => {
             scrollPercent = 100;
         }
 
-        const blur = parseFloat((scrollPercent / 5).toFixed(2));
-        const scale = scrollPercent > 30 ? 30 : scrollPercent;
+        const blur = parseFloat((scrollPercent * 0.2).toFixed(2));
+        let scale = 1 + scrollPercent / 100;
+        scale = scale > 1.3 ? 1.3 : scale;
 
         if (
             coverRef.current &&
             coverRef.current.style.filter !== `blur(${blur}px)`
         ) {
             coverRef.current.style.filter = `blur(${blur}px)`;
-
-            if (
-                coverImageRef.current &&
-                coverImageRef.current.naturalWidth >
-                    coverImageRef.current.naturalHeight
-            ) {
-                coverRef.current.style.backgroundSize = `auto ${100 + scale}%`;
-            } else {
-                coverRef.current.style.backgroundSize = `${100 + scale}% auto`;
-            }
+            console.log(scrollPercent / 100)
+            coverRef.current.style.scale = `${scale}`;
         }
     }
 
@@ -101,12 +94,13 @@ const Layout = (props: LayoutProps) => {
                 {/* Content body */}
                 <div
                     ref={coverRef}
-                    className={`absolute w-full h-[90vh] transition-opacity duration-1000 ${
+                    className={`absolute w-full h-[90vh] transition-opacity duration-1000 mask-bottom ${
                         imageLoaded ? "opacity-100" : "opacity-0"
                     }`}
                     style={{
                         backgroundImage: `url(${coverImageUrl})`,
-                        backgroundPosition: "top center",
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
                     }}
                 />
 

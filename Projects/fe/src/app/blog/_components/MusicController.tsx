@@ -133,7 +133,7 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
                 <div className="mask-image overflow-x-hidden w-full">
                     <p
                         className="dark:text-default-18 text-default-18 text-sm
-                    italic text-nowrap inline-block w-full -translate-x-[150 animate-infinite-x-scroll"
+                        italic text-nowrap inline-block w-full -translate-x-[150 animate-infinite-x-scroll"
                     >
                         {musicTitle}
                     </p>
