@@ -87,22 +87,25 @@ const Layout = (props: LayoutProps) => {
             </PageLoadingSpinner>
 
             <main
-                className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark ${props.className}`}
+                className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark 
+                overflow-x-clip ${props.className}`}
             >
                 <Header />
 
                 {/* Content body */}
-                <div
-                    ref={coverRef}
-                    className={`absolute w-full h-[90vh] transition-opacity duration-1000 mask-bottom ${
-                        imageLoaded ? "opacity-100" : "opacity-0"
-                    }`}
-                    style={{
-                        backgroundImage: `url(${coverImageUrl})`,
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
-                    }}
-                />
+                <div className="absolute w-full h-[90vh] overflow-hidden mask-bottom">
+                    <div
+                        ref={coverRef}
+                        className={`h-full transition-opacity duration-1000 
+                        bg-center bg-cover ${
+                            imageLoaded ? "opacity-100" : "opacity-0"
+                        }`}
+                        style={{
+                            backgroundImage: `url(${coverImageUrl})`,
+                        }}
+                    />
+
+                </div>
 
                 <div
                     className={`absolute w-full h-[70vh] flex items-center transition-opacity duration-1000 ${
