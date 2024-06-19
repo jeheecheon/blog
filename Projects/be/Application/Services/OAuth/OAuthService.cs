@@ -1,7 +1,4 @@
 using System.Net.Http.Json;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -12,13 +9,10 @@ namespace Application.Services.OAuth;
 
 public class OAuthService : IOAuthService
 {
-    private static readonly string _GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
     private static readonly string _GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
-    private static readonly string _GOOGLE_CB_URL = "/api/oauth/cb-google";
 
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAccountRepository _accountRepository;
 
     ILogger<OAuthService> _logger;
@@ -26,14 +20,12 @@ public class OAuthService : IOAuthService
         ILogger<OAuthService> logger,
         IConfiguration configuration,
         IHttpClientFactory httpClientFactory,
-        IHttpContextAccessor httpContextAccessor,
         IAccountRepository accountRepository
     )
     {
         _logger = logger;
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
-        _httpContextAccessor = httpContextAccessor;
         _accountRepository = accountRepository;
     }
 
