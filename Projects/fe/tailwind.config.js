@@ -56,6 +56,11 @@ export default {
                     "0%": { opacity: "0" },
                     "100%": { opacity: "1" },
                 },
+                "fade-in-bouncing": {
+                    "0%": { opacity: "0", transform: "translateY(-50px)" },
+                    "50%": { opacity: "1", transform: "translateY(10px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" },
+                },
                 "fade-out": {
                     "0%": { opacity: "1" },
                     "80%": { opacity: "1" },
@@ -96,6 +101,7 @@ export default {
             "header-hide-up": "header-hide-up 0.6s ease-in-out forwards",
             "header-show-down": "header-shwo-down 0.6s ease-in-out forwards",
             "fade-in": "fade-in 0.5s ease-in-out forwards",
+            "fade-in-bouncing": "fade-in-bouncing 0.5s ease-in-out forwards",
         },
     },
     plugins: [],

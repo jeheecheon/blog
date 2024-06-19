@@ -28,7 +28,7 @@ const Posts: React.FC<PostsProps> = React.memo(
         return (
             <nav
                 className={`flex flex-col items-center mt-[30px] md:mt-[50px] w-full
-                    transition-opacity duration-1000 animate-fade-in ${className}`}
+                    transition-opacity duration-1000 animate-fade-in-bouncing ${className}`}
             >
                 {sortedPosts.map((p) => (
                     <Link
