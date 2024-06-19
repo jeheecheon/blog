@@ -6,7 +6,6 @@ using Application.Services.OAuth;
 using Infrastructur.Repositories.Account;
 using Infrastructure.DbContexts;
 using Infrastructure.Repositories.Blog;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,7 +24,7 @@ builder.Services.AddCors(options =>
     {
         CorsPolicyBuilder.WithOrigins(
             builder.Configuration["ClientUrls:main"]!,
-            builder.Configuration["ClientUrls:blog"]!)
+            builder.Configuration["ClientUrls:wwwblog"]!)
                 .AllowCredentials()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
