@@ -22,7 +22,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
         >
             <div
                 className="flex justify-between text-slate-400 dark:text-slate-500 text-[0.69rem]
-            group-hover:scale-[104%] transition-all duration-1000"
+                group-hover:scale-[104%] transition-all duration-1000"
             >
                 {post.UploadedAt.toLocaleDateString()}
             </div>
@@ -37,10 +37,10 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
 
             <div
                 className="flex flex-row justify-start items-end mt-2 text-stone-500 dark:text-default-14
-            group-hover:scale-[104%] transition-all duration-1000"
+                group-hover:scale-[104%] transition-all duration-1000"
             >
                 {/* Categories */}
-                <div className="text-orange-400/70 dark:text-orange-400 font-medium text-pretty text-[0.8rem]">
+                <div className="text-orange-400/80 dark:text-orange-400 font-medium text-pretty text-[0.8rem]">
                     {leafCategories &&
                         flattenOutCategoriesV1(
                             leafCategories.find(
