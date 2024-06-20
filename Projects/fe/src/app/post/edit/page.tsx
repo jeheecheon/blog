@@ -95,7 +95,11 @@ const PostEdit = () => {
                         if (post.Cover !== undefined && post.Cover !== null) {
                             dispatch(setCoverImageUrl(post.Cover));
                         } else {
-                            dispatch(setCoverImageUrl(import.meta.env.VITE_DEFAULT_COVER_IMAGE));
+                            dispatch(
+                                setCoverImageUrl(
+                                    import.meta.env.VITE_DEFAULT_COVER_IMAGE
+                                )
+                            );
                         }
                     }
                 })
@@ -104,7 +108,9 @@ const PostEdit = () => {
                     alert("Failed to fetch the post info...");
                 });
         else {
-            dispatch(setCoverImageUrl(import.meta.env.VITE_DEFAULT_COVER_IMAGE));
+            dispatch(
+                setCoverImageUrl(import.meta.env.VITE_DEFAULT_COVER_IMAGE)
+            );
         }
     };
 
@@ -257,18 +263,27 @@ const PostEdit = () => {
                 <meta name="author" content="jeheecheon" />/
                 <meta property="og:title" content="Edit | jeheecheon" />
                 <meta property="og:description" content="Blog post edit page" />
-                <meta property="og:image" content={import.meta.env.VITE_DEFAULT_COVER_IMAGE} />
+                <meta
+                    property="og:image"
+                    content={import.meta.env.VITE_DEFAULT_COVER_IMAGE}
+                />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="jeheecheon" />
                 <meta property="og:locale" content="ko_KR" />
-                <meta property="og:url" content={import.meta.env.VITE_CLIENT_URL} />
+                <meta
+                    property="og:url"
+                    content={import.meta.env.VITE_CLIENT_URL}
+                />
                 <meta name="twitter:title" content="Edit | jeheecheon" />
                 <meta name="twitter:card" content="summary" />
                 <meta
                     name="twitter:description"
                     content="Blog post edit page"
                 />
-                <meta name="twitter:image" content={import.meta.env.VITE_DEFAULT_COVER_IMAGE} />
+                <meta
+                    name="twitter:image"
+                    content={import.meta.env.VITE_DEFAULT_COVER_IMAGE}
+                />
             </Helmet>
 
             {showPreview && postEditing && (
@@ -278,10 +293,10 @@ const PostEdit = () => {
             )}
 
             <div
-                className={`flex flex-col items-center mt-[30vh] text-default-15-dark dark:text-default-15 max-w-[768px] mx-auto
+                className={`mt-[30vh] text-default-15-dark dark:text-default-15 max-w-[768px] mx-auto
                 ${showPreview && "hidden"}`}
             >
-                <p className="text-2xl font-medium mt-2">글 작성</p>
+                <p className="text-2xl font-medium pt-3 pb-5 text-center">글 작성</p>
 
                 {/* selection for posts to edit */}
                 <select
@@ -306,30 +321,19 @@ const PostEdit = () => {
                         ))}
                 </select>
 
-                <div className="flex my-2 gap-2 justify-end w-full">
+                <div className="flex my-2 gap-2 justify-end">
+                    {/* Cover Image Upload button */}
                     {postEditing?.Id && (
-                        <div>
-                            {/* input tag for inserting images */}
-                            <input
-                                id="IdOfPostEditing"
-                                type="text"
-                                value={postEditing?.Id}
-                                onChange={() => {}}
-                                className="invisible absolute"
-                            />
-
-                            {/* Cover Image Upload button */}
-                            <Button>
-                                <label className="flex items-center gap-3 text-default-16-dark dark:text-default-16 text-nowrap">
-                                    Change Cover
-                                    <input
-                                        type="file"
-                                        className="border-2 hidden"
-                                        onInput={handleCoverChosen}
-                                    />
-                                </label>
-                            </Button>
-                        </div>
+                        <Button>
+                            <label className="flex items-center gap-3 text-default-16-dark dark:text-default-16 text-nowrap">
+                                Change Cover
+                                <input
+                                    type="file"
+                                    className="border-2 hidden"
+                                    onInput={handleCoverChosen}
+                                />
+                            </label>
+                        </Button>
                     )}
 
                     {/* Create post button */}
@@ -342,6 +346,15 @@ const PostEdit = () => {
                 </div>
                 {postEditing?.Id && (
                     <>
+                        {/* input tag for inserting images */}
+                        <input
+                            id="IdOfPostEditing"
+                            type="text"
+                            value={postEditing?.Id}
+                            onChange={() => {}}
+                            className="absolute invisible"
+                        />
+
                         <div className="sticky top-0 z-[50] mt-2">
                             <div className="flex">
                                 {/* Title input */}
