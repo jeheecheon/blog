@@ -5,9 +5,12 @@ import { makeInvisible } from "@/_redux/signInModalSlice";
 import { useIsMounted } from "@/_hooks/useIsMounted";
 import Rodal from "rodal";
 import GoogleLoginButton from "@/_components/GoogleLoginButton";
-import { calculateModalWidth } from "@/_utils/modal";
 
 import "rodal/lib/rodal.css";
+
+const calculateModalWidth = () => {
+    return window.innerWidth < 400 ? window.innerWidth - 80 : 320;
+}
 
 const SignInModal = () => {
     const visible = useSelector(
@@ -35,7 +38,7 @@ const SignInModal = () => {
                 dispatch(makeInvisible());
             }}
             width={modalWidth}
-            height={195}
+            height={190}
             className=""
             customStyles={{
                 backgroundColor: isDarkMode
@@ -49,17 +52,19 @@ const SignInModal = () => {
                 padding: "30px 20px 20px 20px",
             }}
         >
-            <div className="flex flex-col h-full items-center">
-                <div className="font-semibold text-default-14-dark dark:text-default-12 flex flex-col items-start">
-                    <p className="text-2xl">Login! 🐶</p>
-                    <p>leave your comment!</p>
+            <div className="max-w-[230px] mx-auto h-full">
+                <div className="flex flex-col h-full">
+                    <div className="font-semibold text-default-14-dark dark:text-default-12 flex flex-col items-start">
+                        <p className="text-2xl">Login! 🐶</p>
+                        <p>leave your comment!</p>
+                    </div>
+
+                    <p className="mt-auto text-gray-500 text-xs">
+                        I do not collect user info for personal use...
+                    </p>
+
+                    <GoogleLoginButton className="mt-2" />
                 </div>
-
-                <p className="mt-auto text-gray-500 text-xs">
-                    I do not collect user info for personal use...
-                </p>
-
-                <GoogleLoginButton className="mt-2" />
             </div>
         </Rodal>
     );

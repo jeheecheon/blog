@@ -4,10 +4,23 @@ import { useIsMounted } from "@/_hooks/useIsMounted";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
 import { Link } from "react-router-dom";
-import { calculateModalWidth } from "@/_utils/modal";
 import { signOut } from "@/_utils/user";
 import { makeVisible } from "@/_redux/signInModalSlice";
 import { selectIsSignedIn } from "@/_redux/userSlice";
+
+const calculateModalWidth = () => {
+    let result;
+
+    if (document.body.clientWidth <= 880) {
+        if (document.body.clientWidth >= 830)
+            result = document.body.clientWidth - 880 - document.body.clientWidth;
+        else
+            result = document.body.clientWidth - 50;
+    }
+    else
+        result = 830;
+    return result;
+}
 
 const navLinks = [
     {
