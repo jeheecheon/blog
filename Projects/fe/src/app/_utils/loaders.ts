@@ -1,6 +1,6 @@
 import { LoaderFunction, redirect } from "react-router-dom";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import { convertStringIntoDate } from "@/blog/_utils/post";
+import { convertStringIntoDate } from "@/_utils/post";
 
 export const postLoader: LoaderFunction = async ({ params }) => {
     return fetch(

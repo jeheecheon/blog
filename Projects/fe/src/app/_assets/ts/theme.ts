@@ -16,10 +16,10 @@ setThemeColor(isDarkMode, pathname);
 
 export function setThemeColor(isDarkMode: boolean, pathname: string) {
     const postUrls = [
-        "/blog/post",
-        "/blog/about-me",
-        "/blog/privacy-policy",
-        "/blog/post/edit",
+        "/post",
+        "/about-me",
+        "/privacy-policy",
+        "/post/edit",
     ];
     let isPostUrl = false;
     for (const postUrl of postUrls) {
