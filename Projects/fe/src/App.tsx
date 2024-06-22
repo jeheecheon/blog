@@ -12,22 +12,18 @@ import {
     postEditLoader,
     privacyPolicyLoader,
 } from "@/_utils/loaders";
-import { authenticateUserAsync } from "@/blog/_utils/user";
-import { fetchLeafCategoriesAsync } from "@/blog/_utils/category";
+import { authenticateUserAsync } from "@/_utils/user";
+import { fetchLeafCategoriesAsync } from "@/_utils/category";
 
 import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
 const ErrorArea = lazy(() => import("@/_components/ErrorArea"));
-const Blog = lazy(() => import("@/blog/page"));
-const BlogLayout = lazy(() => import("@/blog/_components/Layout"));
-const Post = lazy(() => import("@/blog/post/page"));
-const PostLayout = lazy(() => import("@/blog/post/_components/Layout"));
-const PostEdit = lazy(() => import("@/blog/post/edit/page"));
-const PostsWrapper = lazy(
-    () => import("@/blog/posts/_components/PostsWrapper")
-);
-const BlogInitialLoad = lazy(
-    () => import("@/blog/_components/BlogInitialLoad")
-);
+const Blog = lazy(() => import("@/page"));
+const BlogLayout = lazy(() => import("@/_components/Layout"));
+const Post = lazy(() => import("@/post/page"));
+const PostLayout = lazy(() => import("@/post/_components/Layout"));
+const PostEdit = lazy(() => import("@/post/edit/page"));
+const PostsWrapper = lazy(() => import("@/posts/_components/PostsWrapper"));
+const BlogInitialLoad = lazy(() => import("@/_components/BlogInitialLoad"));
 import OauthGoogleSignin from "@/oauth/google/sign-in/page";
 
 const App = () => {
@@ -38,11 +34,7 @@ const App = () => {
             <Route errorElement={<ErrorArea />}>
                 <Route
                     element={
-                        <Suspense
-                            fallback={
-                                <PageLoadingSpinner />
-                            }
-                        >
+                        <Suspense fallback={<PageLoadingSpinner />}>
                             <BlogInitialLoad />
                         </Suspense>
                     }
@@ -54,11 +46,7 @@ const App = () => {
                 >
                     <Route
                         element={
-                            <Suspense
-                                fallback={
-                                    <PageLoadingSpinner />
-                                }
-                            >
+                            <Suspense fallback={<PageLoadingSpinner />}>
                                 <BlogLayout />
                             </Suspense>
                         }
@@ -93,11 +81,7 @@ const App = () => {
 
                     <Route
                         element={
-                            <Suspense
-                                fallback={
-                                    <PageLoadingSpinner />
-                                }
-                            >
+                            <Suspense fallback={<PageLoadingSpinner />}>
                                 <PostLayout />
                             </Suspense>
                         }

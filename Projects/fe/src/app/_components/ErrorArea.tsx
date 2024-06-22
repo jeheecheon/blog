@@ -1,7 +1,11 @@
-import { ScrollRestoration, isRouteErrorResponse, useRouteError } from "react-router-dom";
+import {
+    ScrollRestoration,
+    isRouteErrorResponse,
+    useRouteError,
+} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import Button from "@/blog/_components/Button";
+import Button from "@/_components/Button";
 
 interface ErrorAreaProps {
     className?: string;
