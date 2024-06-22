@@ -1,3 +1,4 @@
+# 개인 블로그
 *BLOG URL* : [https://blog.jeheecheon.com](https://blog.jeheecheon.com) 🔥⚡  
 Personal blog where I upload tech-related posts.
 
@@ -7,8 +8,8 @@ Built with
 - ![psql](https://img.shields.io/badge/psql-003B57?logo=postgresql&logoColor=white&style=flat-square) postgreSQL for the database.  
 <br />
 
-# 기술스택
-### 프론트:
+# 🛠️기술스택
+### 🎨프론트:
 - React
 - Typescript
 - Tailwindcss
@@ -16,18 +17,18 @@ Built with
 - isomorphic-dompurify(sanitizing tool)
 - etc...
 
-### 백엔드:
+### 🖥️백엔드:
 - ASP.NET Core web api
 - Entity Framework Core
 - HtmlSanitizer (string sanitizing tool)
 - etc...
 
-### 인프라:
+### 🕸️인프라:
 - EC2
 - RDS
 - S3
 
-# DB Architecture
+# 💾DB Architecture
 ![1a4b125a-eac6-47c2-8082-b4d1597246ab](https://github.com/jeheecheon/jeheecheon-blog/assets/62019774/22b95786-5eb3-4ace-8930-83399b44c170)
 위는 개발과정에서 구성했던 DB 다이어그램이다.  
 
