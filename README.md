@@ -25,7 +25,7 @@ Jekyll 블로그 Github Repository: <a href="https://github.com/jeheecheon/jehee
 <br />
 <br />
 
-## 😗투입 인원
+## 😗개발 인원
 1인 개발
 <br />
 <br />
