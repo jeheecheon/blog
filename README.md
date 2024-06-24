@@ -19,14 +19,14 @@ Jekyll 블로그 Github Repository: <a href="https://github.com/jeheecheon/jehee
 <br />
 <br />
 
-## 😗투입 인원
-1인 개발
-<br />
-<br />
-
 ## 🔨개발 기간
 2024-01-12 ~ 2024-02-12  
 ~ 유지보수 중
+<br />
+<br />
+
+## 😗투입 인원
+1인 개발
 <br />
 <br />
 
