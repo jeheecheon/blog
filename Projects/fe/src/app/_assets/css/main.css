@@ -54,6 +54,10 @@
     body {
         background-color: var(--main-bg-color);
     }
+
+    html, body, #root {
+        height: 100%;
+    }
 }
 
 @layer utilities {
