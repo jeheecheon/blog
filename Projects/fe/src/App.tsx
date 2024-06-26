@@ -96,16 +96,6 @@ const App = () => {
                             loader={postLoader}
                         />
 
-                        {/* <Route
-                            path="/about-me"
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <Post />
-                                </Suspense>
-                            }
-                            loader={aboutMeLoader}
-                        /> */}
-
                         <Route
                             path="/privacy-policy"
                             element={
