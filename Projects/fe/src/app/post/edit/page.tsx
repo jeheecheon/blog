@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
-import "react-quill/dist/quill.snow.css";
-import Button from "@/_components/Button";
+
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/_redux/store";
 import { setCoverImageUrl } from "@/_redux/coverSlice";
+
+import { Helmet } from "react-helmet-async";
+
+import Button from "@/_components/Button";
 import ArticleLayout from "@/post/_components/ArticleLayout";
 import ArticleContent from "@/post/_components/ArticleContent";
-import { RootState } from "@/_redux/store";
 import CustomQuill from "@/post/edit/_components/quill/CustomQuill";
+import CustomQuillToolbar from "@/post/edit/_components/quill/CustomQuillToolbar";
+
 import { PostInfo, PostSummary } from "@/_types/Post";
 import { convertStringIntoDate, sortPostsByUploadedAt } from "@/_utils/post";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import CustomQuillToolbar from "@/post/edit/_components/quill/CustomQuillToolbar";
-import { Helmet } from "react-helmet-async";
+
+import "react-quill/dist/quill.snow.css";
 
 const PostEdit = () => {
     const dispatch = useDispatch();

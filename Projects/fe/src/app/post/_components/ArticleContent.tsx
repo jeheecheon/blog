@@ -1,23 +1,27 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import parse from "html-react-parser";
 
 import DOMPurify from "isomorphic-dompurify";
-import { PostInfo } from "@/_types/Post";
+
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
 import { makeVisible } from "@/_redux/signInModalSlice";
-import { flattenOutCategoriesV1 } from "@/_utils/category";
+import { selectIsSignedIn } from "@/_redux/userSlice";
 import { setCoverImageUrl, setTitleOnCover } from "@/_redux/coverSlice";
+
+import hljs from "@/_utils/highlightSettings";
+
+import { PostInfo } from "@/_types/Post";
+
+import { flattenOutCategoriesV1 } from "@/_utils/category";
+import { handleError, throwError, throwResponse } from "@/_utils/responses";
+
 import LikeFilled from "@/post/_assets/images/like-filled.svg?react";
 import Like from "@/post/_assets/images/like.svg?react";
 import Share from "@/post/_assets/images/share.svg?react";
-
 import "@/post/_assets/css/Article.scss";
-import hljs from "@/_utils/highlightSettings";
-import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import { useLocation } from "react-router-dom";
-import { selectIsSignedIn } from "@/_redux/userSlice";
 
 DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
     if (node.tagName === "IFRAME") {
