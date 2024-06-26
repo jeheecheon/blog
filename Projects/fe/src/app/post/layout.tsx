@@ -10,6 +10,7 @@ interface LayoutProps {
     children?: ReactNode;
     className?: string;
 }
+
 const Layout = (props: LayoutProps) => {
     const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -38,7 +39,6 @@ const Layout = (props: LayoutProps) => {
             coverRef.current.style.filter !== `blur(${blur}px)`
         ) {
             coverRef.current.style.filter = `blur(${blur}px)`;
-            console.log(scrollPercent / 100);
             coverRef.current.style.scale = `${scale}`;
         }
     }

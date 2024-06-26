@@ -17,14 +17,16 @@ import { fetchLeafCategoriesAsync } from "@/_utils/category";
 
 import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
 const ErrorArea = lazy(() => import("@/_components/ErrorArea"));
-const Blog = lazy(() => import("@/page"));
-const BlogLayout = lazy(() => import("@/_components/Layout"));
-const Post = lazy(() => import("@/post/page"));
-const PostLayout = lazy(() => import("@/post/_components/Layout"));
-const PostEdit = lazy(() => import("@/post/edit/page"));
 const PostsWrapper = lazy(() => import("@/posts/_components/PostsWrapper"));
 const BlogInitialLoad = lazy(() => import("@/_components/BlogInitialLoad"));
+
+const BlogLayout = lazy(() => import("@/layout"));
+const PostLayout = lazy(() => import("@/post/layout"));
+
 import OauthGoogleSignin from "@/oauth/google/sign-in/page";
+const BlogPage = lazy(() => import("@/page"));
+const PostPage = lazy(() => import("@/post/page"));
+const PostEditPage = lazy(() => import("@/post/edit/page"));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -55,7 +57,7 @@ const App = () => {
                             path="/"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
-                                    <Blog />
+                                    <BlogPage />
                                 </Suspense>
                             }
                         />
@@ -90,7 +92,7 @@ const App = () => {
                             path="/post/:id/:slug?"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
-                                    <Post />
+                                    <PostPage />
                                 </Suspense>
                             }
                             loader={postLoader}
@@ -100,7 +102,7 @@ const App = () => {
                             path="/privacy-policy"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
-                                    <Post />
+                                    <PostPage />
                                 </Suspense>
                             }
                             loader={privacyPolicyLoader}
@@ -110,7 +112,7 @@ const App = () => {
                             path="/post/edit"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostEdit />
+                                    <PostEditPage />
                                 </Suspense>
                             }
                             loader={postEditLoader}
