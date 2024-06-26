@@ -7,7 +7,7 @@ Built with
 - ![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-512BD4?logo=.net&logoColor=white&style=flat-square) for the back-end API,
 - ![psql](https://img.shields.io/badge/psql-003B57?logo=postgresql&logoColor=white&style=flat-square) postgreSQL for the database.  
 <br />
-
+<br />
 
 ## 🥁개발 배경
 Jekyll로 만들었던 정적 블로그는 버리고 지금 이 블로그로 이전한 상태이다.  
