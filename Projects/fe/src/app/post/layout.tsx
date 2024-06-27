@@ -83,17 +83,17 @@ const Layout = (props: LayoutProps) => {
                     imageLoaded ? "opacity-0" : "opacity-100"
                 }`}
             >
-                Loading...
+                Loading...🐶
             </PageLoadingSpinner>
 
             <main
                 className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark 
-                overflow-x-clip ${props.className}`}
+                h-full overflow-x-clip ${props.className}`}
             >
-                <Header />
+                <Header className="mt-[13px] max-w-[1050px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10" />
 
                 {/* Content body */}
-                <div className="absolute w-full h-[90vh] overflow-hidden mask-bottom">
+                <div className="absolute w-full h-[90%] overflow-hidden mask-bottom">
                     <div
                         ref={coverRef}
                         className={`h-full transition-opacity duration-1000 
@@ -107,7 +107,7 @@ const Layout = (props: LayoutProps) => {
                 </div>
 
                 <div
-                    className={`absolute w-full h-[70vh] flex items-center transition-opacity duration-1000 ${
+                    className={`absolute w-full h-[70%] flex items-center transition-opacity duration-1000 ${
                         imageLoaded ? "opacity-100" : "opacity-0"
                     }`}
                 >
@@ -122,7 +122,7 @@ const Layout = (props: LayoutProps) => {
                     </span>
                 </div>
 
-                <div className="h-[60vh]" />
+                <div className="h-[60%]" />
 
                 <div className="bg-default-2 dark:bg-[#101010]">
                     <section

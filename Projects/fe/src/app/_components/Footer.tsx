@@ -9,7 +9,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
     return (
         <footer
             className={`border-t-[1px] border-t-default-8 dark:border-t-default-8-dark
-            flex flex-col items-center pt-[30px] pb-[30px] 
+            flex flex-col items-center pt-[30px] pb-[30px]
             ${className}`}
         >
             <MusicController />

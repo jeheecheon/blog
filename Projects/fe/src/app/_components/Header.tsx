@@ -11,9 +11,11 @@ import NavigationBar from "@/_components/NavigationBar";
 
 const excepts = ["/post/edit"];
 
-interface HeaderProps {}
+interface HeaderProps {
+    className?: string;
+}
 
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC<HeaderProps> = ({ className }) => {
     const prevScrollY = useRef<number>(0);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] =
         useState<boolean>(false);
@@ -97,11 +99,10 @@ const Header: React.FC<HeaderProps> = () => {
                     {profileLoaded && (
                         <header
                             ref={headerRef}
-                            className={`fixed top-0 left-0 mt-[13px] w-[100%] z-30 pointer-events-none animate-header-show-down`}
+                            className={`fixed top-0 left-0 w-[100%] z-30 pointer-events-none animate-header-show-down`}
                         >
                             <div
-                                className="max-w-[1050px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10
-                    flex items-center justify-between"
+                                className={`flex items-center justify-between ${className}`}
                             >
                                 <Link
                                     to="/"
@@ -117,9 +118,9 @@ const Header: React.FC<HeaderProps> = () => {
                                 {/* MenuModal Open Button For Mobile view */}
                                 <button
                                     className="navbar:hidden pointer-events-auto overflow-visible dark:shadow-black/35
-                        group ml-auto mr-5 flex flex-row items-center dark:bg-default-5-dark bg-default-2
-                        shadow-lg border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
-                        rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10"
+                                    group ml-auto mr-5 flex flex-row items-center dark:bg-default-5-dark bg-default-2
+                                    shadow-lg border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
+                                    rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10"
                                     onClick={() =>
                                         setIsMenuModalOpen(!isMenuModalOpen)
                                     }

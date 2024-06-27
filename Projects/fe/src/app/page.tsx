@@ -12,7 +12,7 @@ const Blog = () => {
 
     return (
         <>
-            <section className="w-full flex flex-col items-center gap-5 min-h-[40dvh]">
+            <section className="w-full flex flex-col items-center gap-5">
                 <span className="text-4xl">홈 페이지 공사 중...</span>
                 <Button className="">
                     <Link
