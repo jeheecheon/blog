@@ -124,13 +124,13 @@ const Layout = (props: LayoutProps) => {
 
                 <div className="h-[60%]" />
 
-                <div className="bg-default-2 dark:bg-[#101010]">
-                    <section
-                        ref={articleRef}
-                        style={{
-                            visibility: imageLoaded ? "visible" : "hidden",
-                        }}
-                    >
+                <div
+                    className="bg-default-2 dark:bg-[#101010]"
+                    style={{
+                        visibility: imageLoaded ? "visible" : "hidden",
+                    }}
+                >
+                    <section ref={articleRef}>
                         <Outlet />
                     </section>
 
