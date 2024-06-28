@@ -30,7 +30,6 @@ const CustomTextArea: React.FC<CustomTextAreaProps> = ({
 
     return (
         <div className='flex flex-col w-full'>
-            <textarea ref={hiddenTextArea} className='invisible w-full overflow-y-hidden' rows={1} />
             <textarea
                 ref={textArea}
                 value={content}
@@ -43,6 +42,7 @@ const CustomTextArea: React.FC<CustomTextAreaProps> = ({
                 disabled={disabled}
                 placeholder={placeholder}
             />
+            <textarea ref={hiddenTextArea} className='invisible w-full overflow-y-hidden' rows={1} />
         </div>
     )
 }

@@ -45,7 +45,7 @@ function convertLinksToJsx(links: LinkButtonInfo[]) {
     return links.map((link, index) => (
         <div
             key={index}
-            className={`flex flex-col text-nowrap border-b-[1px] last:border-b-0 pb-2 px-1 text-sm 
+            className={`flex flex-col text-nowrap border-b-[0.0625rem] last:border-b-0 pb-2 px-1 text-sm 
                 border-b-gray-400/60 dark:border-b-default-18 ${link.class}`}
         >
             {link.to && link.to?.includes("Portfolio") ? (
@@ -79,8 +79,8 @@ interface CategoryMenuProps {
 function CategoryMenu({ isCategoryOpen }: CategoryMenuProps) {
     return (
         <div
-            className={`fixed flex flex-col mt-2 
-            drop-shadow-xl border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300 bg-default-2 dark:bg-default-5-dark
+            className={`fixed flex flex-col mt-8 ml-[4.8rem]
+            drop-shadow-xl border-[0.0625rem] border-slate-300 dark:border-default-18-dark ring-[0.025rem] ring-orange-300 bg-default-2 dark:bg-default-5-dark
             rounded-xl p-4 dark:text-orange-50 text-default-10-dark text-base gap-2 transition-opacity duration-500
             ${
                 isCategoryOpen ? "opacity-100" : "opacity-0 pointer-events-none"

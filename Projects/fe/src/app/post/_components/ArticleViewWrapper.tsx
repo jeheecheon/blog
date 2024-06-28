@@ -20,7 +20,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(
         return (
             <ArticleLayout>
                 <ArticleContent post={post} />
-                <div className="max-w-[768px] w-full px-3 md:px-5">
+                <div className="max-w-[56.25rem] w-full px-3 md:px-5">
                     <ErrorBoundary
                         fallback={
                             <ErrorMessageWrapper>

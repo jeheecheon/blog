@@ -27,14 +27,14 @@ const Posts: React.FC<PostsProps> = React.memo(
 
         return (
             <nav
-                className={`flex flex-col items-center mt-[30px] md:mt-[50px] w-full
+                className={`flex flex-col items-center mt-[1.875rem] md:mt-[3.125rem] w-full
                     transition-opacity duration-1000 animate-fade-in-bouncing ${className}`}
             >
                 {sortedPosts.map((p) => (
                     <Link
                         to={`/post/${p.Id}/${createSlug(p.Title)}`}
                         key={p.Id}
-                        className="w-full border-b-[1px] dark:border-default-12-dark border-default-10 group"
+                        className="w-full border-b-[0.0625rem] dark:border-default-12-dark border-default-10 group"
                         preventScrollReset={false}
                     >
                         <PostCard post={p} />

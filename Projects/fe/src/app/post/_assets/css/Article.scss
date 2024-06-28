@@ -1,7 +1,7 @@
 .blog-post-content {
-    font-family: "Noto Sans KR", "Courier New", Courier, monospace;
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-family: "Noto Sans KR", sans-serif;
+    letter-spacing: -0.0125rem;
+    line-height: 2rem;
 
     iframe {
         width: 100%;
@@ -9,105 +9,103 @@
     }
 
     strong {
-        font-weight: 700;
-        color: #fb9033;
+        font-weight: 500;
+        color: #ee8c36;
     }
 
     img {
         width: 100%;
-        // scale: 103.9%;
-        margin: 0.75rem 0 0rem 0;
+        margin: 0.75rem 0 0.75rem 0;
         z-index: 0;
         border-radius: 1rem;
     }
 
-    /* 제목 */
-    h1 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-
     h2 {
-        font-size: 1.6rem;
-        margin-bottom: 0.9rem;
+        font-size: 1.625rem;
+        letter-spacing: 0.025rem;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        line-height: 2.375rem;
+        padding: 1.1rem 0 1.1rem 1rem;
     }
 
     h3 {
         font-size: 1.5rem;
-        margin-bottom: 0.8rem;
+        letter-spacing: -0.025rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        line-height: 2.188rem;
+        padding: 0.6rem 0 0.6rem 1rem;
     }
 
-    /* h4 스타일 */
     h4 {
-        font-size: 1.45rem;
-        margin-bottom: 0.7rem;
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.875rem;
     }
 
-    /* h5 스타일 */
-    h5 {
-        font-size: 1.4rem;
-        margin-bottom: 0.6rem;
-    }
-
-    /* h6 스타일 */
-    h6 {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-    }
-
-    h1,
     h2,
     h3,
-    h4,
-    h5,
-    h6 {
-        border-left: 5px solid #fb9033;
-        padding-left: 1rem;
-        font-weight: bold;
-        color: #404040;
+    h4 {
+        color: #060b11;
         word-break: keep-all;
+        font-weight: 500;
+    }
+
+    h2,
+    h3 {
+        border-left: 0.25rem solid #ee8c36;
+        border-top-right-radius: 0.625rem;
+        border-bottom-right-radius: 0.625rem;
         background-color: #f3f3f3;
-        padding-top: 0.4rem;
-        padding-bottom: 0.4rem;
-        border-top-right-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
+    }
+
+    h4::before {
+        content: "▪ ";
     }
 
     p {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #404040;
+        font-size: 1rem;
+        color: #060b11;
+        font-weight: 300;
     }
 
-    /* 목록 */
+    ul {
+        list-style-type: disc;
+    }
+
+    ol {
+        list-style-type: decimal;
+    }
+
     ul,
     ol {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         margin-left: 0.5rem;
+        padding-left: 2rem;
     }
 
     li {
-        font-size: 1.1rem;
-        line-height: 1.3;
+        font-size: 1rem;
+        line-height: 1.6rem;
         margin-bottom: 0.5rem;
-        color: #404040;
+        color: #060b11;
+        font-weight: 300;
     }
 
-    /* 하이퍼링크 스타일 */
     a {
-        color: #fb9033; /* 링크 색상 */
-        text-decoration: underline; /* 밑줄 추가 */
+        color: #ee8c36;
+        text-decoration: underline;
     }
 
     a:hover {
         text-decoration: none;
     }
 
-    /* 코드 블록 */
     pre {
-        padding: 1rem; /* 내부 여백 */
-        overflow-x: auto; /* 가로 스크롤 바 추가 */
+        padding: 1rem;
+        overflow-x: auto;
         font-size: 0.875rem;
         border-radius: 0.5rem;
         margin-top: 1rem;
@@ -115,145 +113,120 @@
     }
 
     code {
-        padding: 0.25rem 0.5rem; /* 내부 여백 */
-        // border-radius: 0.25rem;
-        // font-size: 0.875rem;
-        font-family: "Courier New", Courier, monospace; /* 고정폭 글꼴 사용 */
-    }
-
-    /* 인용문 */
-    blockquote {
-        border-left: 5px solid #fb9033; /* 왼쪽 선 색상 */
-        padding-left: 1rem; /* 내부 여백 */
-        margin-left: 0; /* 마진 초기화 */
-    }
-
-    /* 표 스타일 */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 1rem;
-    }
-
-    th,
-    td {
-        border: 1px solid #ccc; /* 테두리 선 색상 */
-        padding: 0.5rem; /* 셀 내부 여백 */
-    }
-
-    th {
-        background-color: #f8f9fa; /* 헤더 배경색 */
-    }
-
-    /* 리스트 스타일링 */
-    ul,
-    ol {
-        margin-bottom: 1rem;
-        padding-left: 2rem; /* 왼쪽 여백 */
-    }
-
-    /* 순서 없는 리스트 아이콘 스타일 */
-    ul {
-        list-style-type: disc; /* 원형 아이콘 */
-    }
-
-    /* 순서 있는 리스트 번호 스타일 */
-    ol {
-        list-style-type: decimal; /* 숫자 */
-    }
-
-    /* 이미지 캡션 스타일 */
-    figure {
-        margin: 0; /* 기본 마진 초기화 */
-    }
-
-    figcaption {
         font-size: 0.875rem;
-        color: #777;
-        text-align: center;
-        margin-top: 0.5rem; /* 캡션과 이미지 간격 */
+        font-weight: 500;
+        background-color: #777;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
     }
 
-    /* 부가적인 디자인 요소 추가 */
-    hr {
-        border: none;
-        border-top: 1px solid #ccc; /* 수평선 색상 */
-        margin: 1rem 0; /* 위아래 여백 */
+    blockquote {
+        border-left: 0.3rem solid #ee8c36;
+        padding: 1rem;
+        color: #060b11;
+        font-weight: 300;
+        background-color: #f3f3f3;
+        margin: 1.5rem;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
     }
 
     .ql-size-10 {
         font-size: 10px !important;
     }
 
+    .ql-size-11 {
+        font-size: 11px !important;
+    }
+
     .ql-size-12 {
         font-size: 12px !important;
+    }
+
+    .ql-size-13 {
+        font-size: 13px !important;
     }
 
     .ql-size-14 {
         font-size: 14px !important;
     }
 
+    .ql-size-15 {
+        font-size: 15px !important;
+    }
+
     .ql-size-16 {
         font-size: 16px !important;
+    }
+
+    .ql-size-17 {
+        font-size: 17px !important;
     }
 
     .ql-size-18 {
         font-size: 18px !important;
     }
 
+    .ql-size-19 {
+        font-size: 19px !important;
+    }
+
     .ql-size-20 {
         font-size: 20px !important;
+    }
+
+    .ql-size-21 {
+        font-size: 21px !important;
     }
 
     .ql-size-22 {
         font-size: 22px !important;
     }
 
+    .ql-size-23 {
+        font-size: 23px !important;
+    }
+
     .ql-size-24 {
         font-size: 24px !important;
+    }
+
+    .ql-size-25 {
+        font-size: 25px !important;
     }
 
     .ql-size-26 {
         font-size: 26px !important;
     }
 
-    .ql-size-28 {
-        font-size: 28px !important;
-    }
-
-    .ql-size-30 {
-        font-size: 30px !important;
-    }
-
     .ql-font-arial {
-        font-family: Arial, "Courier New", Courier, monospace; /* 고정폭 글꼴 사용 */
+        font-family: Arial, sans-serif;
     }
 
     .ql-font-comic-sans {
-        font-family: "Comic Sans", "Arial Narrow", Arial, sans-serif;
+        font-family: "Comic Sans", sans-serif;
     }
 
     .ql-font-courier-new {
-        font-family: "Courier New", Courier, monospace;
+        font-family: "Courier New", sans-serif;
     }
 
     .ql-font-georgia {
-        font-family: Georgia, "Times New Roman", Times, serif;
+        font-family: Georgia, sans-serif;
     }
 
-    .ql-font-georgia {
-        font-family: helvetica, "Times New Roman", Times, serif;
+    .ql-font-helvetica {
+        font-family: helvetica, sans-serif;
     }
 
     .ql-font-lucida {
-        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-            "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        font-family: "Lucida Sans", sans-serif;
     }
 
-    .ql-font-Noto_Sans_KR {
-        font-family: "Noto Sans KR", "Lucida Sans", "Lucida Sans Regular",
-            "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    }
+    // .ql-font-Noto_Sans_KR {
+    //     font-family: "Noto Sans KR", sans-serif;
+    // }
 
     .ql-align-center {
         text-align: center;
@@ -303,31 +276,27 @@
     //   // background-color: #23241F;
     // }
 
-    @media (min-width: 768px) {
-        h1 {
-            font-size: 1.5rem;
-        }
+    @media (max-width: 48rem) {
         h2 {
+            font-size: 1.525rem;
+        }
+
+        h3 {
             font-size: 1.4rem;
         }
-        h3 {
-            font-size: 1.35rem;
-        }
+
         h4 {
-            font-size: 1.3rem;
+            font-size: 1.15rem;
         }
-        h5 {
-            font-size: 1.25rem;
-        }
-        h6 {
-            font-size: 1.2rem;
-        }
+
         p {
-            font-size: 1rem;
+            font-size: 0.8rem;
         }
+
         pre {
             font-size: 0.875rem;
         }
+
         li {
             font-size: 1rem;
         }
@@ -337,25 +306,31 @@
 .dark {
     .blog-post-content {
         li {
-            color: rgb(230, 230, 230);
+            color: #ececec;
         }
 
         p {
-            color: rgb(230, 230, 230);
+            color: #ececec;
+            font-weight: 400;
         }
 
         strong {
             font-weight: 900;
         }
 
-        h1,
         h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            color: rgb(230, 230, 230);
-            background-color: #191919;
+        h3 {
+            color: #ececec;
+            background-color: #202020;
+        }
+
+        h4 {
+            color: #ececec;
+        }
+
+        blockquote {
+            color: #ececec;
+            background-color: #202020;
         }
     }
 }

@@ -21,8 +21,8 @@ const ErrorArea = ({ className }: ErrorAreaProps) => {
                 className={`flex flex-col items-center h-[100dvh] justify-center ${className} bg-body`}
             >
                 <div
-                    className="flex flex-col items-center gap-5 rounded-2xl shadow-xl dark:shadow-black/40 p-5 max-w-[300px] w-full
-                bg-default-3 dark:bg-slate-200/50 border-2 dark:border-[1px] border-default-5 dark:border-slate-200/30"
+                    className="flex flex-col items-center gap-5 rounded-2xl shadow-xl dark:shadow-black/40 p-5 max-w-[18.75rem] w-full
+                bg-default-3 dark:bg-slate-200/50 border-2 dark:border-[0.0625rem] border-default-5 dark:border-slate-200/30"
                 >
                     <h1 className="text-5xl italic dark:text-default-5-dark text-default-17 font-semibold">
                         😭Oops...

@@ -13,7 +13,7 @@ const handleNavColor = (props: NavLinkRenderProps) => {
 
     return isActive
         ? "text-orange-400"
-        : "dark:text-default-7 text-default-10-dark";
+        : "dark:text-default-7 text-default-14-dark";
 };
 
 interface NavigationBarProps {
@@ -34,7 +34,7 @@ function NavigationBar({
     const isOnCategory = useMemo(
         () =>
             curLocation.pathname.startsWith("/categories/") ||
-            curLocation.pathname.startsWith("/recent-posts/pages/1"),
+            curLocation.pathname.startsWith("/recent-posts/"),
         [curLocation.pathname]
     );
 
@@ -42,16 +42,17 @@ function NavigationBar({
         () =>
             isOnCategory
                 ? "text-orange-400"
-                : "text-default-10-dark dark:text-default-7",
+                : "text-default-14-dark dark:text-default-7",
         [isOnCategory]
     );
 
     return (
         <nav
-            className={`dark:bg-default-5-dark bg-default-2 pointer-events-auto
-                        shadow-xl dark:shadow-lg dark:shadow-black/40 border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
-                        flex-row items-center gap-5 px-4 font-medium  dark:font-medium
-                        rounded-full h-fit py-2 text-[0.8125rem] ${className}`}
+            className={`dark:bg-default-5-dark bg-default-2 pointer-events-auto font-[600]
+                        shadow-xl dark:shadow-lg dark:shadow-black/40 border-[0.0625rem] border-slate-300 dark:border-default-18-dark
+                        ring-[0.025rem] ring-orange-300
+                        flex flex-row items-center gap-5 px-5
+                        rounded-full h-fit py-2 text-[1rem] ${className}`}
         >
             <NavLink to="/" className={handleNavColor} end>
                 Home
@@ -69,33 +70,31 @@ function NavigationBar({
                 Portfolio
             </a>
 
-            <div>
+            <div
+                className={`flex flex-col items-center h-fit flex-nowrap shrink-0  ${categoriesClass}`}
+            >
                 <button
                     id="categories-button"
-                    className={`flex flex-row items-center w-fit h-fit font-medium ${categoriesClass}`}
+                    className="flex items-center flex-nowrap shrink-0"
                     onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                 >
                     Categories &#160;
-                    <p className="text-[9px]">
-                        <ArrowDown
-                            className={`${
-                                isOnCategory
-                                    ? "stroke-orange-400"
-                                    : "stroke-default-10-dark dark:stroke-default-7"
-                            } relative top-[2.5px] w-[13px] ${
-                                isCategoryOpen && "rotate-180"
-                            } transition-transform`}
-                        />
-                    </p>
+                    <ArrowDown
+                        className={`${
+                            isOnCategory
+                                ? "stroke-orange-400"
+                                : "stroke-default-10-dark dark:stroke-default-7"
+                        } relative top-[2.5px] w-[0.8125rem] ${
+                            isCategoryOpen && "rotate-180"
+                        } transition-transform`}
+                    />
                 </button>
-
                 <CategoryMenu isCategoryOpen={isCategoryOpen} />
             </div>
 
             <button
-                className={`dark:text-default-7 text-default-10-dark ${
-                    isSignedIn && "font-medium"
-                }`}
+                className={`text-nowrap
+                ${isSignedIn ? "text-orange-400" : "text-default-14-dark dark:text-default-7"}`}
                 onClick={() => {
                     if (isSignedIn) {
                         signOut();

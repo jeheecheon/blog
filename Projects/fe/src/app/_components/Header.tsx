@@ -26,22 +26,46 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         [location.pathname]
     );
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
+    const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
 
     const headerRef = useRef<HTMLDivElement>(null);
     const isScrollingDown = useRef<boolean>(false);
     const turningPoint = useRef<number>(0);
 
     useEffect(() => {
-        document.addEventListener("scroll", handleScroll);
-        document.addEventListener("click", (e) => {
+        function handleResize() {
+            if (!headerRef.current) return;
+            const children = headerRef.current!.children;
+            const firstChild = children[0] as HTMLElement;
+            const secondChild = children[1] as HTMLElement;
+            const thirdChild = children[2] as HTMLElement;
+            const fourthChild = children[3] as HTMLElement;
+
+            setNavbarOpen(
+                firstChild.offsetWidth +
+                    secondChild.offsetWidth +
+                    thirdChild.offsetWidth +
+                    fourthChild.offsetWidth <
+                    headerRef.current.offsetWidth
+            );
+        }
+        handleResize();
+
+        function handleClcikWhenModalOpen(e: MouseEvent) {
             const targetElement = e.target as HTMLElement;
             if (targetElement && targetElement.id !== "categories-button") {
                 setIsCategoryMenuOpen(false);
             }
-        });
+        }
+
+        document.addEventListener("scroll", handleScroll);
+        document.addEventListener("click", handleClcikWhenModalOpen);
+        window.addEventListener("resize", handleResize);
 
         return () => {
             document.removeEventListener("scroll", handleScroll);
+            document.removeEventListener("click", handleClcikWhenModalOpen);
+            window.removeEventListener("resize", handleResize);
         };
     });
 
@@ -70,11 +94,11 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         const yDiff = Math.abs(window.scrollY - turningPoint.current);
         if (yDiff > 100) {
             if (isScrollingDown.current) {
-                headerRef.current!.classList.add("animate-header-hide-up");
-                headerRef.current!.classList.remove("animate-header-show-down");
+                headerRef.current?.classList.add("animate-header-hide-up");
+                headerRef.current?.classList.remove("animate-header-show-down");
             } else {
-                headerRef.current!.classList.remove("animate-header-hide-up");
-                headerRef.current!.classList.add("animate-header-show-down");
+                headerRef.current?.classList.remove("animate-header-hide-up");
+                headerRef.current?.classList.add("animate-header-show-down");
             }
         }
         prevScrollY.current = window.scrollY;
@@ -97,52 +121,62 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                     />
 
                     {profileLoaded && (
-                        <header
-                            ref={headerRef}
-                            className={`fixed top-0 left-0 w-[100%] z-30 pointer-events-none animate-header-show-down`}
+                        <div
+                            className="fixed top-0 left-0 w-[100%] z-30 pointer-events-none
+                            px-5 md:px-5 lg:px-8"
                         >
-                            <div
-                                className={`flex items-center justify-between ${className}`}
+                            <header
+                                ref={headerRef}
+                                className={`flex items-center justify-between animate-header-show-down
+                                mx-auto ${className}`}
                             >
                                 <Link
                                     to="/"
-                                    className="pointer-events-auto rounded-full shadow-lg dark:shadow-black/50 shadow-gray-400/80"
+                                    className="shrink-0 pointer-events-auto rounded-full shadow-lg dark:shadow-black/50 shadow-gray-400/80"
                                 >
                                     <Avatar
                                         avatar={me}
                                         size={50}
-                                        className="ring-[2.5px] ring-orange-200 border-[1px] border-transparent"
+                                        className="ring-[0.156rem] ring-orange-200 border-[0.0625rem] border-transparent"
                                     />
                                 </Link>
 
+                                {/* Navigation bar */}
+                                <NavigationBar
+                                    isCategoryOpen={isCategoryMenuOpen}
+                                    setIsCategoryOpen={setIsCategoryMenuOpen}
+                                    className={`shrink-0 ${
+                                        navbarOpen
+                                            ? "animate-header-show-down"
+                                            : "absolute invisible"
+                                    }`}
+                                />
+
                                 {/* MenuModal Open Button For Mobile view */}
                                 <button
-                                    className="navbar:hidden pointer-events-auto overflow-visible dark:shadow-black/35
-                                    group ml-auto mr-5 flex flex-row items-center dark:bg-default-5-dark bg-default-2
-                                    shadow-lg border-[1px] border-slate-300 dark:border-default-18-dark ring-[0.4px] ring-orange-300
-                                    rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10"
+                                    className={`${
+                                        navbarOpen
+                                            ? "absolute invisible"
+                                            : "animate-header-show-down"
+                                    } pointer-events-auto dark:shadow-black/35
+                                    group ml-auto mr-5 flex items-center flex-nowrap shrink-0 dark:bg-default-5-dark bg-default-2
+                                    shadow-lg border-[0.0625rem] border-slate-300 dark:border-default-18-dark ring-[0.025rem] ring-orange-300
+                                    rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10`}
                                     onClick={() =>
                                         setIsMenuModalOpen(!isMenuModalOpen)
                                     }
                                 >
                                     Menu &#160;
                                     <ArrowDown
-                                        className={`stroke-default-10-dark dark:stroke-default-13-dark relative top-[2px] w-[13px] ${
+                                        className={`stroke-default-10-dark dark:stroke-default-13-dark relative top-[0.125rem] w-[0.813rem] ${
                                             isMenuModalOpen && "rotate-180"
                                         } transition-transform`}
                                     />
                                 </button>
 
-                                {/* Navigation bar */}
-                                <NavigationBar
-                                    isCategoryOpen={isCategoryMenuOpen}
-                                    setIsCategoryOpen={setIsCategoryMenuOpen}
-                                    className="navbar:flex hidden"
-                                />
-
                                 <DarkmodeToggleSwitch />
-                            </div>
-                        </header>
+                            </header>
+                        </div>
                     )}
                 </>
             )}

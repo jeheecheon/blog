@@ -5,20 +5,20 @@
     -webkit-appearance: none;
     background-color: WHITE;
     background-image: none;
-    border: 1px solid #747775;
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
+    border: 0.0625rem solid #747775;
+    -webkit-border-radius: 1.25rem;
+    border-radius: 1.25rem;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: #1f1f1f;
     cursor: pointer;
     font-family: "Roboto", arial, sans-serif;
-    font-size: 14px;
-    height: 40px;
-    letter-spacing: 0.25px;
+    font-size: 0.875rem;
+    height: 2.5rem;
+    letter-spacing: 0.1.5625rem;
     outline: none;
     overflow: hidden;
-    padding: 0 12px;
+    padding: 0 0.75rem;
     position: relative;
     text-align: center;
     -webkit-transition: background-color 0.218s, border-color 0.218s,
@@ -27,15 +27,15 @@
     vertical-align: middle;
     white-space: nowrap;
     width: auto;
-    max-width: 400px;
+    max-width: 25rem;
     min-width: min-content;
 }
 
 .gsi-material-button .gsi-material-button-icon {
-    height: 20px;
-    margin-right: 12px;
-    min-width: 20px;
-    width: 20px;
+    height: 1.25rem;
+    margin-right: 0.75rem;
+    min-width: 1.25rem;
+    width: 1.25rem;
 }
 
 .gsi-material-button .gsi-material-button-content-wrapper {
@@ -94,10 +94,10 @@
 }
 
 .gsi-material-button:not(:disabled):hover {
-    -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-        0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-        0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    -webkit-box-shadow: 0 0.0625rem 0.125rem 0 rgba(60, 64, 67, 0.3),
+        0 0.0625rem 0.1875rem 0.0625rem rgba(60, 64, 67, 0.15);
+    box-shadow: 0 0.0625rem 0.125rem 0 rgba(60, 64, 67, 0.3),
+        0 0.0625rem 0.1875rem 0.0625rem rgba(60, 64, 67, 0.15);
 }
 
 .gsi-material-button:not(:disabled):hover .gsi-material-button-state {
@@ -113,20 +113,20 @@
         -webkit-appearance: none;
         background-color: #131314;
         background-image: none;
-        border: 1px solid #747775;
-        -webkit-border-radius: 20px;
-        border-radius: 20px;
+        border: 0.0625rem solid #747775;
+        -webkit-border-radius: 1.25rem;
+        border-radius: 1.25rem;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         color: #e3e3e3;
         cursor: pointer;
         font-family: "Roboto", arial, sans-serif;
-        font-size: 14px;
-        height: 40px;
-        letter-spacing: 0.25px;
+        font-size: 0.875rem;
+        height: 2.5rem;
+        letter-spacing: 0.1.5625rem;
         outline: none;
         overflow: hidden;
-        padding: 0 12px;
+        padding: 0 0.75rem;
         position: relative;
         text-align: center;
         -webkit-transition: background-color 0.218s, border-color 0.218s,
@@ -136,16 +136,16 @@
         vertical-align: middle;
         white-space: nowrap;
         width: auto;
-        max-width: 400px;
+        max-width: 25rem;
         min-width: min-content;
         border-color: #8e918f;
     }
 
     .gsi-material-button .gsi-material-button-icon {
-        height: 20px;
-        margin-right: 12px;
-        min-width: 20px;
-        width: 20px;
+        height: 1.25rem;
+        margin-right: 0.75rem;
+        min-width: 1.25rem;
+        width: 1.25rem;
     }
 
     .gsi-material-button .gsi-material-button-content-wrapper {
@@ -208,10 +208,10 @@
     }
 
     .gsi-material-button:not(:disabled):hover {
-        -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-            0 1px 3px 1px rgba(60, 64, 67, 0.15);
-        box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-            0 1px 3px 1px rgba(60, 64, 67, 0.15);
+        -webkit-box-shadow: 0 0.0625rem 0.125rem 0 rgba(60, 64, 67, 0.3),
+            0 0.0625rem 0.1875rem 0.0625rem rgba(60, 64, 67, 0.15);
+        box-shadow: 0 0.0625rem 0.125rem 0 rgba(60, 64, 67, 0.3),
+            0 0.0625rem 0.1875rem 0.0625rem rgba(60, 64, 67, 0.15);
     }
 
     .gsi-material-button:not(:disabled):hover .gsi-material-button-state {

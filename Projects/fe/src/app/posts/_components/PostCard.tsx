@@ -53,7 +53,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                     {/* Comments */}
                     <div className="flex flex-row items-center gap-1 font-[500]">
                         <CommentSvg className="fill-orange-400 dark:fill-orange-500" />
-                        <span className="text-sm w-[17px]">
+                        <span className="text-sm w-[1.0625rem]">
                             {post.CommentCnt}
                         </span>
                     </div>
@@ -61,7 +61,9 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                     {/* Likes */}
                     <div className="flex flex-row items-center gap-1 font-[500]">
                         <Like className="fill-orange-500 dark:fill-red-500" />
-                        <span className="text-sm w-[17px]">{post.LikeCnt}</span>
+                        <span className="text-sm w-[1.0625rem]">
+                            {post.LikeCnt}
+                        </span>
                     </div>
                 </div>
             </div>

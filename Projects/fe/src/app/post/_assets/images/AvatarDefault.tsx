@@ -1,8 +1,8 @@
 function AvatarDefault() {
     return (
         <svg
-            width="45px"
-            height="45px"
+            width="2.8125rem"
+            height="2.8125rem"
             viewBox="0 0 128 128"
             data-name="Layer 1"
             id="Layer_1"
@@ -11,7 +11,7 @@ function AvatarDefault() {
             <defs>
                 <style
                     dangerouslySetInnerHTML={{
-                        __html: ".cls-1{fill:#a7aece;}.cls-2{fill:#ffffff;opacity:0.3;}.cls-3{fill:#7f3838;}.cls-4{fill:#bc5b57;}.cls-5{fill:#ffd8c9;}.cls-10,.cls-6,.cls-9{fill:none;stroke-linecap:round;}.cls-10,.cls-6{stroke:#393c54;stroke-linejoin:round;}.cls-6{stroke-width:3px;}.cls-7{fill:#393c54;}.cls-8{fill:#515570;}.cls-9{stroke:#ffffff;stroke-miterlimit:10;stroke-width:2px;opacity:0.1;}.cls-10{stroke-width:6px;}",
+                        __html: ".cls-1{fill:#a7aece;}.cls-2{fill:#ffffff;opacity:0.3;}.cls-3{fill:#7f3838;}.cls-4{fill:#bc5b57;}.cls-5{fill:#ffd8c9;}.cls-10,.cls-6,.cls-9{fill:none;stroke-linecap:round;}.cls-10,.cls-6{stroke:#393c54;stroke-linejoin:round;}.cls-6{stroke-width:0.1875rem;}.cls-7{fill:#393c54;}.cls-8{fill:#515570;}.cls-9{stroke:#ffffff;stroke-miterlimit:10;stroke-width:0.125rem;opacity:0.1;}.cls-10{stroke-width:0.375rem;}",
                     }}
                 />
             </defs>

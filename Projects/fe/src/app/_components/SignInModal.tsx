@@ -10,7 +10,7 @@ import "rodal/lib/rodal.css";
 
 const calculateModalWidth = () => {
     return window.innerWidth < 400 ? window.innerWidth - 80 : 320;
-}
+};
 
 const SignInModal = () => {
     const visible = useSelector(
@@ -47,12 +47,12 @@ const SignInModal = () => {
                 borderColor: isDarkMode
                     ? "rgb(29, 29, 32)"
                     : "rgb(230, 230, 240)",
-                borderWidth: "2px",
-                borderRadius: "22px",
-                padding: "30px 20px 20px 20px",
+                borderWidth: "0.125rem",
+                borderRadius: "1.375rem",
+                padding: "1.875rem 1.25rem 1.25rem 1.25rem",
             }}
         >
-            <div className="max-w-[230px] mx-auto h-full">
+            <div className="max-w-[21.875rem] mx-auto h-full">
                 <div className="flex flex-col h-full">
                     <div className="font-semibold text-default-14-dark dark:text-default-12 flex flex-col items-start">
                         <p className="text-2xl">Login! 🐶</p>

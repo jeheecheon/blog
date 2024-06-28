@@ -45,7 +45,7 @@ const PostsWrapper = () => {
     return (
         <>
             <div className="mx-auto max-w-[800px]">
-                <h1 className="w-full text-left text-balance pt-[0px] animate-fade-in transition-opacity duration-1000">
+                <h1 className="w-full text-left text-balance animate-fade-in transition-opacity duration-1000">
                     <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-[600]">
                         {category ? "CATEGORY" : "POSTS"}
                     </p>
@@ -70,13 +70,14 @@ const PostsWrapper = () => {
                 </ErrorBoundary>
 
                 {/* Pagination is not implemented yet. It will be implemented in the future. */}
-                <div className="h-[50px]"></div>
+                <div className="h-[3.125rem]"></div>
             </div>
 
             {/* Business logic */}
             <Helmet>
                 <title>
-                    {category ? category : "Recent posts"} | {import.meta.env.VITE_SITE_NAME}
+                    {category ? category : "Recent posts"} |{" "}
+                    {import.meta.env.VITE_SITE_NAME}
                 </title>
                 <link
                     rel="canonical"
@@ -108,7 +109,10 @@ const PostsWrapper = () => {
                         category ? category + " posts" : "Recent posts"
                     } | ${name}`}
                 />
-                <meta property="og:image" content={import.meta.env.VITE_DEFAULT_COVER_IMAGE} />
+                <meta
+                    property="og:image"
+                    content={import.meta.env.VITE_DEFAULT_COVER_IMAGE}
+                />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="jeheecheon" />
                 <meta property="og:locale" content="ko_KR" />
@@ -132,7 +136,10 @@ const PostsWrapper = () => {
                         category ? category + " posts" : "Recent posts"
                     }`}
                 />
-                <meta name="twitter:image" content={import.meta.env.VITE_DEFAULT_COVER_IMAGE} />
+                <meta
+                    name="twitter:image"
+                    content={import.meta.env.VITE_DEFAULT_COVER_IMAGE}
+                />
             </Helmet>
         </>
     );

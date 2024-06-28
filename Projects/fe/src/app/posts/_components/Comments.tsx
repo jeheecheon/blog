@@ -36,7 +36,7 @@ const Comments: React.FC<CommentsProps> = React.memo(
                 <CommentWriteArea
                     postId={postId}
                     refreshComments={refreshComments}
-                    className="mt-2 mb-[60px]"
+                    className="mt-2 mb-[3.75rem]"
                 />
 
                 {sortedComments.map((comment) => (

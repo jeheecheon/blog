@@ -1,7 +1,6 @@
 import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
 import { selectCover } from "@/_redux/coverSlice";
 import Footer from "@/_components/Footer";
-import Header from "@/_components/Header";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
@@ -90,8 +89,6 @@ const Layout = (props: LayoutProps) => {
                 className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark 
                 h-full overflow-x-clip ${props.className}`}
             >
-                <Header className="mt-[13px] max-w-[1050px] sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto px-3 md:px-10" />
-
                 {/* Content body */}
                 <div className="absolute w-full h-[90%] overflow-hidden mask-bottom">
                     <div
@@ -111,7 +108,7 @@ const Layout = (props: LayoutProps) => {
                         imageLoaded ? "opacity-100" : "opacity-0"
                     }`}
                 >
-                    <span
+                    <h1
                         className={`w-full 
                         text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-[500]
                         bg-gray-600/55 dark:bg-gray-800/65 ${
@@ -119,7 +116,7 @@ const Layout = (props: LayoutProps) => {
                         }`}
                     >
                         {titleOnCover}
-                    </span>
+                    </h1>
                 </div>
 
                 <div className="h-[60%]" />

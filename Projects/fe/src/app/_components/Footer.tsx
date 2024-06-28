@@ -8,8 +8,8 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ className }) => {
     return (
         <footer
-            className={`border-t-[1px] border-t-default-8 dark:border-t-default-8-dark
-            flex flex-col items-center pt-[30px] pb-[30px]
+            className={`border-t-[0.0625rem] border-t-default-8 dark:border-t-default-8-dark
+            flex flex-col items-center pt-[1.875rem] pb-[1.875rem]
             ${className}`}
         >
             <MusicController />
@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 <span className="text-xs md:text-sm font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
                     BLOG
                 </span>
-                <span className="text:xs md:text-lg text-orange-400/70 dark:text-orange-400 mx-[2px] font-extrabold italic">
+                <span className="text:xs md:text-lg text-orange-400/70 dark:text-orange-400 mx-[0.125rem] font-extrabold italic">
                     :
                 </span>
                 <span className="text-xl md:text-2xl text-orange-400/70 dark:text-orange-400 font-bold dark:font-bold italic md:underline-offset-2">

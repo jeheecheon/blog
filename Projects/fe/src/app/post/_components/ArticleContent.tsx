@@ -62,7 +62,9 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
             if (post.Cover) {
                 dispatch(setCoverImageUrl(post.Cover));
             } else {
-                dispatch(setCoverImageUrl(import.meta.env.VITE_DEFAULT_COVER_IMAGE));
+                dispatch(
+                    setCoverImageUrl(import.meta.env.VITE_DEFAULT_COVER_IMAGE)
+                );
             }
 
             dispatch(setTitleOnCover(post.Title));
@@ -78,7 +80,11 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
             return () => {
                 if (location.pathname === "/post/edit") {
-                    dispatch(setCoverImageUrl(import.meta.env.VITE_DEFAULT_COVER_IMAGE));
+                    dispatch(
+                        setCoverImageUrl(
+                            import.meta.env.VITE_DEFAULT_COVER_IMAGE
+                        )
+                    );
                 } else {
                     dispatch(setCoverImageUrl(""));
                 }
@@ -130,10 +136,20 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
         };
 
         return (
-            <div className={`flex flex-col items-center w-full ${className}`}>
-                <div className="text-slate-50 max-w-[768px] w-full text-left pl-2 text-xl h-fit">
-                    <span
-                        className="bg-gray-600/65 dark:bg-gray-800/65 px-3 rounded-md 
+            <div
+                className={`flex flex-col items-center w-full sm:px-3 md:px-6 mb-10
+                 ${className}`}
+            >
+                {/* blog content body */}
+                <div
+                    className="h-fit min-h-[40vh] text-pretty rounded-3xl px-3 lg:px-5 
+                    w-full flex flex-col items-center xl:max-w-[56.25rem]
+                    dark:bg-[#101010] bg-default-2"
+                >
+                    {/* Category card on top */}
+                    <div
+                        className="mr-auto px-3 w-fit relative top-[-1.9rem] left-[-0.625rem] z-[-1]
+                        bg-gray-600/65 dark:bg-gray-800/65 rounded-md 
                         text-slate-100 font-medium pb-3 text-sm md:text-base"
                     >
                         {leafCategories &&
@@ -143,45 +159,33 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                                         category.Id === post.CategoryId
                                 )
                             )}
-                    </span>
-                </div>
-
-                {/* blog content body */}
-                <div
-                    className="sm:mx-[30px] md:mx-[30px] lg:mx-[60px] xl:mx-auto max-w-[768px]
-                    text-pretty h-fit min-h-[40vh] rounded-2xl
-                    overflow-hidden mb-10 whitespace-pre-line w-full flex flex-col items-center justify-between
-                    dark:bg-[#101010] bg-default-2"
-                >
-                    <div className="w-full flex flex-col items-center">
-                        <div className="bg-default-18 dark:bg-default-11-dark h-[10px] w-[170px] rounded-2xl relative bottom-1" />
-                        <span className="block text-center text-default-13-dark dark:text-default-12 font-medium text-[0.64rem] mb-3">
-                            {
-                                post.EditedAt !== undefined &&
-                                post.EditedAt !== null
-                                    ? `Edited: ${post.EditedAt.toLocaleDateString()}`
-                                    : `Published: ${post.UploadedAt.toLocaleDateString()}`
-                                // `Published: ${post.EditedAt.toLocaleDateString()}` :
-                                // `Published: ${post.UploadedAt.toLocaleDateString()}`
-                            }
-                        </span>
-                        <div className="text-left w-full blog-post-content px-3 md:px-5 pb-5 md:pb-10 text-pretty">
-                            {content}
-                        </div>
                     </div>
 
-                    <div className="flex flex-row justify-center gap-2 items-center text-md fill-sky-700 pb-5">
+                    {/* Bar on content body top */}
+                    <div className="bg-default-18 dark:bg-default-11-dark h-[0.438rem] w-full max-w-[10.625rem] rounded-2xl absolute z-[50] translate-y-[0.625rem]" />
+
+                    <div className="absolute translate-y-[1.25rem] text-default-13-dark dark:text-default-12 font-[300] text-[0.75rem]">
+                        {post.EditedAt !== undefined && post.EditedAt !== null
+                            ? `Edited: ${post.EditedAt.toLocaleDateString()}`
+                            : `Published: ${post.UploadedAt.toLocaleDateString()}`}
+                    </div>
+
+                    <div className="text-left w-full blog-post-content pb-5 md:pb-10 text-pretty">
+                        {content}
+                    </div>
+
+                    <div className="mt-auto flex flex-row justify-center gap-2 items-center text-md fill-sky-700 pb-5">
                         <button
                             onClick={handleLikeCliked}
                             className="flex flex-row gap-2 justify-between items-center cursor-pointer
-                            border-2 py-[6px] px-3 fill-red-500
+                            border-2 py-[0.375rem] px-3 fill-red-500
                             bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
                         >
                             {hasLiked ? <LikeFilled /> : <Like />}
                             <span className="text-sm">{likes}</span>
                         </button>
                         <button
-                            className="flex flex-row justify-center gap-1 cursor-pointer border-2 py-[6px] px-3 
+                            className="flex flex-row justify-center gap-1 cursor-pointer border-2 py-[0.375rem] px-3 
                             bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
                             onClick={() => alert("미구현 기능...")}
                         >

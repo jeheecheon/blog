@@ -298,10 +298,12 @@ const PostEdit = () => {
             )}
 
             <div
-                className={`mt-[30vh] text-default-15-dark dark:text-default-15 max-w-[768px] mx-auto
+                className={`mt-[30vh] text-default-15-dark dark:text-default-15 max-w-[48rem] mx-auto
                 ${showPreview && "hidden"}`}
             >
-                <p className="text-2xl font-medium pt-3 pb-5 text-center">글 작성</p>
+                <p className="text-2xl font-medium pt-3 pb-5 text-center">
+                    글 작성
+                </p>
 
                 {/* selection for posts to edit */}
                 <select
@@ -311,7 +313,7 @@ const PostEdit = () => {
                         handlePostIdSelected(e.currentTarget.value)
                     }
                     className="mt-2 text-default-18-dark dark:text-default-18 outline-none focus:outline-none w-full
-                            bg-default-3 dark:bg-default-3-dark border-[1px] border-default-10 dark:border-default-6-dark"
+                            bg-default-3 dark:bg-default-3-dark border-[0.0625rem] border-default-10 dark:border-default-6-dark"
                 >
                     <option value={""}>Select a post</option>
                     {postsList &&
@@ -372,13 +374,13 @@ const PostEdit = () => {
                                         })
                                     }
                                     className="w-full pl-2 text-default-10-dark py-2 focus:outline-none outline-none
-                                        bg-white border-[1px] border-default-10 rounded-none"
+                                        bg-white border-[0.0625rem] border-default-10 rounded-none"
                                 />
 
                                 {/* Category selection */}
                                 <select
                                     className="text-default-10-dark focus:outline-none outline-none
-                                        bg-white border-[1px] border-default-10 rounded-none"
+                                        bg-white border-[0.0625rem] border-default-10 rounded-none"
                                     value={
                                         postEditing.CategoryId
                                             ? postEditing.CategoryId
@@ -423,7 +425,7 @@ const PostEdit = () => {
                 <div
                     className={`flex flex-col w-full gap-3 pb-10 mx-auto px-1 mt-2
                     text-default-18-dark dark:text-default-18
-                    ${showPreview ? "max-w-[768px]" : "max-w-[768px]"}`}
+                    ${showPreview ? "max-w-[48rem]" : "max-w-[48rem]"}`}
                 >
                     <label>
                         Public:&#160;

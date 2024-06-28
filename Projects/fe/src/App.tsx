@@ -16,6 +16,7 @@ import { authenticateUserAsync } from "@/_utils/user";
 import { fetchLeafCategoriesAsync } from "@/_utils/category";
 
 import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
+
 const ErrorArea = lazy(() => import("@/_components/ErrorArea"));
 const PostsWrapper = lazy(() => import("@/posts/_components/PostsWrapper"));
 const BlogInitialLoad = lazy(() => import("@/_components/BlogInitialLoad"));

@@ -18,13 +18,15 @@ const Avatar: React.FC<AvatarProps> = ({
                     src={avatar}
                     className={`rounded-full
                             ${className} `}
-                    width={size}
+                            style={{
+                                width: `${size / 16}rem`
+                            }}
                 />
             ) : (
                 children && (
                     <div
-                        className="border-[1px] bg-default-9-dark dark:border-default-10-dark
-                        ring-[1.5px] ring-orange-300 rounded-full"
+                        className="border-[0.0625rem] bg-default-9-dark dark:border-default-10-dark
+                        ring-[0.156rem] ring-orange-300 rounded-full"
                     >
                         {children}
                     </div>

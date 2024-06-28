@@ -13,14 +13,12 @@ const calculateModalWidth = () => {
 
     if (document.body.clientWidth <= 880) {
         if (document.body.clientWidth >= 830)
-            result = document.body.clientWidth - 880 - document.body.clientWidth;
-        else
-            result = document.body.clientWidth - 50;
-    }
-    else
-        result = 830;
+            result =
+                document.body.clientWidth - 880 - document.body.clientWidth;
+        else result = document.body.clientWidth - 50;
+    } else result = 830;
     return result;
-}
+};
 
 const navLinks = [
     {
@@ -84,7 +82,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
                 <nav className="flex flex-col text-default-18-dark text-sm dark:text-default-10 mt-1">
                     {links.map((link, index) => {
                         const className =
-                            "w-full py-2 border-b-[1.6px] dark:border-y-default-7-dark border-y-default-5";
+                            "w-full py-2 border-b-[0.1rem] dark:border-y-default-7-dark border-y-default-5";
 
                         return (
                             <span key={index} className={className}>
@@ -110,11 +108,11 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
         <Rodal
             visible={isOpen}
             customStyles={{
-                borderRadius: "22px",
+                borderRadius: "1.375rem",
                 backgroundColor: `${
                     isDarkMode ? "rgb(24, 24, 27)" : "rgb(250, 250, 250)"
                 }`,
-                padding: "25px 30px 25px 30px",
+                padding: "1.5625rem 1.875rem 1.5625rem 1.875rem",
             }}
             width={modalWidth}
             height={400}
@@ -125,7 +123,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
                     {convertLinksToJsx(navLinks, "Navigation")}
                     <button
                         className="text-default-18-dark text-sm dark:text-default-10 w-full text-left py-2 
-                        border-b-[1.6px] border-y-default-5 dark:border-y-default-7-dark"
+                        border-b-[0.1rem] border-y-default-5 dark:border-y-default-7-dark"
                         onClick={() => {
                             setIsOpen(false);
                             if (isSignedIn) {

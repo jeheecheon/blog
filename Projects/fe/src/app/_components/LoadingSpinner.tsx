@@ -11,12 +11,12 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
 }) => {
     return (
         <div
-            className={`mx-auto w-[230px] h-[230px] pointer-events-none flex flex-col justify-center items-center gap-3 
+            className={`mx-auto w-[21.875rem] h-[21.875rem] pointer-events-none flex flex-col justify-center items-center gap-3 
                 rounded-xl p-5 z-[51] ${className}`}
         >
             {/* spinner */}
             <div
-                className="border-4 rounded-full p-3 animate-spin w-[40px] h-[40px]
+                className="border-4 rounded-full p-3 animate-spin w-[2.5rem] h-[2.5rem]
                     border-default-8 border-t-default-18
                     dark:border-default-18-dark dark:border-t-default-10"
             />

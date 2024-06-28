@@ -4,7 +4,12 @@ export default {
     theme: {
         extend: {
             screens: {
-                navbar: "500px",
+                navbar: "51.25rem",
+                sm: "40rem",
+                md: "48rem",
+                lg: "64rem",
+                xl: "80rem",
+                "2xl": "96rem",
             },
             colors: {
                 body: "var(--main-bg-color)",
@@ -57,8 +62,8 @@ export default {
                     "100%": { opacity: "1" },
                 },
                 "fade-in-bouncing": {
-                    "0%": { opacity: "0", transform: "translateY(-50px)" },
-                    "50%": { opacity: "1", transform: "translateY(10px)" },
+                    "0%": { opacity: "0", transform: "translateY(-3.125rem)" },
+                    "50%": { opacity: "1", transform: "translateY(0.625rem)" },
                     "100%": { opacity: "1", transform: "translateY(0)" },
                 },
                 "fade-out": {
@@ -77,7 +82,7 @@ export default {
                 },
                 "bounce-sm": {
                     "0%": { transform: "translateY(0)" },
-                    "50%": { transform: "translateY(-15px)" },
+                    "50%": { transform: "translateY(-0.938rem)" },
                     "100%": { transform: "translateY(0)" },
                 },
                 "header-hide-up": {
@@ -85,7 +90,7 @@ export default {
                     "60%": { transform: "translateY(10%)" },
                     "100%": { transform: "translateY(-150%)" },
                 },
-                "header-shwo-down": {
+                "header-show-down": {
                     "0%": { transform: "translateY(-150%)" },
                     "40%": { transform: "translateY(10%)" },
                     "100%": { transform: "translateY(0%)" },
@@ -99,7 +104,7 @@ export default {
             "infinite-x-scroll": "infinite-scroll 4s linear infinite",
             "bounce-sm": "bounce-sm 1.7s ease-in-out infinite",
             "header-hide-up": "header-hide-up 0.6s ease-in-out forwards",
-            "header-show-down": "header-shwo-down 0.6s ease-in-out forwards",
+            "header-show-down": "header-show-down 0.6s ease-in-out forwards",
             "fade-in": "fade-in 0.5s ease-in-out forwards",
             "fade-in-bouncing": "fade-in-bouncing 0.5s ease-in-out forwards",
         },

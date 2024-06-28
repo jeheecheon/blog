@@ -4,6 +4,7 @@
 
 @layer base {
     :root {
+        font-size: 100%;
         color-scheme: dark light;
 
         --main-bg-color: var(--default-2);

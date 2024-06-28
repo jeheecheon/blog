@@ -122,7 +122,7 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
 
     return (
         <div
-            className={`flex flex-col justify-center items-center w-[250px] ${className}`}
+            className={`flex flex-col justify-center items-center w-[15.625rem] ${className}`}
         >
             <div className="flex flex-col">
                 <p className="text-sm text-nowrap text-stone-400 dark:text-default-18-dark ">
@@ -162,12 +162,12 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
                 </button>
             </div>
 
-            <div className="flex-row items-center justify-center gap-2 mt-[10px] hidden">
+            <div className="flex-row items-center justify-center gap-2 mt-[0.625rem] hidden">
                 <div className="flex flex-col items-center">
-                    <p className="text-[12.5px] text-stone-500 dark:text-default-13 font-semibold">
+                    <p className="text-[0.78125rem] text-stone-500 dark:text-default-13 font-semibold">
                         {forceMusicPlay ? "On" : "Off"}
                     </p>
-                    <p className="text-[10px] text-stone-500 dark:text-default-13 font-medium">
+                    <p className="text-[0.625rem] text-stone-500 dark:text-default-13 font-medium">
                         Auto Play
                     </p>
                 </div>

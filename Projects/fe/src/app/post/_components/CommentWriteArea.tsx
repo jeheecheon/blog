@@ -94,8 +94,8 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                     <CustomTextArea
                         content={content}
                         handleType={handleType}
-                        className="focus:outline-none resize-none
-                        border-b-[1px] border-slate-500 rounded-none
+                        className="focus:outline-none resize-none mt-8
+                        border-b-[0.0625rem] border-slate-500 rounded-none
                         bg-transparent"
                     />
                 </div>

@@ -1,12 +1,16 @@
 import { Outlet, useLocation } from "react-router-dom";
-import MusicPlayer from "@/_components/MusicPlayer";
-import SignInModal from "@/_components/SignInModal";
+import { useEffect } from "react";
 
-import "@/_assets/css/scrollbar.css";
 import { useSelector } from "react-redux";
 import { selectIsDarkMode } from "@/_redux/themeSlice";
-import { useEffect } from "react";
+
 import { setThemeColor } from "@/_assets/ts/theme";
+
+import MusicPlayer from "@/_components/MusicPlayer";
+import SignInModal from "@/_components/SignInModal";
+import Header from "@/_components/Header";
+
+import "@/_assets/css/scrollbar.css";
 
 function BlogInitialLoad() {
     const isDarkMode = useSelector(selectIsDarkMode);
@@ -32,8 +36,10 @@ function BlogInitialLoad() {
 
     return (
         <>
+            <Header className="mt-[0.813rem] max-w-[60rem] lg:mx-auto" />
             <MusicPlayer className="absolute invisible" />
             <SignInModal />
+
             <Outlet />
         </>
     );

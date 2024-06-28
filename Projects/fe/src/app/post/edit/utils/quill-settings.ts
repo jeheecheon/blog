@@ -174,6 +174,7 @@ export const formats = [
     "video",
     "image",
     "color",
+    "code",
     "code-block",
     "formula",
 ];

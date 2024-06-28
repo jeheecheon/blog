@@ -88,7 +88,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                                     return (
                                         <div
                                             key={idx}
-                                            className="w-0 border-r-[1.8px] mr-[0.8rem] md:mr-4 lg:mr-6 border-default-8 dark:border-default-10-dark"
+                                            className="w-0 border-r-[0.1125rem] mr-[0.8rem] md:mr-4 lg:mr-6 border-default-8 dark:border-default-10-dark"
                                         />
                                     );
                                 }
@@ -110,8 +110,8 @@ export const Comment: React.FC<CommentProps> = React.memo(
                             <div className="flex flex-col ml-2 justify-center text-sm md:text-base">
                                 <div className="flex flex-row flex-wrap items-center">
                                     <span
-                                        className={`w-fit border rounded-2xl mr-1 px-[7px] text-[0.7rem] break-all
-                                    text-center
+                                        className={`w-fit border rounded-2xl mr-1 px-[0.4375rem] text-[0.7rem] break-all
+                                        text-center
                                     ${
                                         comment.Email !==
                                             "jeheecheon@gmail.com" && "hidden"
@@ -130,7 +130,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                         </div>
 
                         <div
-                            className="min-h-[50px] py-2 px-3 rounded-lg text-sm md:text-base break-all
+                            className="min-h-[3.125rem] py-2 px-3 rounded-lg text-sm md:text-base break-all
                             bg-default-4 dark:bg-body dark:text-default-14 w-full"
                         >
                             {content.current}
