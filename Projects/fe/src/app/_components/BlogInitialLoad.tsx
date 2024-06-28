@@ -36,7 +36,7 @@ function BlogInitialLoad() {
 
     return (
         <>
-            <Header className="mt-[0.813rem] max-w-[60rem] lg:mx-auto" />
+            <Header className="mt-[0.813rem] max-w-[66rem] lg:mx-auto" />
             <MusicPlayer className="absolute invisible" />
             <SignInModal />
 

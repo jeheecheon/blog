@@ -123,7 +123,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                     {profileLoaded && (
                         <div
                             className="fixed top-0 left-0 w-[100%] z-30 pointer-events-none
-                            px-5 md:px-5 lg:px-8"
+                            px-4 md:px-14 lg:px-16"
                         >
                             <header
                                 ref={headerRef}
