@@ -1,31 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "@/_redux/store";
 
 export interface SignInModalState {
-  visible: boolean
+    isSignInModalOpen: boolean;
 }
 
 const initialState: SignInModalState = {
-  visible: false,
-}
+    isSignInModalOpen: false,
+};
 
 export const signInModalSlice = createSlice({
-  name: 'signInModal',
-  initialState,
-  reducers: {
-    makeVisible: (state) => {
-      state.visible = true
+    name: "signInModal",
+    initialState,
+    reducers: {
+        setIsSignOnModalOpen: (state, action: PayloadAction<boolean>) => {
+            state.isSignInModalOpen = action.payload;
+        },
     },
-    makeInvisible: (state) => {
-      state.visible = false
-    },
-    setVisible: (state, action: PayloadAction<SignInModalState>) => {
-      state.visible = action.payload.visible
-    },
-  },
-})
+});
+
+export function selectIsSignInModalOpen(state: RootState) {
+    return state.signInModal.isSignInModalOpen;
+}
 
 // Action creators are generated for each case reducer function
-export const { makeVisible, makeInvisible, setVisible } = signInModalSlice.actions
+export const { setIsSignOnModalOpen } = signInModalSlice.actions;
 
-export default signInModalSlice.reducer
+export default signInModalSlice.reducer;

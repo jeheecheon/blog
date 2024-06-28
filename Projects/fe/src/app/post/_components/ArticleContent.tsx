@@ -7,7 +7,7 @@ import DOMPurify from "isomorphic-dompurify";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/_redux/store";
-import { makeVisible } from "@/_redux/signInModalSlice";
+import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
 import { selectIsSignedIn } from "@/_redux/userSlice";
 import { setCoverImageUrl, setTitleOnCover } from "@/_redux/coverSlice";
 
@@ -95,7 +95,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
         const handleLikeCliked = () => {
             if (isLoadingLikes.current === true) return;
             if (isSignedIn === false) {
-                dispatch(makeVisible());
+                dispatch(setIsSignOnModalOpen(false));
                 return;
             }
 

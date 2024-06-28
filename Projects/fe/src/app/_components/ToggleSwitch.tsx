@@ -21,7 +21,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
             <button
                 id={buttonId}
                 className={`inline-block rounded-full my-[0.125rem] h-[0.9375rem] w-[0.9375rem] relative transition-transform
-            bg-stone-500/85 dark:bg-default-9 ${
+                bg-stone-500/85 dark:bg-default-9 ${
                 isOn && "translate-x-[20.1875rem]"
             }`}
             ></button>

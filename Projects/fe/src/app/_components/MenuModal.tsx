@@ -1,24 +1,9 @@
-import { useEffect, useState } from "react";
-import Rodal from "rodal";
-import { useIsMounted } from "@/_hooks/useIsMounted";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/_redux/store";
 import { Link } from "react-router-dom";
 import { signOut } from "@/_utils/user";
-import { makeVisible } from "@/_redux/signInModalSlice";
+import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
 import { selectIsSignedIn } from "@/_redux/userSlice";
-
-const calculateModalWidth = () => {
-    let result;
-
-    if (document.body.clientWidth <= 880) {
-        if (document.body.clientWidth >= 830)
-            result =
-                document.body.clientWidth - 880 - document.body.clientWidth;
-        else result = document.body.clientWidth - 50;
-    } else result = 830;
-    return result;
-};
+import CustomModal from "./CustomModal";
 
 const navLinks = [
     {
@@ -55,22 +40,9 @@ interface MenuModalProps {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
-    const [modalWidth, setModalWidth] = useState(calculateModalWidth());
-    const isMount = useIsMounted();
-    const isDarkMode = useSelector(
-        (state: RootState) => state.theme.isDarkMode
-    );
+const MenuModal: React.FC<MenuModalProps> = ({ setIsOpen, isOpen }) => {
     const dispatch = useDispatch();
     const isSignedIn = useSelector(selectIsSignedIn);
-
-    useEffect(() => {
-        const handleResize = () => setModalWidth(calculateModalWidth());
-        if (isMount === true)
-            window.addEventListener("resize", () => handleResize());
-
-        return () => window.removeEventListener("resize", handleResize);
-    }, [modalWidth]);
 
     function convertLinksToJsx(
         links: { name: string; to: string }[],
@@ -105,19 +77,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
     }
 
     return (
-        <Rodal
-            visible={isOpen}
-            customStyles={{
-                borderRadius: "1.375rem",
-                backgroundColor: `${
-                    isDarkMode ? "rgb(24, 24, 27)" : "rgb(250, 250, 250)"
-                }`,
-                padding: "1.5625rem 1.875rem 1.5625rem 1.875rem",
-            }}
-            width={modalWidth}
-            height={400}
-            onClose={() => setIsOpen(!isOpen)}
-        >
+        <CustomModal onClose={() => setIsOpen(false)} isOpen={isOpen}>
             <div className="h-full flex flex-col justify-between">
                 <div>
                     {convertLinksToJsx(navLinks, "Navigation")}
@@ -129,7 +89,8 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
                             if (isSignedIn) {
                                 signOut();
                             } else {
-                                dispatch(makeVisible());
+                                setIsOpen(false);
+                                dispatch(setIsSignOnModalOpen(true));
                             }
                         }}
                     >
@@ -140,13 +101,8 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, setIsOpen }) => {
                 <div className="mt-5">
                     {convertLinksToJsx(categoryLinks, "Category")}
                 </div>
-
-                {/* <div className="mt-5">
-                    <p className="text-orange-400 text-lg mb-2">Settings</p>
-                    
-                </div> */}
             </div>
-        </Rodal>
+        </CustomModal>
     );
 };
 

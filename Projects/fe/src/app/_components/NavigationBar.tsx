@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import ArrowDown from "@/_assets/images/arrow-down.svg?react";
 import CategoryMenu from "@/_components/CategoryMenu";
-import { makeVisible } from "@/_redux/signInModalSlice";
+import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
 import { signOut } from "@/_utils/user";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLinkRenderProps } from "@/_types/Navigation";
@@ -94,12 +94,16 @@ function NavigationBar({
 
             <button
                 className={`text-nowrap
-                ${isSignedIn ? "text-orange-400" : "text-default-14-dark dark:text-default-7"}`}
+                ${
+                    isSignedIn
+                        ? "text-orange-400"
+                        : "text-default-14-dark dark:text-default-7"
+                }`}
                 onClick={() => {
                     if (isSignedIn) {
                         signOut();
                     } else {
-                        dispatch(makeVisible());
+                        dispatch(setIsSignOnModalOpen(true));
                     }
                 }}
             >

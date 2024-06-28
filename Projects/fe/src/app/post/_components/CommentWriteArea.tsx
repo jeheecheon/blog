@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "@/_components/Button";
 import CustomTextArea from "@/post/_components/CustomTextArea";
 import Avatar from "@/_components/Avatar";
-import { makeVisible } from "@/_redux/signInModalSlice";
+import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
 import AvatarDefault from "@/post/_assets/images/AvatarDefault";
 import { selectIsSignedIn, selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
@@ -32,15 +32,16 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
         const handleType: React.ChangeEventHandler<HTMLTextAreaElement> = (
             e
         ) => {
-            if (isSignedIn === false) dispatch(makeVisible());
-            else {
+            if (isSignedIn === false) {
+                dispatch(setIsSignOnModalOpen(true));
+            } else {
                 setContent(e.currentTarget.value);
             }
         };
 
         const handleUpload = () => {
             if (isSignedIn === false) {
-                dispatch(makeVisible());
+                dispatch(setIsSignOnModalOpen(true));
                 return;
             }
 
