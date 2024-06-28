@@ -149,8 +149,9 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                     {/* Category card on top */}
                     <div
                         className="mr-auto px-3 w-fit relative top-[-1.9rem] left-[-0.625rem] z-[-1]
-                        bg-gray-600/65 dark:bg-gray-800/65 rounded-md 
-                        text-slate-100 font-medium pb-3 text-sm md:text-base"
+                        bg-gray-600/65 dark:bg-gray-800/65 rounded-md
+                        ml-2 lg:ml-0
+                        text-slate-100 font-medium pb-5 text-sm md:text-base"
                     >
                         {leafCategories &&
                             flattenOutCategoriesV1(
@@ -162,9 +163,9 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                     </div>
 
                     {/* Bar on content body top */}
-                    <div className="bg-default-18 dark:bg-default-11-dark h-[0.438rem] w-full max-w-[10.625rem] rounded-2xl absolute z-[50] translate-y-[0.625rem]" />
+                    <div className="bg-default-18 dark:bg-default-11-dark h-[0.438rem] w-full max-w-[9.625rem] rounded-2xl absolute translate-y-[0.3rem]" />
 
-                    <div className="absolute translate-y-[1.25rem] text-default-13-dark dark:text-default-12 font-[300] text-[0.75rem]">
+                    <div className="absolute translate-y-[1rem] text-default-13-dark dark:text-default-12 font-[300] text-[0.75rem]">
                         {post.EditedAt !== undefined && post.EditedAt !== null
                             ? `Edited: ${post.EditedAt.toLocaleDateString()}`
                             : `Published: ${post.UploadedAt.toLocaleDateString()}`}
