@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "@/_components/Button";
-import CustomTextArea from "@/post/_components/CustomTextArea";
-import Avatar from "@/_components/Avatar";
+import Button from "@/_components/ui/Button";
+import CustomTextArea from "@/post/_components/comment/CustomTextArea";
+import Avatar from "@/_components/ui/Avatar";
 import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
 import AvatarDefault from "@/post/_assets/images/AvatarDefault";
 import { selectIsSignedIn, selectUser } from "@/_redux/userSlice";

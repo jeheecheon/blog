@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
-import Footer from "@/_components/Footer";
+import Footer from "@/_components/layout/Footer";
 
 interface LayoutProps {
     children?: ReactNode;

@@ -1,7 +1,7 @@
 import defaultAvatar from "@/_assets/images/avatar.png";
 import CommentInfo from "@/_types/Comment";
 import React, { useRef, useState } from "react";
-import CommentWriteArea from "@/post/_components/CommentWriteArea";
+import CommentWriteArea from "@/post/_components/comment/CommentWriteArea";
 import { getTimeAgo } from "@/_utils/comment";
 import { useDispatch, useSelector } from "react-redux";
 import LikeFilled from "@/post/_assets/images/like-filled.svg?react";
@@ -11,8 +11,8 @@ import CommentSvg from "@/post/_assets/images/comment.svg?react";
 import parse from "html-react-parser";
 import DOMPurify from "isomorphic-dompurify";
 import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
-import Avatar from "@/_components/Avatar";
-import ButtonInCommentBox from "@/post/_components/ButtonInCommentBox";
+import Avatar from "@/_components/ui/Avatar";
+import ButtonInCommentBox from "@/post/_components/comment/ButtonInCommentBox";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import { selectIsSignedIn } from "@/_redux/userSlice";
 

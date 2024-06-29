@@ -10,7 +10,7 @@ import {
     setForceMusicPlay,
 } from "@/_redux/musicSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ToggleSwitch from "@/_components/ToggleSwitch";
+import ToggleSwitch from "@/_components/ui/ToggleSwitch";
 import { useEffect, useState } from "react";
 import PrevButton from "@/_assets/images/prev.svg?react";
 import PlayButton from "@/_assets/images/play.svg?react";
@@ -162,6 +162,7 @@ const MusicController: React.FC<MusicControllerProps> = ({ className }) => {
                 </button>
             </div>
 
+            {/* Auto play toggle switch, 비활성화 상태 */}
             <div className="flex-row items-center justify-center gap-2 mt-[0.625rem] hidden">
                 <div className="flex flex-col items-center">
                     <p className="text-[0.78125rem] text-stone-500 dark:text-default-13 font-semibold">

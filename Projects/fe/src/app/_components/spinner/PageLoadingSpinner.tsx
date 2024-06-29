@@ -1,4 +1,4 @@
-import LoadingSpinner from "@/_components/LoadingSpinner";
+import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import React from "react";
 
 interface PageLoadingSpinnerProps {

@@ -1,5 +1,5 @@
-import { Comment } from "@/post/_components/Comment";
-import CommentWriteArea from "@/post/_components/CommentWriteArea";
+import { Comment } from "@/post/_components/comment/Comment";
+import CommentWriteArea from "@/post/_components/comment/CommentWriteArea";
 import CommentInfo from "@/_types/Comment";
 import { PromiseAwaiter } from "@/_utils/promiseWrapper";
 import { convertStringDateIntoDate, sortComments } from "@/_utils/comment";

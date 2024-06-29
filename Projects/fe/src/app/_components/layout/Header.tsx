@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import Avatar from "@/_components/Avatar";
+import Avatar from "@/_components/ui/Avatar";
 import me from "@/_assets/images/me.png";
 import { useLocation } from "react-router-dom";
 
-import MenuModal from "@/_components/MenuModal";
+import MenuModal from "@/_components/modal/MenuModal";
 import { Link } from "react-router-dom";
-import DarkmodeToggleSwitch from "@/_components/DarkmodeToggleSwitch";
+import DarkmodeToggleSwitch from "@/_components/layout/DarkmodeToggleSwitch";
 import ArrowDown from "@/_assets/images/arrow-down.svg?react";
-import NavigationBar from "@/_components/NavigationBar";
+import NavigationBar from "@/_components/layout/NavigationBar";
 
 const excepts = ["/post/edit"];
 

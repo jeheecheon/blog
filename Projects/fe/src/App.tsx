@@ -15,11 +15,11 @@ import {
 import { authenticateUserAsync } from "@/_utils/user";
 import { fetchLeafCategoriesAsync } from "@/_utils/category";
 
-import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
+import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
 
-const ErrorArea = lazy(() => import("@/_components/ErrorArea"));
+const ErrorArea = lazy(() => import("@/_components/error/ErrorArea"));
 const PostsWrapper = lazy(() => import("@/posts/_components/PostsWrapper"));
-const BlogInitialLoad = lazy(() => import("@/_components/BlogInitialLoad"));
+const InitialLoad = lazy(() => import("@/_components/layout/InitialLoad"));
 
 const BlogLayout = lazy(() => import("@/layout"));
 const PostLayout = lazy(() => import("@/post/layout"));
@@ -31,14 +31,14 @@ const PostEditPage = lazy(() => import("@/post/edit/page"));
 
 const App = () => {
     const dispatch = useDispatch();
-
+    
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route errorElement={<ErrorArea />}>
                 <Route
                     element={
                         <Suspense fallback={<PageLoadingSpinner />}>
-                            <BlogInitialLoad />
+                            <InitialLoad />
                         </Suspense>
                     }
                     loader={async () => {

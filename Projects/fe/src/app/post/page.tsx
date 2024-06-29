@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 
-import ArticleViewWrapper from "@/post/_components/ArticleViewWrapper";
+import ArticleViewWrapper from "@/post/_components/article/ArticleViewWrapper";
 import { PostInfo } from "@/_types/Post";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -78,7 +78,10 @@ const Post = () => {
                 <title>
                     {post.Title} | {import.meta.env.VITE_SITE_NAME}
                 </title>
-                <link rel="canonical" href={`${import.meta.env.VITE_CLIENT_URL}/post/${post.Id}`} />
+                <link
+                    rel="canonical"
+                    href={`${import.meta.env.VITE_CLIENT_URL}/post/${post.Id}`}
+                />
                 <meta name="description" content={post.Title} />
                 <meta
                     name="keywords"
@@ -89,14 +92,20 @@ const Post = () => {
                 <meta property="og:description" content={post.Title} />
                 <meta
                     property="og:image"
-                    content={post.Cover ? post.Cover : import.meta.env.VITE_DEFAULT_COVER_IMAGE}
+                    content={
+                        post.Cover
+                            ? post.Cover
+                            : import.meta.env.VITE_DEFAULT_COVER_IMAGE
+                    }
                 />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="jeheecheon" />
                 <meta property="og:locale" content="ko_KR" />
                 <meta
                     property="og:url"
-                    content={`${import.meta.env.VITE_CLIENT_URL}/post/${post.Id}`}
+                    content={`${import.meta.env.VITE_CLIENT_URL}/post/${
+                        post.Id
+                    }`}
                 />
                 <meta
                     name="twitter:title"
@@ -104,7 +113,10 @@ const Post = () => {
                 />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content={post.Title} />
-                <meta name="twitter:image" content={import.meta.env.VITE_DEFAULT_COVER_IMAGE} />
+                <meta
+                    name="twitter:image"
+                    content={import.meta.env.VITE_DEFAULT_COVER_IMAGE}
+                />
             </Helmet>
         </>
     );

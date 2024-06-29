@@ -4,10 +4,10 @@ import {
 } from "@/_utils/promiseWrapper";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import ErrorBoundary from "@/_components/ErrorBoundary";
+import ErrorBoundary from "@/_components/error/ErrorBoundary";
 import Posts from "@/posts/page";
-import ErrorMessageWrapper from "@/_components/ErrorMessageWrapper";
-import LoadingSpinner from "@/_components/LoadingSpinner";
+import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
+import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import { Helmet } from "react-helmet-async";
 
 const PostsWrapper = () => {

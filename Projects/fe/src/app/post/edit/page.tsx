@@ -6,9 +6,9 @@ import { setCoverImageUrl } from "@/_redux/coverSlice";
 
 import { Helmet } from "react-helmet-async";
 
-import Button from "@/_components/Button";
-import ArticleLayout from "@/post/_components/ArticleLayout";
-import ArticleContent from "@/post/_components/ArticleContent";
+import Button from "@/_components/ui/Button";
+import ArticleLayout from "@/post/_components/article/ArticleLayout";
+import ArticleContent from "@/post/_components/article/ArticleContent";
 import CustomQuill from "@/post/edit/_components/quill/CustomQuill";
 import CustomQuillToolbar from "@/post/edit/_components/quill/CustomQuillToolbar";
 

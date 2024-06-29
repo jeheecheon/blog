@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import Button from "@/_components/Button";
+import Button from "@/_components/ui/Button";
 
 interface ErrorAreaProps {
     className?: string;

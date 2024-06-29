@@ -1,6 +1,6 @@
-import PageLoadingSpinner from "@/_components/PageLoadingSpinner";
+import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
 import { selectCover } from "@/_redux/coverSlice";
-import Footer from "@/_components/Footer";
+import Footer from "@/_components/layout/Footer";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";

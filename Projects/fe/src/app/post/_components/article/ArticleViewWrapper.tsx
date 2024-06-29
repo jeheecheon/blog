@@ -1,13 +1,13 @@
 import React, { Suspense } from "react";
-import ArticleLayout from "@/post/_components/ArticleLayout";
-import ArticleContent from "@/post/_components/ArticleContent";
-import ErrorBoundary from "@/_components/ErrorBoundary";
+import ArticleLayout from "@/post/_components/article/ArticleLayout";
+import ArticleContent from "@/post/_components/article/ArticleContent";
+import ErrorBoundary from "@/_components/error/ErrorBoundary";
 import Comments from "@/posts/_components/Comments";
 
 import { PostInfo } from "@/_types/Post";
 import { PromiseAwaiter } from "@/_utils/promiseWrapper";
-import LoadingSpinner from "@/_components/LoadingSpinner";
-import ErrorMessageWrapper from "@/_components/ErrorMessageWrapper";
+import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
+import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
 
 interface ArticleViewWrapperProps {
     post: PostInfo;

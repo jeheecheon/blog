@@ -1,5 +1,5 @@
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import LoadingSpinner from "@/_components/LoadingSpinner";
+import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import { convertFromBase64Url } from "@/_utils/oauth";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";

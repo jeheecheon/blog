@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import MusicController from "@/_components/MusicController";
+import MusicController from "@/_components/music/MusicController";
 
 interface FooterProps {
     className?: string;

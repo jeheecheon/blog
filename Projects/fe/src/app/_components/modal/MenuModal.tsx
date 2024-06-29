@@ -77,9 +77,13 @@ const MenuModal: React.FC<MenuModalProps> = ({ setIsOpen, isOpen }) => {
     }
 
     return (
-        <CustomModal onClose={() => setIsOpen(false)} isOpen={isOpen}>
-            <div className="h-full flex flex-col justify-between">
-                <div>
+        <CustomModal
+            onClose={() => setIsOpen(false)}
+            isOpen={isOpen}
+            className="max-w-[400px] w-full mx-7"
+        >
+            <div className="h-full flex flex-col justify-between pb-2 px-4">
+                <div className="w-full">
                     {convertLinksToJsx(navLinks, "Navigation")}
                     <button
                         className="text-default-18-dark text-sm dark:text-default-10 w-full text-left py-2 

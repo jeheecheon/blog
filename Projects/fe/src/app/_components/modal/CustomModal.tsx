@@ -5,9 +5,15 @@ interface CustomModalProps {
     onClose: () => void;
     isOpen: boolean;
     children: ReactNode;
+    className?: string;
 }
 
-const CustomModal = ({ onClose, children, isOpen }: CustomModalProps) => {
+const CustomModal = ({
+    onClose,
+    children,
+    isOpen,
+    className,
+}: CustomModalProps) => {
     const modalOverlayRef = useRef<HTMLDivElement>(null);
 
     function handleClose() {
@@ -52,8 +58,9 @@ const CustomModal = ({ onClose, children, isOpen }: CustomModalProps) => {
             ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         >
             <div
-                className="flex flex-col border-[0.125rem] rounded-[1.375rem] p-4 pointer-events-auto
-                border-[rgb(230,230,240)] dark:border-[rgb(29,29,32)] bg-[rgb(250,250,250)] dark:bg-[rgb(24,24,27)]"
+                className={`flex flex-col border-[0.125rem] rounded-[1.375rem] p-4 pointer-events-auto
+                border-[rgb(230,230,240)] dark:border-[rgb(29,29,32)] bg-[rgb(250,250,250)] dark:bg-[rgb(24,24,27)]
+                ${className}`}
             >
                 <button
                     onClick={handleClose}

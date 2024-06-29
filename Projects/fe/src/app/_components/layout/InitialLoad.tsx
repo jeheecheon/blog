@@ -6,13 +6,13 @@ import { selectIsDarkMode } from "@/_redux/themeSlice";
 
 import { setThemeColor } from "@/_assets/ts/theme";
 
-import MusicPlayer from "@/_components/MusicPlayer";
-import SignInModal from "@/_components/SignInModal";
-import Header from "@/_components/Header";
+import MusicPlayer from "@/_components/music/MusicPlayer";
+import SignInModal from "@/_components/modal/SignInModal";
+import Header from "@/_components/layout/Header";
 
 import "@/_assets/css/scrollbar.css";
 
-function BlogInitialLoad() {
+function InitialLoad() {
     const isDarkMode = useSelector(selectIsDarkMode);
     const location = useLocation();
 
@@ -45,4 +45,4 @@ function BlogInitialLoad() {
     );
 }
 
-export default BlogInitialLoad;
+export default InitialLoad;
