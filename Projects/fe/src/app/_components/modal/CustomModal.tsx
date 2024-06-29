@@ -58,9 +58,9 @@ const CustomModal = ({
             ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         >
             <div
-                className={`flex flex-col border-[0.125rem] rounded-[1.375rem] p-4 pointer-events-auto
+                className={`flex flex-col border-[0.125rem] rounded-[1.375rem] p-4
                 border-[rgb(230,230,240)] dark:border-[rgb(29,29,32)] bg-[rgb(250,250,250)] dark:bg-[rgb(24,24,27)]
-                ${className}`}
+                ${isOpen ? "pointer-events-auto" : "pointer-events-none"} ${className}`}
             >
                 <button
                     onClick={handleClose}
