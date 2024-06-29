@@ -117,6 +117,7 @@
         font-weight: 500;
         background-color: #777;
         color: white;
+        height: 100%;
         padding: 0.25rem 0.5rem;
         border-radius: 0.25rem;
     }
@@ -290,15 +291,19 @@
         }
 
         p {
-            font-size: 0.8rem;
-        }
-
-        pre {
-            font-size: 0.875rem;
+            font-size: 0.9rem;
         }
 
         li {
-            font-size: 1rem;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            font-size: 0.8rem;
+        }
+
+        code {
+            font-size: 0.8rem;
         }
     }
 }
@@ -307,6 +312,7 @@
     .blog-post-content {
         li {
             color: #ececec;
+            font-weight: 400;
         }
 
         p {
@@ -331,6 +337,12 @@
         blockquote {
             color: #ececec;
             background-color: #202020;
+            font-weight: 400;
+        }
+
+        code {
+            background-color: #202020;
+            font-weight: 400;
         }
     }
 }
