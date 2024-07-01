@@ -165,7 +165,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                     {/* Bar on content body top */}
                     <div className="bg-default-18 dark:bg-default-11-dark h-[0.438rem] w-full max-w-[9.625rem] rounded-2xl absolute translate-y-[0.3rem]" />
 
-                    <div className="absolute translate-y-[1rem] text-default-13-dark dark:text-default-12 font-[300] text-[0.75rem]">
+                    <div className="absolute translate-y-[1rem] text-default-13-dark dark:text-default-12 font-light text-[0.75rem]">
                         {post.EditedAt !== undefined && post.EditedAt !== null
                             ? `Edited: ${post.EditedAt.toLocaleDateString()}`
                             : `Published: ${post.UploadedAt.toLocaleDateString()}`}

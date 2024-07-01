@@ -28,7 +28,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
             </div>
 
             <div
-                className="font-semibold text-lg sm:text-xl break-all transition-all duration-1000 
+                className="font-medium text-md sm:text-lg break-all transition-all duration-1000 
                 text-gray-600/80 dark:text-default-13 group-hover:scale-[104%] md:group-hover:scale-[106%] 
                 group-hover:text-gray-600 dark:group-hover:text-default-5"
             >
@@ -49,19 +49,19 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                         )}
                 </div>
 
-                <div className="flex gap-2 ml-auto">
+                <div className="flex gap-2 ml-auto text-xs font-normal">
                     {/* Comments */}
-                    <div className="flex flex-row items-center gap-1 font-[500]">
+                    <div className="flex flex-row items-center gap-1">
                         <CommentSvg className="fill-orange-400 dark:fill-orange-500" />
-                        <span className="text-sm w-[1.0625rem]">
+                        <span className="w-[1.0625rem]">
                             {post.CommentCnt}
                         </span>
                     </div>
 
                     {/* Likes */}
-                    <div className="flex flex-row items-center gap-1 font-[500]">
+                    <div className="flex flex-row items-center gap-1">
                         <Like className="fill-orange-500 dark:fill-red-500" />
-                        <span className="text-sm w-[1.0625rem]">
+                        <span className="w-[1.0625rem]">
                             {post.LikeCnt}
                         </span>
                     </div>

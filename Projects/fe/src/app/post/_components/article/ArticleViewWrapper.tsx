@@ -30,7 +30,7 @@ const ArticleViewWrapper: React.FC<ArticleViewWrapperProps> = React.memo(
                     >
                         <Suspense
                             fallback={
-                                <LoadingSpinner textSize="text-sm">
+                                <LoadingSpinner>
                                     Loading Comments... 🐶
                                 </LoadingSpinner>
                             }

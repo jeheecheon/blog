@@ -7,7 +7,7 @@ interface LoadingSpinnerProps {
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     children,
     className,
-    textSize = "text-base",
+    textSize = "text-sm",
 }) => {
     return (
         <div
@@ -22,7 +22,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
             />
 
             <p
-                className={`text-center text-default-18-dark dark:text-default-16 font-[500] italic animate-blur-in-out
+                className={`text-center text-default-18-dark dark:text-default-16 font-normal italic animate-blur-in-out
                 ${textSize}`}
             >
                 {children}

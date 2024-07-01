@@ -38,14 +38,14 @@ const handleNavColor = (props?: NavLinkRenderProps) => {
 
     return isActive
         ? "text-orange-400"
-        : "dark:text-default-7 text-default-18-dark" + " " + "font-[500]";
+        : "dark:text-default-7 text-default-18-dark font-medium";
 };
 
 function convertLinksToJsx(links: LinkButtonInfo[]) {
     return links.map((link, index) => (
         <div
             key={index}
-            className={`flex flex-col text-nowrap border-b-[0.0625rem] last:border-b-0 pb-2 px-1 text-sm 
+            className={`flex flex-col text-nowrap border-b-[0.0625rem] last:border-b-0 pb-2 px-1 text-sm
                 border-b-gray-400/60 dark:border-b-default-18 ${link.class}`}
         >
             {link.to && link.to?.includes("Portfolio") ? (

@@ -48,7 +48,7 @@ function NavigationBar({
 
     return (
         <nav
-            className={`dark:bg-default-5-dark bg-default-2 pointer-events-auto font-[600]
+            className={`dark:bg-default-5-dark bg-default-2 pointer-events-auto font-semibold
                         shadow-xl dark:shadow-lg dark:shadow-black/40 border-[0.0625rem] border-slate-300 dark:border-default-18-dark
                         ring-[0.025rem] ring-orange-300
                         flex flex-row items-center gap-5 px-5

@@ -46,10 +46,10 @@ const PostsWrapper = () => {
         <>
             <div className="mx-auto max-w-[800px]">
                 <h1 className="w-full text-left text-balance animate-fade-in transition-opacity duration-1000">
-                    <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-[600]">
+                    <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-semibold">
                         {category ? "CATEGORY" : "POSTS"}
                     </p>
-                    <p className="text-orange-400/70 dark:text-orange-400/90 text-xl sm:text-2xl md:text-3xl uppercase font-[600]">
+                    <p className="text-orange-400/70 dark:text-orange-400/90 text-lg sm:text-xl md:text-2xl uppercase font-medium">
                         {category ? category : "recently published"}
                     </p>
                 </h1>
@@ -62,7 +62,7 @@ const PostsWrapper = () => {
                 >
                     <Suspense
                         fallback={
-                            <LoadingSpinner>Posts Loading..!</LoadingSpinner>
+                            <LoadingSpinner>Posts Loading...</LoadingSpinner>
                         }
                     >
                         <Posts postsAwaiter={postsAwaiter} />

@@ -110,7 +110,7 @@ const Layout = (props: LayoutProps) => {
                 >
                     <h1
                         className={`w-full 
-                        text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-[500]
+                        text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-medium
                         bg-gray-600/55 dark:bg-gray-800/65 ${
                             titleOnCover && "py-3 px-5"
                         }`}
