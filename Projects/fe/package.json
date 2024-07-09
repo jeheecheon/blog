@@ -30,6 +30,7 @@
     "react-router-dom": "^6.21.2"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.50.1",
     "@types/katex": "^0.16.7",
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.43",
