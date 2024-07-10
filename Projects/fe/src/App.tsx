@@ -7,11 +7,7 @@ import {
     createRoutesFromElements,
 } from "react-router-dom";
 
-import {
-    postEditLoader,
-    privacyPolicyLoader,
-    postPageCntLoader,
-} from "@/_utils/loaders";
+import { postEditLoader, postPageCntLoader } from "@/_utils/loaders";
 import { authenticateUserAsync } from "@/_utils/user";
 import { fetchLeafCategoriesAsync } from "@/_utils/category";
 
@@ -31,7 +27,7 @@ const PostEditPage = lazy(() => import("@/post/edit/page"));
 
 const App = () => {
     const dispatch = useDispatch();
-    
+
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route errorElement={<ErrorArea />}>
@@ -88,7 +84,6 @@ const App = () => {
                                 </Suspense>
                             }
                         />
-
                         <Route
                             path="/privacy-policy"
                             element={
@@ -96,9 +91,7 @@ const App = () => {
                                     <PostPage />
                                 </Suspense>
                             }
-                            loader={privacyPolicyLoader}
                         />
-
                         <Route
                             path="/post/edit"
                             element={

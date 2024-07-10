@@ -1,8 +1,13 @@
 import CommentInfo from "@/_types/Comment";
 import { convertStringDateIntoDate, sortComments } from "@/_utils/comment";
 import { throwError, throwResponse } from "@/_utils/responses";
-import { QueryFunctionContext, QueryKey, UndefinedInitialDataOptions, useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import {
+    QueryFunctionContext,
+    QueryKey,
+    UndefinedInitialDataOptions,
+    useQuery,
+} from "@tanstack/react-query";
+import { useLocation, useParams } from "react-router-dom";
 
 export const getCommentsByPostId = async ({
     queryKey,
@@ -27,7 +32,6 @@ export const getCommentsByPostId = async ({
             const sortedComments: CommentInfo[] = sortComments(
                 convertStringDateIntoDate(comments.map((c) => c))
             );
-            console.log("new");
             return sortedComments;
         });
 };
@@ -41,13 +45,23 @@ export const getCommentsQueryOption = (id: string | undefined) => {
     > = {
         queryKey: ["comments", id],
         queryFn: getCommentsByPostId,
-        staleTime: 1000 * 60 * 5,
+        staleTime: 1000 * 10,
+        gcTime: 1000 * 30,
     };
 
     return commentsQueryOption;
 };
 
 export const useComments = () => {
-    const { id } = useParams();
+    let { id } = useParams();
+    const location = useLocation();
+
+    if (!id) {
+        if (location.pathname === "/privacy-policy")
+            id = "670e46d5-4970-4e9b-b969-4a7272209367";
+        else if (location.pathname === "/about-me")
+            id = "f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a";
+    }
+
     return useQuery(getCommentsQueryOption(id));
 };

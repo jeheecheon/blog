@@ -16,7 +16,8 @@ const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             staleTime: 1000 * 60 * 60 * 24,
-            gcTime: 1000 * 60 * 60 * 24,
+            gcTime: 1000 * 60 * 60 * 12,
+            retry: 2
         },
     },
 });
@@ -31,7 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <HelmetProvider>
                 <PersistQueryClientProvider
                     client={queryClient}
-                    persistOptions={{ persister, maxAge: 1000 * 60 * 60 * 24 }}
+                    persistOptions={{ persister, maxAge: Infinity }}
                 >
                     <ReduxProvider store={store}>
                         <App />

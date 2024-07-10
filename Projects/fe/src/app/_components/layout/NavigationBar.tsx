@@ -63,7 +63,6 @@ function NavigationBar({
                     isPending: false,
                     isTransitioning: false,
                 })}`}
-                onClick={() => console.log(import.meta.env.VITE_PORTFOLIO_URL)}
             >
                 Portfolio
             </a>

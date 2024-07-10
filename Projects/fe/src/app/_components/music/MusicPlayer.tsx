@@ -1,8 +1,8 @@
+import useMusicList from "@/_hooks/useMusicList";
 import {
     initMusicState,
     selectCurrentIndex,
     selectForceMusicPlay,
-    selectMusicList,
     setCurrentIndex,
     setCurrentTime,
     setDuration,
@@ -10,7 +10,6 @@ import {
     setMusicList,
     setMusicTitle,
 } from "@/_redux/musicSlice";
-import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,7 +20,7 @@ interface MusicPlayerProps {
 const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     const dispatch = useDispatch();
     const forceMusicPlay = useSelector(selectForceMusicPlay);
-    const musicList = useSelector(selectMusicList);
+    const musicList = useMusicList();
     const curIdx = useSelector(selectCurrentIndex);
     const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -60,28 +59,10 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     }, []);
 
     useEffect(() => {
-        if (musicList.length === 0) {
-            fetch(`${import.meta.env.VITE_SERVER_URL}/api/blog/music`, {
-                method: "GET",
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    throwResponse(res);
-                })
-                .then((data: string[]) => {
-                    if (!data) {
-                        throwError("Music list is null or undefined");
-                    }
-                    if (data.length > 0) {
-                        data.sort(() => Math.random() - 0.5);
-                        dispatch(setMusicList(data));
-                        audioRef.current!.setAttribute("src", data[curIdx]);
-                        audioRef.current!.load();
-                    }
-                })
-                .catch(handleError);
+        if (musicList.isSuccess && !!musicList.data) {
+            dispatch(setMusicList(musicList.data));
+            audioRef.current!.setAttribute("src", musicList.data[curIdx]);
+            audioRef.current!.load();
         }
 
         audioRef.current?.addEventListener("timeupdate", updateCurrentPlayTime);
@@ -93,7 +74,12 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
             );
             dispatch(initMusicState());
         };
-    }, []);
+    }, [musicList.isSuccess]);
+
+    useEffect(() => {
+        if (musicList.isError)
+            dispatch(setMusicTitle("Failed to fetch music list..."));
+    }, [musicList.isError]);
 
     useEffect(() => {
         if (forceMusicPlay) {
@@ -120,33 +106,39 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ className }) => {
     }, [forceMusicPlay]);
 
     return (
-        <audio
-            id="music-player"
-            ref={audioRef}
-            controls
-            onLoadedData={(e) => {
-                dispatch(setDuration(e.currentTarget.duration));
-                const st =
-                    musicList[curIdx].indexOf("music/") + "music/".length;
-                const en = musicList[curIdx].indexOf(".mp3");
-                if (st !== -1 && en !== -1) {
-                    const title = musicList[curIdx].substring(st, en);
-                    dispatch(setMusicTitle(title));
-                }
-            }}
-            onPause={() => dispatch(setIsPlaying(false))}
-            onPlay={() => dispatch(setIsPlaying(true))}
-            onEnded={() => {
-                const nxtIdx = (curIdx + 1) % musicList.length;
-                dispatch(setCurrentIndex(nxtIdx));
-                audioRef.current!.setAttribute("src", musicList[nxtIdx]);
-                audioRef.current!.load();
-                audioRef.current!.play();
-            }}
-            className={`${className}`}
-        >
-            <source type="audio/mp3" />
-        </audio>
+        musicList.isSuccess && (
+            <audio
+                id="music-player"
+                ref={audioRef}
+                controls
+                onLoadedData={(e) => {
+                    dispatch(setDuration(e.currentTarget.duration));
+                    const st =
+                        musicList.data[curIdx].indexOf("music/") +
+                        "music/".length;
+                    const en = musicList.data[curIdx].indexOf(".mp3");
+                    if (st !== -1 && en !== -1) {
+                        const title = musicList.data[curIdx].substring(st, en);
+                        dispatch(setMusicTitle(title));
+                    }
+                }}
+                onPause={() => dispatch(setIsPlaying(false))}
+                onPlay={() => dispatch(setIsPlaying(true))}
+                onEnded={() => {
+                    const nxtIdx = (curIdx + 1) % musicList.data.length;
+                    dispatch(setCurrentIndex(nxtIdx));
+                    audioRef.current!.setAttribute(
+                        "src",
+                        musicList.data[nxtIdx]
+                    );
+                    audioRef.current!.load();
+                    audioRef.current!.play();
+                }}
+                className={`${className}`}
+            >
+                <source type="audio/mp3" />
+            </audio>
+        )
     );
 };
 

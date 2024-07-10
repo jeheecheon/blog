@@ -51,6 +51,11 @@ const Layout = (props: LayoutProps) => {
     }
 
     useEffect(() => {
+        if (!coverImageUrl) {
+            setImageLoaded(true);
+            return;
+        }
+
         if (location.pathname.startsWith("/post/edit")) {
             articleRef.current?.classList.remove("animate-bounce-sm");
         } else {
@@ -74,6 +79,9 @@ const Layout = (props: LayoutProps) => {
                     setImageLoaded(true);
                     handleScroll();
                     document.addEventListener("scroll", handleScroll);
+                }}
+                onError={() => {
+                    setImageLoaded(true);
                 }}
             />
 

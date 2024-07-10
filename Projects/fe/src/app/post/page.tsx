@@ -20,7 +20,7 @@ const Post = () => {
                     currently down...🙄
                 </ErrorMessageWrapper>
             )}
-            
+
             <Metadata post={data} />
         </>
     );

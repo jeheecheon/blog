@@ -19,7 +19,7 @@ const initialState: MusicState = {
             : true,
     isPlaying: false,
     musicList: [],
-    musicTitle: "",
+    musicTitle: "Loading...",
     duration: 0,
     currentTime: 0,
     currentIndex: 0,
