@@ -19,7 +19,7 @@ const navLinks = [
 const categoryLinks = [
     {
         name: "Recent Posts",
-        to: "/recent-posts/pages/1",
+        to: "/categories/recently-published/pages/1",
     },
     {
         name: "Algorithm",

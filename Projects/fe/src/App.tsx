@@ -8,9 +8,9 @@ import {
 } from "react-router-dom";
 
 import {
-    postLoader,
     postEditLoader,
     privacyPolicyLoader,
+    postPageCntLoader,
 } from "@/_utils/loaders";
 import { authenticateUserAsync } from "@/_utils/user";
 import { fetchLeafCategoriesAsync } from "@/_utils/category";
@@ -18,7 +18,6 @@ import { fetchLeafCategoriesAsync } from "@/_utils/category";
 import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
 
 const ErrorArea = lazy(() => import("@/_components/error/ErrorArea"));
-const PostsWrapper = lazy(() => import("@/posts/_components/PostsWrapper"));
 const InitialLoad = lazy(() => import("@/_components/layout/InitialLoad"));
 
 const BlogLayout = lazy(() => import("@/layout"));
@@ -27,6 +26,7 @@ const PostLayout = lazy(() => import("@/post/layout"));
 import OauthGoogleSignin from "@/oauth/google/sign-in/page";
 const BlogPage = lazy(() => import("@/page"));
 const PostPage = lazy(() => import("@/post/page"));
+const PostsPage = lazy(() => import("@/posts/page"));
 const PostEditPage = lazy(() => import("@/post/edit/page"));
 
 const App = () => {
@@ -63,22 +63,13 @@ const App = () => {
                             }
                         />
                         <Route
-                            path="/recent-posts/pages/:page"
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostsWrapper />
-                                </Suspense>
-                            }
-                            // loader={postPageCntLoader}
-                        />
-                        <Route
                             path="/categories/:category/pages/:page"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostsWrapper />
+                                    <PostsPage />
                                 </Suspense>
                             }
-                            // loader={postPageCntLoader}
+                            loader={postPageCntLoader}
                         />
                     </Route>
 
@@ -96,7 +87,6 @@ const App = () => {
                                     <PostPage />
                                 </Suspense>
                             }
-                            loader={postLoader}
                         />
 
                         <Route

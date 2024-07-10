@@ -7,7 +7,7 @@ const Blog = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate("/recent-posts/pages/1");
+        navigate("/categories/recently-published/pages/1");
     }, []);
 
     return (
@@ -16,7 +16,7 @@ const Blog = () => {
                 <span className="text-4xl">홈 페이지 공사 중...</span>
                 <Button className="">
                     <Link
-                        to="/recent-posts/pages/1"
+                        to="/categproes/recently-published/pages/1"
                         className="mt-5 pointer-events-auto "
                     >
                         최근 게시물 보기

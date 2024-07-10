@@ -16,7 +16,7 @@ const links: LinkButtonInfo[] = [
     },
     {
         name: "✏️ Recent Posts",
-        to: "/recent-posts/pages/1",
+        to: "/categories/recently-published/pages/1",
         class: "mt-4",
     },
     {

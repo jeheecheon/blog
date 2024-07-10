@@ -96,7 +96,7 @@ export const postPageCntLoader: LoaderFunction = async ({
 }) => {
     return fetch(
         `${import.meta.env.VITE_SERVER_URL}/api/blog/posts/page?${
-            category ? `category=${category}` : ""
+            category !== "recently-published" ? `category=${category}` : ""
         }`,
         {
             method: "GET",

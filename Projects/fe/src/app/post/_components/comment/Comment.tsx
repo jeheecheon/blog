@@ -19,11 +19,10 @@ import { selectIsSignedIn } from "@/_redux/userSlice";
 interface CommentProps {
     postId: string;
     comment: CommentInfo;
-    refreshComments: () => void;
 }
 
 export const Comment: React.FC<CommentProps> = React.memo(
-    ({ postId, comment, refreshComments }) => {
+    ({ postId, comment }) => {
         const dispatch = useDispatch();
         const isSignedIn = useSelector(selectIsSignedIn);
         const content = useRef<string | JSX.Element | JSX.Element[]>(
@@ -171,7 +170,6 @@ export const Comment: React.FC<CommentProps> = React.memo(
                     postId={postId}
                     replyingTo={comment.Id}
                     handleCancelClicked={() => setIsReplying(false)}
-                    refreshComments={refreshComments}
                     className={`my-2 ${
                         isReplying
                             ? "opacity-100 block"

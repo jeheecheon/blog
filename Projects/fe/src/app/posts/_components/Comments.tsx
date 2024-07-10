@@ -1,55 +1,59 @@
 import { Comment } from "@/post/_components/comment/Comment";
 import CommentWriteArea from "@/post/_components/comment/CommentWriteArea";
-import CommentInfo from "@/_types/Comment";
-import { PromiseAwaiter } from "@/_utils/promiseWrapper";
-import { convertStringDateIntoDate, sortComments } from "@/_utils/comment";
-import React, { useMemo } from "react";
+import React from "react";
+import { useComments } from "@/post/_hooks/useComments";
+import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
+import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
+import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
 
 interface CommentsProps {
-    className?: string;
     postId: string;
-    commentsAwaiter: PromiseAwaiter;
-    refreshComments: () => void;
 }
 
-const Comments: React.FC<CommentsProps> = React.memo(
-    ({ className, postId, commentsAwaiter, refreshComments }) => {
-        const sortedComments: CommentInfo[] = useMemo(() => {
-            const awaitedComments: CommentInfo[] =
-                commentsAwaiter.Await() as CommentInfo[];
-            return sortComments(
-                convertStringDateIntoDate(awaitedComments.map((c) => c))
-            );
-        }, [commentsAwaiter]);
+const Comments: React.FC<CommentsProps> = React.memo(({ postId }) => {
+    const { data, status, fetchStatus } = useComments();
 
-        return (
-            <div
-                className={`w-full flex flex-col mb-4
-                ${className}`}
-            >
-                <div className="mb-2 border-b-2 pb-1 border-b-default-13 dark:border-b-default-18-dark">
-                    <p className="pl-2 text-base md:text-xl text-orange-400 font-ligh">
-                        {sortedComments.length} Comments
-                    </p>
-                </div>
+    return (
+        <>
+            {status === "pending" && (
+                <LoadingSpinner>Loading Comments... 🐶</LoadingSpinner>
+            )}
 
-                <CommentWriteArea
-                    postId={postId}
-                    refreshComments={refreshComments}
-                    className="mt-2 mb-[3.75rem]"
-                />
+            {status === "success" && (
+                <div className="w-full flex flex-col mb-4">
+                    <div className="mb-2 border-b-2 pb-1 border-b-default-13 dark:border-b-default-18-dark">
+                        <p className="pl-2 text-base md:text-xl text-orange-400 font-ligh">
+                            {data.length} Comments
+                        </p>
+                    </div>
 
-                {sortedComments.map((comment) => (
-                    <Comment
-                        key={comment.Id}
-                        comment={comment}
+                    <CommentWriteArea
                         postId={postId}
-                        refreshComments={refreshComments}
+                        className="mt-2 mb-[3.75rem]"
                     />
-                ))}
-            </div>
-        );
-    }
-);
+
+                    {data.map((comment) => (
+                        <Comment
+                            key={comment.Id}
+                            comment={comment}
+                            postId={postId}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {fetchStatus === "fetching" && (
+                <PageLoadingSpinner>Comments Re-loading...</PageLoadingSpinner>
+            )}
+
+            {status === "error" && (
+                <ErrorMessageWrapper>
+                    Failed to fetch comments. Probably because the server is
+                    currently down...🙄
+                </ErrorMessageWrapper>
+            )}
+        </>
+    );
+});
 
 export default Comments;

@@ -32,9 +32,7 @@ function NavigationBar({
     const curLocation = useLocation();
 
     const isOnCategory = useMemo(
-        () =>
-            curLocation.pathname.startsWith("/categories/") ||
-            curLocation.pathname.startsWith("/recent-posts/"),
+        () => curLocation.pathname.startsWith("/categories/"),
         [curLocation.pathname]
     );
 

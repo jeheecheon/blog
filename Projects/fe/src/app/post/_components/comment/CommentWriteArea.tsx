@@ -7,27 +7,22 @@ import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
 import AvatarDefault from "@/post/_assets/images/AvatarDefault";
 import { selectIsSignedIn, selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CommentWriteAreaProps {
     postId: string;
     replyingTo?: string;
     handleCancelClicked?: () => void | undefined;
-    refreshComments: () => void;
     className?: string;
 }
 
 const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
-    ({
-        postId,
-        replyingTo,
-        handleCancelClicked,
-        refreshComments,
-        className,
-    }) => {
+    ({ postId, replyingTo, handleCancelClicked, className }) => {
         const user = useSelector(selectUser);
         const isSignedIn = useSelector(selectIsSignedIn);
         const dispatch = useDispatch();
         const [content, setContent] = useState("");
+        const queryClient = useQueryClient();
 
         const handleType: React.ChangeEventHandler<HTMLTextAreaElement> = (
             e
@@ -65,7 +60,9 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
             )
                 .then((res) => {
                     if (res.ok) {
-                        refreshComments();
+                        queryClient.invalidateQueries({
+                            queryKey: ["comments", postId],
+                        });
                         setContent("");
                     } else {
                         throwResponse(res);

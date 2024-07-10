@@ -23,4 +23,7 @@ export const categorySlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { setLeafCategories } = categorySlice.actions;
 
+export const selectLeafCategories = (state: { category: categoryState }) =>
+    state.category.leafCategories;
+
 export default categorySlice.reducer;
