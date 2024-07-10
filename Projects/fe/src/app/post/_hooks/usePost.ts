@@ -1,5 +1,4 @@
 import { PostInfo } from "@/_types/Post";
-import { convertStringIntoDate } from "@/_utils/post";
 import { throwError, throwResponse } from "@/_utils/responses";
 import { QueryFunctionContext, QueryKey, UndefinedInitialDataOptions, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -20,8 +19,6 @@ export const getPostById = async ({ queryKey }: QueryFunctionContext) => {
         })
         .then((post: PostInfo) => {
             if (!post) throwError("Post is null or undefined");
-
-            convertStringIntoDate(post);
             return post;
         });
 };

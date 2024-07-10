@@ -1,6 +1,5 @@
 import { LoaderFunction, redirect } from "react-router-dom";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
-import { convertStringIntoDate } from "@/_utils/post";
 
 export const postLoader: LoaderFunction = async ({ params }) => {
     return fetch(
@@ -19,7 +18,6 @@ export const postLoader: LoaderFunction = async ({ params }) => {
         })
         .then((post) => {
             if (post) {
-                convertStringIntoDate(post);
                 return post;
             } else {
                 throwError("Post is null or undefined");
@@ -42,7 +40,6 @@ export const aboutMeLoader: LoaderFunction = async () => {
         })
         .then((post) => {
             if (post) {
-                convertStringIntoDate(post);
                 return post;
             } else {
                 throwError("Post is null or undefined");
@@ -65,7 +62,6 @@ export const privacyPolicyLoader: LoaderFunction = async () => {
         })
         .then((post) => {
             if (post) {
-                convertStringIntoDate(post);
                 return post;
             } else {
                 throwError("Post is null or undefined");

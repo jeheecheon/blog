@@ -167,8 +167,12 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
 
                     <div className="absolute translate-y-[1rem] text-default-13-dark dark:text-default-12 font-light text-[0.75rem]">
                         {post.EditedAt !== undefined && post.EditedAt !== null
-                            ? `Edited: ${post.EditedAt.toLocaleDateString()}`
-                            : `Published: ${post.UploadedAt.toLocaleDateString()}`}
+                            ? `Edited: ${new Date(
+                                  post.EditedAt
+                              ).toLocaleDateString()}`
+                            : `Published: ${new Date(
+                                  post.UploadedAt
+                              ).toLocaleDateString()}`}
                     </div>
 
                     <div className="text-left w-full blog-post-content pb-5 md:pb-10 text-pretty">

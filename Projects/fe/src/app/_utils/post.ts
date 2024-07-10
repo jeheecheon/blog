@@ -1,22 +1,5 @@
 import { PostInfo, PostSummary } from "@/_types/Post";
 
-export const convertStringIntoDate = (
-    data: PostInfo[] | PostInfo | PostSummary[] | PostSummary
-) => {
-    if (Array.isArray(data)) {
-        data.forEach((ele) => {
-            ele.UploadedAt = new Date(Date.parse(ele.UploadedAt.toString()));
-            if (ele.EditedAt !== undefined && ele.EditedAt !== null)
-                ele.EditedAt = new Date(Date.parse(ele.EditedAt.toString()));
-        });
-    } else {
-        data.UploadedAt = new Date(Date.parse(data.UploadedAt.toString()));
-        if (data.EditedAt !== undefined && data.EditedAt !== null)
-            data.EditedAt = new Date(Date.parse(data.EditedAt.toString()));
-    }
-    return data;
-};
-
 export const createSlug = (title: string) => {
     return title
         .toLowerCase() // 모든 문자를 소문자로 변환
@@ -28,6 +11,6 @@ export const createSlug = (title: string) => {
 
 export const sortPostsByUploadedAt = (posts: PostInfo[] | PostSummary[]) => {
     // Sort posts by descending order of UploadedAt date
-    posts.sort((a, b) => b.UploadedAt.getTime() - a.UploadedAt.getTime());
+    posts.sort((a, b) => (new Date(b.UploadedAt)).getTime() - (new Date(a.UploadedAt)).getTime());
     return posts;
 };

@@ -13,7 +13,7 @@ import CustomQuill from "@/post/edit/_components/quill/CustomQuill";
 import CustomQuillToolbar from "@/post/edit/_components/quill/CustomQuillToolbar";
 
 import { PostInfo, PostSummary } from "@/_types/Post";
-import { convertStringIntoDate, sortPostsByUploadedAt } from "@/_utils/post";
+import { sortPostsByUploadedAt } from "@/_utils/post";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 
 import "react-quill/dist/quill.snow.css";
@@ -57,7 +57,6 @@ const PostEdit = () => {
             })
             .then((PostSummary: PostSummary[]) => {
                 if (PostSummary && PostSummary.length > 0) {
-                    convertStringIntoDate(PostSummary);
                     sortPostsByUploadedAt(PostSummary);
                     setPostsList(PostSummary);
                     // handlePostIdSelected(PostSummary[0].Id);
@@ -95,7 +94,6 @@ const PostEdit = () => {
                     if (!post) {
                         throwError("Post is null or undefined");
                     } else {
-                        convertStringIntoDate(post);
                         setPostEditing(post);
                         if (post.Cover !== undefined && post.Cover !== null) {
                             dispatch(setCoverImageUrl(post.Cover));

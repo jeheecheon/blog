@@ -44,9 +44,9 @@ export const sortComments = (comments: CommentInfo[]) => {
     return sortedComments;
 };
 
-export const getTimeAgo = (uploadedAt: Date): string => {
+export const getTimeAgo = (uploadedAt: string): string => {
     const now = new Date();
-    const timeDifference = now.getTime() - uploadedAt.getTime();
+    const timeDifference = now.getTime() - (new Date(uploadedAt)).getTime();
 
     const minute = 60 * 1000;
     const hour = minute * 60;

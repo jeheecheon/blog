@@ -27,6 +27,7 @@ export const getCommentsByPostId = async ({
             const sortedComments: CommentInfo[] = sortComments(
                 convertStringDateIntoDate(comments.map((c) => c))
             );
+            console.log("new");
             return sortedComments;
         });
 };
@@ -40,7 +41,7 @@ export const getCommentsQueryOption = (id: string | undefined) => {
     > = {
         queryKey: ["comments", id],
         queryFn: getCommentsByPostId,
-        staleTime: 1000 * 5
+        staleTime: 1000 * 60 * 5,
     };
 
     return commentsQueryOption;

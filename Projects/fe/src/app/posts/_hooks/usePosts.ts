@@ -1,5 +1,5 @@
 import { PostInfo } from "@/_types/Post";
-import { convertStringIntoDate, sortPostsByUploadedAt } from "@/_utils/post";
+import { sortPostsByUploadedAt } from "@/_utils/post";
 import { throwError, throwResponse } from "@/_utils/responses";
 import {
     QueryFunctionContext,
@@ -41,7 +41,7 @@ export const getPostsByCategoryAndPageNumber = async ({
             if (!posts) throwError("No data found");
 
             const sortedPosts: PostInfo[] = sortPostsByUploadedAt(
-                convertStringIntoDate([...posts]) as PostInfo[]
+                posts
             ) as PostInfo[];
 
             return sortedPosts;

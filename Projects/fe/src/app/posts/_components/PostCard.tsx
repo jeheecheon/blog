@@ -24,7 +24,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                 className="flex justify-between text-slate-400 dark:text-slate-500 text-[0.69rem]
                 group-hover:scale-[104%] transition-all duration-1000"
             >
-                {post.UploadedAt.toLocaleDateString()}
+                {(new Date(post.UploadedAt)).toLocaleDateString()}
             </div>
 
             <div

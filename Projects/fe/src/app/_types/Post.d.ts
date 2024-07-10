@@ -1,8 +1,8 @@
 export interface PostInfo {
     Id: string,
     Title: string,
-    UploadedAt: Date,
-    EditedAt?: Date,
+    UploadedAt: string,
+    EditedAt?: string,
     Cover?: string,
     CategoryId?: string,
     Content: string,
@@ -15,6 +15,6 @@ export interface PostInfo {
 export interface PostSummary {
     Id: string,
     Title: string,
-    UploadedAt: Date,
-    EditedAt?: Date,
+    UploadedAt: string,
+    EditedAt?: string,
 }
