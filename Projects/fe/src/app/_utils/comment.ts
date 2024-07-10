@@ -2,19 +2,11 @@ import CommentInfo from "@/_types/Comment";
 import DOMPurify from "isomorphic-dompurify";
 import parse from "html-react-parser";
 
-export const convertStringDateIntoDate = (comments: CommentInfo[]) => {
-    comments.forEach(
-        (ele) =>
-            (ele.UploadedAt = new Date(Date.parse(ele.UploadedAt.toString())))
-    );
-    return comments;
-};
-
 export const sortComments = (comments: CommentInfo[]) => {
     // Sort comments based on the uploaded_at property in ascending order
     comments.sort(
         (a, b) =>
-            (a.UploadedAt as Date).getTime() - (b.UploadedAt as Date).getTime()
+            new Date(a.UploadedAt).getTime() - new Date(b.UploadedAt).getTime()
     );
 
     // Create a map to store comments organized by parent_comment_id
@@ -46,7 +38,7 @@ export const sortComments = (comments: CommentInfo[]) => {
 
 export const getTimeAgo = (uploadedAt: string): string => {
     const now = new Date();
-    const timeDifference = now.getTime() - (new Date(uploadedAt)).getTime();
+    const timeDifference = now.getTime() - new Date(uploadedAt).getTime();
 
     const minute = 60 * 1000;
     const hour = minute * 60;

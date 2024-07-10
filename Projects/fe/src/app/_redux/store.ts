@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import signInModalReducer from "@/_redux/signInModalSlice";
 import userReducer from "@/_redux/userSlice";
 import coverReducer from "@/_redux/coverSlice";
-import categoryReducer from "@/_redux/categorySlice";
 import themeReducer from "@/_redux/themeSlice";
 import musicReducer from "@/_redux/musicSlice";
 
@@ -11,7 +10,6 @@ export const store = configureStore({
         signInModal: signInModalReducer,
         user: userReducer,
         cover: coverReducer,
-        category: categoryReducer,
         theme: themeReducer,
         music: musicReducer,
     },

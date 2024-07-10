@@ -4,14 +4,20 @@ import { Link, useParams } from "react-router-dom";
 import PostCard from "@/posts/_components/PostCard";
 import { createSlug } from "@/_utils/post";
 import MetaData from "@/posts/metadata";
-import { usePosts } from "@/posts/_hooks/usePosts";
+import { getPostsQueryOption } from "@/posts/_hooks/usePosts";
 import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
+import { useQueries } from "@tanstack/react-query";
+import { getMaxPageNumQueryOption } from "@/_hooks/useMaxPageNum";
 
 const PostsPage: React.FC = () => {
-    const { category } = useParams();
-
-    const { data, status } = usePosts();
+    const { category, page } = useParams();
+    const [postsQuery, maxPageNumQuery] = useQueries({
+        queries: [
+            getPostsQueryOption(category, page),
+            getMaxPageNumQueryOption(category),
+        ],
+    });
 
     return (
         <>
@@ -31,13 +37,14 @@ const PostsPage: React.FC = () => {
                     className="flex flex-col items-center mt-[1.875rem] md:mt-[3.125rem] w-full
                     transition-opacity duration-1000 animate-fade-in-bouncing"
                 >
-                    {status === "pending" && (
+                    {postsQuery.isPending && maxPageNumQuery.isPending && (
                         <LoadingSpinner>Posts Loading...</LoadingSpinner>
                     )}
 
-                    {status == "success" &&
-                        !!data &&
-                        data.map((p) => (
+                    {postsQuery.isSuccess &&
+                        maxPageNumQuery.isSuccess &&
+                        !!postsQuery.data &&
+                        postsQuery.data.map((p) => (
                             <Link
                                 to={`/post/${p.Id}/${createSlug(p.Title)}`}
                                 key={p.Id}
@@ -48,12 +55,13 @@ const PostsPage: React.FC = () => {
                             </Link>
                         ))}
 
-                    {status === "error" && (
-                        <ErrorMessageWrapper>
-                            Failed to fetch posts. Probably because the server
-                            is currently down...🙄
-                        </ErrorMessageWrapper>
-                    )}
+                    {postsQuery.isError ||
+                        (maxPageNumQuery.isError && (
+                            <ErrorMessageWrapper>
+                                Failed to fetch posts. Probably because the
+                                server is currently down...🙄
+                            </ErrorMessageWrapper>
+                        ))}
                 </nav>
             </div>
 

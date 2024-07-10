@@ -1,5 +1,5 @@
 import CommentInfo from "@/_types/Comment";
-import { convertStringDateIntoDate, sortComments } from "@/_utils/comment";
+import { sortComments } from "@/_utils/comment";
 import { throwError, throwResponse } from "@/_utils/responses";
 import {
     QueryFunctionContext,
@@ -30,7 +30,7 @@ export const getCommentsByPostId = async ({
             if (!comments) throwError("Comments are null or undefined");
 
             const sortedComments: CommentInfo[] = sortComments(
-                convertStringDateIntoDate(comments.map((c) => c))
+                comments
             );
             return sortedComments;
         });

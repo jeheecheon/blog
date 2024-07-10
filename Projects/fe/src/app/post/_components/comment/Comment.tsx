@@ -119,7 +119,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                                         Site Owner
                                     </span>
                                     <span className="text-default-18-dark text-xs break-all">
-                                        {getTimeAgo(comment.UploadedAt as Date)}
+                                        {getTimeAgo(comment.UploadedAt)}
                                     </span>
                                 </div>
                                 <p className="dark:text-default-14 text-[0.8rem] break-all">

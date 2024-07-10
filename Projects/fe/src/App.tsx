@@ -7,9 +7,8 @@ import {
     createRoutesFromElements,
 } from "react-router-dom";
 
-import { postEditLoader, postPageCntLoader } from "@/_utils/loaders";
+import { postEditLoader } from "@/_utils/loaders";
 import { authenticateUserAsync } from "@/_utils/user";
-import { fetchLeafCategoriesAsync } from "@/_utils/category";
 
 import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
 
@@ -39,7 +38,6 @@ const App = () => {
                     }
                     loader={async () => {
                         authenticateUserAsync(dispatch);
-                        fetchLeafCategoriesAsync(dispatch);
                         return null;
                     }}
                 >
@@ -65,7 +63,6 @@ const App = () => {
                                     <PostsPage />
                                 </Suspense>
                             }
-                            loader={postPageCntLoader}
                         />
                     </Route>
 

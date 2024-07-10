@@ -1,16 +1,15 @@
-import { selectLeafCategories } from "@/_redux/categorySlice";
+import useLeafCategories from "@/_hooks/useLeafCategories";
 import { PostInfo } from "@/_types/Post";
 import { flattenOutCategoriesV2 } from "@/_utils/category";
 import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
-import { useSelector } from "react-redux";
 
 interface MetadataProps {
     post: PostInfo | undefined;
 }
 
 const Metadata = ({ post }: MetadataProps) => {
-    const leafCategories = useSelector(selectLeafCategories);
+    const { leafCategories } = useLeafCategories();
 
     const categories = useMemo(() => {
         if (!post) return null;

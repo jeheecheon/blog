@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/_redux/store";
+import { useDispatch } from "react-redux";
 import { setCoverImageUrl } from "@/_redux/coverSlice";
 
 import { Helmet } from "react-helmet-async";
@@ -17,12 +16,11 @@ import { sortPostsByUploadedAt } from "@/_utils/post";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 
 import "react-quill/dist/quill.snow.css";
+import useLeafCategories from "@/_hooks/useLeafCategories";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
-    const leafCategories = useSelector(
-        (state: RootState) => state.category.leafCategories
-    );
+    const { leafCategories } = useLeafCategories();
 
     const [postsList, setPostsList] = useState<PostSummary[]>();
     const [selectedPostIdToEdit, setSelectedPostIdToEdit] = useState("");

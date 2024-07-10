@@ -6,7 +6,6 @@ import parse from "html-react-parser";
 import DOMPurify from "isomorphic-dompurify";
 
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/_redux/store";
 import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
 import { selectIsSignedIn } from "@/_redux/userSlice";
 import { setCoverImageUrl, setTitleOnCover } from "@/_redux/coverSlice";
@@ -22,6 +21,7 @@ import LikeFilled from "@/post/_assets/images/like-filled.svg?react";
 import Like from "@/post/_assets/images/like.svg?react";
 import Share from "@/post/_assets/images/share.svg?react";
 import "@/post/_assets/css/Article.scss";
+import useLeafCategories from "@/_hooks/useLeafCategories";
 
 DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
     if (node.tagName === "IFRAME") {
@@ -39,9 +39,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
         const dispatch = useDispatch();
         const isSignedIn = useSelector(selectIsSignedIn);
         const location = useLocation();
-        const leafCategories = useSelector(
-            (state: RootState) => state.category.leafCategories
-        );
+        const { leafCategories } = useLeafCategories();
 
         const content = useMemo<string | JSX.Element | JSX.Element[]>(
             () =>

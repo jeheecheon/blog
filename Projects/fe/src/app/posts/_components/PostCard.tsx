@@ -1,20 +1,17 @@
 import { PostInfo } from "@/_types/Post";
-import { useSelector } from "react-redux";
-import { RootState } from "@/_redux/store";
 import { flattenOutCategoriesV1 } from "@/_utils/category";
 import React from "react";
 import Like from "@/post/_assets/images/like-filled.svg?react";
 import CommentSvg from "@/post/_assets/images/comment.svg?react";
+import useLeafCategories from "@/_hooks/useLeafCategories";
 
 interface PostCardProps {
     className?: string;
     post: PostInfo;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
-    const leafCategories = useSelector(
-        (state: RootState) => state.category.leafCategories
-    );
+const PostCard: React.FC<PostCardProps> = React.memo(({ className, post }) => {
+    const { leafCategories } = useLeafCategories();
 
     return (
         <article
@@ -24,7 +21,7 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                 className="flex justify-between text-slate-400 dark:text-slate-500 text-[0.69rem]
                 group-hover:scale-[104%] transition-all duration-1000"
             >
-                {(new Date(post.UploadedAt)).toLocaleDateString()}
+                {new Date(post.UploadedAt).toLocaleDateString()}
             </div>
 
             <div
@@ -53,22 +50,18 @@ const PostCard: React.FC<PostCardProps> = ({ className, post }) => {
                     {/* Comments */}
                     <div className="flex flex-row items-center gap-1">
                         <CommentSvg className="fill-orange-400 dark:fill-orange-500" />
-                        <span className="w-[1.0625rem]">
-                            {post.CommentCnt}
-                        </span>
+                        <span className="w-[1.0625rem]">{post.CommentCnt}</span>
                     </div>
 
                     {/* Likes */}
                     <div className="flex flex-row items-center gap-1">
                         <Like className="fill-orange-500 dark:fill-red-500" />
-                        <span className="w-[1.0625rem]">
-                            {post.LikeCnt}
-                        </span>
+                        <span className="w-[1.0625rem]">{post.LikeCnt}</span>
                     </div>
                 </div>
             </div>
         </article>
     );
-};
+});
 
 export default PostCard;
