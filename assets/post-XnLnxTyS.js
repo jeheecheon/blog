@@ -1,0 +1,1 @@
+const a=e=>e.toLowerCase().replace(/[^\w\sㄱ-힣]/g,"").trim().replace(/\s+/g,"-").replace(/-+/g,"-"),o=e=>(e.sort((t,r)=>new Date(r.UploadedAt).getTime()-new Date(t.UploadedAt).getTime()),e);export{a as c,o as s};
