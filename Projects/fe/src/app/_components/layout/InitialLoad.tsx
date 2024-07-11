@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectIsDarkMode } from "@/_redux/themeSlice";
 
 import { setThemeColor } from "@/_assets/ts/theme";
@@ -11,10 +11,16 @@ import SignInModal from "@/_components/modal/SignInModal";
 import Header from "@/_components/layout/Header";
 
 import "@/_assets/css/scrollbar.css";
+import { authenticateUserAsync } from "@/_utils/user";
 
 function InitialLoad() {
     const isDarkMode = useSelector(selectIsDarkMode);
     const location = useLocation();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        authenticateUserAsync(dispatch);
+    }, []);
 
     useEffect(() => {
         if (isDarkMode === true) {

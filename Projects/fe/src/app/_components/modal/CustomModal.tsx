@@ -45,10 +45,9 @@ const CustomModal = ({
         if (isOpen) {
             modalOverlayRef.current?.classList.remove("invisible");
         } else {
-            console.log("Hello");
             setTimeout(() => {
                 modalOverlayRef.current?.classList.add("invisible");
-            }, 600);
+            }, 1000);
         }
     }, [isOpen]);
 
@@ -56,7 +55,7 @@ const CustomModal = ({
         <div
             ref={modalOverlayRef}
             className={`modal-overlay fixed top-0 left-0 w-full h-[100dvh] bg-gray-800/35
-            flex justify-center items-center transition-all duration-500 z-[30]
+            flex justify-center items-center transition-all duration-1000 z-[30]
             ${isOpen ? "opacity-100 " : "opacity-0 pointer-events-none"}`}
         >
             <div

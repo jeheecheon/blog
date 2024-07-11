@@ -1,5 +1,4 @@
 import { Suspense, lazy } from "react";
-import { useDispatch } from "react-redux";
 import {
     Route,
     RouterProvider,
@@ -8,7 +7,6 @@ import {
 } from "react-router-dom";
 
 import { postEditLoader } from "@/_utils/loaders";
-import { authenticateUserAsync } from "@/_utils/user";
 
 import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
 
@@ -18,28 +16,29 @@ const InitialLoad = lazy(() => import("@/_components/layout/InitialLoad"));
 const BlogLayout = lazy(() => import("@/layout"));
 const PostLayout = lazy(() => import("@/post/layout"));
 
-import OauthGoogleSignin from "@/oauth/google/sign-in/page";
 const BlogPage = lazy(() => import("@/page"));
 const PostPage = lazy(() => import("@/post/page"));
 const PostsPage = lazy(() => import("@/posts/page"));
 const PostEditPage = lazy(() => import("@/post/edit/page"));
 
-const App = () => {
-    const dispatch = useDispatch();
+import OauthGoogleSignin from "@/oauth/google/sign-in/page";
 
+const App = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <Route errorElement={<ErrorArea />}>
+            <Route
+                errorElement={
+                    <Suspense fallback={<PageLoadingSpinner />}>
+                        <ErrorArea />
+                    </Suspense>
+                }
+            >
                 <Route
                     element={
                         <Suspense fallback={<PageLoadingSpinner />}>
                             <InitialLoad />
                         </Suspense>
                     }
-                    loader={async () => {
-                        authenticateUserAsync(dispatch);
-                        return null;
-                    }}
                 >
                     <Route
                         element={
