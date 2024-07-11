@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
     selectIsSignInModalOpen,
-    setIsSignOnModalOpen,
+    setIsSignInModalOpen,
 } from "@/_redux/signInModalSlice";
 
 import GoogleLoginButton from "@/_components/ui/GoogleLoginButton";
@@ -14,7 +14,7 @@ const SignInModal = () => {
 
     return (
         <CustomModal
-            onClose={() => dispatch(setIsSignOnModalOpen(false))}
+            onClose={() => dispatch(setIsSignInModalOpen(false))}
             isOpen={isSignInModalOpen}
         >
             <div className="flex flex-col px-6 pt-3 pb-2">

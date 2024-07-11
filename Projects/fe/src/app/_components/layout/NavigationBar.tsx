@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import ArrowDown from "@/_assets/images/arrow-down.svg?react";
 import CategoryMenu from "@/_components/layout/CategoryMenu";
-import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
+import { setIsSignInModalOpen } from "@/_redux/signInModalSlice";
 import { signOut } from "@/_utils/user";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLinkRenderProps } from "@/_types/Navigation";
@@ -100,7 +100,7 @@ function NavigationBar({
                     if (isSignedIn) {
                         signOut();
                     } else {
-                        dispatch(setIsSignOnModalOpen(true));
+                        dispatch(setIsSignInModalOpen(true));
                     }
                 }}
             >

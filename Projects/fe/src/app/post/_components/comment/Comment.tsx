@@ -10,7 +10,7 @@ import CommentSvg from "@/post/_assets/images/comment.svg?react";
 
 import parse from "html-react-parser";
 import DOMPurify from "isomorphic-dompurify";
-import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
+import { setIsSignInModalOpen } from "@/_redux/signInModalSlice";
 import Avatar from "@/_components/ui/Avatar";
 import ButtonInCommentBox from "@/post/_components/comment/ButtonInCommentBox";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
@@ -37,7 +37,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
         const handleLikeCliked = () => {
             if (isLoadingLikes.current === true) return;
             if (isSignedIn === false) {
-                dispatch(setIsSignOnModalOpen(false));
+                dispatch(setIsSignInModalOpen(true));
                 return;
             }
 
@@ -148,7 +148,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                             <ButtonInCommentBox
                                 onClick={() => {
                                     if (isSignedIn === false) {
-                                        dispatch(setIsSignOnModalOpen(false));
+                                        dispatch(setIsSignInModalOpen(true));
                                         return;
                                     }
                                     setIsReplying(!isReplying);

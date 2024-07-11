@@ -14,7 +14,7 @@ export const signInModalSlice = createSlice({
     name: "signInModal",
     initialState,
     reducers: {
-        setIsSignOnModalOpen: (state, action: PayloadAction<boolean>) => {
+        setIsSignInModalOpen: (state, action: PayloadAction<boolean>) => {
             state.isSignInModalOpen = action.payload;
         },
     },
@@ -25,6 +25,7 @@ export function selectIsSignInModalOpen(state: RootState) {
 }
 
 // Action creators are generated for each case reducer function
-export const { setIsSignOnModalOpen } = signInModalSlice.actions;
+export const { setIsSignInModalOpen } =
+    signInModalSlice.actions;
 
 export default signInModalSlice.reducer;

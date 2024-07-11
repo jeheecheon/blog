@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "@/_components/ui/Button";
 import CustomTextArea from "@/post/_components/comment/CustomTextArea";
 import Avatar from "@/_components/ui/Avatar";
-import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
+import { setIsSignInModalOpen } from "@/_redux/signInModalSlice";
 import AvatarDefault from "@/post/_assets/images/AvatarDefault";
 import { selectIsSignedIn, selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
@@ -28,7 +28,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
             e
         ) => {
             if (isSignedIn === false) {
-                dispatch(setIsSignOnModalOpen(true));
+                dispatch(setIsSignInModalOpen(true));
             } else {
                 setContent(e.currentTarget.value);
             }
@@ -36,7 +36,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
 
         const handleUpload = () => {
             if (isSignedIn === false) {
-                dispatch(setIsSignOnModalOpen(true));
+                dispatch(setIsSignInModalOpen(true));
                 return;
             }
 

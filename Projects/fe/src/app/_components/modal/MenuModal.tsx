@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signOut } from "@/_utils/user";
-import { setIsSignOnModalOpen } from "@/_redux/signInModalSlice";
+import { setIsSignInModalOpen } from "@/_redux/signInModalSlice";
 import { selectIsSignedIn } from "@/_redux/userSlice";
 import CustomModal from "./CustomModal";
 
@@ -94,7 +94,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ setIsOpen, isOpen }) => {
                                 signOut();
                             } else {
                                 setIsOpen(false);
-                                dispatch(setIsSignOnModalOpen(true));
+                                dispatch(setIsSignInModalOpen(true));
                             }
                         }}
                     >
