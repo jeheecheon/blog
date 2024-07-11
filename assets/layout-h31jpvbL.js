@@ -1,4 +1,4 @@
-import{j as r,O as a,S as l}from"./index-Cf5YIlTn.js";import{F as x}from"./Footer-oRBAm3ld.js";const m=({className:e})=>r.jsxs(r.Fragment,{children:[r.jsxs("div",{className:`dark:bg-[#101010] bg-default-5 dark:text-default-7 text-default-1-dark w-full
+import{j as r,O as a,S as l}from"./index-9W1KTeE0.js";import{F as x}from"./Footer-NLSFqoCe.js";const m=({className:e})=>r.jsxs(r.Fragment,{children:[r.jsxs("div",{className:`dark:bg-[#101010] bg-default-5 dark:text-default-7 text-default-1-dark w-full
                 font-['Noto_Sans_KR'] min-h-full flex flex-col items-center md:px-8 lg:px-10 xl:px-0 ${e}`,children:[r.jsx("main",{className:`sm:px-[1.875rem] lg:px-[3.75rem] xl:mx-auto max-w-[76.25rem] bg-body pt-[5.938rem]\r
                     border-x-[0.0625rem] dark:border-x-default-5-dark border-x-default-7 grow w-full`,children:r.jsx("div",{className:"px-6 md:px-10 ",children:r.jsx(a,{})})}),r.jsx(x,{className:`w-full max-w-[76.25rem] bg-body sm:px-[1.875rem] lg:px-[3.75rem] xl:mx-auto\r
                     border-x-[0.0625rem] dark:border-x-default-5-dark border-x-default-7`})]}),r.jsx(l,{})]});export{m as default};
