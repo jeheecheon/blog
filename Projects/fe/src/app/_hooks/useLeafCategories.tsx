@@ -1,6 +1,6 @@
 import CategoryInfo from "@/_types/Category";
 import { throwError, throwResponse } from "@/_utils/responses";
-import { useQuery } from "@tanstack/react-query";
+import { UndefinedInitialDataOptions, useQuery } from "@tanstack/react-query";
 
 const getLeafCategories = async () => {
     return await fetch(
@@ -22,13 +22,24 @@ const getLeafCategories = async () => {
         });
 };
 
-const useLeafCategories = () => {
-    const query = useQuery({
+export const getLeafCategoryQueryOption = () => {
+    const leafCategoryQueryOption: UndefinedInitialDataOptions<
+        CategoryInfo[],
+        Error,
+        CategoryInfo[],
+        string[]
+    > = {
         queryKey: ["leafCategories"],
         queryFn: getLeafCategories,
         staleTime: 1000 * 60 * 60 * 24 * 7,
         gcTime: 1000 * 60 * 60 * 24 * 7,
-    });
+    };
+
+    return leafCategoryQueryOption;
+};
+
+const useLeafCategories = () => {
+    const query = useQuery(getLeafCategoryQueryOption());
 
     return { ...query, leafCategories: query.data ?? ([] as CategoryInfo[]) };
 };

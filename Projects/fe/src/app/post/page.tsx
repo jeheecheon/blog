@@ -4,24 +4,26 @@ import Metadata from "./metadata";
 import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
 import { usePost } from "@/post/_hooks/usePost";
 import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
+import useLeafCategories from "@/_hooks/useLeafCategories";
 
 const Post = () => {
-    const { post, status } = usePost();
+    const postQuery = usePost();
+    const leafCategoriesQuery = useLeafCategories();
 
     return (
         <>
-            {status === "pending" && <PageLoadingSpinner />}
-
-            {status === "success" && post && <ArticleViewWrapper post={post} />}
-
-            {status === "error" && (
+            {postQuery.isPending || leafCategoriesQuery.isPending ? (
+                <PageLoadingSpinner />
+            ) : postQuery.isSuccess && leafCategoriesQuery.isSuccess ? (
+                postQuery.post && <ArticleViewWrapper post={postQuery.post} />
+            ) : (
                 <ErrorMessageWrapper>
                     Failed to fetch a post. Probably because the server is
                     currently down...🙄
                 </ErrorMessageWrapper>
             )}
 
-            <Metadata post={post} />
+            <Metadata post={postQuery.post} />
         </>
     );
 };

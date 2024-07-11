@@ -38,7 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     <ReduxProvider store={store}>
                         <App />
                     </ReduxProvider>
-                    <ReactQueryDevtools initialIsOpen={true} />
+                    <ReactQueryDevtools initialIsOpen={false} />
                 </PersistQueryClientProvider>
             </HelmetProvider>
         </StrictMode>

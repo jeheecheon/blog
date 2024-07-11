@@ -9,13 +9,15 @@ import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
 import { useQueries } from "@tanstack/react-query";
 import { getMaxPageNumQueryOption } from "@/_hooks/useMaxPageNum";
+import { getLeafCategoryQueryOption } from "@/_hooks/useLeafCategories";
 
 const PostsPage: React.FC = () => {
     const { category, page } = useParams();
-    const [postsQuery, maxPageNumQuery] = useQueries({
+    const [postsQuery, maxPageNumQuery, leafCategoriesQuery] = useQueries({
         queries: [
             getPostsQueryOption(category, page),
             getMaxPageNumQueryOption(category),
+            getLeafCategoryQueryOption(),
         ],
     });
 
@@ -37,12 +39,13 @@ const PostsPage: React.FC = () => {
                     className="flex flex-col items-center mt-[1.875rem] md:mt-[3.125rem] w-full
                     transition-opacity duration-1000 animate-fade-in-bouncing"
                 >
-                    {postsQuery.isPending && maxPageNumQuery.isPending && (
+                    {postsQuery.isPending ||
+                    maxPageNumQuery.isPending ||
+                    leafCategoriesQuery.isPending ? (
                         <LoadingSpinner>Posts Loading...</LoadingSpinner>
-                    )}
-
-                    {postsQuery.isSuccess &&
-                        maxPageNumQuery.isSuccess &&
+                    ) : postsQuery.isSuccess &&
+                      maxPageNumQuery.isSuccess &&
+                      leafCategoriesQuery.isSuccess ? (
                         !!postsQuery.data &&
                         postsQuery.data.map((p) => (
                             <Link
@@ -53,15 +56,13 @@ const PostsPage: React.FC = () => {
                             >
                                 <PostCard post={p} />
                             </Link>
-                        ))}
-
-                    {postsQuery.isError ||
-                        (maxPageNumQuery.isError && (
-                            <ErrorMessageWrapper>
-                                Failed to fetch posts. Probably because the
-                                server is currently down...🙄
-                            </ErrorMessageWrapper>
-                        ))}
+                        ))
+                    ) : (
+                        <ErrorMessageWrapper>
+                            Failed to fetch posts. Probably because the server
+                            is currently down...🙄
+                        </ErrorMessageWrapper>
+                    )}
                 </nav>
             </div>
 
