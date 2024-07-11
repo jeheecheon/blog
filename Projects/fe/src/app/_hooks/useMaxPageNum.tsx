@@ -39,6 +39,8 @@ export const getMaxPageNumQueryOption = (category: string | undefined) => {
     > = {
         queryKey: ["maxPageNum", category],
         queryFn: getMaxPageNum,
+        staleTime: 1000 * 60 * 60 * 24 * 1,
+        gcTime: 1000 * 60 * 60 * 24 * 1,
     };
 
     return maxPageNumQueryOption;

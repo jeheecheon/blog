@@ -111,8 +111,10 @@ public class BlogController : ControllerBase
         var result = await _blogService.SetPostHasLikedAsync(post_id, has_liked);
         if (result)
             return Ok(JsonSerializer.Serialize(has_liked));
-        else
+        else{
+            System.Console.WriteLine("asdasdasdasdasdasdasdasd");
             return BadRequest();
+        }
     }
 
     [HttpPost("comment/{comment_id}/has-liked")]

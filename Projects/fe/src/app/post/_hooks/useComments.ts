@@ -44,9 +44,7 @@ export const getCommentsQueryOption = (id: string | undefined) => {
         QueryKey
     > = {
         queryKey: ["comments", id],
-        queryFn: getCommentsByPostId,
-        staleTime: 1000 * 10,
-        gcTime: 1000 * 30,
+        queryFn: getCommentsByPostId
     };
 
     return commentsQueryOption;

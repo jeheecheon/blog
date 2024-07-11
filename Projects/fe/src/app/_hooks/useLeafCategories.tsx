@@ -26,6 +26,8 @@ const useLeafCategories = () => {
     const query = useQuery({
         queryKey: ["leafCategories"],
         queryFn: getLeafCategories,
+        staleTime: 1000 * 60 * 60 * 24 * 7,
+        gcTime: 1000 * 60 * 60 * 24 * 7,
     });
 
     return { ...query, leafCategories: query.data ?? ([] as CategoryInfo[]) };

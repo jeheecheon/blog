@@ -36,7 +36,7 @@ export const getPostQueryOption = (id: string | undefined) => {
         QueryKey
     > = {
         queryKey: ["post", id],
-        queryFn: getPostById,
+        queryFn: getPostById
     };
 
     return postQueryOption;
@@ -53,5 +53,7 @@ export const usePost = () => {
             id = "f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a/static-like";
     }
 
-    return useQuery(getPostQueryOption(id));
+    const query = useQuery(getPostQueryOption(id));
+
+    return { ...query, post: query.data };
 };

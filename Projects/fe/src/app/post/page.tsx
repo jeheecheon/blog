@@ -6,13 +6,13 @@ import { usePost } from "@/post/_hooks/usePost";
 import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
 
 const Post = () => {
-    const { data, status } = usePost();
+    const { post, status } = usePost();
 
     return (
         <>
             {status === "pending" && <PageLoadingSpinner />}
 
-            {status === "success" && <ArticleViewWrapper post={data} />}
+            {status === "success" && post && <ArticleViewWrapper post={post} />}
 
             {status === "error" && (
                 <ErrorMessageWrapper>
@@ -21,7 +21,7 @@ const Post = () => {
                 </ErrorMessageWrapper>
             )}
 
-            <Metadata post={data} />
+            <Metadata post={post} />
         </>
     );
 };

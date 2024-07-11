@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 import parse from "html-react-parser";
@@ -22,6 +22,7 @@ import Like from "@/post/_assets/images/like.svg?react";
 import Share from "@/post/_assets/images/share.svg?react";
 import "@/post/_assets/css/Article.scss";
 import useLeafCategories from "@/_hooks/useLeafCategories";
+import { useQueryClient } from "@tanstack/react-query";
 
 DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
     if (node.tagName === "IFRAME") {
@@ -37,8 +38,10 @@ interface ArticleContentProps {
 const ArticleContent: React.FC<ArticleContentProps> = React.memo(
     ({ className, post }) => {
         const dispatch = useDispatch();
-        const isSignedIn = useSelector(selectIsSignedIn);
         const location = useLocation();
+        const queryClient = useQueryClient();
+
+        const isSignedIn = useSelector(selectIsSignedIn);
         const { leafCategories } = useLeafCategories();
 
         const content = useMemo<string | JSX.Element | JSX.Element[]>(
@@ -51,10 +54,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                 ),
             [post.Content]
         );
-        const [hasLiked, setHasLiked] = useState(post.HasLiked);
         const isLoadingLikes = useRef(false);
-
-        const [likes, setLikes] = useState(post.LikeCnt);
 
         useEffect(() => {
             if (post.Cover) {
@@ -74,8 +74,6 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                 }
             }
 
-            setLikes(post.LikeCnt);
-
             return () => {
                 if (location.pathname === "/post/edit") {
                     dispatch(
@@ -88,7 +86,7 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                 }
                 dispatch(setTitleOnCover(""));
             };
-        }, [post.Title, post.Cover, post.LikeCnt]);
+        }, [post.Cover, post.Title]);
 
         const handleLikeCliked = () => {
             if (isLoadingLikes.current === true) return;
@@ -98,7 +96,6 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
             }
 
             isLoadingLikes.current = true;
-
             fetch(
                 `${import.meta.env.VITE_SERVER_URL}/api/blog/post/${
                     post.Id
@@ -111,21 +108,35 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                             "jwt"
                         )}`,
                     },
-                    body: JSON.stringify(!hasLiked),
+                    body: JSON.stringify(!post.HasLiked),
                 }
             )
                 .then((res) => {
-                    if (res.ok) {
-                        return res.json();
+                    if (!res.ok) {
+                        throwResponse(res);
                     }
-                    throwResponse(res);
+                    return res.json();
                 })
-                .then((has_liked) => {
-                    if (has_liked === null || has_liked === undefined) {
+                .then((has_liked: boolean) => {
+                    if (has_liked === undefined || has_liked === null) {
                         throwError("Failed to like the post");
                     }
-                    setHasLiked(has_liked);
-                    setLikes(likes + (has_liked ? 1 : -1));
+                    
+                    // Remove the caches for the category pages
+                    // queryClient.removeQueries({
+                    //     queryKey: ["posts", "recently-published"]
+                    // })
+                    // queryClient.removeQueries({
+                    //     queryKey: ["posts", post.CategoryId]
+                    // })
+
+                    queryClient.setQueryData(["post", post.Id], {
+                        ...post,
+                        HasLiked: has_liked,
+                        LikeCnt: has_liked
+                            ? post.LikeCnt + 1
+                            : post.LikeCnt - 1,
+                    });
                 })
                 .catch(handleError)
                 .finally(() => {
@@ -184,8 +195,8 @@ const ArticleContent: React.FC<ArticleContentProps> = React.memo(
                             border-2 py-[0.375rem] px-3 fill-red-500
                             bg-default-1 dark:bg-default-3-dark dark:border-default-8-dark"
                         >
-                            {hasLiked ? <LikeFilled /> : <Like />}
-                            <span className="text-sm">{likes}</span>
+                            {post.HasLiked ? <LikeFilled /> : <Like />}
+                            <span className="text-sm">{post.LikeCnt}</span>
                         </button>
                         <button
                             className="flex flex-row justify-center gap-1 cursor-pointer border-2 py-[0.375rem] px-3 

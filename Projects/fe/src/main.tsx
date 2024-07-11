@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-// import { StrictMode } from "react";
+import { StrictMode } from "react";
 
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "@/_redux/store";
@@ -15,9 +15,10 @@ import App from "@/../App";
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            staleTime: 1000 * 60 * 60 * 24,
-            gcTime: 1000 * 60 * 60 * 12,
-            retry: 2
+            retry: 3,
+            retryDelay: 1000,
+            staleTime: 1000 * 60 * 60,
+            gcTime: 0,
         },
     },
 });
@@ -28,7 +29,7 @@ const persister = createSyncStoragePersister({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <>
-        {/* <StrictMode> */}
+        <StrictMode>
             <HelmetProvider>
                 <PersistQueryClientProvider
                     client={queryClient}
@@ -40,6 +41,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     <ReactQueryDevtools initialIsOpen={true} />
                 </PersistQueryClientProvider>
             </HelmetProvider>
-        {/* </StrictMode> */}
+        </StrictMode>
     </>
 );
