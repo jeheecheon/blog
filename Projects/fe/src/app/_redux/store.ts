@@ -3,7 +3,6 @@ import signInModalReducer from "@/_redux/signInModalSlice";
 import userReducer from "@/_redux/userSlice";
 import coverReducer from "@/_redux/coverSlice";
 import themeReducer from "@/_redux/themeSlice";
-import musicReducer from "@/_redux/musicSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +10,6 @@ export const store = configureStore({
         user: userReducer,
         cover: coverReducer,
         theme: themeReducer,
-        music: musicReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

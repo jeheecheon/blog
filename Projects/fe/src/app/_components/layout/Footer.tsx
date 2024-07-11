@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import MusicController from "@/_components/music/MusicController";
 
 interface FooterProps {
     className?: string;
@@ -12,9 +11,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             flex flex-col items-center pt-[1.875rem] pb-[1.875rem]
             ${className}`}
         >
-            <MusicController />
-
-            <Link to="/" className="flex items-end mt-10">
+            <Link to="/" className="flex items-end">
                 <span className="text-xs md:text-sm font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
                     BLOG
                 </span>
@@ -26,7 +23,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </span>
             </Link>
 
-            <div className="flex mt-3 text-xs md:text-sm">
+            <div className="flex mt-7 text-xs">
                 <p className="text-gray-500/85 dark:text-default-6">
                     All designed and developed by&#160;
                 </p>
@@ -38,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </Link>
             </div>
 
-            <p className="text-gray-500/45 dark:text-default-16-dark text-xs md:text-sm">
+            <p className="mt1 text-gray-500/45 dark:text-default-16-dark md:text-xs">
                 © 2024-present Jehee Cheon. All Rights Reserved.
             </p>
         </footer>

@@ -6,7 +6,6 @@ import { selectIsDarkMode } from "@/_redux/themeSlice";
 
 import { setThemeColor } from "@/_assets/ts/theme";
 
-import MusicPlayer from "@/_components/music/MusicPlayer";
 import SignInModal from "@/_components/modal/SignInModal";
 import Header from "@/_components/layout/Header";
 
@@ -43,7 +42,6 @@ function InitialLoad() {
     return (
         <>
             <Header className="mt-[0.813rem] max-w-[66rem] lg:mx-auto" />
-            <MusicPlayer className="absolute invisible" />
             <SignInModal />
 
             <Outlet />
