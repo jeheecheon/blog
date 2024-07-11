@@ -3,7 +3,8 @@ import { selectCover } from "@/_redux/coverSlice";
 import Footer from "@/_components/layout/Footer";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { usePost } from "./_hooks/usePost";
 
 interface LayoutProps {
     children?: ReactNode;
@@ -11,13 +12,14 @@ interface LayoutProps {
 }
 
 const Layout = (props: LayoutProps) => {
-    const [imageLoaded, setImageLoaded] = useState(false);
-
     const { coverImageUrl, titleOnCover } = useSelector(selectCover);
+    const location = useLocation();
+    const { isSuccess } = usePost();
+
+    const [imageLoaded, setImageLoaded] = useState(false);
     const coverRef = useRef<HTMLDivElement>(null);
     const articleRef = useRef<HTMLDivElement>(null);
     const coverImageRef = useRef<HTMLImageElement>(null);
-    const location = useLocation();
 
     function handleScroll() {
         if (window.scrollY < 0) return;
@@ -51,11 +53,6 @@ const Layout = (props: LayoutProps) => {
     }
 
     useEffect(() => {
-        if (!coverImageUrl) {
-            setImageLoaded(true);
-            return;
-        }
-
         if (location.pathname.startsWith("/post/edit")) {
             articleRef.current?.classList.remove("animate-bounce-sm");
         } else {
@@ -68,11 +65,18 @@ const Layout = (props: LayoutProps) => {
         };
     }, [location.pathname]);
 
+    useEffect(() => {
+        if (coverImageUrl) {
+            coverImageRef.current!.src = coverImageUrl;
+        } else {
+            setImageLoaded(true);
+        }
+    }, [coverImageUrl]);
+
     return (
         <>
             <img
                 ref={coverImageRef}
-                src={coverImageUrl}
                 alt="Cover Image"
                 style={{ display: "none" }}
                 onLoad={() => {
@@ -81,6 +85,7 @@ const Layout = (props: LayoutProps) => {
                     document.addEventListener("scroll", handleScroll);
                 }}
                 onError={() => {
+                    console.log("asd");
                     setImageLoaded(true);
                 }}
             />
@@ -101,26 +106,28 @@ const Layout = (props: LayoutProps) => {
                 <div className="absolute w-full h-[90%] overflow-hidden mask-bottom">
                     <div
                         ref={coverRef}
-                        className={`h-full transition-opacity duration-1000 
-                        bg-center bg-cover ${
-                            imageLoaded ? "opacity-100" : "opacity-0"
-                        }`}
+                        className={`h-full transition-opacity delay-[1000ms] duration-[1000ms] 
+                            bg-center bg-cover ${
+                                imageLoaded
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                            }`}
                         style={{
                             backgroundImage: `url(${coverImageUrl})`,
                         }}
                     />
                 </div>
 
-                <div
-                    className={`absolute w-full h-[70%] flex items-center transition-opacity duration-1000 ${
-                        imageLoaded ? "opacity-100" : "opacity-0"
-                    }`}
-                >
+                <div className="absolute w-full h-[70%] flex items-center">
                     <h1
                         className={`w-full 
                         text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-medium
-                        bg-gray-600/55 dark:bg-gray-800/65 ${
+                        bg-gray-600/55 dark:bg-gray-800/65 transition-opacity delay-[2000ms] duration-[1000ms] ${
                             titleOnCover && "py-3 px-5"
+                        } ${
+                            imageLoaded
+                                ? "opacity-100"
+                                : "opacity-0"
                         }`}
                     >
                         {titleOnCover}
@@ -129,21 +136,22 @@ const Layout = (props: LayoutProps) => {
 
                 <div className="h-[60%]" />
 
-                <div
-                    className="bg-default-2 dark:bg-[#101010]"
-                    style={{
-                        visibility: imageLoaded ? "visible" : "hidden",
-                    }}
-                >
-                    <section ref={articleRef}>
-                        <Outlet />
-                    </section>
+                <div className="bg-default-2 dark:bg-[#101010]">
+                    <div
+                        className={`transition-all delay-[1000ms] duration-[1000ms] ${
+                            isSuccess && imageLoaded
+                                ? "opacity-100 translate-y-[0]"
+                                : "opacity-0 translate-y-[3000px]"
+                        }`}
+                    >
+                        <section ref={articleRef}>
+                            <Outlet />
+                        </section>
 
-                    <Footer />
+                        <Footer />
+                    </div>
                 </div>
             </main>
-
-            <ScrollRestoration />
         </>
     );
 };

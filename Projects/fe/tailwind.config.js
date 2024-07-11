@@ -106,7 +106,7 @@ export default {
             "header-hide-up": "header-hide-up 0.6s ease-in-out forwards",
             "header-show-down": "header-show-down 0.6s ease-in-out forwards",
             "fade-in": "fade-in 0.5s ease-in-out forwards",
-            "fade-in-bouncing": "fade-in-bouncing 0.5s ease-in-out forwards",
+            "fade-in-bouncing": "fade-in-bouncing 0.8s ease-in-out forwards",
         },
     },
     plugins: [],
