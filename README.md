@@ -13,7 +13,7 @@ Built with
 Jekyll로 만들었던 정적 블로그는 버리고 지금 이 블로그로 이전한 상태이다.  
 Jekyll 블로그 Github Repository: <a href="https://github.com/jeheecheon/jeheecheon.github.io">링크 클릭</a>  
 
-이유는 항상 Markdown 문법으로 글을 써야하는 게 너무 불편했다. 포스트에 이미지 추가할 때는 일일이 이미지 복사한 후에 글 사이에 url과 함께 이미지 태그넣어줘야 했던 게 굉장히 거슬렸다. 그래서 야심차게(?) 만들었다가 제대로 써보지도 않고 말끔히 폐기했던 내 생에 첫 웹사이트가 돼버렸다.  
+이유는 항상 Markdown 문법으로 글을 써야하는 게 너무 불편했다. 특히 포스트에 이미지 추가할 때는 일일이 이미지 복사한 후에 글 사이에 url과 함께 이미지 태그넣어줘야 했던 게 굉장히 거슬렸다. 그래서 야심차게(?) 만들었다가 제대로 써보지도 않고 말끔히 폐기했던 내 생에 첫 웹사이트가 돼버렸다.  
 
 지금 이 블로그는 포스트 업로드, 수정 등 곧바로 html 편집기로 변경하고 적용되도록 만들었다. 이미지 업로드도 aws의 s3를 통해서 빠르게 붙혀넣을 수 있는 상태이다. 아무튼 몇 년전 고정된 데이터만 보여주던 Jekyll 블로그를 만들던 당시 나중에 이런 류의 동적 웹사이트로 만들어보자고 생각만 하던 게 실현돼서 좀 뿌듯하다!
 <br />
@@ -36,6 +36,7 @@ Jekyll 블로그 Github Repository: <a href="https://github.com/jeheecheon/jehee
 - React
 - Typescript
 - Tailwindcss
+- TanStack Query
 - Quill( html 편집기 )
 - isomorphic-dompurify(sanitizing tool)
 - etc...
