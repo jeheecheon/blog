@@ -37,12 +37,14 @@ const PostsPage: React.FC = () => {
 
                 <nav
                     className="flex flex-col items-center mt-[1.875rem] md:mt-[3.125rem] w-full
-                    transition-opacity duration-1000 animate-fade-in-bouncing"
+                    transition-opacity duration-1000"
                 >
                     {postsQuery.isPending ||
                     maxPageNumQuery.isPending ||
                     leafCategoriesQuery.isPending ? (
-                        <LoadingSpinner>Posts Loading...</LoadingSpinner>
+                        <LoadingSpinner className="animate-fade-in-bouncing">
+                            Posts Loading...
+                        </LoadingSpinner>
                     ) : postsQuery.isSuccess &&
                       maxPageNumQuery.isSuccess &&
                       leafCategoriesQuery.isSuccess ? (
@@ -51,7 +53,7 @@ const PostsPage: React.FC = () => {
                             <Link
                                 to={`/post/${p.Id}/${createSlug(p.Title)}`}
                                 key={p.Id}
-                                className="w-full border-b-[0.0625rem] dark:border-default-12-dark border-default-10 group"
+                                className="w-full border-b-[0.0625rem] dark:border-default-12-dark border-default-10 group animate-fade-in-bouncing"
                                 preventScrollReset={false}
                             >
                                 <PostCard post={p} />

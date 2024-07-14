@@ -94,6 +94,10 @@
         font-weight: 300;
     }
 
+    li::marker, h4::before {
+        color: #505050;
+    }
+
     a {
         color: #ee8c36;
         text-decoration: underline;
@@ -310,6 +314,10 @@
 
 .dark {
     .blog-post-content {
+        h4::before, li::marker {
+            color: #ececec;
+        }
+
         li {
             color: #ececec;
             font-weight: 400;
