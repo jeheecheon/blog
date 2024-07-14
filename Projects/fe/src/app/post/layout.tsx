@@ -4,7 +4,6 @@ import Footer from "@/_components/layout/Footer";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
-import { usePost } from "./_hooks/usePost";
 
 interface LayoutProps {
     children?: ReactNode;
@@ -14,7 +13,6 @@ interface LayoutProps {
 const Layout = (props: LayoutProps) => {
     const { coverImageUrl, titleOnCover } = useSelector(selectCover);
     const location = useLocation();
-    const { isSuccess } = usePost();
 
     const [imageLoaded, setImageLoaded] = useState(false);
     const coverRef = useRef<HTMLDivElement>(null);
@@ -139,7 +137,7 @@ const Layout = (props: LayoutProps) => {
                 <div className="bg-default-2 dark:bg-[#101010]">
                     <div
                         className={`transition-all delay-[1000ms] duration-[1000ms] ${
-                            isSuccess && imageLoaded
+                            imageLoaded
                                 ? "opacity-100 translate-y-[0]"
                                 : "opacity-0 translate-y-[3000px]"
                         }`}

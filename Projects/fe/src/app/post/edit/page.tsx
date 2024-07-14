@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCoverImageUrl } from "@/_redux/coverSlice";
 
-import { Helmet } from "react-helmet-async";
-
 import Button from "@/_components/ui/Button";
 import ArticleLayout from "@/post/_components/article/ArticleLayout";
 import ArticleContent from "@/post/_components/article/ArticleContent";
@@ -17,6 +15,7 @@ import { handleError, throwError, throwResponse } from "@/_utils/responses";
 
 import "react-quill/dist/quill.snow.css";
 import useLeafCategories from "@/_hooks/useLeafCategories";
+import Metadata from "@/post/edit/metadata";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
@@ -256,37 +255,6 @@ const PostEdit = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Edit | jeheecheon</title>
-                <link rel="canonical" href={import.meta.env.VITE_CLIENT_URL} />
-                <meta name="description" content="Blog post edit page" />
-                <meta name="keywords" content="tech, blog, jeheecheon" />
-                <meta name="author" content="jeheecheon" />/
-                <meta property="og:title" content="Edit | jeheecheon" />
-                <meta property="og:description" content="Blog post edit page" />
-                <meta
-                    property="og:image"
-                    content={import.meta.env.VITE_DEFAULT_COVER_IMAGE}
-                />
-                <meta property="og:type" content="website" />
-                <meta property="og:site_name" content="jeheecheon" />
-                <meta property="og:locale" content="ko_KR" />
-                <meta
-                    property="og:url"
-                    content={import.meta.env.VITE_CLIENT_URL}
-                />
-                <meta name="twitter:title" content="Edit | jeheecheon" />
-                <meta name="twitter:card" content="summary" />
-                <meta
-                    name="twitter:description"
-                    content="Blog post edit page"
-                />
-                <meta
-                    name="twitter:image"
-                    content={import.meta.env.VITE_DEFAULT_COVER_IMAGE}
-                />
-            </Helmet>
-
             {showPreview && postEditing && (
                 <ArticleLayout>
                     <ArticleContent post={{ ...postEditing, LikeCnt: 1004 }} />
@@ -507,6 +475,8 @@ const PostEdit = () => {
                     </div>
                 </div>
             )}
+
+            <Metadata />
         </>
     );
 };
