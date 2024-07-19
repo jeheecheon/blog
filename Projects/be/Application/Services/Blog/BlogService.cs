@@ -21,7 +21,7 @@ public class BlogService : IBlogService
     private readonly IAccountService _accountService;
     private readonly AmazonS3Client _s3Client;
     static private readonly string _DefaultBucketName = "jeheecheon";
-    static private readonly int _PostsPerPage = 99;
+    static private readonly int _PostsPerPage = 6;
     public BlogService(
         ILogger<BlogService> logger,
         IBlogRepository blogRepository,

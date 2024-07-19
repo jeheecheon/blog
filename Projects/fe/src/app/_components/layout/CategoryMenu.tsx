@@ -20,8 +20,8 @@ const links: LinkButtonInfo[] = [
         class: "mt-4",
     },
     {
-        name: "🔢 Algorithm",
-        to: "/categories/Algorithm/pages/1",
+        name: "📜 Projects",
+        to: "/categories/Projects/pages/1",
     },
     {
         name: "🕸️ Web Development",

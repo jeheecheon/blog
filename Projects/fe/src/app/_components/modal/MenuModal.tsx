@@ -22,8 +22,8 @@ const categoryLinks = [
         to: "/categories/recently-published/pages/1",
     },
     {
-        name: "Algorithm",
-        to: "/categories/Algorithm/pages/1",
+        name: "Projects",
+        to: "/categories/Projects/pages/1",
     },
     {
         name: "Web Development",

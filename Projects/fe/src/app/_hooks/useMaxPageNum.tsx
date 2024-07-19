@@ -49,5 +49,6 @@ export const getMaxPageNumQueryOption = (category: string | undefined) => {
 export const useMaxPageNum = () => {
     const { category } = useParams();
 
-    return useQuery(getMaxPageNumQueryOption(category));
+    const result = useQuery(getMaxPageNumQueryOption(category));
+    return { ...result, maxPageNum: result.data };
 };

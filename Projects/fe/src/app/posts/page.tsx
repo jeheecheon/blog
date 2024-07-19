@@ -10,6 +10,7 @@ import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
 import { useQueries } from "@tanstack/react-query";
 import { getMaxPageNumQueryOption } from "@/_hooks/useMaxPageNum";
 import { getLeafCategoryQueryOption } from "@/_hooks/useLeafCategories";
+import PageNav from "@/posts/_components/PageNav";
 
 const PostsPage: React.FC = () => {
     const { category, page } = useParams();
@@ -48,17 +49,23 @@ const PostsPage: React.FC = () => {
                     ) : postsQuery.isSuccess &&
                       maxPageNumQuery.isSuccess &&
                       leafCategoriesQuery.isSuccess ? (
-                        !!postsQuery.data &&
-                        postsQuery.data.map((p) => (
-                            <Link
-                                to={`/post/${p.Id}/${createSlug(p.Title)}`}
-                                key={p.Id}
-                                className="w-full border-b-[0.0625rem] dark:border-default-12-dark border-default-10 group animate-fade-in-bouncing"
-                                preventScrollReset={false}
-                            >
-                                <PostCard post={p} />
-                            </Link>
-                        ))
+                        <>
+                            {!!postsQuery.data &&
+                                postsQuery.data.map((p) => (
+                                    <Link
+                                        to={`/post/${p.Id}/${createSlug(
+                                            p.Title
+                                        )}`}
+                                        key={p.Id}
+                                        className="w-full border-b-[0.0625rem] dark:border-default-12-dark border-default-10 group animate-fade-in-bouncing"
+                                        preventScrollReset={false}
+                                    >
+                                        <PostCard post={p} />
+                                    </Link>
+                                ))}
+
+                            <PageNav className="mt-5 mb-10" />
+                        </>
                     ) : (
                         <ErrorMessageWrapper>
                             Failed to fetch posts. Probably because the server
