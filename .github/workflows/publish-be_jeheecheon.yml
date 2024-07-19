@@ -59,6 +59,7 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_EAA1173FC703432396A4C09F8FBF5CF7 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D661540C63884F4FB0242033301167A3 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CDAD60CC67F84D30A2BC73FA7D618064 }}
+          enable-oidc: true # Enable OIDC for authentication
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
