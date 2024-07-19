@@ -10,7 +10,7 @@ import SignInModal from "@/_components/modal/SignInModal";
 import Header from "@/_components/layout/Header";
 
 import "@/_assets/css/scrollbar.css";
-import { authenticateUserAsync } from "@/_utils/user";
+import { authenticateUser } from "@/_utils/user";
 
 function InitialLoad() {
     const isDarkMode = useSelector(selectIsDarkMode);
@@ -18,7 +18,7 @@ function InitialLoad() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        authenticateUserAsync(dispatch);
+        authenticateUser(dispatch);
     }, []);
 
     useEffect(() => {

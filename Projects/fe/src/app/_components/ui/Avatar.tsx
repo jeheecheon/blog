@@ -16,11 +16,12 @@ const Avatar: React.FC<AvatarProps> = ({
             {avatar && avatar !== "" ? (
                 <img
                     src={avatar}
+                    alt="author avatar"
                     className={`rounded-full
                             ${className} `}
-                            style={{
-                                width: `${size / 16}rem`
-                            }}
+                    style={{
+                        width: `${size / 16}rem`,
+                    }}
                 />
             ) : (
                 children && (

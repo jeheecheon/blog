@@ -18,7 +18,7 @@ const PostCard: React.FC<PostCardProps> = React.memo(({ className, post }) => {
             className={`h-fit w-full cursor-pointer py-5 md:py-6 px-2 ${className}`}
         >
             <div
-                className="flex justify-between text-slate-400 dark:text-slate-500 text-[0.69rem]
+                className="flex justify-between text-slate-400 dark:text-slate-400 text-[0.69rem]
                 group-hover:scale-[104%] transition-all duration-1000"
             >
                 {new Date(post.UploadedAt).toLocaleDateString()}

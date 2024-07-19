@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Avatar from "@/_components/ui/Avatar";
-import me from "@/_assets/images/me.png";
+import me from "@/_assets/images/me.webp";
 import { useLocation } from "react-router-dom";
 
 import MenuModal from "@/_components/modal/MenuModal";

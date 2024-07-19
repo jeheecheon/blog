@@ -33,6 +33,7 @@ function DarkmodeToggleSwitch({ className }: DarkmodeToggleSwitchProps) {
     return MoonSun.map((element, index) => (
         <button
             key={index}
+            title="darkmode-toggle"
             onClick={changeTheme}
             className={`animate-header-show-down rounded-full h-fit p-2 shadow-xl dark:shadow-lg dark:shadow-black/60 dark:bg-default-5-dark bg-default-2
             border-[0.0625rem] border-slate-300 dark:border-default-18-dark ring-[0.025rem] ring-orange-300 pointer-events-auto

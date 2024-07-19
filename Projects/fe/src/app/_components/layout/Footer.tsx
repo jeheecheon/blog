@@ -35,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </Link>
             </div>
 
-            <p className="mt-1 text-gray-500/45 dark:text-default-16-dark text-xs">
+            <p className="mt-1 text-gray-500/45 dark:text-stone-400 text-xs">
                 © 2024-present Jehee Cheon. All Rights Reserved.
             </p>
         </footer>

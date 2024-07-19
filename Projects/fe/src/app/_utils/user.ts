@@ -2,8 +2,8 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { UserState, setUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
 
-export const authenticateUserAsync = async (dispatch: Dispatch) => {
-    return fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth`, {
+export const authenticateUser = (dispatch: Dispatch) => {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
         },
@@ -11,6 +11,7 @@ export const authenticateUserAsync = async (dispatch: Dispatch) => {
         .then((res) => {
             if (res.ok) return res.json();
             else if (res.status === 401) return null;
+
             throwResponse(res);
         })
         .then((json) => {

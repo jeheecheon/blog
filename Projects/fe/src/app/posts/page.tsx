@@ -24,13 +24,13 @@ const PostsPage: React.FC = () => {
     return (
         <>
             <div className="mx-auto max-w-[800px]">
-                <h1 className="w-full text-left text-balance animate-fade-in transition-opacity duration-1000">
-                    <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-semibold">
+                <h1 className="w-fit text-left text-balance animate-fade-in transition-opacity duration-1000">
+                    <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-semibold w-fit">
                         {category !== "recently-published"
                             ? "CATEGORY"
                             : "POSTS"}
                     </p>
-                    <p className="text-orange-400/70 dark:text-orange-400/90 text-lg sm:text-xl md:text-2xl uppercase font-medium">
+                    <p className="text-orange-400/70 dark:text-orange-400/90 text-lg sm:text-xl md:text-2xl uppercase font-medium w-fit">
                         {category}
                     </p>
                 </h1>
