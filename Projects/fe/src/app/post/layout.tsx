@@ -4,6 +4,7 @@ import Footer from "@/_components/layout/Footer";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
+import { usePost } from "./_hooks/usePost";
 
 interface LayoutProps {
     children?: ReactNode;
@@ -15,6 +16,8 @@ const Layout = (props: LayoutProps) => {
     const location = useLocation();
 
     const [imageLoaded, setImageLoaded] = useState(false);
+    const post = usePost();
+
     const coverRef = useRef<HTMLDivElement>(null);
     const articleRef = useRef<HTMLDivElement>(null);
     const coverImageRef = useRef<HTMLImageElement>(null);
@@ -105,9 +108,7 @@ const Layout = (props: LayoutProps) => {
                         ref={coverRef}
                         className={`h-full transition-opacity delay-[1000ms] duration-[1000ms] 
                             bg-center bg-cover ${
-                                imageLoaded
-                                    ? "opacity-100"
-                                    : "opacity-0"
+                                imageLoaded ? "opacity-100" : "opacity-0"
                             }`}
                         style={{
                             backgroundImage: `url(${coverImageUrl})`,
@@ -121,11 +122,7 @@ const Layout = (props: LayoutProps) => {
                         text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-medium
                         bg-gray-600/55 dark:bg-gray-800/65 transition-opacity delay-[2000ms] duration-[1000ms] ${
                             titleOnCover && "py-3 px-5"
-                        } ${
-                            imageLoaded
-                                ? "opacity-100"
-                                : "opacity-0"
-                        }`}
+                        } ${imageLoaded ? "opacity-100" : "opacity-0"}`}
                     >
                         {titleOnCover}
                     </h1>
@@ -145,7 +142,7 @@ const Layout = (props: LayoutProps) => {
                             <Outlet />
                         </section>
 
-                        <Footer />
+                        {post.isFetched && <Footer />}
                     </div>
                 </div>
             </main>
