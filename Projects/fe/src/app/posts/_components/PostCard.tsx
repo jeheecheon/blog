@@ -11,6 +11,7 @@ import { flattenOutCategoriesV1 } from "@/_utils/category";
 import Like from "@/post/_assets/images/like-filled.svg?react";
 import CommentSvg from "@/post/_assets/images/comment.svg?react";
 import { extractTextFromTags } from "@/_utils/post";
+import CategoryInfo from "@/_types/Category";
 
 interface PostCardProps {
     className?: string;
@@ -19,11 +20,10 @@ interface PostCardProps {
 
 const PostCard = ({ className, post }: PostCardProps) => {
     const { leafCategories } = useLeafCategories();
-    console.log(post.Content.length, post.Title)
+
     const contentElements = parse(DOMPurify.sanitize(post.Content), {
         replace: (domNode) => {
             if (domNode instanceof Element && domNode.attribs) {
-                console.log(domNode.name);
                 if (["h2", "h3", "h4", "ul", "pre"].includes(domNode.name))
                     return <></>;
             }
@@ -51,33 +51,14 @@ const PostCard = ({ className, post }: PostCardProps) => {
                 <PostCard.Content content={content} />
 
                 <div className="flex flex-row justify-start items-end mt-2 text-stone-500 dark:text-default-14">
-                    {/* Categories */}
-                    <div className="text-orange-400/80 dark:text-orange-400 font-medium text-pretty text-[0.8rem]">
-                        {leafCategories &&
-                            flattenOutCategoriesV1(
-                                leafCategories.find(
-                                    (category) =>
-                                        category.Id === post.CategoryId
-                                )
-                            )}
-                    </div>
+                    <PostCard.Categories
+                        leafCategories={leafCategories}
+                        postCategory={post.CategoryId ?? ""}
+                    />
 
                     <div className="flex gap-2 ml-auto text-xs font-normal">
-                        {/* Comments */}
-                        <div className="flex flex-row items-center gap-1">
-                            <CommentSvg className="fill-orange-400 dark:fill-orange-500" />
-                            <span className="w-[1.0625rem]">
-                                {post.CommentCnt}
-                            </span>
-                        </div>
-
-                        {/* Likes */}
-                        <div className="flex flex-row items-center gap-1">
-                            <Like className="fill-orange-500 dark:fill-red-500" />
-                            <span className="w-[1.0625rem]">
-                                {post.LikeCnt}
-                            </span>
-                        </div>
+                        <PostCard.Comments commentCnt={post.CommentCnt} />
+                        <PostCard.Likes likeCnt={post.LikeCnt} />
                     </div>
                 </div>
             </div>
@@ -124,6 +105,43 @@ PostCard.Content = ({ content }: { content: string }) => {
             <div className="line-clamp-4 whitespace-break-spaces text-sm md:text-base text-default-18-dark dark:text-default-9">
                 {content}
             </div>
+        </div>
+    );
+};
+
+PostCard.Categories = ({
+    leafCategories,
+    postCategory,
+}: {
+    leafCategories: CategoryInfo[];
+    postCategory: string;
+}) => {
+    return (
+        <div className="text-orange-400/80 dark:text-orange-400 font-medium text-pretty text-[0.8rem]">
+            {leafCategories &&
+                flattenOutCategoriesV1(
+                    leafCategories.find(
+                        (category) => category.Id === postCategory
+                    )
+                )}
+        </div>
+    );
+};
+
+PostCard.Comments = ({ commentCnt }: { commentCnt: number }) => {
+    return (
+        <div className="flex flex-row items-center gap-1">
+            <CommentSvg className="fill-orange-400 dark:fill-orange-500" />
+            <span className="w-[1.0625rem]">{commentCnt}</span>
+        </div>
+    );
+};
+
+PostCard.Likes = ({ likeCnt }: { likeCnt: number }) => {
+    return (
+        <div className="flex flex-row items-center gap-1">
+            <Like className="fill-orange-500 dark:fill-red-500" />
+            <span className="w-[1.0625rem]">{likeCnt}</span>
         </div>
     );
 };

@@ -83,7 +83,6 @@ const Layout = (props: LayoutProps) => {
                     document.addEventListener("scroll", handleScroll);
                 }}
                 onError={() => {
-                    console.log("asd");
                     setImageLoaded(true);
                 }}
             />
