@@ -7,8 +7,7 @@ function MetaData() {
     return (
         <Helmet>
             <title>
-                {category ? category : "Recent posts"} |{" "}
-                {import.meta.env.VITE_SITE_NAME}
+            {import.meta.env.VITE_SITE_NAME} | {category}
             </title>
             <link
                 rel="canonical"

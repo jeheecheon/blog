@@ -24,7 +24,7 @@ const Metadata = ({ post }: MetadataProps) => {
     return (
         <Helmet>
             <title>
-                {post.Title} | {import.meta.env.VITE_SITE_NAME}
+            {import.meta.env.VITE_SITE_NAME} | {post.Title}
             </title>
             <link
                 rel="canonical"
