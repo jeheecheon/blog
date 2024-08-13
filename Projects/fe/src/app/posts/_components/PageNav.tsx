@@ -53,7 +53,7 @@ const PageNav = ({ className }: PageNavProps) => {
 
             <PageNav.Button
                 className="mx-1 border-[0.05rem] border-orange-400 rounded-full text-orange-400 dark:text-orange-300
-                dark:shadow-none shadow-lg shadow-orange-100 pb-[0.1rem]"
+                dark:shadow-none shadow-lg shadow-orange-100 pb-[0.1rem] no-underline pointer-events-none"
             >
                 {pageConverted}
             </PageNav.Button>

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { useMemo } from "react";
 
 import parse, { Element } from "html-react-parser";
@@ -146,5 +147,4 @@ PostCard.Likes = ({ likeCnt }: { likeCnt: number }) => {
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default React.memo(PostCard);
