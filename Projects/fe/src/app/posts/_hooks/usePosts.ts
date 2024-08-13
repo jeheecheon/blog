@@ -44,7 +44,10 @@ export const getPostsByCategoryAndPageNumber = async ({
                 posts
             ) as PostInfo[];
 
-            return sortedPosts;
+            return sortedPosts.map((p) => {
+                p.Cover = p.Cover || import.meta.env.VITE_DEFAULT_COVER_IMAGE!;
+                return p;
+            });
         });
 
     return posts;

@@ -26,7 +26,7 @@ const Blog = () => {
 
             {/* Business logic */}
             <Helmet>
-                <title>blog | jeheecheon</title>
+                <title>jeheecheon | blog</title>
 
                 <link
                     rel="canonical"
@@ -51,7 +51,7 @@ const Blog = () => {
                     content={`${import.meta.env.VITE_CLIENT_URL}`}
                 />
 
-                <meta name="twitter:title" content="blog | jeheecheon" />
+                <meta name="twitter:title" content="jeheecheon | blog" />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content="Jehee's Tech blog" />
                 <meta

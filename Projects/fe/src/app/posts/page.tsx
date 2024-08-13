@@ -25,7 +25,7 @@ const PostsPage: React.FC = () => {
     return (
         <>
             <div className="mx-auto max-w-[800px]">
-                <h1 className="w-fit text-left text-balance animate-fade-in transition-opacity duration-1000">
+                <h1 className="w-fit text-left text-balance animate-fade-in transition-opacity duration-1000 px-4 md:px-0">
                     <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-semibold w-fit">
                         {category !== "recently-published"
                             ? "CATEGORY"
@@ -37,7 +37,7 @@ const PostsPage: React.FC = () => {
                 </h1>
 
                 <nav
-                    className="flex flex-col items-center mt-[1.875rem] md:mt-[3.125rem] w-full
+                    className="flex flex-col items-center mt-[3rem] md:mt-[3.125rem] w-full
                     transition-opacity duration-1000"
                 >
                     {postsQuery.isPending ||
@@ -57,7 +57,9 @@ const PostsPage: React.FC = () => {
                                             p.Title
                                         )}`}
                                         key={p.Id}
-                                        className="w-full border-b-[0.0625rem] dark:border-default-12-dark border-default-10 group animate-fade-in-bouncing"
+                                        className="w-full animate-fade-in-bouncing 
+                                        dark:border-default-12-dark border-b-default-10 last-of-type:border-b-0 border-b-[0.0625rem]
+                                        first-of-type:mt-0 py-10 pointer-events-none"
                                         preventScrollReset={false}
                                     >
                                         <PostCard post={p} />

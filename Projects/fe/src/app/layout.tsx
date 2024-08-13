@@ -19,7 +19,7 @@ const BlogLayout: React.FC<LayoutProps> = ({ className }) => {
                     className="sm:px-[1.875rem] lg:px-[3.75rem] xl:mx-auto max-w-[76.25rem] bg-body pt-[5.938rem]
                     border-x-[0.0625rem] dark:border-x-default-5-dark border-x-default-7 grow w-full"
                 >
-                    <div className="px-6 md:px-10 ">
+                    <div>
                         <Outlet />
                     </div>
                 </main>

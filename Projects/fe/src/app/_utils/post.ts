@@ -1,4 +1,5 @@
 import { PostInfo, PostSummary } from "@/_types/Post";
+import React from "react";
 
 export const createSlug = (title: string) => {
     return title
@@ -11,6 +12,30 @@ export const createSlug = (title: string) => {
 
 export const sortPostsByUploadedAt = (posts: PostInfo[] | PostSummary[]) => {
     // Sort posts by descending order of UploadedAt date
-    posts.sort((a, b) => (new Date(b.UploadedAt)).getTime() - (new Date(a.UploadedAt)).getTime());
+    posts.sort(
+        (a, b) =>
+            new Date(b.UploadedAt).getTime() - new Date(a.UploadedAt).getTime()
+    );
     return posts;
 };
+
+export function extractTextFromTags(children: React.ReactNode): string {
+    let content = "";
+
+    React.Children.forEach(children, (child) => {
+        if (React.isValidElement(child)) {
+            if (Array.isArray(child.props.children)) {
+                content +=
+                    (content.length > 0 ? " " : "") +
+                    extractTextFromTags(child.props.children);
+            } else if (typeof child.props.children === "string") {
+                content +=
+                    (content.length > 0 ? " " : "") + child.props.children;
+            }
+        } else if (typeof child === "string") {
+            content += (content.length > 0 ? " " : "") + child;
+        }
+    });
+
+    return content;
+}
