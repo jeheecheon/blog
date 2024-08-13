@@ -96,7 +96,7 @@ SELECT
     p.edited_at, 
     p.cover, 
     p.category_id, 
-    LEFT(p.content, 500) AS content,
+    LEFT(p.content, 800) AS content,
     COALESCE(c.comment_cnt, 0) AS comment_cnt,
     COALESCE(l.like_cnt, 0) AS like_cnt
 FROM (
@@ -145,7 +145,7 @@ LEFT JOIN likes l ON p.id = l.post_id;
         p.edited_at, 
         p.cover, 
         p.category_id, 
-        LEFT(p.content, 500) AS content,
+        LEFT(p.content, 800) AS content,
 		COALESCE(c.comment_cnt, 0) AS comment_cnt,
 		COALESCE(l.like_cnt, 0) AS like_cnt
 	FROM (

@@ -19,11 +19,12 @@ interface PostCardProps {
 
 const PostCard = ({ className, post }: PostCardProps) => {
     const { leafCategories } = useLeafCategories();
+    console.log(post.Content.length, post.Title)
     const contentElements = parse(DOMPurify.sanitize(post.Content), {
         replace: (domNode) => {
             if (domNode instanceof Element && domNode.attribs) {
                 console.log(domNode.name);
-                if (["h2", "h3", "h4", "ul"].includes(domNode.name))
+                if (["h2", "h3", "h4", "ul", "pre"].includes(domNode.name))
                     return <></>;
             }
         },
