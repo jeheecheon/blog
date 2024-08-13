@@ -22,6 +22,7 @@ const PostsPage = lazy(() => import("@/posts/page"));
 const PostEditPage = lazy(() => import("@/post/edit/page"));
 
 import OauthGoogleSignin from "@/oauth/google/sign-in/page";
+import { ErrorBoundary } from "react-error-boundary";
 
 const App = () => {
     const router = createBrowserRouter(
@@ -35,9 +36,11 @@ const App = () => {
             >
                 <Route
                     element={
-                        <Suspense fallback={<PageLoadingSpinner />}>
-                            <InitialLoad />
-                        </Suspense>
+                        <ErrorBoundary fallback={<ErrorArea />}>
+                            <Suspense fallback={<PageLoadingSpinner />}>
+                                <InitialLoad />
+                            </Suspense>
+                        </ErrorBoundary>
                     }
                 >
                     <Route
