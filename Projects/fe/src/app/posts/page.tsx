@@ -59,7 +59,7 @@ const PostsPage: React.FC = () => {
                                         key={p.Id}
                                         className="w-full animate-fade-in-bouncing 
                                         dark:border-default-12-dark border-b-default-10 last-of-type:border-b-0 border-b-[0.0625rem]
-                                        first-of-type:mt-0 py-10 pointer-events-none"
+                                        first-of-type:pt-0 py-10 pointer-events-none"
                                         preventScrollReset={false}
                                     >
                                         <PostCard post={p} />
