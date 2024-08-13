@@ -28,4 +28,7 @@ public class PostsLikesCommentsFilteredByCategory
 
     [Column("like_cnt")]
     public long LikeCnt { get; set; }
+
+    [Column("content")]
+    public string Content { get; set; } = string.Empty;
 }

@@ -90,13 +90,19 @@ comments AS (
     GROUP BY post_id
 ) 
 SELECT 
-    p.*,
+    p.id,
+    p.title, 
+    p.uploaded_at, 
+    p.edited_at, 
+    p.cover, 
+    p.category_id, 
+    LEFT(p.content, 500) AS content,
     COALESCE(c.comment_cnt, 0) AS comment_cnt,
     COALESCE(l.like_cnt, 0) AS like_cnt
 FROM (
     SELECT 
         post.id, post. title, post.uploaded_at, post.edited_at, 
-        post.cover, post.category_id
+        post.cover, post.category_id, post.content
     FROM post 
     WHERE is_public = true
     ORDER BY post.uploaded_at DESC OFFSET {offset} LIMIT {limit}
@@ -133,13 +139,19 @@ LEFT JOIN likes l ON p.id = l.post_id;
 		GROUP BY post_id
 	) 
 	SELECT 
-		p.*,
+        p.id,
+        p.title, 
+        p.uploaded_at, 
+        p.edited_at, 
+        p.cover, 
+        p.category_id, 
+        LEFT(p.content, 500) AS content,
 		COALESCE(c.comment_cnt, 0) AS comment_cnt,
 		COALESCE(l.like_cnt, 0) AS like_cnt
 	FROM (
 		SELECT 
 			post.id, post. title, post.uploaded_at, post.edited_at, 
-			post.cover, post.category_id
+			post.cover, post.category_id, post.content
 		FROM post 
 		WHERE is_public = true AND post.category_id = {category}
 		ORDER BY post.uploaded_at DESC OFFSET {offset} LIMIT {limit}
