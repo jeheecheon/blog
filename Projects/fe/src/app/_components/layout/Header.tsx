@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import DarkmodeToggleSwitch from "@/_components/layout/DarkmodeToggleSwitch";
 import ArrowDown from "@/_assets/images/arrow-down.svg?react";
 import NavigationBar from "@/_components/layout/NavigationBar";
+import { createPortal } from "react-dom";
 
 const excepts = ["/post/edit"];
 
@@ -120,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                         onLoad={() => setProfileLoaded(true)}
                     />
 
-                    {profileLoaded && (
+                    {profileLoaded && createPortal(
                         <div
                             className="fixed top-0 left-0 w-[100%] z-30 pointer-events-none
                             px-4 md:px-14 lg:px-16"
@@ -176,7 +177,8 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
                                 <DarkmodeToggleSwitch />
                             </header>
-                        </div>
+                        </div>,
+                        document.body
                     )}
                 </>
             )}

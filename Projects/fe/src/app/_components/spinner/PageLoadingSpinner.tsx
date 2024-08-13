@@ -1,5 +1,6 @@
 import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import React from "react";
+import { createPortal } from "react-dom";
 
 interface PageLoadingSpinnerProps {
     children?: React.ReactNode;
@@ -13,14 +14,15 @@ const PageLoadingSpinner: React.FC<PageLoadingSpinnerProps> = ({
     // boxColor = "bg-none",
     boxColor = "bg-slate-200",
 }) => {
-    return (
+    return createPortal(
         <div className="left-0 top-0 fixed h-[100dvh] w-full flex justify-center items-center pointer-events-none z-[50]">
             <LoadingSpinner
                 className={`backdrop-blur-lg bg-opacity-15 rounded-xl p-5 ${boxColor} ${className}`}
             >
                 {children}
             </LoadingSpinner>
-        </div>
+        </div>,
+        document.body
     );
 };
 

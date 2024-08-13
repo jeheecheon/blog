@@ -1,5 +1,6 @@
 import CancelButton from "@/_assets/images/cancel.svg?react";
 import { ReactNode, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 interface CustomModalProps {
     onClose: () => void;
@@ -51,7 +52,7 @@ const CustomModal = ({
         }
     }, [isOpen]);
 
-    return (
+    return createPortal(
         <div
             ref={modalOverlayRef}
             className={`modal-overlay fixed top-0 left-0 w-full h-[100dvh] bg-gray-800/35
@@ -74,7 +75,8 @@ const CustomModal = ({
 
                 {children}
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 

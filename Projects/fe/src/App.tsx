@@ -70,7 +70,9 @@ const App = () => {
 
                     <Route
                         element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
+                            <Suspense
+                                fallback={<PageLoadingSpinner />}
+                            >
                                 <PostLayout />
                             </Suspense>
                         }
@@ -78,7 +80,11 @@ const App = () => {
                         <Route
                             path="/post/:id/:slug?"
                             element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
+                                <Suspense
+                                    fallback={
+                                        <PageLoadingSpinner />
+                                    }
+                                >
                                     <PostPage />
                                 </Suspense>
                             }
