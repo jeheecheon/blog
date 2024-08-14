@@ -88,7 +88,7 @@ export default {
                 "header-hide-up": {
                     "0%": { transform: "translateY(0%)" },
                     "60%": { transform: "translateY(10%)" },
-                    "100%": { transform: "translateY(-150%)" },
+                    "100%": { transform: "translateY(-200%)" },
                 },
                 "header-show-down": {
                     "0%": { transform: "translateY(-150%)" },

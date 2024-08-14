@@ -77,6 +77,10 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
     const handleScroll = () => {
         setIsCategoryMenuOpen(false);
+
+        if (window.scrollY < 0)
+            return;
+        
         if (prevScrollY.current < window.scrollY) {
             // Scrolling Down
             if (!isScrollingDown.current) {
@@ -93,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         }
         
         const yDiff = Math.abs(window.scrollY - turningPoint.current);
-        if (yDiff > 100 || window.scrollY < 100) {
+        if (yDiff > 100 || (window.scrollY < 100 && window.scrollY >= 0)) {
             if (isScrollingDown.current) {
                 headerRef.current?.classList.add("animate-header-hide-up");
                 headerRef.current?.classList.remove("animate-header-show-down");
