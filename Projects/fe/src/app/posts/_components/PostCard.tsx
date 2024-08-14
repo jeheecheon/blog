@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import React, { useMemo } from "react";
 
 import parse, { Element } from "html-react-parser";
@@ -103,7 +102,10 @@ PostCard.Date = ({ date }: { date: string }) => {
 PostCard.Content = ({ content }: { content: string }) => {
     return (
         <div className="h-full overflow-clip pt-3">
-            <div className="line-clamp-4 whitespace-break-spaces text-[0.8rem] md:text-sm text-default-18-dark dark:text-default-9">
+            <div
+                className="line-clamp-4 whitespace-break-spaces text-xs md:text-sm 
+            font-[335] text-default-18-dark dark:text-default-9"
+            >
                 {content}
             </div>
         </div>

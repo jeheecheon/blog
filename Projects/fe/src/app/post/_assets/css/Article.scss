@@ -67,7 +67,7 @@
     p {
         font-size: 1rem;
         color: #060b11;
-        font-weight: 300;
+        font-weight: 335;
     }
 
     ul {
@@ -91,7 +91,7 @@
         line-height: 1.6rem;
         margin-bottom: 0.5rem;
         color: #060b11;
-        font-weight: 300;
+        font-weight: 335;
     }
 
     li::marker, h4::before {
@@ -100,7 +100,8 @@
 
     a {
         color: #ee8c36;
-        text-decoration: underline;
+        text-decoration:underline;
+        text-underline-offset: 0.15rem;
     }
 
     a:hover {
@@ -121,16 +122,18 @@
         font-weight: 500;
         background-color: #777;
         color: white;
-        height: 100%;
-        padding: 0.25rem 0.5rem;
+        height: fit-content;
+        display: inline-block;
+        padding: 0.3rem 0.4rem;
         border-radius: 0.25rem;
+        line-height: 1;
     }
 
     blockquote {
         border-left: 0.3rem solid #ee8c36;
         padding: 1rem;
         color: #060b11;
-        font-weight: 300;
+        font-weight: 335;
         background-color: #f3f3f3;
         margin: 1.5rem;
         border-top-right-radius: 1rem;
@@ -320,16 +323,10 @@
 
         li {
             color: #ececec;
-            font-weight: 400;
         }
 
         p {
             color: #ececec;
-            font-weight: 400;
-        }
-
-        strong {
-            font-weight: 900;
         }
 
         h2,
@@ -345,12 +342,10 @@
         blockquote {
             color: #ececec;
             background-color: #202020;
-            font-weight: 400;
         }
 
         code {
             background-color: #202020;
-            font-weight: 400;
         }
     }
 }

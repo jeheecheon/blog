@@ -24,7 +24,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             </Link>
 
             <div className="flex mt-7 text-xs">
-                <p className="text-gray-500/85 dark:text-default-6">
+                <p className="text-gray-500 dark:text-default-6">
                     All designed and developed by&#160;
                 </p>
                 <Link
@@ -35,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </Link>
             </div>
 
-            <p className="mt-1 text-gray-500/45 dark:text-stone-400 text-xs">
+            <p className="mt-1 text-gray-500/70 dark:text-stone-400 text-xs">
                 © 2024-present Jehee Cheon. All Rights Reserved.
             </p>
         </footer>

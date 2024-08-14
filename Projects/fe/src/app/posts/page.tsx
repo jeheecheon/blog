@@ -25,19 +25,22 @@ const PostsPage: React.FC = () => {
     return (
         <>
             <div className="mx-auto max-w-[800px]">
-                <h1 className="w-fit text-left text-balance animate-fade-in transition-opacity duration-1000 px-4 md:px-0">
-                    <p className="text-gray-500/85 dark:text-default-8 text-sm md:text-base font-semibold w-fit">
+                <h1
+                    className="w-fit text-left text-balance animate-fade-in transition-opacity duration-1000 
+                    pl-4 sm:pl-0"
+                >
+                    <p className="text-gray-500/85 dark:text-default-8 text-base font-semibold w-fit">
                         {category !== "recently-published"
                             ? "CATEGORY"
                             : "POSTS"}
                     </p>
-                    <p className="text-orange-400/70 dark:text-orange-400/90 text-lg sm:text-xl md:text-2xl uppercase font-medium w-fit">
-                        {category}
+                    <p className="text-orange-400/70 dark:text-orange-400/90 text-xl md:text-2xl uppercase font-medium w-fit">
+                        {category} 👨🏻‍💻
                     </p>
                 </h1>
 
                 <nav
-                    className="flex flex-col items-center mt-[3rem] md:mt-[3.125rem] w-full
+                    className="flex flex-col items-center mt-[4rem] md:mt-[6rem] w-full
                     transition-opacity duration-1000"
                 >
                     {postsQuery.isPending ||

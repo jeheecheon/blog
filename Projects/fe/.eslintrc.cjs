@@ -15,6 +15,7 @@ module.exports = {
             "warn",
             { allowConstantExport: true },
         ],
-        "no-extra-boolean-cast": "off"
+        "no-extra-boolean-cast": "off",
+        "react-refresh/only-export-components": "off"
     },
 };
