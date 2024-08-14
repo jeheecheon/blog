@@ -4,24 +4,14 @@ interface FooterProps {
     className?: string;
 }
 
-const Footer: React.FC<FooterProps> = ({ className }) => {
+const Footer = ({ className }: FooterProps) => {
     return (
         <footer
             className={`border-t-[0.0625rem] border-t-default-8 dark:border-t-default-8-dark
-            flex flex-col items-center pt-[1.875rem] pb-[1.875rem]
+            flex flex-col items-center py-[2rem]
             ${className}`}
         >
-            <Link to="/" className="flex items-end">
-                <span className="text-xs md:text-sm font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
-                    BLOG
-                </span>
-                <span className="text:xs md:text-lg text-orange-400/70 dark:text-orange-400 mx-[0.125rem] font-extrabold italic">
-                    :
-                </span>
-                <span className="text-xl md:text-2xl text-orange-400/70 dark:text-orange-400 font-bold dark:font-bold italic md:underline-offset-2">
-                    jeheecheon
-                </span>
-            </Link>
+            <Footer.Logo />
 
             <div className="flex mt-7 text-xs">
                 <p className="text-gray-500 dark:text-default-6">
@@ -29,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </p>
                 <Link
                     to="/post/edit"
-                    className="cursor-text text-orange-400/70 dark:text-orange-400 font-bold"
+                    className="cursor-text text-orange-400 font-bold"
                 >
                     "jeheecheon"
                 </Link>
@@ -39,6 +29,22 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 © 2024-present Jehee Cheon. All Rights Reserved.
             </p>
         </footer>
+    );
+};
+
+Footer.Logo = () => {
+    return (
+        <Link to="/" className="flex items-end">
+            <span className="text-xs md:text-sm font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
+                BLOG
+            </span>
+            <span className="text:xs md:text-lg text-orange-400/80 dark:text-orange-400 mx-[0.125rem] font-extrabold italic">
+                :
+            </span>
+            <span className="text-xl md:text-2xl text-orange-400/80 dark:text-orange-400 font-bold dark:font-bold italic md:underline-offset-2">
+                jeheecheon
+            </span>
+        </Link>
     );
 };
 

@@ -25,7 +25,7 @@ const PageNav = ({ className }: PageNavProps) => {
 
     return (
         <div
-            className={`flex text-default-16-dark dark:text-default-8 ${className}`}
+            className={`flex text-default-18-dark dark:text-default-8 ${className}`}
         >
             <PageNav.ButtonLink
                 to={`/categories/${category}/pages/${pageConverted - 1}`}

@@ -77,7 +77,6 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
     const handleScroll = () => {
         setIsCategoryMenuOpen(false);
-
         if (prevScrollY.current < window.scrollY) {
             // Scrolling Down
             if (!isScrollingDown.current) {
@@ -86,14 +85,15 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             isScrollingDown.current = true;
         } else {
             // Scrolling Up
+            
             if (isScrollingDown.current) {
                 turningPoint.current = window.scrollY;
             }
             isScrollingDown.current = false;
         }
-
+        
         const yDiff = Math.abs(window.scrollY - turningPoint.current);
-        if (yDiff > 100) {
+        if (yDiff > 100 || window.scrollY < 100) {
             if (isScrollingDown.current) {
                 headerRef.current?.classList.add("animate-header-hide-up");
                 headerRef.current?.classList.remove("animate-header-show-down");
@@ -121,65 +121,68 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                         onLoad={() => setProfileLoaded(true)}
                     />
 
-                    {profileLoaded && createPortal(
-                        <div
-                            className="fixed top-0 left-0 w-[100%] z-30 pointer-events-none
+                    {profileLoaded &&
+                        createPortal(
+                            <div
+                                className="fixed top-0 left-0 w-[100%] z-30 pointer-events-none
                             px-4 md:px-14 lg:px-16"
-                        >
-                            <header
-                                ref={headerRef}
-                                className={`flex items-center justify-between animate-header-show-down
-                                mx-auto ${className}`}
                             >
-                                <Link
-                                    to="/"
-                                    className="shrink-0 pointer-events-auto rounded-full shadow-lg dark:shadow-black/50 shadow-gray-400/80"
+                                <header
+                                    ref={headerRef}
+                                    className={`flex items-center justify-between animate-header-show-down
+                                mx-auto ${className}`}
                                 >
-                                    <Avatar
-                                        avatar={me}
-                                        size={50}
-                                        className="ring-[0.156rem] ring-orange-200 border-[0.0625rem] border-transparent"
+                                    <Link
+                                        to="/"
+                                        className="shrink-0 pointer-events-auto rounded-full shadow-lg dark:shadow-black/50 shadow-gray-400/80"
+                                    >
+                                        <Avatar
+                                            avatar={me}
+                                            size={50}
+                                            className="ring-[0.156rem] ring-orange-200 border-[0.0625rem] border-transparent"
+                                        />
+                                    </Link>
+
+                                    {/* Navigation bar */}
+                                    <NavigationBar
+                                        isCategoryOpen={isCategoryMenuOpen}
+                                        setIsCategoryOpen={
+                                            setIsCategoryMenuOpen
+                                        }
+                                        className={`shrink-0 ${
+                                            navbarOpen
+                                                ? "animate-header-show-down"
+                                                : "absolute invisible"
+                                        }`}
                                     />
-                                </Link>
 
-                                {/* Navigation bar */}
-                                <NavigationBar
-                                    isCategoryOpen={isCategoryMenuOpen}
-                                    setIsCategoryOpen={setIsCategoryMenuOpen}
-                                    className={`shrink-0 ${
-                                        navbarOpen
-                                            ? "animate-header-show-down"
-                                            : "absolute invisible"
-                                    }`}
-                                />
-
-                                {/* MenuModal Open Button For Mobile view */}
-                                <button
-                                    className={`${
-                                        navbarOpen
-                                            ? "absolute invisible"
-                                            : "animate-header-show-down"
-                                    } pointer-events-auto dark:shadow-black/35
+                                    {/* MenuModal Open Button For Mobile view */}
+                                    <button
+                                        className={`${
+                                            navbarOpen
+                                                ? "absolute invisible"
+                                                : "animate-header-show-down"
+                                        } pointer-events-auto dark:shadow-black/35
                                     group ml-auto mr-5 flex items-center flex-nowrap shrink-0 dark:bg-default-5-dark bg-default-2
                                     shadow-lg border-[0.0625rem] border-slate-300 dark:border-default-18-dark ring-[0.025rem] ring-orange-300
                                     rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10`}
-                                    onClick={() =>
-                                        setIsMenuModalOpen(!isMenuModalOpen)
-                                    }
-                                >
-                                    Menu &#160;
-                                    <ArrowDown
-                                        className={`stroke-default-10-dark dark:stroke-default-13-dark relative top-[0.125rem] w-[0.813rem] ${
-                                            isMenuModalOpen && "rotate-180"
-                                        } transition-transform`}
-                                    />
-                                </button>
+                                        onClick={() =>
+                                            setIsMenuModalOpen(!isMenuModalOpen)
+                                        }
+                                    >
+                                        Menu &#160;
+                                        <ArrowDown
+                                            className={`stroke-gray-500 relative top-[0.125rem] w-[0.813rem] ${
+                                                isMenuModalOpen && "rotate-180"
+                                            } transition-transform`}
+                                        />
+                                    </button>
 
-                                <DarkmodeToggleSwitch />
-                            </header>
-                        </div>,
-                        document.body
-                    )}
+                                    <DarkmodeToggleSwitch />
+                                </header>
+                            </div>,
+                            document.body
+                        )}
                 </>
             )}
         </>

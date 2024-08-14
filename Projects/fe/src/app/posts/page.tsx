@@ -29,12 +29,12 @@ const PostsPage: React.FC = () => {
                     className="w-fit text-left text-balance animate-fade-in transition-opacity duration-1000 
                     pl-4 sm:pl-0"
                 >
-                    <p className="text-gray-500/85 dark:text-default-8 text-base font-semibold w-fit">
+                    <p className="text-gray-400 dark:text-default-10 text-sm md:text-base font-semibold w-fit">
                         {category !== "recently-published"
                             ? "CATEGORY"
                             : "POSTS"}
                     </p>
-                    <p className="text-orange-400/70 dark:text-orange-400/90 text-xl md:text-2xl uppercase font-medium w-fit">
+                    <p className="text-orange-400 dark:text-orange-400/90 text-xl md:text-2xl uppercase font-medium w-fit">
                         {category} 👨🏻‍💻
                     </p>
                 </h1>
@@ -61,7 +61,7 @@ const PostsPage: React.FC = () => {
                                         )}`}
                                         key={p.Id}
                                         className="w-full animate-fade-in-bouncing 
-                                        dark:border-default-12-dark border-b-default-10 last-of-type:border-b-0 border-b-[0.0625rem]
+                                        dark:border-default-12-dark border-b-default-10 last-of-type:border-b-0 border-b-[0.0925rem]
                                         first-of-type:pt-0 py-10 pointer-events-none"
                                         preventScrollReset={false}
                                     >

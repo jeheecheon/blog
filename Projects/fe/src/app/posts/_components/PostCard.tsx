@@ -80,8 +80,8 @@ PostCard.Image = ({ src }: { src: string }) => {
 PostCard.Title = ({ title }: { title: string }) => {
     return (
         <div
-            className="font-medium text-lg md:text-xl break-all transition-all duration-1000 
-            text-orange-500/70 dark:text-orange-400 group-hover:scale-[104%] md:group-hover:scale-[106%]"
+            className="font-medium text-lg md:text-xl break-all transition-all duration-1000
+            text-orange-400 group-hover:scale-[104%] md:group-hover:scale-[106%]"
         >
             {title}
         </div>
@@ -103,8 +103,8 @@ PostCard.Content = ({ content }: { content: string }) => {
     return (
         <div className="h-full overflow-clip pt-3">
             <div
-                className="line-clamp-4 whitespace-break-spaces text-xs md:text-sm 
-            font-[335] text-default-18-dark dark:text-default-9"
+                className="line-clamp-4 whitespace-break-spaces text-[0.8rem] md:text-sm 
+                font-[335] text-default-14-dark dark:text-default-9"
             >
                 {content}
             </div>
@@ -120,7 +120,7 @@ PostCard.Categories = ({
     postCategory: string;
 }) => {
     return (
-        <div className="text-orange-400/80 dark:text-orange-400 font-medium text-pretty text-[0.8rem]">
+        <div className="text-orange-400 font-medium text-pretty text-[0.8rem]">
             {leafCategories &&
                 flattenOutCategoriesV1(
                     leafCategories.find(
