@@ -29,7 +29,7 @@ const PostsPage: React.FC = () => {
                     className="w-fit text-left text-balance animate-fade-in transition-opacity duration-1000 
                     pl-4 sm:pl-0"
                 >
-                    <p className="text-gray-400 dark:text-default-10 text-sm md:text-base font-semibold w-fit">
+                    <p className="text-gray-500/90 dark:text-default-10 text-sm md:text-base font-semibold w-fit">
                         {category !== "recently-published"
                             ? "CATEGORY"
                             : "POSTS"}
