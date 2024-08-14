@@ -1,14 +1,14 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Blog = () => {
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     navigate("/categories/recently-published/pages/1");
-    // }, []);
+    useEffect(() => {
+        // 임시로 최근 게시물 페이지로 이동
+        navigate("/categories/recently-published/pages/1");
+    }, []);
 
-    // 임시로 최근 게시물 페이지로 이동
-    navigate("/categories/recently-published/pages/1");
     return <> </>;
 
     // return (

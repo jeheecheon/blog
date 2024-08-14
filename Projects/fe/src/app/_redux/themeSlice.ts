@@ -11,7 +11,6 @@ const initialState: ThemeState = {
         localStorage.theme === "dark" ||
         (!("theme" in localStorage) &&
             window.matchMedia("(prefers-color-scheme: dark)").matches),
-    // || localStorage.theme === undefined || localStorage.theme === null
 };
 
 export const themeSlice = createSlice({
