@@ -93,7 +93,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                         content={content}
                         handleType={handleType}
                         className="focus:outline-none resize-none mt-8
-                        border-b-[0.0625rem] border-slate-500 rounded-none
+                        border-b-[0.07rem] border-b-gray-400 dark:border-b-gray-600 rounded-none
                         bg-transparent"
                     />
                 </div>

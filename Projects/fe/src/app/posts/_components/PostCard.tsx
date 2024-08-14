@@ -103,7 +103,8 @@ PostCard.Content = ({ content }: { content: string }) => {
     return (
         <div className="h-full overflow-clip pt-3">
             <div
-                className="line-clamp-4 whitespace-break-spaces text-[0.8rem] md:text-sm 
+                className="line-clamp-4 whitespace-break-spaces 
+                text-[0.8rem] md:text-[0.875rem] leading-5 md:leading-6
                 font-[335] text-default-14-dark dark:text-default-9"
             >
                 {content}

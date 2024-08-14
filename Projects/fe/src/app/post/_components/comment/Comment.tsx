@@ -129,8 +129,8 @@ export const Comment: React.FC<CommentProps> = React.memo(
                         </div>
 
                         <div
-                            className="min-h-[3.125rem] py-2 px-3 rounded-lg text-sm md:text-base break-all
-                            bg-default-4 dark:bg-body dark:text-default-14 w-full"
+                            className="min-h-[3.125rem] py-2 px-3 rounded-lg text-[0.875rem] md:text-[1rem] break-all leading-6 md:leading-7
+                            bg-default-4 dark:bg-body text-default-10-dark dark:text-default-14 w-full"
                         >
                             {content.current}
                         </div>

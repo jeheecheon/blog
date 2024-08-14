@@ -136,7 +136,7 @@ const Layout = (props: LayoutProps) => {
 
                 <div className="bg-default-2 dark:bg-[#101010]">
                     <div
-                        className={`transition-all delay-[1000ms] duration-[1000ms] ${
+                        className={`transition-opacity delay-[1000ms] duration-[1000ms] ${
                             imageLoaded
                                 ? "opacity-100 translate-y-[0]"
                                 : "opacity-0 translate-y-[3000px]"

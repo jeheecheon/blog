@@ -155,7 +155,7 @@ const ArticleContent = ({ className, post }: ArticleContentProps) => {
                 />
 
                 {/* Bar on content body top */}
-                <div className="bg-default-18 dark:bg-default-11-dark h-[0.438rem] w-full max-w-[9.625rem] rounded-2xl absolute translate-y-[0.3rem]" />
+                <div className="bg-default-18 dark:bg-default-11-dark h-[0.35rem] w-full max-w-[9rem] rounded-2xl absolute translate-y-[0.3rem]" />
 
                 <ArticleContent.Date
                     uploadedDate={post.UploadedAt}
@@ -250,7 +250,7 @@ ArticleContent.Button = ({
     return (
         <button
             className={`flex justify-center items-center border-[0.1rem] rounded-sm py-[0.375rem] px-3
-            bg-default-1 dark:bg-default-3-dark dark:border-default-5-dark ${className}`}
+            bg-default-1 dark:bg-default-3-dark border-default-6 dark:border-default-5-dark ${className}`}
             onClick={onClick}
         >
             {children}
