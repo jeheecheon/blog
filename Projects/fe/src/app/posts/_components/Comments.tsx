@@ -4,7 +4,6 @@ import React from "react";
 import { useComments } from "@/post/_hooks/useComments";
 import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
-import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
 
 interface CommentsProps {
     postId: string;
@@ -15,8 +14,12 @@ const Comments: React.FC<CommentsProps> = React.memo(({ postId }) => {
 
     return (
         <>
-            {status === "pending" && (
+            {status === "pending" && fetchStatus === "fetching" && (
                 <LoadingSpinner>Loading Comments... 🐶</LoadingSpinner>
+            )}
+
+            {status === "success" && fetchStatus === "fetching" && (
+                <LoadingSpinner>Refreshing Comments...</LoadingSpinner>
             )}
 
             {status === "success" && (
@@ -40,10 +43,6 @@ const Comments: React.FC<CommentsProps> = React.memo(({ postId }) => {
                         />
                     ))}
                 </div>
-            )}
-
-            {fetchStatus === "fetching" && (
-                <PageLoadingSpinner>Comments Re-loading...</PageLoadingSpinner>
             )}
 
             {status === "error" && (
