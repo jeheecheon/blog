@@ -9,15 +9,15 @@ interface PageLoadingSpinnerProps {
 }
 
 const PageLoadingSpinner: React.FC<PageLoadingSpinnerProps> = ({
-    children = "Loading...🐶",
+    children = "Loading...",
     className,
     // boxColor = "bg-none",
-    boxColor = "bg-slate-200",
+    boxColor = "bg-gray-400/10 dark:bg-gray-600/10",
 }) => {
     return createPortal(
-        <div className="left-0 top-0 fixed h-[100dvh] w-full flex justify-center items-center pointer-events-none z-[50]">
+        <div className="left-0 top-0 fixed h-[100vh] w-full flex justify-center items-center pointer-events-none z-[50]">
             <LoadingSpinner
-                className={`backdrop-blur-lg bg-opacity-15 rounded-xl p-5 ${boxColor} ${className}`}
+                className={`backdrop-blur-md dark:backdrop-blur-lg rounded-xl p-5 ${boxColor} ${className}`}
             >
                 {children}
             </LoadingSpinner>

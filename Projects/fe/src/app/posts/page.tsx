@@ -5,12 +5,14 @@ import PostCard from "@/posts/_components/PostCard";
 import { createSlug } from "@/_utils/post";
 import MetaData from "@/posts/metadata";
 import { getPostsQueryOption } from "@/posts/_hooks/usePosts";
-import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
 import { useQueries } from "@tanstack/react-query";
 import { getMaxPageNumQueryOption } from "@/_hooks/useMaxPageNum";
 import { getLeafCategoryQueryOption } from "@/_hooks/useLeafCategories";
 import PageNav from "@/posts/_components/PageNav";
+import PostCardSkeleton from "./_components/PostCardSkeleton";
+import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
+import PageNavSkeleton from "./_components/PageNavSkeleton";
 
 const PostsPage: React.FC = () => {
     const { category, page } = useParams();
@@ -21,6 +23,16 @@ const PostsPage: React.FC = () => {
             getLeafCategoryQueryOption(),
         ],
     });
+
+    const isPending =
+        postsQuery.isPending ||
+        maxPageNumQuery.isPending ||
+        leafCategoriesQuery.isPending;
+
+    const isSuccess =
+        postsQuery.isSuccess &&
+        maxPageNumQuery.isSuccess &&
+        leafCategoriesQuery.isSuccess;
 
     return (
         <>
@@ -43,15 +55,23 @@ const PostsPage: React.FC = () => {
                     className="flex flex-col items-center mt-[4rem] md:mt-[6rem] w-full
                     transition-opacity duration-1000"
                 >
-                    {postsQuery.isPending ||
-                    maxPageNumQuery.isPending ||
-                    leafCategoriesQuery.isPending ? (
-                        <LoadingSpinner className="animate-fade-in-bouncing">
-                            Posts Loading...
-                        </LoadingSpinner>
-                    ) : postsQuery.isSuccess &&
-                      maxPageNumQuery.isSuccess &&
-                      leafCategoriesQuery.isSuccess ? (
+                    {isPending ? (
+                        <>
+                            <PageLoadingSpinner>
+                                Loading Posts...
+                            </PageLoadingSpinner>
+
+                            {[...Array(3)].map((_, i) => (
+                                <PostCardSkeleton
+                                    key={i}
+                                    className="last-of-type:border-b-0 border-b-[0.0925rem]
+                                    border-b-gray-500/10 dark:border-b-gray-200/10 first-of-type:pt-0 py-10"
+                                />
+                            ))}
+
+                            <PageNavSkeleton className="mt-5 mb-10" />
+                        </>
+                    ) : isSuccess ? (
                         <>
                             {!!postsQuery.data &&
                                 postsQuery.data.map((p) => (

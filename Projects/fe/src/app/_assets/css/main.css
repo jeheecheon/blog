@@ -63,7 +63,7 @@
     }
 }
 
-@layer utilities {
+@layer components {
     .mask-image {
         mask-image: linear-gradient(
             90deg,
@@ -86,5 +86,16 @@
         );
         mask-repeat: no-repeat;
         mask-position: center;
+    }
+
+    .blur-effect {
+        @apply animate-skeleton-gradient;
+        @apply bg-gradient-to-br;
+        @apply [background-size:_400%_400%];
+        @apply from-gray-400/20;
+        @apply to-orange-500/15;
+        @apply dark:from-gray-700/10;
+        @apply dark:to-orange-300/10;
+        @apply rounded-xl;
     }
 }

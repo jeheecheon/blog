@@ -145,9 +145,9 @@ const ArticleContent = ({ className, post }: ArticleContentProps) => {
         >
             {/* blog content body */}
             <div
-                className="h-fit min-h-[40vh] text-pretty rounded-3xl px-3 lg:px-5 
+                className="h-fit min-h-[40vh] text-pretty rounded-3xl px-3 lg:px-6 
                     w-full flex flex-col items-center xl:max-w-[56.25rem]
-                    dark:bg-[#101010] bg-default-2"
+                    dark:bg-default-2-dark bg-default-2 shadow"
             >
                 <ArticleContent.CategoryCard
                     leafCategories={leafCategories}
@@ -165,7 +165,7 @@ const ArticleContent = ({ className, post }: ArticleContentProps) => {
                 <ArticleContent.Content content={content} />
 
                 {/* Button for like and share */}
-                <div className="mt-auto flex flex-row justify-center gap-2 items-center text-md fill-sky-700 pb-5">
+                <div className="mt-auto flex flex-row justify-center gap-2 items-center text-md fill-sky-700 pb-6">
                     <ArticleContent.Button
                         onClick={handleLikeCliked}
                         className="gap-2 fill-red-500"

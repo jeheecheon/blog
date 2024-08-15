@@ -76,9 +76,9 @@ export default {
                     "100%": { transform: "translate(-170%, 0)" },
                 },
                 "blur-int-out": {
-                    "0%": { opacity: "1" },
+                    "0%": { opacity: "0.8" },
                     "50%": { opacity: "0.4" },
-                    "100%": { opacity: "1" },
+                    "100%": { opacity: "0.8" },
                 },
                 "bounce-sm": {
                     "0%": { transform: "translateY(0)" },
@@ -95,6 +95,17 @@ export default {
                     "40%": { transform: "translateY(10%)" },
                     "100%": { transform: "translateY(0%)" },
                 },
+                "skeleton-gradient": {
+                    "0%": {
+                        "background-position": "0% 50%",
+                    },
+                    "50%": {
+                        "background-position": "100% 50%",
+                    },
+                    "100%": {
+                        "background-position": "0% 50%",
+                    },
+                },
             },
         },
         animation: {
@@ -107,6 +118,7 @@ export default {
             "header-show-down": "header-show-down 0.6s ease-in-out forwards",
             "fade-in": "fade-in 0.5s ease-in-out forwards",
             "fade-in-bouncing": "fade-in-bouncing 0.8s ease-in-out forwards",
+            "skeleton-gradient": "skeleton-gradient 2.5s ease-in-out infinite",
         },
     },
     plugins: [],
