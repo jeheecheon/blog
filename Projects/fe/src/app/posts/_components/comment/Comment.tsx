@@ -132,7 +132,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                         <div
                             className="min-h-[3.125rem] py-2 px-3 rounded-lg text-[0.875rem] md:text-[1rem] break-all leading-6 md:leading-7
                             bg-default-1 dark:bg-body text-default-14-dark dark:text-default-14 w-full
-                            border-[0.09rem] border-default-7 dark:border-default-5-dark"
+                            border-[0.09rem] border-default-7 shadow-sm dark:border-default-5-dark"
                         >
                             {content.current}
                         </div>

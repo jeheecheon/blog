@@ -147,7 +147,7 @@ const Post = ({ className, post }: PostProps) => {
             <article
                 className="mx-auto h-fit min-h-[40vh] text-pretty rounded-3xl px-3 lg:px-6 
                     w-full flex flex-col items-center xl:max-w-[56.25rem]
-                    dark:bg-default-2-dark bg-default-1 shadow"
+                    dark:bg-default-2-dark bg-default-1 border-[0.095rem] dark:border-default-4-dark border-default-6 shadow-sm"
             >
                 <Post.CategoryCard
                     leafCategories={leafCategories}
@@ -249,8 +249,8 @@ Post.Button = ({
 }) => {
     return (
         <button
-            className={`flex justify-center items-center border-[0.1rem] rounded-sm py-[0.375rem] px-3
-            bg-default-1 dark:bg-default-3-dark border-default-6 dark:border-default-5-dark ${className}`}
+            className={`flex justify-center items-center border-[0.095rem] rounded-sm py-[0.375rem] px-3
+            bg-default-1 dark:bg-default-3-dark border-default-7 dark:border-default-5-dark ${className}`}
             onClick={onClick}
         >
             {children}

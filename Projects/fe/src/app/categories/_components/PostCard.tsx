@@ -120,14 +120,15 @@ PostCard.Categories = ({
     leafCategories: CategoryInfo[];
     postCategory: string;
 }) => {
+    const category =
+        leafCategories &&
+        flattenOutCategoriesV1(
+            leafCategories.find((category) => category.Id === postCategory)
+        );
+
     return (
-        <div className="text-orange-400 font-medium text-pretty text-[0.8rem]">
-            {leafCategories &&
-                flattenOutCategoriesV1(
-                    leafCategories.find(
-                        (category) => category.Id === postCategory
-                    )
-                )}
+        <div className="text-orange-400 font-[350] text-pretty text-[0.8rem]">
+            {category}
         </div>
     );
 };

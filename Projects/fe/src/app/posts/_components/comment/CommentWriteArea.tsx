@@ -77,8 +77,8 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
 
         return (
             <div
-                className={`rounded-lg flex flex-col w-full
-                px-4 py-3 bg-default-1 dark:bg-body border-[0.09rem] border-default-7 dark:border-default-5-dark ${className}`}
+                className={`rounded-lg flex flex-col w-full shadow-sm
+                px-4 py-3 bg-default-1 dark:bg-body border-[0.09rem] border-default-8 dark:border-default-5-dark ${className}`}
             >
                 <div className="flex w-full gap-3">
                     <Avatar

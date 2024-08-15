@@ -13,7 +13,7 @@ const handleNavColor = (props: NavLinkRenderProps) => {
 
     return isActive
         ? "text-orange-400"
-        : "dark:text-default-7 text-default-16-dark";
+        : "dark:text-default-10 text-gray-600";
 };
 
 interface NavigationBarProps {
@@ -40,7 +40,7 @@ function NavigationBar({
         () =>
             isOnCategory
                 ? "text-orange-400"
-                : "text-default-16-dark dark:text-default-7",
+                : "text-gray-600 dark:text-default-10",
         [isOnCategory]
     );
 
@@ -94,7 +94,7 @@ function NavigationBar({
                 ${
                     isSignedIn
                         ? "text-orange-400"
-                        : "text-default-16-dark dark:text-default-7"
+                        : "text-gray-600 dark:text-default-10"
                 }`}
                 onClick={() => {
                     if (isSignedIn) {
