@@ -17,12 +17,12 @@ const Comments: React.FC<CommentsProps> = React.memo(
         return (
             <div className={`mb-4 ${className}`}>
                 <div className="mb-2 border-b-[0.09rem] pb-1 border-b-default-9 dark:border-b-default-9-dark">
-                    <p className="pl-2 text-base md:text-lg text-orange-400 font-light dark:font-normal">
+                    <p className="pl-2 text-base md:text-lg text-orange-400 font-normal md:font-light dark:font-normal">
                         {data ? data.length : "0"} Comments
                     </p>
                 </div>
 
-                <CommentWriteArea postId={postId} className="mt-2 mb-[2rem]" />
+                <CommentWriteArea postId={postId} className="mt-2 mb-[1rem]" />
 
                 {fetchStatus === "fetching" &&
                     [...Array(3)].map((_, i) => <CommentSkeleton key={i} />)}

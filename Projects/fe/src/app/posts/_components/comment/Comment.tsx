@@ -88,7 +88,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                                     return (
                                         <div
                                             key={idx}
-                                            className="w-0 border-r-[0.1125rem] mr-[0.8rem] md:mr-4 lg:mr-6 border-default-5 dark:border-default-10-dark"
+                                            className="w-0 border-r-[0.1125rem] mr-[0.8rem] md:mr-4 lg:mr-6 border-default-8 dark:border-default-10-dark"
                                         />
                                     );
                                 }
@@ -137,7 +137,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                             {content.current}
                         </div>
 
-                        <div className="flex flex-row flex-wrap gap-3">
+                        <div className="flex flex-row flex-wrap gap-2">
                             <ButtonInCommentBox
                                 onClick={handleLikeCliked}
                                 className="fill-red-500"
