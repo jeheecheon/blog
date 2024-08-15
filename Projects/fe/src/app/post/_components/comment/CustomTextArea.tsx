@@ -40,7 +40,7 @@ const CustomTextArea: React.FC<CustomTextAreaProps> = ({
                 onClick={onClick}
                 className={`${className} w-full relative bottom-4 overflow-y-hidden 
                 font-[335] text-default-10-dark dark:text-default-14
-                placeholder:text-gray-500/90 placeholder:font-[330] caret-orange-400 focus:placeholder:text-white/0`}
+                placeholder:text-stone-500/80 placeholder:font-[330] caret-orange-400 focus:placeholder:text-white/0`}
                 onSelect={onSelect}
                 disabled={disabled}
                 placeholder={placeholder}

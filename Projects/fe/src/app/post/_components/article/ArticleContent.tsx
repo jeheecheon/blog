@@ -147,7 +147,7 @@ const ArticleContent = ({ className, post }: ArticleContentProps) => {
             <div
                 className="h-fit min-h-[40vh] text-pretty rounded-3xl px-3 lg:px-6 
                     w-full flex flex-col items-center xl:max-w-[56.25rem]
-                    dark:bg-default-2-dark bg-default-2 shadow"
+                    dark:bg-default-2-dark bg-default-2"
             >
                 <ArticleContent.CategoryCard
                     leafCategories={leafCategories}

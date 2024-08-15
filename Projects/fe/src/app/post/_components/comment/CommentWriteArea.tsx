@@ -78,7 +78,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
         return (
             <div
                 className={`rounded-lg flex flex-col w-full
-                px-4 py-3 bg-default-4 dark:bg-body  ${className}`}
+                px-4 py-3 bg-default-3 shadow dark:bg-body  ${className}`}
             >
                 <div className="flex w-full gap-3">
                     <Avatar
@@ -93,7 +93,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                         content={content}
                         handleType={handleType}
                         className="focus:outline-none resize-none mt-8
-                        border-b-[0.07rem] border-b-gray-400 dark:border-b-gray-600 rounded-none
+                        border-b-[0.07rem] border-b-gray-300 dark:border-b-gray-600 rounded-none
                         bg-transparent"
                     />
                 </div>
@@ -101,7 +101,7 @@ const CommentWriteArea: React.FC<CommentWriteAreaProps> = React.memo(
                 <div className="flex items-center justify-end w-full gap-3 text-sm flex-wrap">
                     <Button
                         onClick={handleUpload}
-                        className="text-orange-400 dark:text-orange-400 font-bold dark:font-normal text-sm"
+                        className="text-orange-400 dark:text-orange-400 font-normal text-sm"
                     >
                         Upload
                     </Button>
