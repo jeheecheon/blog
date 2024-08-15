@@ -93,7 +93,7 @@ const Layout = (props: LayoutProps) => {
                     imageLoaded ? "opacity-0" : "opacity-100"
                 }`}
             >
-                Loading...🐶
+                Loading Post...
             </PageLoadingSpinner>
 
             <main

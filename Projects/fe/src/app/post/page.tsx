@@ -13,7 +13,7 @@ const Post = () => {
     return (
         <>
             {postQuery.isPending || leafCategoriesQuery.isPending ? (
-                <PageLoadingSpinner />
+                <PageLoadingSpinner>Loading Post...</PageLoadingSpinner>
             ) : postQuery.isSuccess && leafCategoriesQuery.isSuccess ? (
                 postQuery.post && <ArticleViewWrapper post={postQuery.post} />
             ) : (

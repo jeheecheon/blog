@@ -15,7 +15,7 @@ const Comments: React.FC<CommentsProps> = React.memo(({ postId }) => {
     return (
         <>
             {status === "pending" && fetchStatus === "fetching" && (
-                <LoadingSpinner>Loading Comments... 🐶</LoadingSpinner>
+                <LoadingSpinner>Loading Comments...</LoadingSpinner>
             )}
 
             {status === "success" && fetchStatus === "fetching" && (
