@@ -166,9 +166,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                                                 ? "absolute invisible"
                                                 : "animate-header-show-down"
                                         } pointer-events-auto dark:shadow-black/35
-                                    group ml-auto mr-5 flex items-center flex-nowrap shrink-0 dark:bg-default-5-dark bg-default-2
-                                    shadow-lg border-[0.0625rem] border-slate-300 dark:border-default-18-dark ring-[0.025rem] ring-orange-300
-                                    rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10`}
+                                        group ml-auto mr-5 flex items-center flex-nowrap shrink-0 dark:bg-default-5-dark bg-default-2
+                                        shadow-lg border-[0.0625rem] border-slate-300 dark:border-default-18-dark ring-[0.025rem] ring-orange-300
+                                        rounded-full h-fit py-2 text-sm px-4 font-medium text-default-14-dark dark:text-default-10`}
                                         onClick={() =>
                                             setIsMenuModalOpen(!isMenuModalOpen)
                                         }
