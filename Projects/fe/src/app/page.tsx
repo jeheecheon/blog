@@ -6,7 +6,7 @@ const Blog = () => {
 
     useEffect(() => {
         // 임시로 최근 게시물 페이지로 이동
-        navigate("/categories/recently-published/pages/1");
+        navigate("/categories/recently-published");
     }, []);
 
     return <> </>;
@@ -17,7 +17,7 @@ const Blog = () => {
     //             <span className="text-4xl">홈 페이지 공사 중...</span>
     //             <Button className="">
     //                 <Link
-    //                     to="/categproes/recently-published/pages/1"
+    //                     to="/categproes/recently-published"
     //                     className="mt-5 pointer-events-auto "
     //                 >
     //                     최근 게시물 보기

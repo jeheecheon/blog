@@ -8,8 +8,8 @@ import useLeafCategories from "@/_hooks/useLeafCategories";
 import { PostInfo } from "@/_types/Post";
 import { flattenOutCategoriesV1 } from "@/_utils/category";
 
-import Like from "@/post/_assets/images/like-filled.svg?react";
-import CommentSvg from "@/post/_assets/images/comment.svg?react";
+import Like from "@/posts/_assets/images/like-filled.svg?react";
+import CommentSvg from "@/posts/_assets/images/comment.svg?react";
 import { extractTextFromTags } from "@/_utils/post";
 import CategoryInfo from "@/_types/Category";
 
@@ -80,7 +80,7 @@ PostCard.Image = ({ src }: { src: string }) => {
 PostCard.Title = ({ title }: { title: string }) => {
     return (
         <div
-            className="font-medium text-lg md:text-xl break-all transition-all duration-1000
+            className="font-semibold text-lg md:text-xl break-all transition-all duration-1000
             text-orange-400 group-hover:scale-[104%] md:group-hover:scale-[106%]"
         >
             {title}
@@ -105,7 +105,7 @@ PostCard.Content = ({ content }: { content: string }) => {
             <div
                 className="line-clamp-4 whitespace-break-spaces 
                 text-[0.8rem] md:text-[0.875rem] leading-5 md:leading-6
-                font-[335] text-default-14-dark dark:text-default-9"
+                font-[335] text-default-3-dark dark:text-default-9"
             >
                 {content}
             </div>

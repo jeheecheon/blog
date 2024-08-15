@@ -17,10 +17,10 @@ import { PostInfo } from "@/_types/Post";
 import { flattenOutCategoriesV1 } from "@/_utils/category";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 
-import LikeFilled from "@/post/_assets/images/like-filled.svg?react";
-import Like from "@/post/_assets/images/like.svg?react";
-import Share from "@/post/_assets/images/share.svg?react";
-import "@/post/_assets/css/Article.scss";
+import LikeFilled from "@/posts/_assets/images/like-filled.svg?react";
+import Like from "@/posts/_assets/images/like.svg?react";
+import Share from "@/posts/_assets/images/share.svg?react";
+import "@/posts/_assets/css/Article.scss";
 import useLeafCategories from "@/_hooks/useLeafCategories";
 import { useQueryClient } from "@tanstack/react-query";
 import CategoryInfo from "@/_types/Category";
@@ -31,12 +31,12 @@ DOMPurify.addHook("beforeSanitizeElements", (node: Element) => {
     }
 });
 
-interface ArticleContentProps {
+interface PostProps {
     className?: string;
     post: PostInfo;
 }
 
-const ArticleContent = ({ className, post }: ArticleContentProps) => {
+const Post = ({ className, post }: PostProps) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const queryClient = useQueryClient();
@@ -140,16 +140,16 @@ const ArticleContent = ({ className, post }: ArticleContentProps) => {
 
     return (
         <div
-            className={`flex flex-col items-center w-full sm:px-3 md:px-6 mb-10
+            className={`sm:px-3 md:px-6 mb-10
                  ${className}`}
         >
-            {/* blog content body */}
-            <div
-                className="h-fit min-h-[40vh] text-pretty rounded-3xl px-3 lg:px-6 
+            {/* Post body */}
+            <article
+                className="mx-auto h-fit min-h-[40vh] text-pretty rounded-3xl px-3 lg:px-6 
                     w-full flex flex-col items-center xl:max-w-[56.25rem]
                     dark:bg-default-2-dark bg-default-2"
             >
-                <ArticleContent.CategoryCard
+                <Post.CategoryCard
                     leafCategories={leafCategories}
                     postCategory={post.CategoryId}
                 />
@@ -157,16 +157,16 @@ const ArticleContent = ({ className, post }: ArticleContentProps) => {
                 {/* Bar on content body top */}
                 <div className="bg-default-18 dark:bg-default-11-dark h-[0.35rem] w-full max-w-[9rem] rounded-2xl absolute translate-y-[0.3rem]" />
 
-                <ArticleContent.Date
+                <Post.Date
                     uploadedDate={post.UploadedAt}
                     editedDate={post.EditedAt}
                 />
 
-                <ArticleContent.Content content={content} />
+                <Post.Content content={content} />
 
                 {/* Button for like and share */}
                 <div className="mt-auto flex flex-row justify-center gap-2 items-center text-md fill-sky-700 pb-6">
-                    <ArticleContent.Button
+                    <Post.Button
                         onClick={handleLikeCliked}
                         className="gap-2 fill-red-500"
                     >
@@ -175,22 +175,22 @@ const ArticleContent = ({ className, post }: ArticleContentProps) => {
                         />
                         <Like className={`${post.HasLiked && "hidden"}`} />
                         <span className="text-sm">{post.LikeCnt}</span>
-                    </ArticleContent.Button>
+                    </Post.Button>
 
-                    <ArticleContent.Button
+                    <Post.Button
                         onClick={() => alert("미구현 기능...")}
                         className="gap-1"
                     >
                         <Share />
                         <span className="text-sm">공유</span>
-                    </ArticleContent.Button>
+                    </Post.Button>
                 </div>
-            </div>
+            </article>
         </div>
     );
 };
 
-ArticleContent.CategoryCard = ({
+Post.CategoryCard = ({
     leafCategories,
     postCategory,
 }: {
@@ -214,7 +214,7 @@ ArticleContent.CategoryCard = ({
     );
 };
 
-ArticleContent.Date = ({
+Post.Date = ({
     editedDate,
     uploadedDate,
 }: {
@@ -230,7 +230,7 @@ ArticleContent.Date = ({
     );
 };
 
-ArticleContent.Content = ({ content }: { content: string | ReactNode }) => {
+Post.Content = ({ content }: { content: string | ReactNode }) => {
     return (
         <div className="text-left w-full blog-post-content pb-5 md:pb-10 text-pretty">
             {content}
@@ -238,7 +238,7 @@ ArticleContent.Content = ({ content }: { content: string | ReactNode }) => {
     );
 };
 
-ArticleContent.Button = ({
+Post.Button = ({
     onClick,
     children,
     className,
@@ -258,4 +258,4 @@ ArticleContent.Button = ({
     );
 };
 
-export default React.memo(ArticleContent);
+export default React.memo(Post);

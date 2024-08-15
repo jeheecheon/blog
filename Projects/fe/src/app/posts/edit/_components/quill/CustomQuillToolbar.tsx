@@ -1,6 +1,6 @@
-import CustomUndo from "@/post/edit/_assets/images/undo.svg?react";
-import CustomRedo from "@/post/edit/_assets/images/redo.svg?react";
-import CustomImage from "@/post/edit/_assets/images/image.svg?react";
+import CustomUndo from "@/posts/edit/_assets/images/undo.svg?react";
+import CustomRedo from "@/posts/edit/_assets/images/redo.svg?react";
+import CustomImage from "@/posts/edit/_assets/images/image.svg?react";
 
 interface CustomQuillToolbarProps {
     className?: string;

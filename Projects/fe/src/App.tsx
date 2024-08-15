@@ -14,12 +14,12 @@ const ErrorArea = lazy(() => import("@/_components/error/ErrorArea"));
 const InitialLoad = lazy(() => import("@/_components/layout/InitialLoad"));
 
 const BlogLayout = lazy(() => import("@/layout"));
-const PostLayout = lazy(() => import("@/post/layout"));
+const PostLayout = lazy(() => import("@/posts/layout"));
 
 const BlogPage = lazy(() => import("@/page"));
-const PostPage = lazy(() => import("@/post/page"));
-const PostsPage = lazy(() => import("@/posts/page"));
-const PostEditPage = lazy(() => import("@/post/edit/page"));
+const PostPage = lazy(() => import("@/posts/page"));
+const PostsPage = lazy(() => import("@/categories/page"));
+const PostEditPage = lazy(() => import("@/posts/edit/page"));
 
 import OauthGoogleSignin from "@/oauth/google/sign-in/page";
 import { ErrorBoundary } from "react-error-boundary";
@@ -59,7 +59,7 @@ const App = () => {
                             }
                         />
                         <Route
-                            path="/categories/:category/pages/:page"
+                            path="/categories/:category"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostsPage />
@@ -70,21 +70,15 @@ const App = () => {
 
                     <Route
                         element={
-                            <Suspense
-                                fallback={<PageLoadingSpinner />}
-                            >
+                            <Suspense fallback={<PageLoadingSpinner />}>
                                 <PostLayout />
                             </Suspense>
                         }
                     >
                         <Route
-                            path="/post/:id/:slug?"
+                            path="/posts/:id/:slug?"
                             element={
-                                <Suspense
-                                    fallback={
-                                        <PageLoadingSpinner />
-                                    }
-                                >
+                                <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostPage />
                                 </Suspense>
                             }

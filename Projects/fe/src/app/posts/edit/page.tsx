@@ -4,10 +4,9 @@ import { useDispatch } from "react-redux";
 import { setCoverImageUrl } from "@/_redux/coverSlice";
 
 import Button from "@/_components/ui/Button";
-import ArticleLayout from "@/post/_components/article/ArticleLayout";
-import ArticleContent from "@/post/_components/article/ArticleContent";
-import CustomQuill from "@/post/edit/_components/quill/CustomQuill";
-import CustomQuillToolbar from "@/post/edit/_components/quill/CustomQuillToolbar";
+import Post from "@/posts/_components/Post";
+import CustomQuill from "@/posts/edit/_components/quill/CustomQuill";
+import CustomQuillToolbar from "@/posts/edit/_components/quill/CustomQuillToolbar";
 
 import { PostInfo, PostSummary } from "@/_types/Post";
 import { sortPostsByUploadedAt } from "@/_utils/post";
@@ -15,7 +14,7 @@ import { handleError, throwError, throwResponse } from "@/_utils/responses";
 
 import "react-quill/dist/quill.snow.css";
 import useLeafCategories from "@/_hooks/useLeafCategories";
-import Metadata from "@/post/edit/metadata";
+import Metadata from "@/posts/edit/metadata";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
@@ -256,9 +255,7 @@ const PostEdit = () => {
     return (
         <>
             {showPreview && postEditing && (
-                <ArticleLayout>
-                    <ArticleContent post={{ ...postEditing, LikeCnt: 1004 }} />
-                </ArticleLayout>
+                <Post post={{ ...postEditing, LikeCnt: 1004 }} />
             )}
 
             <div

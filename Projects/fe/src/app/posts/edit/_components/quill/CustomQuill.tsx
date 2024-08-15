@@ -1,5 +1,5 @@
 import ReactQuill from "react-quill";
-import { formats, modules } from "@/post/edit/_utils/quill-settings";
+import { formats, modules } from "@/posts/edit/_utils/quill-settings";
 
 interface CustomQullProps {
     setContent: (arg0: string) => void;

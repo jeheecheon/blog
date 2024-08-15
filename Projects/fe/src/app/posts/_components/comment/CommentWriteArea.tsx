@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@/_components/ui/Button";
-import CustomTextArea from "@/post/_components/comment/CustomTextArea";
+import CustomTextArea from "@/posts/_components/comment/CustomTextArea";
 import Avatar from "@/_components/ui/Avatar";
 import { setIsSignInModalOpen } from "@/_redux/signInModalSlice";
-import AvatarDefault from "@/post/_assets/images/AvatarDefault";
+import AvatarDefault from "@/posts/_assets/images/AvatarDefault";
 import { selectIsSignedIn, selectUser } from "@/_redux/userSlice";
 import { handleError, throwResponse } from "@/_utils/responses";
 import { useQueryClient } from "@tanstack/react-query";

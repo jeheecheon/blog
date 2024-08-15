@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { signOut } from "@/_utils/user";
 import { setIsSignInModalOpen } from "@/_redux/signInModalSlice";
 import { selectIsSignedIn } from "@/_redux/userSlice";
-import CustomModal from "./CustomModal";
+import CustomModal from "@/_components/modal/CustomModal";
 
 const navLinks = [
     {
@@ -19,19 +19,19 @@ const navLinks = [
 const categoryLinks = [
     {
         name: "Recent Posts",
-        to: "/categories/recently-published/pages/1",
+        to: "/categories/recently-published",
     },
     {
         name: "Projects",
-        to: "/categories/Projects/pages/1",
+        to: "/categories/Projects",
     },
     {
         name: "Web Development",
-        to: "/categories/Web-Development/pages/1",
+        to: "/categories/Web-Development",
     },
     {
         name: "Uncategorized",
-        to: "/categories/Uncategorized/pages/1",
+        to: "/categories/Uncategorized",
     },
 ];
 

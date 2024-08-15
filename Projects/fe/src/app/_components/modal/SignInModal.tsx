@@ -6,7 +6,7 @@ import {
 } from "@/_redux/signInModalSlice";
 
 import GoogleLoginButton from "@/_components/ui/GoogleLoginButton";
-import CustomModal from "./CustomModal";
+import CustomModal from "@/_components/modal/CustomModal";
 
 const SignInModal = () => {
     const dispatch = useDispatch();

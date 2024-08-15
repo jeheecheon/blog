@@ -1,13 +1,16 @@
 import { useMaxPageNum } from "@/_hooks/useMaxPageNum";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 interface PageNavProps {
     className?: string;
 }
 const PageNav = ({ className }: PageNavProps) => {
-    const { category, page } = useParams();
+    const { category } = useParams();
     const { maxPageNum } = useMaxPageNum();
+
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get("page") ?? "1";
 
     if (!maxPageNum || !page) return null;
     const pageConverted = parseInt(page);
@@ -28,7 +31,7 @@ const PageNav = ({ className }: PageNavProps) => {
             className={`flex text-default-18-dark dark:text-default-8 ${className}`}
         >
             <PageNav.ButtonLink
-                to={`/categories/${category}/pages/${pageConverted - 1}`}
+                to={`/categories/${category}?page=${pageConverted - 1}`}
                 className={`mr-3 ${
                     pageConverted <= 1 && "pointer-events-none"
                 }`}
@@ -43,7 +46,7 @@ const PageNav = ({ className }: PageNavProps) => {
                     return (
                         <PageNav.Button
                             key={p}
-                            to={`/categories/${category}/pages/${p}`}
+                            to={`/categories/${category}?page=${p}`}
                         >
                             {p}
                         </PageNav.Button>
@@ -64,7 +67,7 @@ const PageNav = ({ className }: PageNavProps) => {
                     return (
                         <PageNav.Button
                             key={p}
-                            to={`/categories/${category}/pages/${p}`}
+                            to={`/categories/${category}?page=${p}`}
                         >
                             {p}
                         </PageNav.Button>
@@ -73,7 +76,7 @@ const PageNav = ({ className }: PageNavProps) => {
             </div>
 
             <PageNav.ButtonLink
-                to={`/categories/${category}/pages/${pageConverted + 1}`}
+                to={`/categories/${category}?page=${pageConverted + 1}`}
                 className={`ml-3 ${
                     pageConverted >= maxPageNum && "pointer-events-none"
                 }`}

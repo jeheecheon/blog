@@ -16,20 +16,20 @@ const links: LinkButtonInfo[] = [
     },
     {
         name: "✏️ Recent Posts",
-        to: "/categories/recently-published/pages/1",
+        to: "/categories/recently-published",
         class: "mt-4",
     },
     {
         name: "📜 Projects",
-        to: "/categories/Projects/pages/1",
+        to: "/categories/Projects",
     },
     {
         name: "🕸️ Web Development",
-        to: "/categories/Web-Development/pages/1",
+        to: "/categories/Web-Development",
     },
     {
         name: "❓ Uncategorized",
-        to: "/categories/Uncategorized/pages/1",
+        to: "/categories/Uncategorized",
     },
 ];
 
