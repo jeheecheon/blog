@@ -16,7 +16,7 @@ const Comments: React.FC<CommentsProps> = React.memo(
 
         return (
             <div className={`mb-4 ${className}`}>
-                <div className="mb-2 border-b-2 pb-1 border-b-default-13 dark:border-b-default-18-dark">
+                <div className="mb-2 border-b-[0.08rem] pb-1 border-b-default-13 dark:border-b-default-18-dark">
                     <p className="pl-2 text-base md:text-xl text-orange-400 font-ligh">
                         {data ? data.length : "0"} Comments
                     </p>

@@ -80,7 +80,7 @@ PostCard.Image = ({ src }: { src: string }) => {
 PostCard.Title = ({ title }: { title: string }) => {
     return (
         <div
-            className="font-semibold text-lg md:text-xl break-all transition-all duration-1000
+            className="font-medium dark:font-medium text-lg md:text-xl break-all transition-all duration-1000
             text-orange-400 group-hover:scale-[104%] md:group-hover:scale-[106%]"
         >
             {title}

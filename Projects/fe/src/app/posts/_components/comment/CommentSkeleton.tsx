@@ -1,6 +1,6 @@
 function CommentSkeleton() {
     return (
-        <div className="py-4 space-y-3">
+        <div className="py-4 space-y-2">
             <div className="w-full flex flex-row">
                 {/* Avatar */}
                 <div className="w-[2.375rem] h-[2.375rem] blur-effect rounded-full" />

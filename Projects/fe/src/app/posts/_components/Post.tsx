@@ -147,7 +147,7 @@ const Post = ({ className, post }: PostProps) => {
             <article
                 className="mx-auto h-fit min-h-[40vh] text-pretty rounded-3xl px-3 lg:px-6 
                     w-full flex flex-col items-center xl:max-w-[56.25rem]
-                    dark:bg-default-2-dark bg-default-2"
+                    dark:bg-default-2-dark bg-default-1 shadow"
             >
                 <Post.CategoryCard
                     leafCategories={leafCategories}

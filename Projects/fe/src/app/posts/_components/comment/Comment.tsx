@@ -88,7 +88,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                                     return (
                                         <div
                                             key={idx}
-                                            className="w-0 border-r-[0.1125rem] mr-[0.8rem] md:mr-4 lg:mr-6 border-default-8 dark:border-default-10-dark"
+                                            className="w-0 border-r-[0.1125rem] mr-[0.8rem] md:mr-4 lg:mr-6 border-default-5 dark:border-default-10-dark"
                                         />
                                     );
                                 }
@@ -96,7 +96,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
                         </div>
                     )}
 
-                    <div className={`py-4 w-full space-y-3`}>
+                    <div className={`py-4 w-full space-y-2`}>
                         <div className="w-full flex flex-row flex-nowrap">
                             {/* 댓글 작성자 정보 */}
                             <Avatar
@@ -131,18 +131,18 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
                         <div
                             className="min-h-[3.125rem] py-2 px-3 rounded-lg text-[0.875rem] md:text-[1rem] break-all leading-6 md:leading-7
-                            bg-default-3 dark:bg-body text-default-10-dark dark:text-default-14 w-full"
+                            bg-default-1 dark:bg-body text-default-14-dark dark:text-default-14 w-full
+                            border-[0.09rem] border-default-7 dark:border-default-5-dark"
                         >
                             {content.current}
                         </div>
 
                         <div className="flex flex-row flex-wrap gap-3">
-                            <ButtonInCommentBox onClick={handleLikeCliked}>
-                                {hasLiked ? (
-                                    <LikeFilled className="fill-red-500" />
-                                ) : (
-                                    <Like className="fill-gray-500 dark:fill-gray-500" />
-                                )}
+                            <ButtonInCommentBox
+                                onClick={handleLikeCliked}
+                                className="fill-red-500"
+                            >
+                                {hasLiked ? <LikeFilled /> : <Like />}
                                 <span>{likes}</span>
                             </ButtonInCommentBox>
 

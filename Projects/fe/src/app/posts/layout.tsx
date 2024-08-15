@@ -121,7 +121,7 @@ const Layout = (props: LayoutProps) => {
                         className={`w-full 
                         text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-medium
                         bg-stone-500/35 dark:bg-stone-800/60 backdrop-blur-md transition-opacity delay-[2000ms] duration-[1000ms] ${
-                            titleOnCover && "py-5 px-5"
+                            titleOnCover && "p-3 sm:p-5"
                         } ${
                             imageLoaded
                                 ? "opacity-100"
