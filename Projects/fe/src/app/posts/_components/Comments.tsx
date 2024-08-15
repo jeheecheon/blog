@@ -2,8 +2,8 @@ import { Comment } from "@/post/_components/comment/Comment";
 import CommentWriteArea from "@/post/_components/comment/CommentWriteArea";
 import React from "react";
 import { useComments } from "@/post/_hooks/useComments";
-import LoadingSpinner from "@/_components/spinner/LoadingSpinner";
 import ErrorMessageWrapper from "@/_components/error/ErrorMessageWrapper";
+import CommentSkeleton from "@/post/_components/comment/CommentSkeleton";
 
 interface CommentsProps {
     postId: string;
@@ -13,37 +13,26 @@ const Comments: React.FC<CommentsProps> = React.memo(({ postId }) => {
     const { data, status, fetchStatus } = useComments();
 
     return (
-        <>
-            {status === "pending" && fetchStatus === "fetching" && (
-                <LoadingSpinner>Loading Comments...</LoadingSpinner>
-            )}
+        <div className="mb-4">
+            <div className="mb-2 border-b-2 pb-1 border-b-default-13 dark:border-b-default-18-dark">
+                <p className="pl-2 text-base md:text-xl text-orange-400 font-ligh">
+                    {data ? data.length : "0"} Comments
+                </p>
+            </div>
 
-            {status === "success" && fetchStatus === "fetching" && (
-                <LoadingSpinner>Refreshing Comments...</LoadingSpinner>
-            )}
+            <CommentWriteArea postId={postId} className="mt-2 mb-[2rem]" />
 
-            {status === "success" && (
-                <div className="w-full flex flex-col mb-4">
-                    <div className="mb-2 border-b-2 pb-1 border-b-default-13 dark:border-b-default-18-dark">
-                        <p className="pl-2 text-base md:text-xl text-orange-400 font-ligh">
-                            {data.length} Comments
-                        </p>
-                    </div>
+            {fetchStatus === "fetching" &&
+                [...Array(3)].map((_, i) => <CommentSkeleton key={i} />)}
 
-                    <CommentWriteArea
+            {status === "success" &&
+                data.map((comment) => (
+                    <Comment
+                        key={comment.Id}
+                        comment={comment}
                         postId={postId}
-                        className="mt-2 mb-[3.75rem]"
                     />
-
-                    {data.map((comment) => (
-                        <Comment
-                            key={comment.Id}
-                            comment={comment}
-                            postId={postId}
-                        />
-                    ))}
-                </div>
-            )}
+                ))}
 
             {status === "error" && (
                 <ErrorMessageWrapper>
@@ -51,7 +40,7 @@ const Comments: React.FC<CommentsProps> = React.memo(({ postId }) => {
                     currently down...🙄
                 </ErrorMessageWrapper>
             )}
-        </>
+        </div>
     );
 });
 

@@ -19,10 +19,11 @@ import { selectIsSignedIn } from "@/_redux/userSlice";
 interface CommentProps {
     postId: string;
     comment: CommentInfo;
+    className?: string;
 }
 
 export const Comment: React.FC<CommentProps> = React.memo(
-    ({ postId, comment }) => {
+    ({ postId, comment, className }) => {
         const dispatch = useDispatch();
         const isSignedIn = useSelector(selectIsSignedIn);
         const content = useRef<string | JSX.Element | JSX.Element[]>(
@@ -79,7 +80,7 @@ export const Comment: React.FC<CommentProps> = React.memo(
 
         return (
             <>
-                <div className={`flex flex-row auto-cols-min rounded-lg`}>
+                <div className={`flex flex-row auto-cols-min ${className}`}>
                     {comment.ParentCommentId && (
                         <div className="flex flex-row">
                             {Array.from({ length: comment.depth }).map(
