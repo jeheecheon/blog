@@ -35,7 +35,7 @@ const Footer = ({ className }: FooterProps) => {
 Footer.Logo = () => {
     return (
         <Link to="/" className="flex items-end">
-            <span className="text-xs md:text-sm font-semibold dark:font-bold text-gray-500/80 dark:text-default-6 italic">
+            <span className="text-xs md:text-sm font-bold text-gray-500/80 dark:text-default-6 italic">
                 BLOG
             </span>
             <span className="text:xs md:text-lg text-orange-400/80 dark:text-orange-400 mx-[0.125rem] font-extrabold italic">
