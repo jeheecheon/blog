@@ -7,7 +7,7 @@ import CustomModal from "@/_components/modal/CustomModal";
 
 const navLinks = [
     {
-        name: "Home",
+        name: "About",
         to: "/",
     },
     {

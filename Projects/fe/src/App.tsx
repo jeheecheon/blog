@@ -16,7 +16,7 @@ const InitialLoad = lazy(() => import("@/_components/layout/InitialLoad"));
 const BlogLayout = lazy(() => import("@/layout"));
 const PostLayout = lazy(() => import("@/posts/layout"));
 
-const BlogPage = lazy(() => import("@/page"));
+import BlogPage from "@/page";
 const PostPage = lazy(() => import("@/posts/page"));
 const PostsPage = lazy(() => import("@/categories/page"));
 const PostEditPage = lazy(() => import("@/posts/edit/page"));
@@ -43,6 +43,8 @@ const App = () => {
                         </ErrorBoundary>
                     }
                 >
+                    <Route path="/" element={<BlogPage />} />
+                    
                     <Route
                         element={
                             <Suspense fallback={<PageLoadingSpinner />}>
@@ -50,14 +52,6 @@ const App = () => {
                             </Suspense>
                         }
                     >
-                        <Route
-                            path="/"
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <BlogPage />
-                                </Suspense>
-                            }
-                        />
                         <Route
                             path="/categories/:category"
                             element={

@@ -13,15 +13,16 @@ import { authenticateUser } from "@/_utils/user";
 import "@/_assets/css/scrollbar.css";
 
 let isFontLoaded = false;
-const font = new FontFaceObserver("Noto Sans KR");
-const fontPromise = font.load();
+const notoSansKr = new FontFaceObserver("Noto Sans KR");
+const pretendard = new FontFaceObserver("Pretendard");
+const fontsPromise = Promise.all([notoSansKr.load(), pretendard.load()]);
 
-fontPromise
+fontsPromise
     .then(() => {
         isFontLoaded = true;
     })
     .catch(() => {
-        console.error("Noto Sans KR font failed to load");
+        console.error("Failed to load fonts");
         isFontLoaded = true;
     });
 
@@ -53,7 +54,7 @@ function InitialLoad() {
     }, [location.pathname, isDarkMode]);
 
     if (!isFontLoaded) 
-        throw fontPromise;
+        throw fontsPromise;
     
     return (
         <>

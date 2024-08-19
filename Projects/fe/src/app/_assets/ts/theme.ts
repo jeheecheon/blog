@@ -21,17 +21,20 @@ export function setThemeColor(isDarkMode: boolean, pathname: string) {
         "/privacy-policy",
         "/post/edit",
     ];
-    let isPostUrl = false;
+    let needsUpdate = false;
     for (const postUrl of postUrls) {
         if (pathname.startsWith(postUrl)) {
-            isPostUrl = true;
+            needsUpdate = true;
             break;
         }
+    }
+    if (pathname === "/") {
+        needsUpdate = true;
     }
 
     let themeColor = "";
     if (isDarkMode) {
-        themeColor = isPostUrl ? "rgb(16, 16, 16)" : "rgb(24, 24, 27)";
+        themeColor = needsUpdate ? "rgb(16, 16, 16)" : "rgb(24, 24, 27)";
         // themeColor = "rgb(16, 16, 16)";
     } else {
         themeColor = "rgb(250, 250, 250)";

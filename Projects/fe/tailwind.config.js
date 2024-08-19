@@ -106,6 +106,17 @@ export default {
                         "background-position": "0% 50%",
                     },
                 },
+                wave: {
+                    "0%": {
+                        transform: "rotate(0deg)",
+                    },
+                    "50%": {
+                        transform: "rotate(30deg)",
+                    },
+                    "100%": {
+                        transform: "rotate(0deg)",
+                    },
+                },
             },
         },
         animation: {
@@ -119,6 +130,7 @@ export default {
             "fade-in": "fade-in 0.5s ease-in-out forwards",
             "fade-in-bouncing": "fade-in-bouncing 0.8s ease-in-out forwards",
             "skeleton-gradient": "skeleton-gradient 2.5s ease-in-out infinite",
+            wave: "wave 1s ease-in-out infinite",
         },
     },
     plugins: [],
