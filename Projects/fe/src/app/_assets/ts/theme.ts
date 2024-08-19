@@ -37,7 +37,7 @@ export function setThemeColor(isDarkMode: boolean, pathname: string) {
         themeColor = needsUpdate ? "rgb(16, 16, 16)" : "rgb(24, 24, 27)";
         // themeColor = "rgb(16, 16, 16)";
     } else {
-        themeColor = "rgb(250, 250, 250)";
+        themeColor = needsUpdate ? "rgb(255, 255, 255)" :"rgb(250, 250, 250)";
     }
 
     document.body.style.backgroundColor = themeColor;

@@ -16,7 +16,7 @@ const Blog = () => {
     const fontSize = window.getComputedStyle(document.documentElement).fontSize;
 
     return (
-        <div className="h-full flex flex-col bg-body dark:bg-[#101010] font-['Pretendard']">
+        <div className="h-full flex flex-col bg-white dark:bg-[#101010] font-['Pretendard']">
             <div className="min-h-[100svh] w-full flex flex-col sm:flex-row mx-auto my-auto gap-4 justify-center ">
                 <div
                     className="max-w-full sm:w-1/2 sm:h-full sm:max-h-full px-3 sm:px-0 my-auto"
