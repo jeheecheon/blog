@@ -13,7 +13,7 @@ function WelcomeCanvas() {
             <Leva />
             <Canvas
                 shadows
-                dpr={[1, 2]}
+                dpr={[1, 1]}
                 camera={{
                     zoom: needsZoom ? 0.8 : 1.5,
                     position: [0, 1, 1.4],
