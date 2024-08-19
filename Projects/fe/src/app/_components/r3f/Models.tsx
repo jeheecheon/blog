@@ -24,7 +24,7 @@ function Models() {
     const objectGroupRef = useRef<THREE.Group>(null!);
 
     useFrame((state) => {
-        characterRef.current.lookAt(state.pointer.x, state.pointer.y + 0.5, 2);
+        characterRef.current.lookAt(state.pointer.x, state.pointer.y + 0.2, 2);
 
         objectGroupRef.current.rotation.y = state.clock.elapsedTime * 0.5;
 
