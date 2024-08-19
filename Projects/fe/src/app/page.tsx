@@ -17,7 +17,7 @@ const Blog = () => {
 
     return (
         <div className="h-full flex flex-col bg-body dark:bg-[#101010] font-['Pretendard']">
-            <div className="min-h-[100svh] w-full flex flex-col sm:flex-row mx-auto my-auto gap-3 justify-center max-w-[90rem]">
+            <div className="min-h-[100svh] w-full flex flex-col sm:flex-row mx-auto my-auto gap-3 justify-center ">
                 <div
                     className="max-w-full sm:w-1/2 sm:h-full sm:max-h-full px-3 sm:px-0 my-auto"
                     style={{
@@ -62,7 +62,7 @@ const Blog = () => {
                         </a>
 
                         <a
-                            href="https://blog.jeheecheon.com"
+                            href="https://blog.jeheecheon.com/categories/recently-published"
                             className="underline underline-offset-2 text-sm text-orange-400/80 decoration-[0.01rem]"
                             target="_blank"
                         >
