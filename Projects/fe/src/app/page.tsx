@@ -8,9 +8,15 @@ const Blog = () => {
     const [, setTriggerRender] = useState(false);
 
     useEffect(() => {
-        window.addEventListener("resize", () => {
+        const handleResize = () => {
             setTriggerRender((prev) => !prev);
-        });
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     const fontSize = window.getComputedStyle(document.documentElement).fontSize;
