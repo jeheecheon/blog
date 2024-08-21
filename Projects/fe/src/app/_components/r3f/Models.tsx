@@ -20,6 +20,7 @@ function Models() {
     const heartRef = useRef<THREE.Group>(null!);
     const lightingRef = useRef<THREE.Group>(null!);
     const starRef = useRef<THREE.Group>(null!);
+    const aboveStarRef = useRef<THREE.Group>(null!);
 
     const objectGroupRef = useRef<THREE.Group>(null!);
 
@@ -45,6 +46,9 @@ function Models() {
 
         starRef.current.rotation.y = state.clock.elapsedTime;
         starRef.current.rotation.z = state.clock.elapsedTime;
+
+        aboveStarRef.current.rotation.y = state.clock.elapsedTime;
+        aboveStarRef.current.rotation.z = state.clock.elapsedTime;
     });
 
     return (
@@ -84,6 +88,12 @@ function Models() {
                     ref={starRef}
                     scale={[0.2, 0.2, 0.2]}
                     position={[-1, 0.2, -1]}
+                />
+
+                <Star
+                    ref={aboveStarRef}
+                    scale={[0.2, 0.2, 0.2]}
+                    position={[0.1, 1, 0.1]}
                 />
             </group>
         </>
