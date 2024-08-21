@@ -15,7 +15,7 @@ const Comments: React.FC<CommentsProps> = React.memo(
         const { data, status, fetchStatus } = useComments();
 
         return (
-            <div className={`mb-4 ${className}`}>
+            <div className={`mb-7 ${className}`}>
                 <div className="mb-2 border-b-[0.09rem] pb-1 border-b-default-9 dark:border-b-default-9-dark">
                     <p className="pl-2 text-base md:text-lg text-orange-400 font-normal md:font-light dark:font-normal">
                         {data ? data.length : "0"} Comments
