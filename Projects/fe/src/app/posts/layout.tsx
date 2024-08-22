@@ -101,15 +101,14 @@ const Layout = (props: LayoutProps) => {
                 h-full overflow-x-clip ${props.className}`}
             >
                 {/* Content body */}
-                <div className="absolute w-full h-[90%] overflow-hidden mask-bottom">
+                <div
+                    className={`absolute w-full h-[90%] overflow-hidden mask-bottom ${
+                        imageLoaded ? "opacity-100" : "opacity-0"
+                    } transition-opacity delay-[1000ms] duration-[1000ms]`}
+                >
                     <div
                         ref={coverRef}
-                        className={`h-full transition-opacity delay-[1000ms] duration-[1000ms] 
-                            bg-center bg-cover ${
-                                imageLoaded
-                                    ? "opacity-100"
-                                    : "opacity-0"
-                            }`}
+                        className={`h-full bg-center bg-cover transition-[filter_scale] duration-700`}
                         style={{
                             backgroundImage: `url(${coverImageUrl})`,
                         }}
@@ -122,11 +121,7 @@ const Layout = (props: LayoutProps) => {
                         text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-medium
                         bg-stone-500/35 dark:bg-stone-800/60 backdrop-blur-md transition-opacity delay-[2000ms] duration-[1000ms] ${
                             titleOnCover && "p-3 sm:p-5"
-                        } ${
-                            imageLoaded
-                                ? "opacity-100"
-                                : "opacity-0"
-                        }`}
+                        } ${imageLoaded ? "opacity-100" : "opacity-0"}`}
                     >
                         {titleOnCover}
                     </h1>
