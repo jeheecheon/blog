@@ -10,14 +10,8 @@ interface LinkButtonInfo {
 
 const links: LinkButtonInfo[] = [
     {
-        name: "😎 Portfolio",
-        to: import.meta.env.VITE_PORTFOLIO_URL,
-        class: "border-b-0",
-    },
-    {
         name: "✏️ Recent Posts",
         to: "/categories/recently-published",
-        class: "mt-4",
     },
     {
         name: "📜 Projects",
