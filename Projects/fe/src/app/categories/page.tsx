@@ -68,7 +68,7 @@ const PostsPage: React.FC = () => {
                             {[...Array(3)].map((_, i) => (
                                 <PostCardSkeleton
                                     key={i}
-                                    className="last-of-type:border-b-0 border-b-[0.001rem]
+                                    className="last-of-type:border-b-0 border-b-[0.07rem]
                                     border-b-gray-500/10 dark:border-b-gray-200/10 first-of-type:pt-0 py-10"
                                 />
                             ))}
@@ -86,7 +86,7 @@ const PostsPage: React.FC = () => {
                                         key={p.Id}
                                         className="w-full animate-fade-in-bouncing 
                                         transition-colors duration-700 ease-in-out
-                                        dark:border-default-12-dark border-b-default-10 last-of-type:border-b-0 border-b-[0.001rem]
+                                        dark:border-default-12-dark border-b-default-10 last-of-type:border-b-0 border-b-[0.07rem]
                                         first-of-type:pt-0 py-10 pointer-events-none"
                                         preventScrollReset={false}
                                     >
