@@ -7,7 +7,14 @@
         font-size: 100%;
         color-scheme: dark light;
 
-        --main-bg-color: var(--default-2);
+        @apply bg-[var(--main-bg-color-1)];
+        @apply transition-[background-color];
+        @apply duration-[700ms];
+        @apply ease-in-out;
+
+        --main-bg-color-1: var(--default-2);
+        --main-bg-color-2: var(--default-1);
+        --main-bg-color-3: var(--default-5);
 
         --default-1: rgb(255, 255, 255);
         --default-2: rgb(250, 250, 250);
@@ -49,11 +56,9 @@
     }
 
     .dark {
-        --main-bg-color: rgb(24, 24, 27);
-    }
-
-    body {
-        background-color: var(--main-bg-color);
+        --main-bg-color-1: #18181b;
+        --main-bg-color-2: var(--default-2-dark);
+        --main-bg-color-3: #101010;
     }
 
     html,

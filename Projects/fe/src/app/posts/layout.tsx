@@ -129,7 +129,7 @@ const Layout = (props: LayoutProps) => {
 
                 <div className="h-[60%]" />
 
-                <div className="bg-default-2 dark:bg-[#101010]">
+                <div className="bg-[var(--main-bg-color-1)] dark:bg-[var(--main-bg-color-3)] transition-colors duration-700 ease-in-out">
                     <div
                         className={`transition-opacity delay-[1000ms] duration-[1000ms] ${
                             imageLoaded

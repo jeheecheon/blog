@@ -2,7 +2,7 @@
     font-family: "Noto Sans KR", sans-serif;
     letter-spacing: -0.0125rem;
     line-height: 1.8rem;
-
+    
     iframe {
         width: 100%;
         aspect-ratio: 16 / 9;
@@ -47,7 +47,7 @@
     h2,
     h3,
     h4 {
-        color: #4e4f51;
+        color: #5f5e5d;
         word-break: keep-all;
         font-weight: 450;
     }
@@ -57,7 +57,7 @@
         border-left: 0.25rem solid #ee8c36;
         border-top-right-radius: 0.625rem;
         border-bottom-right-radius: 0.625rem;
-        background-color: #f3f3f3;
+        background-color: #f9f5f1;
     }
 
     h4::before {

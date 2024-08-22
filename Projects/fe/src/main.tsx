@@ -10,6 +10,8 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
+import "@/_assets/css/main.css";
+
 import App from "@/../App";
 
 const queryClient = new QueryClient({

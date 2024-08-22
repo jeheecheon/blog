@@ -18,7 +18,8 @@ const ErrorArea = ({ className }: ErrorAreaProps) => {
     return (
         <>
             <div
-                className={`flex flex-col items-center h-[100dvh] justify-center ${className} bg-body`}
+                className={`flex flex-col items-center h-[100dvh] justify-center 
+                bg-[var(--main-bg-color-3)] transition-colors duration-700 ease-in-out ${className}`}
             >
                 <div
                     className="flex flex-col items-center gap-5 rounded-2xl shadow-xl dark:shadow-black/40 p-5 max-w-[18.75rem] w-full

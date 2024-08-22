@@ -15,32 +15,24 @@ const pathname = window.location.pathname;
 setThemeColor(isDarkMode, pathname);
 
 export function setThemeColor(isDarkMode: boolean, pathname: string) {
-    const postUrls = [
-        "/post",
-        "/about-me",
-        "/privacy-policy",
-        "/post/edit",
-    ];
-    let needsUpdate = false;
+    document.documentElement.classList.toggle("dark", isDarkMode);
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+
+    const postUrls = ["/posts", "/about-me", "/privacy-policy", "/post/edit"];
+    let isPostPage = false;
     for (const postUrl of postUrls) {
         if (pathname.startsWith(postUrl)) {
-            needsUpdate = true;
+            isPostPage = true;
             break;
         }
     }
-    if (pathname === "/") {
-        needsUpdate = true;
-    }
+
+    const root = getComputedStyle(document.documentElement);
 
     let themeColor = "";
-    if (isDarkMode) {
-        themeColor = needsUpdate ? "rgb(16, 16, 16)" : "rgb(24, 24, 27)";
-        // themeColor = "rgb(16, 16, 16)";
-    } else {
-        themeColor = needsUpdate ? "rgb(255, 255, 255)" :"rgb(250, 250, 250)";
-    }
-
-    document.body.style.backgroundColor = themeColor;
+    themeColor = isPostPage
+        ? root.getPropertyValue("--main-bg-color-2")
+        : root.getPropertyValue("--main-bg-color-1");
 
     const metas = document.head.getElementsByTagName("meta");
     for (const meta of metas) {

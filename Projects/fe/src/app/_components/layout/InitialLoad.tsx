@@ -36,16 +36,6 @@ function InitialLoad() {
     }, []);
 
     useEffect(() => {
-        if (isDarkMode === true) {
-            document.documentElement.classList.add("dark");
-            localStorage.theme = "dark";
-        } else {
-            document.documentElement.classList.remove("dark");
-            localStorage.theme = "light";
-        }
-    }, [isDarkMode]);
-
-    useEffect(() => {
         setThemeColor(isDarkMode, location.pathname);
 
         return () => {
