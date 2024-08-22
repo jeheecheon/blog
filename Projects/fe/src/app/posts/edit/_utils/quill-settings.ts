@@ -8,8 +8,7 @@ import katex from "katex";
 import "katex/dist/katex.min.css";
 import { handleError, throwError, throwResponse } from "@/_utils/responses";
 window.katex = katex;
-
-import { blobToWebP } from "webp-converter-browser";
+import { convertToWebPFromFile } from "@/posts/edit/_utils/webp";
 
 // Add sizes to whitelist and register them
 const Size = Quill.import("formats/size");
@@ -81,24 +80,18 @@ export async function insertImage(this: any) {
     const image = (input as HTMLInputElement).files![0];
 
     // Error checking if the file was successfuly selected
-    if (image === undefined || image === null) {
+    if (!image) {
         console.error("File not selected...");
         return;
     }
 
-    // File to blop
-    const blob = new Blob([image], { type: image.type });
-
-    const webp = await blobToWebP(blob, {
-        quality: 0.75,
-    });
-
-    const webpFile = new File([webp], "image.webp", { type: "image/webp" });
+    // Convert the image to webp format
+    const webp = await convertToWebPFromFile(image, { quality: 0.75 });
 
     // Prepare for file transter
     let imageUrl = "";
     const formData = new FormData();
-    formData.append("image", webpFile);
+    formData.append("image", webp);
     await fetch(
         `${
             import.meta.env.VITE_SERVER_URL

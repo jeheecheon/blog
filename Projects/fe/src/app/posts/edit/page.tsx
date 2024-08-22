@@ -15,6 +15,7 @@ import { handleError, throwError, throwResponse } from "@/_utils/responses";
 import "react-quill/dist/quill.snow.css";
 import useLeafCategories from "@/_hooks/useLeafCategories";
 import Metadata from "@/posts/edit/metadata";
+import { convertToWebPFromFile } from "@/posts/edit/_utils/webp";
 
 const PostEdit = () => {
     const dispatch = useDispatch();
@@ -201,54 +202,64 @@ const PostEdit = () => {
             });
     };
 
-    const handleCoverChosen: React.FormEventHandler<HTMLInputElement> = (e) => {
+    const handleCoverChosen: React.FormEventHandler<HTMLInputElement> = async (
+        e
+    ) => {
         if (
             e.currentTarget.files !== null &&
             e.currentTarget.files !== undefined
         ) {
             const cover = e.currentTarget.files[0];
-            if (cover !== undefined && cover !== null) {
-                // Prepare for file transter
-                const formData = new FormData();
-                formData.append("image", cover);
-                fetch(
-                    `${import.meta.env.VITE_SERVER_URL}/api/blog/posts/${
-                        postEditing?.Id
-                    }/images/upload`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${sessionStorage.getItem(
-                                "jwt"
-                            )}`,
-                        },
-                        method: "POST",
-                        body: formData,
-                    }
-                )
-                    .then((res) => {
-                        if (res.ok) {
-                            return res.json();
-                        } else {
-                            throwResponse(res);
-                        }
-                    })
-                    .then((imageUrl) => {
-                        if (imageUrl && postEditing) {
-                            console.log(imageUrl);
-                            dispatch(setCoverImageUrl(imageUrl));
-                            setPostEditing({
-                                ...postEditing,
-                                Cover: imageUrl,
-                            });
-                        } else {
-                            throwError("Image URL is null or undefined");
-                        }
-                    })
-                    .catch((error) => {
-                        alert("Failed to upload the selected image to s3");
-                        handleError(error);
-                    });
+
+            if (!cover) {
+                console.error("File not selected...");
+                return;
             }
+
+            // Convert the image to webp format
+            const webp = await convertToWebPFromFile(cover, { quality: 0.75 });
+
+            // Prepare for file transter
+            const formData = new FormData();
+            formData.append("image", webp);
+
+            fetch(
+                `${import.meta.env.VITE_SERVER_URL}/api/blog/posts/${
+                    postEditing?.Id
+                }/images/upload`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem(
+                            "jwt"
+                        )}`,
+                    },
+                    method: "POST",
+                    body: formData,
+                }
+            )
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json();
+                    } else {
+                        throwResponse(res);
+                    }
+                })
+                .then((imageUrl) => {
+                    if (imageUrl && postEditing) {
+                        console.log(imageUrl);
+                        dispatch(setCoverImageUrl(imageUrl));
+                        setPostEditing({
+                            ...postEditing,
+                            Cover: imageUrl,
+                        });
+                    } else {
+                        throwError("Image URL is null or undefined");
+                    }
+                })
+                .catch((error) => {
+                    alert("Failed to upload the selected image to s3");
+                    handleError(error);
+                });
         }
     };
 
