@@ -31,7 +31,8 @@
         "react-quill": "^2.0.0",
         "react-redux": "^9.1.0",
         "react-router-dom": "^6.21.2",
-        "three": "^0.167.1"
+        "three": "^0.167.1",
+        "webp-converter-browser": "^1.0.4"
     },
     "devDependencies": {
         "@tanstack/eslint-plugin-query": "^5.50.1",
