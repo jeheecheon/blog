@@ -8,6 +8,9 @@ export async function convertToWebPFromFile(
         quality?: number;
     }
 ): Promise<File> {
+    if (!image || image.type === "image/webp" || image.type === "image/gif")
+        return image;
+
     // File to blob
     const blob = new Blob([image], { type: image.type });
 
