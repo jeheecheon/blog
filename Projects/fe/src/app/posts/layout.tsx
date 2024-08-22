@@ -97,14 +97,15 @@ const Layout = (props: LayoutProps) => {
             </PageLoadingSpinner>
 
             <main
-                className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark 
+                className={`font-['Noto_Sans_KR'] dark:text-default-7 text-default-1-dark
+                bg-[var(--main-bg-color-1)] dark:bg-[var(--main-bg-color-3)]
                 h-full overflow-x-clip ${props.className}`}
             >
                 {/* Content body */}
                 <div
                     className={`absolute w-full h-[90%] overflow-hidden mask-bottom ${
                         imageLoaded ? "opacity-100" : "opacity-0"
-                    } transition-opacity delay-[1000ms] duration-[1000ms]`}
+                    } transition-opacity delay-700 duration-1000`}
                 >
                     <div
                         ref={coverRef}
@@ -119,7 +120,7 @@ const Layout = (props: LayoutProps) => {
                     <h1
                         className={`w-full 
                         text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-medium
-                        bg-stone-500/35 dark:bg-stone-800/60 backdrop-blur-md transition-opacity delay-[2000ms] duration-[1000ms] ${
+                        bg-stone-500/35 dark:bg-stone-800/60 backdrop-blur-md transition-opacity delay-[1500ms] duration-1000 ${
                             titleOnCover && "p-3 sm:p-5"
                         } ${imageLoaded ? "opacity-100" : "opacity-0"}`}
                     >
@@ -131,10 +132,10 @@ const Layout = (props: LayoutProps) => {
 
                 <div className="bg-[var(--main-bg-color-1)] dark:bg-[var(--main-bg-color-3)] transition-colors duration-700 ease-in-out">
                     <div
-                        className={`transition-opacity delay-[1000ms] duration-[1000ms] ${
+                        className={`transition-[transform] duration-1000 ${
                             imageLoaded
-                                ? "opacity-100 translate-y-[0]"
-                                : "opacity-0 translate-y-[3000px]"
+                                ? "translate-y-[0]"
+                                : "translate-y-[3000px]"
                         }`}
                     >
                         <section ref={articleRef} className="min-h-[100vh]">
