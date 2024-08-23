@@ -8,9 +8,6 @@
         color-scheme: dark light;
 
         @apply bg-[var(--main-bg-color-1)];
-        @apply transition-[background-color];
-        @apply duration-[700ms];
-        @apply ease-in-out;
 
         --main-bg-color-1: var(--default-2);
         --main-bg-color-2: var(--default-1);

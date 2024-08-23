@@ -117,6 +117,16 @@ export default {
                         transform: "rotate(0deg)",
                     },
                 },
+                "show-up": {
+                    "0%": {
+                        opacity: "0",
+                        transform: "translateY(1500px)",
+                    },
+                    "100%": {
+                        opacity: "1",
+                        transform: "translateY(0)",
+                    },
+                },
             },
         },
         animation: {
@@ -131,6 +141,9 @@ export default {
             "fade-in-bouncing": "fade-in-bouncing 0.8s ease-in-out forwards",
             "skeleton-gradient": "skeleton-gradient 2.5s ease-in-out infinite",
             wave: "wave 1s ease-in-out infinite",
+            "show-up-post": "show-up 1s ease-in-out forwards",
+            "fade-in-cover-title": "fade-in 1s ease-in-out 1.4s forwards",
+            "fade-in-cover-image": "fade-in 1s ease-in-out 0.7s forwards",
         },
     },
     plugins: [],

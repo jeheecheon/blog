@@ -102,14 +102,12 @@ const Layout = (props: LayoutProps) => {
                 h-full overflow-x-clip ${props.className}`}
             >
                 {/* Content body */}
-                <div
-                    className={`absolute w-full h-[90%] overflow-hidden mask-bottom ${
-                        imageLoaded ? "opacity-100" : "opacity-0"
-                    } transition-opacity delay-700 duration-1000`}
-                >
+                <div className="absolute w-full h-[90%] overflow-hidden mask-bottom">
                     <div
                         ref={coverRef}
-                        className={`h-full bg-center bg-cover transition-[filter_scale] duration-700`}
+                        className={`h-full bg-center bg-cover transition-[filter_scale] duration-700 opacity-0 ${
+                            imageLoaded && "animate-fade-in-cover-image"
+                        }`}
                         style={{
                             backgroundImage: `url(${coverImageUrl})`,
                         }}
@@ -120,9 +118,9 @@ const Layout = (props: LayoutProps) => {
                     <h1
                         className={`w-full 
                         text-slate-100 dark:text-default-6 text-xl md:text-3xl text-pretty text-center font-medium
-                        bg-stone-500/35 dark:bg-stone-800/60 backdrop-blur-md transition-opacity delay-[1500ms] duration-1000 ${
+                        bg-stone-500/35 dark:bg-stone-800/60 backdrop-blur-md opacity-0 ${
                             titleOnCover && "p-3 sm:p-5"
-                        } ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+                        } ${imageLoaded && "animate-fade-in-cover-title"}`}
                     >
                         {titleOnCover}
                     </h1>
@@ -132,10 +130,8 @@ const Layout = (props: LayoutProps) => {
 
                 <div className="bg-[var(--main-bg-color-1)] dark:bg-[var(--main-bg-color-3)] transition-colors duration-700 ease-in-out">
                     <div
-                        className={`transition-[transform] duration-1000 ${
-                            imageLoaded
-                                ? "translate-y-[0]"
-                                : "translate-y-[3000px]"
+                        className={`opacity-0 ${
+                            imageLoaded && "animate-show-up-post"
                         }`}
                     >
                         <section ref={articleRef} className="min-h-[100vh]">
