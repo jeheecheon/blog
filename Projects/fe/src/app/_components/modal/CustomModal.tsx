@@ -56,7 +56,7 @@ const CustomModal = ({
         <div
             ref={modalOverlayRef}
             className={`modal-overlay fixed top-0 left-0 w-full h-[100svh] bg-gray-800/35
-            flex justify-center items-center transition-all duration-1000 z-[30]
+            flex justify-center items-center transition-all duration-500 z-[30]
             ${isOpen ? "opacity-100 " : "opacity-0 pointer-events-none"}`}
         >
             <div

@@ -7,6 +7,7 @@ import {
 
 import GoogleLoginButton from "@/_components/ui/GoogleLoginButton";
 import CustomModal from "@/_components/modal/CustomModal";
+import { Link } from "react-router-dom";
 
 const SignInModal = () => {
     const dispatch = useDispatch();
@@ -23,9 +24,18 @@ const SignInModal = () => {
                     <p>leave your comment!</p>
                 </div>
 
-                <p className="mt-5 text-gray-500 text-xs">
-                    I do not collect user info for personal use...
-                </p>
+                <div className="text-gray-500 text-xs">
+                    <p className="mt-5">
+                        I do not collect user info for personal use...
+                    </p>
+                    <Link
+                        to="/privacy-policy"
+                        onClick={() => dispatch(setIsSignInModalOpen(false))}
+                        className="underline"
+                    >
+                        see more details
+                    </Link>
+                </div>
 
                 <GoogleLoginButton className="mt-2" />
             </div>
