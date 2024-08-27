@@ -3,6 +3,7 @@ import Github from "@/_assets/images/github.svg?react";
 import Gmail from "@/_assets/images/gmail.svg?react";
 
 import { useEffect, useState } from "react";
+import Metadata from "@/metadata";
 
 const Blog = () => {
     const [, setTriggerRender] = useState(false);
@@ -22,31 +23,37 @@ const Blog = () => {
     const fontSize = window.getComputedStyle(document.documentElement).fontSize;
 
     return (
-        <div className="h-full flex flex-col font-['Pretendard'] 
-        bg-[var(--main-bg-color-1)] transition-colors duration-700 ease-in-out">
-            <div className="min-h-[100svh] w-full flex flex-col sm:flex-row mx-auto my-auto gap-4 justify-center ">
-                <div
-                    className="max-w-full sm:w-1/2 sm:h-full sm:max-h-full px-3 sm:px-0 my-auto"
-                    style={{
-                        height: `${
-                            parseInt(fontSize) * 40 > innerWidth
-                                ? outerHeight * 0.35
-                                : innerHeight
-                        }px`,
-                    }}
-                >
-                    <WelcomeCanvas />
-                </div>
+        <>
+            <div
+                className="h-full flex flex-col font-['Pretendard'] 
+                bg-[var(--main-bg-color-1)] transition-colors duration-700 ease-in-out"
+            >
+                <div className="min-h-[100svh] w-full flex flex-col sm:flex-row mx-auto my-auto gap-4 justify-center ">
+                    <div
+                        className="max-w-full sm:w-1/2 sm:h-full sm:max-h-full px-3 sm:px-0 my-auto"
+                        style={{
+                            height: `${
+                                parseInt(fontSize) * 40 > innerWidth
+                                    ? outerHeight * 0.35
+                                    : innerHeight
+                            }px`,
+                        }}
+                    >
+                        <WelcomeCanvas />
+                    </div>
 
-                <div
-                    className="sm:w-1/2 sm:max-h-none sm:my-auto px-4 sm:px-0 pb-5 sm:pb-0 sm:pr-3
-                    flex flex-col justify-center"
-                >
-                    <Blog.Introduction />
-                    <Blog.Buttons />
+                    <div
+                        className="sm:w-1/2 sm:max-h-none sm:my-auto px-4 sm:px-0 pb-5 sm:pb-0 sm:pr-3
+                        flex flex-col justify-center"
+                    >
+                        <Blog.Introduction />
+                        <Blog.Buttons />
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <Metadata />
+        </>
     );
 };
 
