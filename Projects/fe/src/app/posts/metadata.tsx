@@ -24,7 +24,7 @@ const Metadata = ({ post }: MetadataProps) => {
     return (
         <Helmet>
             <title>
-            {import.meta.env.VITE_SITE_NAME} | {post.Title}
+                {post.Title} | {import.meta.env.VITE_SITE_NAME}
             </title>
             <link
                 rel="canonical"
@@ -33,10 +33,12 @@ const Metadata = ({ post }: MetadataProps) => {
             <meta name="description" content={post.Title} />
             <meta
                 name="keywords"
-                content={`jeheecheon, tech, blog, ${categories}`}
+                content={`${
+                    import.meta.env.VITE_SITE_NAME
+                }, tech, blog, ${categories}`}
             />
-            <meta name="author" content="jeheecheon" />/
-            <meta property="og:title" content={`${post.Title} | ${name}`} />
+            <meta name="author" content={import.meta.env.VITE_AUTHOR_NAME} />/
+            <meta property="og:title" content={`${post.Title} | ${import.meta.env.VITE_SITE_NAME}`} />
             <meta property="og:description" content={post.Title} />
             <meta
                 property="og:image"
@@ -47,13 +49,16 @@ const Metadata = ({ post }: MetadataProps) => {
                 }
             />
             <meta property="og:type" content="website" />
-            <meta property="og:site_name" content="jeheecheon" />
+            <meta
+                property="og:site_name"
+                content={import.meta.env.VITE_AUTHOR_NAME}
+            />
             <meta property="og:locale" content="ko_KR" />
             <meta
                 property="og:url"
                 content={`${import.meta.env.VITE_CLIENT_URL}/post/${post.Id}`}
             />
-            <meta name="twitter:title" content={`${post.Title} | ${name}`} />
+            <meta name="twitter:title" content={`${post.Title} | ${import.meta.env.VITE_SITE_NAME}`} />
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:description" content={post.Title} />
             <meta

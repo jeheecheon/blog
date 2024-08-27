@@ -7,7 +7,7 @@ function MetaData() {
     return (
         <Helmet>
             <title>
-            {import.meta.env.VITE_SITE_NAME} | {category}
+                {category} posts | {import.meta.env.VITE_SITE_NAME}
             </title>
             <link
                 rel="canonical"
@@ -18,21 +18,33 @@ function MetaData() {
             <meta name="description" content={`${category} posts`} />
             <meta
                 name="keywords"
-                content={`jeheecheon, tech, blog, posts, ${category}`}
+                content={`${
+                    import.meta.env.VITE_SITE_NAME
+                }, tech, blog, posts, ${category}`}
             />
-            <meta name="author" content="jeheecheon" />
+            <meta name="author" content={import.meta.env.VITE_AUTHOR_NAME} />
 
-            <meta property="og:title" content={`${category} posts | ${name}`} />
+            <meta
+                property="og:title"
+                content={`${category} posts | ${
+                    import.meta.env.VITE_SITE_NAME
+                }`}
+            />
             <meta
                 property="og:description"
-                content={`${category} posts | ${name}`}
+                content={`${category} posts | ${
+                    import.meta.env.VITE_SITE_NAME
+                }`}
             />
             <meta
                 property="og:image"
                 content={import.meta.env.VITE_DEFAULT_COVER_IMAGE}
             />
             <meta property="og:type" content="website" />
-            <meta property="og:site_name" content="jeheecheon" />
+            <meta
+                property="og:site_name"
+                content={import.meta.env.VITE_AUTHOR_NAME}
+            />
             <meta property="og:locale" content="ko_KR" />
             <meta
                 property="og:url"
@@ -43,7 +55,9 @@ function MetaData() {
 
             <meta
                 name="twitter:title"
-                content={`${category} posts | ${name}`}
+                content={`${category} posts | ${
+                    import.meta.env.VITE_SITE_NAME
+                }`}
             />
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:description" content={`${category} posts`} />
