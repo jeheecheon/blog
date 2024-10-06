@@ -141,7 +141,7 @@ const Post = ({ className, post }: PostProps) => {
     return (
         <div
             className={`sm:px-3 md:px-6 mb-10
-                 ${className}`}
+            relative z-10 ${className}`}
         >
             {/* Post body */}
             <article

@@ -43,33 +43,15 @@ const Layout = (props: LayoutProps) => {
         }
     }
 
-    function toggleBounceAnimation() {
-        if ((window.scrollY / window.innerHeight) * 100 < 30) {
-            articleRef.current!.classList.add("animate-bounce-sm");
-        } else {
-            articleRef.current!.classList.remove("animate-bounce-sm");
-        }
-    }
+    useEffect(() => {}, [location.pathname]);
 
     useEffect(() => {
-        if (location.pathname.startsWith("/post/edit")) {
-            articleRef.current?.classList.remove("animate-bounce-sm");
-        } else {
-            toggleBounceAnimation();
-            document.addEventListener("scroll", toggleBounceAnimation);
-        }
+        if (coverImageUrl) coverImageRef.current!.src = coverImageUrl;
+        else setImageLoaded(true);
+
         return () => {
             document.removeEventListener("scroll", handleScroll);
-            document.removeEventListener("scroll", toggleBounceAnimation);
         };
-    }, [location.pathname]);
-
-    useEffect(() => {
-        if (coverImageUrl) {
-            coverImageRef.current!.src = coverImageUrl;
-        } else {
-            setImageLoaded(true);
-        }
     }, [coverImageUrl]);
 
     return (
@@ -128,10 +110,13 @@ const Layout = (props: LayoutProps) => {
 
                 <div className="h-[60%]" />
 
-                <div className="bg-[var(--main-bg-color-1)] dark:bg-[var(--main-bg-color-3)] transition-colors duration-700 ease-in-out">
+                <div
+                    className="bg-[var(--main-bg-color-1)] dark:bg-[var(--main-bg-color-3)] 
+                    transition-colors duration-700 ease-in-out"
+                >
                     <div
-                        className={`opacity-0 ${
-                            imageLoaded && "animate-show-up-post"
+                        className={`transition-opacity ease-out duration-[1900ms] ${
+                            !imageLoaded && "opacity-0"
                         }`}
                     >
                         <section ref={articleRef} className="min-h-[100vh]">
