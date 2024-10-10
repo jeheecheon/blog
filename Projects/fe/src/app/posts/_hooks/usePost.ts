@@ -36,7 +36,7 @@ export const getPostQueryOption = (id: string | undefined) => {
         QueryKey
     > = {
         queryKey: ["post", id],
-        queryFn: getPostById
+        queryFn: getPostById,
     };
 
     return postQueryOption;
@@ -47,10 +47,17 @@ export const usePost = () => {
     const location = useLocation();
 
     if (!id) {
-        if (location.pathname === "/privacy-policy")
-            id = "670e46d5-4970-4e9b-b969-4a7272209367/static-like";
-        else if (location.pathname === "/about-me")
-            id = "f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a/static-like";
+        switch (location.pathname) {
+            case "/privacy-policy":
+                id = "670e46d5-4970-4e9b-b969-4a7272209367/static-like";
+                break;
+            case "/about-me":
+                id = "f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a/static-like";
+                break;
+            case "/woowacourse":
+                id = "12157f42-d334-4a4c-b3c0-2270edaa070f/static-like";
+                break;
+        }
     }
 
     const query = useQuery(getPostQueryOption(id));

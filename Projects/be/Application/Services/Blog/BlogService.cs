@@ -270,7 +270,8 @@ public class BlogService : IBlogService
                 return null;
             post = temp;
         }
-        if (post.Title == "About Me" || post.Title == "Privacy Policy")
+        if (post.Title == "About Me" || post.Title == "Privacy Policy" 
+        || post.Title == "우아한테크코스 7기 프론트엔드 증빙 자료")
             return post;
         else
             return null;

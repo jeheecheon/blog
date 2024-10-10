@@ -44,7 +44,7 @@ const App = () => {
                     }
                 >
                     <Route path="/" element={<BlogPage />} />
-                    
+
                     <Route
                         element={
                             <Suspense fallback={<PageLoadingSpinner />}>
@@ -79,6 +79,14 @@ const App = () => {
                         />
                         <Route
                             path="/privacy-policy"
+                            element={
+                                <Suspense fallback={<PageLoadingSpinner />}>
+                                    <PostPage />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="/woowacourse"
                             element={
                                 <Suspense fallback={<PageLoadingSpinner />}>
                                     <PostPage />

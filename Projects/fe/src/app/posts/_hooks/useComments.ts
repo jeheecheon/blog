@@ -55,10 +55,17 @@ export const useComments = () => {
     const location = useLocation();
 
     if (!id) {
-        if (location.pathname === "/privacy-policy")
-            id = "670e46d5-4970-4e9b-b969-4a7272209367";
-        else if (location.pathname === "/about-me")
-            id = "f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a";
+        switch (location.pathname) {
+            case "/privacy-policy":
+                id = "670e46d5-4970-4e9b-b969-4a7272209367";
+                break;
+            case "/about-me":
+                id = "f9fbf7bf-0e9a-4835-9b81-c37e7edcef7a";
+                break;
+            case "/woowacourse":
+                id = "12157f42-d334-4a4c-b3c0-2270edaa070f";
+                break;
+        }
     }
 
     return useQuery(getCommentsQueryOption(id));
