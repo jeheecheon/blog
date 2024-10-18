@@ -9,9 +9,8 @@ import {
 import { postEditLoader } from "@/_utils/loaders";
 
 import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
-
-const ErrorArea = lazy(() => import("@/_components/error/ErrorArea"));
-const InitialLoad = lazy(() => import("@/_components/layout/InitialLoad"));
+import ErrorArea from "@/_components/error/ErrorArea";
+import InitialLoad from "@/_components/layout/InitialLoad";
 
 const BlogLayout = lazy(() => import("@/layout"));
 const PostLayout = lazy(() => import("@/posts/layout"));
@@ -22,27 +21,12 @@ const PostsPage = lazy(() => import("@/categories/page"));
 const PostEditPage = lazy(() => import("@/posts/edit/page"));
 
 import OauthGoogleSignin from "@/oauth/google/sign-in/page";
-import { ErrorBoundary } from "react-error-boundary";
 
 const App = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <Route
-                errorElement={
-                    <Suspense fallback={<PageLoadingSpinner />}>
-                        <ErrorArea />
-                    </Suspense>
-                }
-            >
-                <Route
-                    element={
-                        <ErrorBoundary fallback={<ErrorArea />}>
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <InitialLoad />
-                            </Suspense>
-                        </ErrorBoundary>
-                    }
-                >
+            <Route errorElement={<ErrorArea />}>
+                <Route element={<InitialLoad />}>
                     <Route path="/" element={<BlogPage />} />
 
                     <Route
