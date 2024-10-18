@@ -1,107 +1,46 @@
-import { Suspense, lazy } from "react";
-import {
-    Route,
-    RouterProvider,
-    createBrowserRouter,
-    createRoutesFromElements,
-} from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "@/_redux/store";
+import { HelmetProvider } from "react-helmet-async";
+import { QueryClient } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
-import { postEditLoader } from "@/_utils/loaders";
-
+import router from "@/_utils/router";
 import PageLoadingSpinner from "@/_components/spinner/PageLoadingSpinner";
-import ErrorArea from "@/_components/error/ErrorArea";
-import InitialLoad from "@/_components/layout/InitialLoad";
 
-const BlogLayout = lazy(() => import("@/layout"));
-const PostLayout = lazy(() => import("@/posts/layout"));
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: 3,
+            retryDelay: 1000,
+            staleTime: 1000 * 60 * 60,
+            gcTime: 0,
+        },
+    },
+});
 
-import BlogPage from "@/page";
-const PostPage = lazy(() => import("@/posts/page"));
-const PostsPage = lazy(() => import("@/categories/page"));
-const PostEditPage = lazy(() => import("@/posts/edit/page"));
-
-import OauthGoogleSignin from "@/oauth/google/sign-in/page";
+const persister = createSyncStoragePersister({
+    storage: window.localStorage,
+});
 
 const App = () => {
-    const router = createBrowserRouter(
-        createRoutesFromElements(
-            <Route errorElement={<ErrorArea />}>
-                <Route element={<InitialLoad />}>
-                    <Route path="/" element={<BlogPage />} />
-
-                    <Route
-                        element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <BlogLayout />
-                            </Suspense>
-                        }
-                    >
-                        <Route
-                            path="/categories/:category"
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostsPage />
-                                </Suspense>
-                            }
-                        />
-                    </Route>
-
-                    <Route
-                        element={
-                            <Suspense fallback={<PageLoadingSpinner />}>
-                                <PostLayout />
-                            </Suspense>
-                        }
-                    >
-                        <Route
-                            path="/posts/:id/:slug?"
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostPage />
-                                </Suspense>
-                            }
-                        />
-                        <Route
-                            path="/privacy-policy"
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostPage />
-                                </Suspense>
-                            }
-                        />
-                        <Route
-                            path="/woowacourse"
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostPage />
-                                </Suspense>
-                            }
-                        />
-                        <Route
-                            path="/post/edit"
-                            element={
-                                <Suspense fallback={<PageLoadingSpinner />}>
-                                    <PostEditPage />
-                                </Suspense>
-                            }
-                            loader={postEditLoader}
-                        />
-                    </Route>
-                </Route>
-
-                <Route
-                    path="/oauth/google/sign-in"
-                    element={<OauthGoogleSignin />}
-                />
-            </Route>
-        )
-    );
-
     return (
-        <RouterProvider
-            router={router}
-            fallbackElement={<PageLoadingSpinner />}
-        />
+        <HelmetProvider>
+            <PersistQueryClientProvider
+                client={queryClient}
+                persistOptions={{ persister, maxAge: Infinity }}
+            >
+                <ReduxProvider store={store}>
+                    <RouterProvider
+                        router={router}
+                        fallbackElement={<PageLoadingSpinner />}
+                    />
+                </ReduxProvider>
+                <ReactQueryDevtools initialIsOpen={false} />
+            </PersistQueryClientProvider>
+        </HelmetProvider>
     );
 };
 
