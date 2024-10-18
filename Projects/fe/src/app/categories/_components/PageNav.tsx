@@ -1,4 +1,5 @@
 import { useMaxPageNum } from "@/_hooks/useMaxPageNum";
+import { HTMLAttributes } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
@@ -8,12 +9,13 @@ interface PageNavProps {
 const PageNav = ({ className }: PageNavProps) => {
     const { category } = useParams();
     const { maxPageNum } = useMaxPageNum();
+    const minPageNum = 1;
 
     const [searchParams] = useSearchParams();
     const page = searchParams.get("page") ?? "1";
 
     if (!maxPageNum || !page) return null;
-    const pageConverted = parseInt(page);
+    const pageConverted = Number(page);
 
     const prevPages = Array.from({ length: 3 }).map((_, i) => {
         if (pageConverted - i - 1 < 1) return null;
@@ -33,11 +35,20 @@ const PageNav = ({ className }: PageNavProps) => {
             <PageNav.ButtonLink
                 to={`/categories/${category}?page=${pageConverted - 1}`}
                 className={`mr-3 ${
-                    pageConverted <= 1 && "pointer-events-none"
+                    pageConverted <= minPageNum && "cursor-not-allowed"
                 }`}
+                onClick={(e) => {
+                    if (pageConverted <= minPageNum) e.preventDefault();
+                }}
             >
                 &lt;
-                <div className="group-hover:underline">Prev</div>
+                <div
+                    className={`${
+                        pageConverted > minPageNum && "group-hover:underline"
+                    }`}
+                >
+                    Prev
+                </div>
             </PageNav.ButtonLink>
 
             <div className="flex">
@@ -78,10 +89,19 @@ const PageNav = ({ className }: PageNavProps) => {
             <PageNav.ButtonLink
                 to={`/categories/${category}?page=${pageConverted + 1}`}
                 className={`ml-3 ${
-                    pageConverted >= maxPageNum && "pointer-events-none"
+                    pageConverted >= maxPageNum && "cursor-not-allowed"
                 }`}
+                onClick={(e) => {
+                    if (pageConverted >= maxPageNum) e.preventDefault();
+                }}
             >
-                <div className="group-hover:underline">Next</div>
+                <div
+                    className={`${
+                        pageConverted < maxPageNum && "group-hover:underline"
+                    }`}
+                >
+                    Next
+                </div>
                 &gt;
             </PageNav.ButtonLink>
         </div>
@@ -104,16 +124,21 @@ PageNav.Button = ({ children, className, to }: PageNavButtonProps) => {
     );
 };
 
-interface PageNavButtonLinkProps {
-    className?: string;
+interface PageNavButtonLinkProps extends HTMLAttributes<HTMLAnchorElement> {
     to: string;
-    children: React.ReactNode;
 }
-PageNav.ButtonLink = ({ className, children, to }: PageNavButtonLinkProps) => {
+
+PageNav.ButtonLink = ({
+    className,
+    children,
+    to,
+    ...props
+}: PageNavButtonLinkProps) => {
     return (
         <Link
             to={to}
             className={`flex gap-1 items-center justify-center text-sm ${className} group underline-offset-2`}
+            {...props}
         >
             {children}
         </Link>
